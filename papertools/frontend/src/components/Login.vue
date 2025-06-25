@@ -22,7 +22,7 @@
           </li>
         </ul>
       </div>
-      
+
       <!-- 右侧登录表单区域 -->
       <div class="login-form">
         <h2 class="title">用户登录</h2>
@@ -33,11 +33,11 @@
           <label for="account" class="form-label">账号</label>
           <div class="input-group">
             <i class="iconfont icon-user"></i>
-            <input 
-              type="text" 
-              id="account" 
-              v-model="account" 
-              placeholder="请输入账号" 
+            <input
+              type="text"
+              id="account"
+              v-model="account"
+              placeholder="请输入账号"
               class="form-input"
               :class="{ 'is-error': accountError }"
             >
@@ -48,11 +48,11 @@
           <label for="password" class="form-label">密码</label>
           <div class="input-group">
             <i class="iconfont icon-lock"></i>
-            <input 
-              type="password" 
-              id="password" 
-              v-model="password" 
-              placeholder="请输入密码" 
+            <input
+              type="password"
+              id="password"
+              v-model="password"
+              placeholder="请输入密码"
               class="form-input"
               :class="{ 'is-error': passwordError }"
             >
@@ -61,23 +61,22 @@
           </div>
         </div>
         <div class="btn-group">
-          <button 
-            class="login-btn" 
-            @click="handleLogin" 
+          <button
+            class="login-btn"
+            @click="handleLogin"
             :disabled="isFormInvalid"
             :class="{ 'btn-loading': isLoading }"
           >
             <span v-if="!isLoading">登录</span>
             <span v-else class="loading-spinner"></span>
           </button>
-          <button 
-            class="register-btn" 
-            @click="handleRegister" 
-            :disabled="isFormInvalid"
+          <button
+            class="register-btn"
+            @click="openRegisterModal"
           >注册</button>
         </div>
-        <button 
-          class="admin-login-btn" 
+        <button
+          class="admin-login-btn"
           @click="goAdminLogin"
         >
           管理员登录页面
@@ -85,18 +84,11 @@
       </div>
     </div>
   </div>
-  <div>
-    <!-- 背景 -->
-    <img src="../../assets/bg.png" alt="背景图片">
-  </div>
 </template>
 
 <script setup lang="ts">
-// 引入图片并赋值给变量
-import bgImage from '@/assets/bg.png';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from 'axios'; // 引入axios
 
 const account = ref('');
 const password = ref('');
@@ -105,9 +97,6 @@ const passwordError = ref('');
 const showPassword = ref(false);
 const isLoading = ref(false);
 const router = useRouter();
-
-// 配置API地址（根据后端实际地址调整）
-const API_BASE_URL = 'http://localhost:5000/api';
 
 // 模拟路由配置（实际需在路由文件中定义）
 const routes = {
@@ -147,41 +136,36 @@ const togglePassword = () => {
   const input = document.getElementById('password') as HTMLInputElement;
   input.type = showPassword.value ? 'text' : 'password';
 };
-// 登录函数（发送API请求）
+
+// 登录逻辑
 const handleLogin = async () => {
-  if (!validateForm()) return;
-  
   isLoading.value = true;
-  
+
   try {
-    const response = await axios.post(`${API_BASE_URL}/user/login`, {
-      account: account.value,
-      password: password.value
-    });
-    
-    const data = response.data;
-    if (data.success) {
-      // 存储token
-      localStorage.setItem('token', data.token);
-      // 跳转首页
-      router.push('/home');
+    accountError.value = '';
+    passwordError.value = '';
+
+    const mockUser = { account: 'test', password: '123456' };
+    if (account.value === mockUser.account && password.value === mockUser.password) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      router.push(routes.home);
     } else {
-      accountError.value = data.message || '登录失败';
+      accountError.value = '用户名或密码错误';
     }
-  } catch (error: any) {
-    accountError.value = error.response?.data?.message || '网络错误，请重试';
+  } catch (error) {
+    console.error('登录请求出错：', error);
+    accountError.value = '登录失败，请稍后再试';
   } finally {
     isLoading.value = false;
   }
 };
-// 注册逻辑（修复跳转功能）
-const handleRegister = async () => {
-  const isValid = await validateForm();
-  if (!isValid) return;
-  
-  // 模拟注册成功后跳转到注册页面
-  router.push(routes.register);
+
+// 注册逻辑
+const openRegisterModal = async () => {
+  // 跳转到注册页面
+  router.push('/register');
 };
+
 
 // 管理员登录页面跳转（修复功能）
 const goAdminLogin = () => {
@@ -477,19 +461,56 @@ button:disabled {
   .login-wrapper {
     flex-direction: column;
   }
-  
+
   .project-intro,
   .login-form {
     padding: 40px 30px;
   }
-  
+
   .project-intro {
     order: 2;
     text-align: center;
   }
-  
+
   .features-list {
     align-items: center;
   }
+}
+
+/* 注册弹窗样式 */
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 </style>

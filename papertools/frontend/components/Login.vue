@@ -61,21 +61,21 @@
           </div>
         </div>
         <div class="btn-group">
-          <button 
-            class="login-btn" 
-            @click="handleLogin" 
-            :disabled="isFormInvalid"
-            :class="{ 'btn-loading': isLoading }"
-          >
-            <span v-if="!isLoading">登录</span>
-            <span v-else class="loading-spinner"></span>
-          </button>
-          <button 
-            class="register-btn" 
-            @click="handleRegister" 
-            :disabled="isFormInvalid"
-          >注册</button>
-        </div>
+       <button 
+      class="login-btn" 
+      @click="handleLogin" 
+      :disabled="isFormInvalid"
+      :class="{ 'btn-loading': isLoading }"
+    >
+      <span v-if="!isLoading">登录</span>
+      <span v-else class="loading-spinner"></span>
+    </button>
+    <button 
+      class="register-btn" 
+      @click="handleRegister" 
+      :disabled="isFormInvalid"
+    >注册</button>
+  </div>
         <button 
           class="admin-login-btn" 
           @click="goAdminLogin"
@@ -84,16 +84,10 @@
         </button>
       </div>
     </div>
-  </div>
-  <div>
-    <!-- 背景 -->
-    <img src="../../assets/bg.png" alt="背景图片">
-  </div>
+  </div> 
 </template>
 
 <script setup lang="ts">
-// 引入图片并赋值给变量
-import bgImage from '@/assets/bg.png';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -108,7 +102,7 @@ const router = useRouter();
 // 模拟路由配置（实际需在路由文件中定义）
 const routes = {
   home: '/home',
-  register: '/register',
+  register: '/register', // 指向新的注册页面
   adminLogin: '/admin-login'
 };
 
@@ -167,13 +161,13 @@ const handleLogin = async () => {
   }
 };
 
-// 注册逻辑（修复跳转功能）
+// 注册逻辑
 const handleRegister = async () => {
   const isValid = await validateForm();
   if (!isValid) return;
   
-  // 模拟注册成功后跳转到注册页面
-  router.push(routes.register);
+  // 跳转到注册页面
+  router.push('/register');
 };
 
 // 管理员登录页面跳转（修复功能）
