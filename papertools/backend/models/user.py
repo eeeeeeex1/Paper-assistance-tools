@@ -8,13 +8,28 @@ class User(db.Model):
     __table_args__ = {'extend_existing': True}  # 支持表结构扩展
     
     # 基本字段定义
-    id = db.Column(db.BigInteger, primary_key=True)  # 使用 BigInteger 对应数据库 BIGINT
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)  # 重命名为 password_hash
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    role = db.Column(db.Enum('user', 'admin'), default='user')  # 新增角色字段
-    is_email_verified = db.Column(db.Boolean, default=False)  # 新增邮箱验证字段
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    id = db.Column(
+        db.BigInteger,
+        primary_key=True
+    )  # 使用 BigInteger 对应数据库 BIGINT
+    username = db.Column(
+        db.String(50),
+        unique=True,
+        nullable=False
+    )
+    password_hash = db.Column(
+        db.String(255),
+        nullable=False
+    )  # 重命名为 password_hash
+    email = db.Column(
+        db.String(100),
+        unique=True,
+        nullable=False
+    )
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
     updated_at = db.Column(
         db.DateTime, 
         default=datetime.utcnow, 
@@ -27,12 +42,12 @@ class User(db.Model):
         backref='author', 
         lazy=True, 
         cascade='all, delete-orphan'
-    )  # 用户与论文的一对多关系
+    )   #用户与论文的一对多关系
     operations = db.relationship(
         'UserOperation', 
         backref='user', 
         lazy=True
-    )  # 用户与操作记录的一对多关系
+    )  #用户与操作记录的一对多关系
     
     # 密码相关方法
     def set_password(self, password):
