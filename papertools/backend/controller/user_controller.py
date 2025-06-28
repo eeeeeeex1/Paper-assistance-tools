@@ -499,8 +499,7 @@ def logout(self):
     else:
         return jsonify({'message': message}), 403
 
-
-        #------------------------------------------------------
+#------------------------------------------------------
     
 
 @user_bp.route('/getall', methods=['GET'])
@@ -582,5 +581,3 @@ def get_all_users():
             'status': 'error',
             'message': f'服务器内部错误: {str(e)}'
         }), 500
-    
-    

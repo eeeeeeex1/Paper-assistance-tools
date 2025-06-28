@@ -17,6 +17,7 @@ from difflib import SequenceMatcher
 import re
 from collections import Counter
 import asyncio
+from config.logging_config import logger
 
 # 初始化日志记录器
 logging.basicConfig(level=logging.ERROR)
@@ -203,4 +204,4 @@ class PaperDao:
         except Exception as e:
             logger.error(f"主题提取失败: {str(e)}")
             return False, f"主题提取失败: {str(e)}"
-            
+    #-----------------------------------------------------------

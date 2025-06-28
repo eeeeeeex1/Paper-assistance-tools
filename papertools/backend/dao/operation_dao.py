@@ -3,6 +3,10 @@ from backend.models import operation
 from backend.config.database import db
 import logging
 from datetime import datetime, timedelta
+from sqlalchemy import desc
+from typing import Dict, Any, Optional, List
+from config.logging_config import logger
+from models.operation import Operation
 
 # 初始化日志记录器
 logging.basicConfig(level=logging.ERROR)
@@ -83,3 +87,52 @@ class OperationDao:
         ).group_by(operation.operation_type).all()
         
         return {stat.operation_type: stat.count for stat in stats}
+
+
+        #-----------------------------------------------------
+    def query_operations(
+        self,
+        page: int = 1,
+        per_page: int = 10,
+        user_id: Optional[int] = None,
+        paper_id: Optional[int] = None,
+        operation_type: Optional[str] = None
+    ) -> Dict[str, any]:
+        """
+        基础查询方法（DAO层）
+        :return: {
+            'items': List[Operation], 
+            'total': int,
+            'pages': int
+        }
+        """
+        try:
+            logger.info('begin dao find`operations')
+            query = Operation.query
+            
+            # 条件过滤
+            if user_id:
+                query = query.filter(Operation.user_id == user_id)
+            if paper_id:
+                query = query.filter(Operation.paper_id == paper_id)
+            if operation_type:
+                query = query.filter(Operation.operation_type == operation_type)
+            logger.info('1111111111')
+            # 执行分页查询
+            pagination = query.order_by(
+                desc(Operation.operation_time)
+            ).paginate(
+                page=page,
+                per_page=per_page,
+                error_out=False
+            )
+            logger.info('finish dao find`operations')
+            return {
+                'items': pagination.items,
+                'total': pagination.total,
+                'pages': pagination.pages
+            }
+            
+        except Exception as e:
+            db.session.rollback()
+            raise ValueError(f"数据库查询失败: {str(e)}")

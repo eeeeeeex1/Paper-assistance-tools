@@ -1,7 +1,8 @@
 # backend/controllers/operation_controller.py
 from flask import request
 from dao.operation_dao import OperationDao
-
+from typing import Dict, Any, Optional, List
+from config.logging_config import logger
 class OperationService:
     def __init__(self):
         self.operation_dao = OperationDao()
@@ -136,3 +137,61 @@ class OperationService:
                 'code': 500,
                 'message': f'获取统计信息失败: {str(e)}'
             }
+            
+    #-------------------------------------------------------
+    def get_operations(
+        self,
+        page: int = 1,
+        per_page: int = 10,
+        user_id: Optional[int] = None,
+        paper_id: Optional[int] = None,
+        operation_type: Optional[str] = None,
+        include_relations: bool = True
+    ) -> Dict[str, any]:
+        """
+        获取操作日志（Service层）
+        :param include_relations: 是否加载关联数据
+        :return: {
+            'records': List[dict],
+            'total': int,
+            'pages': int,
+            'current_page': int
+        }
+        """
+        try:
+            logger.info('begin service get operations')
+            # 调用DAO层获取数据
+            result = self.operation_dao.query_operations(
+                page=page,
+                per_page=per_page,
+                user_id=user_id,
+                paper_id=paper_id,
+                operation_type=operation_type
+            )
+            logger.info('finish service get operations 111111')
+            # 转换数据格式
+            records = [{
+                'id': op.id,
+                'user_id': op.user_id,
+                'paper_id': op.paper_id,
+                'operation_type': op.operation_type,
+                'operation_time': op.operation_time.isoformat(),
+                'file_name': op.file_name
+            } for op in result['items']]
+
+
+            logger.info("返回的操作记录数据: %s", records)
+            logger.info(f'成功获取 {len(records)} 条操作记录')
+            return {
+                'records': records,
+                'total': result['total'],
+                'pages': result['pages'],
+                'current_page': page
+            }
+            
+        except ValueError as e:
+            # 转换DAO层错误
+            raise ValueError(f"服务层异常: {str(e)}")
+        except Exception as e:
+            # 处理其他异常
+            raise RuntimeError(f"获取操作日志失败: {str(e)}")

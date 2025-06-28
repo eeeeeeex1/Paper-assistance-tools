@@ -1,6 +1,6 @@
 前端：http://localhost:5173/
 后端:
-swagger: http://localhost:5173/swagger
+swagger: http://localhost:5000/swagger
 
 Package                   Version
 ------------------------- --------
