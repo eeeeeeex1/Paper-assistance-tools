@@ -25,7 +25,7 @@ class PaperService:
     def get_user_papers(self, user_id, page=1, per_page=10):
         """获取用户的所有论文"""
         # 检查用户是否存在
-        from backend.models import User
+        from backend.models.user import User
         user = User.query.get(user_id)
         if not user:
             return {
@@ -119,7 +119,7 @@ class PaperService:
     async def check_plagiarism(paper_id, num_articles=5):
         """
         论文查重：获取目标论文，爬取多篇主题相似文章，计算综合相似度
-        num_articles: 爬取的相似文章数量（默认5篇）
+        num_articles: 爬取的相似文章数量(默认5篇)
         """
         # 1. 获取目标论文信息
         paper = Paper.query.get(paper_id)

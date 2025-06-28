@@ -6,7 +6,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.utils import secure_filename
 
-
 class Paper(db.Model):
     __tablename__ = 'papers'
     __table_args__ = {'extend_existing': True}  # 关键修改
@@ -19,8 +18,8 @@ class Paper(db.Model):
         db.String(255),
         nullable=False
     )
-    author_id = db.Column(db.BigInteger,
-        db.ForeignKey('users.id', ondelete='CASCADE'),
+    author_id = db.Column(
+        db.Integer,
         nullable=False
     )
     upload_time = db.Column(
@@ -31,11 +30,8 @@ class Paper(db.Model):
     content = db.Column(
         db.Text
     )  # Text类型支持大文本存储
-    
-    # 定义关系
-    #author_id = db.Column(db.BigInteger, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
-    author = relationship("User", back_populates="papers")
-    
+
+
     def __repr__(self):
         return f"<Paper(id={self.id}, title='{self.title}', author_id={self.author_id}, status='{self.status}')>"
     

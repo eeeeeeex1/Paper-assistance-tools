@@ -25,7 +25,7 @@ class OperationService:
     def get_user_operations(self, user_id, page=1, per_page=20):
         """获取用户的操作记录"""
         # 检查用户是否存在
-        from backend.models import User
+        from backend.models.user import User
         user = User.query.get(user_id)
         if not user:
             return {
@@ -89,7 +89,7 @@ class OperationService:
             if not user_id or not operation_type:
                 return {
                     'code': 400,
-                    'message': '缺少必要参数（用户ID、操作类型）'
+                    'message': '缺少必要参数(用户ID、操作类型)'
                 }
             
             # 调用服务层记录操作

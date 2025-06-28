@@ -2,6 +2,10 @@
 from backend.config.database import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import func  # 导入 func 对象
+
+from backend.models.paper import Paper
+from backend.models.operation import Operation
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -9,7 +13,7 @@ class User(db.Model):
     
     # 基本字段定义
     id = db.Column(
-        db.BigInteger,
+        db.Integer,
         primary_key=True
     )  # 使用 BigInteger 对应数据库 BIGINT
     username = db.Column(
@@ -18,7 +22,7 @@ class User(db.Model):
         nullable=False
     )
     password_hash = db.Column(
-        db.String(255),
+        db.String(100),
         nullable=False
     )  # 重命名为 password_hash
     email = db.Column(
@@ -28,27 +32,14 @@ class User(db.Model):
     )
     created_at = db.Column(
         db.DateTime,
-        default=datetime.utcnow
+        server_default=func.now()
     )
     updated_at = db.Column(
         db.DateTime, 
-        default=datetime.utcnow, 
-        onupdate=datetime.utcnow
+        server_default=func.now(),
+        onupdate=func.now()
     )
-    
-    # 关系映射
-    papers = db.relationship(
-        'Paper', 
-        backref='author', 
-        lazy=True, 
-        cascade='all, delete-orphan'
-    )   #用户与论文的一对多关系
-    operations = db.relationship(
-        'UserOperation', 
-        backref='user', 
-        lazy=True
-    )  #用户与操作记录的一对多关系
-    
+
     # 密码相关方法
     def set_password(self, password):
         """设置加密密码"""
@@ -57,12 +48,6 @@ class User(db.Model):
     def check_password(self, password):
         """验证密码"""
         return check_password_hash(self.password_hash, password)
-    
-    # 邮箱验证相关
-    def verify_email(self):
-        """标记邮箱为已验证"""
-        self.is_email_verified = True
-        db.session.commit()
     
     # 对象转字典（用于 API 响应）
     def to_dict(self, include_sensitive=False):
@@ -73,9 +58,7 @@ class User(db.Model):
         data = {
             'id': self.id,
             'username': self.username,
-            'email': self.email if include_sensitive else '***@***.***',
-            'role': self.role,
-            'is_email_verified': self.is_email_verified,
+            'email': self.email ,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
             'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S')
         }

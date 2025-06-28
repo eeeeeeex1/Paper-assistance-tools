@@ -14,12 +14,10 @@ class Operation(db.Model):
     )
     user_id = db.Column(
         db.BigInteger,
-        db.ForeignKey('users.id'),
         nullable=False
     )
     paper_id = db.Column(
         db.BigInteger,
-        db.ForeignKey('papers.id', ondelete='CASACDE'), 
         nullable=True
     )
     operation_type = db.Column(
@@ -30,11 +28,7 @@ class Operation(db.Model):
         db.DateTime,
         default=datetime.utcnow
     )
-    
-    # 关系映射
-    user = db.relationship('User', backref='operations')
-    paper = db.relationship('Paper', backref='operations')
-    
+
     def to_dict(self):
         """将操作记录转换为字典"""
         return {

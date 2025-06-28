@@ -1,52 +1,74 @@
 from flask import current_app
-from backend.models import User  # 导入 User 模型
+from backend.models.user import User  # 导入 User 模型
 from backend.config.database import db  # 导入数据库实例
 import hashlib
 import jwt
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,timezone 
 import logging
+import bcrypt
+from config.logging_config import logger
 
+#------------------------------------------
+from typing import List, Dict, Any,Optional
+from sqlalchemy.exc import SQLAlchemyError
+#-----------------------------------------
 # 初始化日志记录器
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 class UserDao:
-    def get_user_by_id(self, user_id):
-        """通过 ID 获取用户"""
-        return User.query.get(user_id)
+    #def get_user_by_id(self, user_id):
+        #"""通过 ID 获取用户"""
+        #return User.query.get(user_id)
 
-    def get_user_by_username(self, identity):
+    def get_user_by_identity(self, identity):
         """通过用户名获取用户"""
+        logger.info(f"check user")
+    
         return User.query.filter(
-            (User.username == identity) | (User.email == identity)
+            (User.username == identity) | (User.email == identity) |(User.id == identity)
         ).first()
 
     def create_user(self, username, password, email):
         """创建新用户"""
         # 检查用户名是否已存在
-        if self.get_user_by_username(username):
-            return None, "用户名已存在"
+        logger.info(f"make new user: {username}")
 
+        #if self.get_user_by_username(username):
+        #   return None, "用户名已存在"
+
+        #logger.info(f" user has exist")
         # 密码加密
-        hashed_password = self._hash_password(password)
+        #hashed_password = self._hash_password(password)
 
+        logger.info(f" user 1")
         # 创建用户对象
         new_user = User(
             username=username,
-            password_hash=hashed_password,
+            password_hash=password,
             email=email,
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc),
+            updated_at=datetime.now(timezone.utc)
         )
-
-        # 保存到数据库
         db.session.add(new_user)
         db.session.commit()
-
+        logger.info(f"new user has been created,waiting for writing")
+        created_user = User.query.filter_by(username=username).first()
+        if created_user:
+            # 记录用户创建成功及详细信息（排除敏感字段）
+            logger.info(f"用户创建成功: ID={created_user.id}, 用户名={created_user.username}, 邮箱={created_user.email}")
+            return created_user, None
+        #else:
+        #    logger.error(f"用户创建后查询失败: {username}")
+         #   return None, "用户创建失败，数据库查询未找到"
+          #  logger.info(f" user make")
+            # 保存到数据库
+        
+           # logger.info(f" user 3")
         return new_user, None
 
-    def verify_password(self, password, hashed_password):
-        """验证密码"""
-        return hashed_password == self._hash_password(password)
+    def verify_password(self, plain_password: str, stored_password: str) -> bool:
+        return plain_password == stored_password  # 直接字符串比较
 
     def generate_token(self, user_id, username):
         """生成 JWT Token"""
@@ -67,9 +89,9 @@ class UserDao:
 
         return token
 
-    def update_user_info(self, user_id, **kwargs):
+    def update_user_info(self, identity, **kwargs):
         """更新用户信息"""
-        user = self.get_user_by_id(user_id)
+        user = self.get_user_by_identity(identity)
         if not user:
             return False, "用户不存在"
 
@@ -103,6 +125,41 @@ class UserDao:
             return False, f"删除用户失败: {str(e)}"
 
     # 辅助方法：密码加密
-    def _hash_password(self, password):
-        """SHA256 密码加密"""
-        return hashlib.sha256(password.encode('utf-8')).hexdigest()
+    def hash_password(self, plain_password: str) -> str:
+        return plain_password  # 直接返回明文
+#-------------------------------------------------------------------------------
+    # dao/user_dao.py
+    def get_all_user(
+        self,
+        page: int = 1,
+        per_page: int = 10,
+        filter_username: Optional[str] = None,
+        include_sensitive: bool = False
+    ) -> Dict[str, Any]:
+        """
+        获取分页用户数据
+        :param include_sensitive: 是否包含敏感信息
+        :param page: 页码
+        :param per_page: 每页数量
+        :param filter_username: 按用户名过滤
+        :return: 包含分页信息的字典
+        """
+        try:
+            logger.info(f"Dao get all user")
+            query = User.query
+            
+            if filter_username:
+                query = query.filter(User.username.like(f"%{filter_username}%"))
+            
+            paginated_users = query.paginate(page=page, per_page=per_page, error_out=False)
+            logger.info('Dao get all user success')
+            return {
+                'items': [user.to_dict(include_sensitive) for user in paginated_users.items],
+                'total': paginated_users.total,
+                'pages': paginated_users.pages,
+                'current_page': page,
+                'per_page': per_page
+            }
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            raise e

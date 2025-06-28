@@ -4,7 +4,6 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))  # 添加项目根目录到 sys.path
 
 from flask import Flask
-from models.user import User
 from flasgger import Swagger
 # 从 config 包导入配置类和数据库实例
 from backend.config import DevelopmentConfig
@@ -13,10 +12,6 @@ from backend.config.database import db  # 导入 db 实例
 from flask_cors import CORS  # 引入 CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
-from controller.paper_controller import paper_bp
-from controller.user_controller import user_bp
-from controller.operation_controller import operation_bp 
 
 #-----------------------------------------------------------------
 # 工厂函数创建 Flask 应用
@@ -35,15 +30,18 @@ def create_app():
     from backend.models.paper import Paper
     from backend.models.operation import Operation
 
+    # 配置 CORS（允许前端跨域访问）
+    CORS(app, origins=["http://localhost:5173"], supports_credentials=False)
+
+    from controller.paper_controller import paper_bp
+    from controller.user_controller import user_bp
+    from controller.operation_controller import operation_bp 
+
+    # 配置 Swagger
     app.register_blueprint(user_bp)
     app.register_blueprint(paper_bp)
     app.register_blueprint(operation_bp)
 
-
-    # 配置 CORS（允许前端跨域访问）
-    CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
-    
-    # 配置 Swagger
 
     swagger_template = app.config['SWAGGER_TEMPLATE']
     swagger_config = app.config['SWAGGER_CONFIG']

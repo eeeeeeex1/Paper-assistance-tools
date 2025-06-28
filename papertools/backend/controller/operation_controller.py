@@ -134,7 +134,7 @@ def get_paper_operations(paper_id):
     'description': '记录新操作',
     'consumes': ['application/json'],
     'parameters': [
-        {
+        { 
             'name': 'body',
             'in': 'body',
             'required': True,
