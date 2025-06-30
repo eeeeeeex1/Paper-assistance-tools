@@ -48,6 +48,7 @@ class OperationService:
                 'total': operations.total,
                 'pages': operations.pages,
                 'current_page': operations.page
+                
             }
         }
     
@@ -145,8 +146,7 @@ class OperationService:
         per_page: int = 10,
         user_id: Optional[int] = None,
         paper_id: Optional[int] = None,
-        operation_type: Optional[str] = None,
-        include_relations: bool = True
+        operation_type: Optional[str] = None
     ) -> Dict[str, any]:
         """
         获取操作日志（Service层）
@@ -169,6 +169,7 @@ class OperationService:
                 operation_type=operation_type
             )
             logger.info('finish service get operations 111111')
+            logger.info('result 的内容: %s', result)
             # 转换数据格式
             records = [{
                 'id': op.id,
@@ -179,7 +180,7 @@ class OperationService:
                 'file_name': op.file_name
             } for op in result['items']]
 
-
+            logger.info('finish service get operations 22222')
             logger.info("返回的操作记录数据: %s", records)
             logger.info(f'成功获取 {len(records)} 条操作记录')
             return {

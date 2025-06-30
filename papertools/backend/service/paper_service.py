@@ -151,7 +151,7 @@ class PaperService:
                 }
             
             # 3. 异步爬取多篇相似文章
-            similar_articles = await crawl_multiple_articles(keywords, num_articles)
+            similar_articles = await crawl_multiple_articles(keywords, num_articles) # type: ignore
             if not similar_articles:
                 return {
                     'code': 400,
@@ -171,11 +171,11 @@ class PaperService:
                 if not article_content:
                     continue
                     
-                processed_article = preprocess_text(article_content)
-                similarity = calculate_similarity(processed_paper, processed_article)
+                processed_article = preprocess_text(article_content) # type: ignore
+                similarity = calculate_similarity(processed_paper, processed_article) # type: ignore
                 
                 # 查找相似段落
-                similar_sections = find_similar_sections(paper_content, article_content)
+                similar_sections = find_similar_sections(paper_content, article_content) # type: ignore
                 all_similar_sections.extend(similar_sections)
                 
                 comparison_results.append({

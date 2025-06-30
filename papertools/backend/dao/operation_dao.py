@@ -96,7 +96,8 @@ class OperationDao:
         per_page: int = 10,
         user_id: Optional[int] = None,
         paper_id: Optional[int] = None,
-        operation_type: Optional[str] = None
+        operation_type: Optional[str] = None,
+        file_name: Optional[str] = None
     ) -> Dict[str, any]:
         """
         基础查询方法（DAO层）
