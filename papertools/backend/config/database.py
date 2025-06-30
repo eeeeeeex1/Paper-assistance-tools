@@ -1,6 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase
 
-# 先创建空的 SQLAlchemy 实例
+class Base(DeclarativeBase):
+    pass
+
 db = SQLAlchemy()
 
 def init_app(app):

@@ -1,0 +1,60 @@
+2025-06-28 17:16:10 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-28 17:16:10 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-28 17:16:10 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-28 17:16:11 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-28 17:16:11 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 866-833-435
+2025-06-28 17:16:26 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:16:26] "OPTIONS /api/user/register HTTP/1.1" 200 -
+2025-06-28 17:16:27 - root - INFO - user_controller:144 - 111111111111: Yuanxia
+2025-06-28 17:16:27 - root - INFO - user_controller:149 - √‹¬Îº”√‹≥…π¶
+2025-06-28 17:16:27 - root - INFO - user_service:21 - user_service use rgister
+2025-06-28 17:16:27 - dao.user_dao - INFO - user_dao:35 - make new user: Yuanxia
+2025-06-28 17:16:27 - dao.user_dao - INFO - user_dao:44 -  user 1
+2025-06-28 17:16:27 - dao.user_dao - INFO - user_dao:55 - new user has been created,waiting for writing
+2025-06-28 17:16:27 - dao.user_dao - INFO - user_dao:59 - ”√ªß¥¥Ω®≥…π¶: ID=5, ”√ªß√˚=Yuanxia, ” œ‰=1056606933@qq.com
+2025-06-28 17:16:27 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:16:27] "[35m[1mPOST /api/user/register HTTP/1.1[0m" 201 -
+2025-06-28 17:16:38 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:16:38] "OPTIONS /api/user/register HTTP/1.1" 200 -
+2025-06-28 17:16:38 - root - INFO - user_controller:144 - 111111111111: lmkno.1
+2025-06-28 17:16:38 - root - INFO - user_controller:149 - √‹¬Îº”√‹≥…π¶
+2025-06-28 17:16:38 - root - INFO - user_service:21 - user_service use rgister
+2025-06-28 17:16:38 - dao.user_dao - INFO - user_dao:35 - make new user: lmkno.1
+2025-06-28 17:16:38 - dao.user_dao - INFO - user_dao:44 -  user 1
+2025-06-28 17:16:38 - dao.user_dao - INFO - user_dao:55 - new user has been created,waiting for writing
+2025-06-28 17:16:38 - dao.user_dao - INFO - user_dao:59 - ”√ªß¥¥Ω®≥…π¶: ID=6, ”√ªß√˚=lmkno.1, ” œ‰=2074437070@qq.com
+2025-06-28 17:16:38 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:16:38] "[35m[1mPOST /api/user/register HTTP/1.1[0m" 201 -
+2025-06-28 17:16:45 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:16:45] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-06-28 17:16:45 - root - INFO - user_controller:240 - ¥¶¿Ì ˝æ›: Yuanxia
+2025-06-28 17:16:45 - root - INFO - user_controller:241 - ¥¶¿Ì ˝æ›: 123456
+2025-06-28 17:16:45 - dao.user_dao - INFO - user_dao:26 - check user
+2025-06-28 17:16:45 - root - INFO - user_service:47 - ∏¸–¬◊Ó∫Ûµ«¬º ±º‰: 2025-06-28 09:16:46
+2025-06-28 17:16:45 - root - INFO - user_service:68 - µ«¬º≥…π¶ - ”√ªß: Yuanxia
+2025-06-28 17:16:45 - root - INFO - user_controller:250 - —È÷§√‹¬Îing
+2025-06-28 17:16:45 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:16:45] "POST /api/user/login HTTP/1.1" 200 -
+2025-06-28 17:16:55 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:16:55] "OPTIONS /api/user/getall?page=1&per_page=10&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-06-28 17:16:55 - root - INFO - user_controller:542 - get user number
+2025-06-28 17:16:55 - root - INFO - user_controller:552 - use user service
+2025-06-28 17:16:55 - root - INFO - user_service:139 - Calling DAO layer to get all users
+2025-06-28 17:16:55 - dao.user_dao - INFO - user_dao:148 - Dao get all user
+2025-06-28 17:16:55 - dao.user_dao - INFO - user_dao:155 - Dao get all user success
+2025-06-28 17:16:55 - root - INFO - user_service:146 - service get_all_users result: {'items': [{'id': 5, 'username': 'Yuanxia', 'email': '1056606933@qq.com', 'created_at': '2025-06-28 09:16:27', 'updated_at': '2025-06-28 09:16:46'}, {'id': 6, 'username': 'lmkno.1', 'email': '2074437070@qq.com', 'created_at': '2025-06-28 09:16:39', 'updated_at': '2025-06-28 09:16:39'}], 'total': 2, 'pages': 1, 'current_page': 1, 'per_page': 10}
+2025-06-28 17:16:55 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:16:55] "GET /api/user/getall?page=1&per_page=10&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-06-28 17:16:59 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:16:59] "OPTIONS /api/user/6 HTTP/1.1" 200 -
+2025-06-28 17:17:00 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:17:00] "DELETE /api/user/6 HTTP/1.1" 200 -
+2025-06-28 17:17:00 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:17:00] "OPTIONS /api/user/getall?page=1&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-06-28 17:17:00 - root - INFO - user_controller:542 - get user number
+2025-06-28 17:17:00 - root - INFO - user_controller:552 - use user service
+2025-06-28 17:17:00 - root - INFO - user_service:139 - Calling DAO layer to get all users
+2025-06-28 17:17:00 - dao.user_dao - INFO - user_dao:148 - Dao get all user
+2025-06-28 17:17:00 - dao.user_dao - INFO - user_dao:155 - Dao get all user success
+2025-06-28 17:17:00 - root - INFO - user_service:146 - service get_all_users result: {'items': [{'id': 5, 'username': 'Yuanxia', 'email': '1056606933@qq.com', 'created_at': '2025-06-28 09:16:27', 'updated_at': '2025-06-28 09:16:46'}], 'total': 1, 'pages': 1, 'current_page': 1, 'per_page': 10}
+2025-06-28 17:17:00 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:17:00] "GET /api/user/getall?page=1&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-06-28 17:17:04 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:17:04] "OPTIONS /api/user/5 HTTP/1.1" 200 -
+2025-06-28 17:17:04 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:17:04] "DELETE /api/user/5 HTTP/1.1" 200 -
+2025-06-28 17:17:04 - root - INFO - user_controller:542 - get user number
+2025-06-28 17:17:04 - root - INFO - user_controller:552 - use user service
+2025-06-28 17:17:04 - root - INFO - user_service:139 - Calling DAO layer to get all users
+2025-06-28 17:17:04 - dao.user_dao - INFO - user_dao:148 - Dao get all user
+2025-06-28 17:17:04 - dao.user_dao - INFO - user_dao:155 - Dao get all user success
+2025-06-28 17:17:04 - root - INFO - user_service:146 - service get_all_users result: {'items': [], 'total': 0, 'pages': 0, 'current_page': 1, 'per_page': 10}
+2025-06-28 17:17:04 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:17:04] "GET /api/user/getall?page=1&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-06-28 17:17:06 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [28/Jun/2025 17:17:06] "[33mGET /operations?page=1&per_page=20 HTTP/1.1[0m" 404 -
