@@ -28,23 +28,44 @@ onMounted(() => {
 <style scoped>
 .statistic {
   background: #fff;
-  padding: 20px;
-  border-radius: 4px;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
+.statistic h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .statistic-cards {
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
+
 .card {
-  width: 200px;
-  height: 80px;
-  background: #409eff;
+  width: 220px;
+  height: 120px;
+  background: linear-gradient(135deg, #409eff, #66b1ff);
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 15px;
+  font-size: 20px;
+  box-shadow: 0 8px 25px rgba(64, 158, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(64, 158, 255, 0.4);
 }
 </style>

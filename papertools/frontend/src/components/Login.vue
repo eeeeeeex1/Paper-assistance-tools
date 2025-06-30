@@ -30,18 +30,18 @@
           <div class="avatar"></div>
         </div>
         <div class="form-group">
-          <label for="account" class="form-label">账号</label>
+          <label for="email" class="form-label">账号</label>
           <div class="input-group">
             <i class="iconfont icon-user"></i>
             <input
               type="text"
-              id="account"
-              v-model="account"
+              id="email"
+              v-model="email"
               placeholder="请输入账号"
               class="form-input"
-              :class="{ 'is-error': accountError }"
+              :class="{ 'is-error': emailError }"
             >
-            <div v-if="accountError" class="error-message">{{ accountError }}</div>
+            <div v-if="emailError" class="error-message">{{ emailError }}</div>
           </div>
         </div>
         <div class="form-group">
@@ -89,37 +89,26 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
-const account = ref('');
+const email = ref('');
 const password = ref('');
-const accountError = ref('');
+const updated_at = ref('')
+const emailError = ref('');
 const passwordError = ref('');
 const showPassword = ref(false);
 const isLoading = ref(false);
 const router = useRouter();
 
-// 模拟路由配置（实际需在路由文件中定义）
-const routes = {
-  home: '/home',
-  register: '/register',
-  adminLogin: '/admin-login'
-};
-
 // 表单验证逻辑
-const validateForm = async (): Promise<boolean> => {
+const validateLoginForm = (): boolean => {
   let isValid = true;
-  accountError.value = '';
+  emailError.value = '';
   passwordError.value = '';
 
-  if (!account.value.trim()) {
-    accountError.value = '用户名不能为空';
+if (!email.value.trim()) {
+    emailError.value = '邮箱不能为空';
     isValid = false;
-  } else {
-    const exists = await checkUsernameExists(account.value.trim());
-    if (exists) {
-      accountError.value = '用户名已存在';
-      isValid = false;
-    }
   }
 
   if (password.value.length < 6) {
@@ -140,41 +129,78 @@ const togglePassword = () => {
 // 登录逻辑
 const handleLogin = async () => {
   isLoading.value = true;
+  passwordError.value = '';
 
   try {
-    accountError.value = '';
-    passwordError.value = '';
-
-    const mockUser = { account: 'test', password: '123456' };
-    if (account.value === mockUser.account && password.value === mockUser.password) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      router.push(routes.home);
-    } else {
-      accountError.value = '用户名或密码错误';
+    // 表单验证
+    if (!validateLoginForm()) {
+      throw new Error('表单验证失败');
     }
-  } catch (error) {
+
+    // 添加请求超时设置，避免长时间等待
+    const response = await axios.post<{
+      message: string;
+      token: string;
+      user: {
+        id: number;
+        username: string;
+        email: string;
+      };
+    }>('http://localhost:5000/api/user/login', {
+      email: email.value,
+      password: password.value,
+    }, {
+      timeout: 10000 // 设置10秒超时
+    });
+    
+    // 处理登录成功
+    console.log('登录响应：', response.data);
+
+    // 处理登录成功
+    if (response.status >= 200 && response.status < 300) {
+      // 存储用户信息和token
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      
+      // 显示成功消息并跳转
+      emailError.value = '登录成功，正在跳转...';
+      
+      // 延迟跳转，给用户看到成功消息
+      setTimeout(() => {
+        router.push('/home');
+      }, 500);
+    } else {
+      emailError.value = response.data.message || '登录失败，请重试';
+    }
+  } catch (error: any) {
     console.error('登录请求出错：', error);
-    accountError.value = '登录失败，请稍后再试';
+    
+    // 处理不同类型的错误
+    if (error.response?.status === 401) {
+      emailError.value = '用户名/邮箱或密码错误';
+    } else if (error.response?.status === 400) {
+      emailError.value = error.response.data.message || '无效的请求';
+    } else {
+      emailError.value = '登录失败，请稍后再试';
+    }
   } finally {
     isLoading.value = false;
   }
 };
 
 // 注册逻辑
-const openRegisterModal = async () => {
-  // 跳转到注册页面
+const openRegisterModal = () => {
   router.push('/register');
 };
 
-
-// 管理员登录页面跳转（修复功能）
+// 管理员登录页面跳转
 const goAdminLogin = () => {
-  router.push(routes.adminLogin);
+  router.push('/admin-login');
 };
 
 // 禁用按钮计算属性
 const isFormInvalid = computed(() => {
-  return !account.value.trim() || password.value.length < 6 || isLoading.value;
+  return !email.value.trim() || password.value.length < 6 || isLoading.value;
 });
 
 // 页面加载动画
@@ -184,12 +210,8 @@ onMounted(() => {
     form.classList.add('fade-in');
   }
 });
-
-// 验证用户名是否存在（模拟）
-const checkUsernameExists = async (username: string): Promise<boolean> => {
-  return username === 'test';
-};
 </script>
+
 
 <style scoped>
 /* 基础样式重置 */
