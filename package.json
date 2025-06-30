@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "docx-preview": "^0.3.5",
+    "mammoth": "^1.9.1"
+  }
+}
