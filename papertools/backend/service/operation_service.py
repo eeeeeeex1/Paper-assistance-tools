@@ -28,7 +28,6 @@ class OperationService:
             'data': operation.to_dict()
         }
     
-    
     def get_paper_operations(self, paper_id, page=1, per_page=20):
         """获取论文的操作记录"""
         # 检查论文是否存在
@@ -118,7 +117,6 @@ class OperationService:
                 'message': f'获取统计信息失败: {str(e)}'
             }
 
-    #--------------------------
     def get_user_operations(self, user_id, page=1, per_page=20):
         try:
             # 参数验证
@@ -172,3 +170,17 @@ class OperationService:
                 'code': 500,
                 'message': f'获取操作记录失败: {str(e)}'
             }), 500
+    
+    def delete_operation(self, operation_id):
+        """删除操作记录"""
+        success, error = self.operation_dao.delete_operation(operation_id)
+        if success:
+            return {
+                'code': 200,
+                'message': '操作记录删除成功'
+            }
+        else:
+            return {
+                'code': 400,
+                'message': error
+            }

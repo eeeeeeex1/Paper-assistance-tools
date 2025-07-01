@@ -1,79 +1,115 @@
-2025-07-01 16:15:58 - root - INFO - operation_controller:86 - begin controller getoperaitons
-2025-07-01 16:15:58 - root - INFO - operation_service:137 - ï¿½ï¿½Ê¼ï¿½ï¿½Ñ¯ï¿½Ã»ï¿½ 2 ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ò³ï¿½ï¿½: 1, Ã¿Ò³: 10
-2025-07-01 16:15:58 - root - INFO - operation_service:143 - ï¿½ï¿½Ñ¯ï¿½ï¿½É£ï¿½ï¿½Ü¼ï¿½Â¼ï¿½ï¿½: 2, ï¿½ï¿½Ç°Ò³ï¿½ï¿½Â¼ï¿½ï¿½: 2
-2025-07-01 16:15:58 - root - INFO - operation_service:146 - ï¿½ï¿½Ç°Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½:
-2025-07-01 16:15:58 - root - INFO - operation_service:148 - ï¿½ï¿½Â¼ 1: {'id': 6, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 06:52:47', 'file_name': 'ï¿½ï¿½Â¼'}
-2025-07-01 16:15:58 - root - INFO - operation_service:148 - ï¿½ï¿½Â¼ 2: {'id': 5, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 02:13:42', 'file_name': 'ï¿½ï¿½Â¼'}
-2025-07-01 16:15:58 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:15:58] "GET /api/operations/user/2?page=1&per_page=10 HTTP/1.1" 200 -
-2025-07-01 16:16:00 - root - INFO - operation_controller:86 - begin controller getoperaitons
-2025-07-01 16:16:00 - root - INFO - operation_service:137 - ï¿½ï¿½Ê¼ï¿½ï¿½Ñ¯ï¿½Ã»ï¿½ 2 ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ò³ï¿½ï¿½: 1, Ã¿Ò³: 10
-2025-07-01 16:16:00 - root - INFO - operation_service:143 - ï¿½ï¿½Ñ¯ï¿½ï¿½É£ï¿½ï¿½Ü¼ï¿½Â¼ï¿½ï¿½: 2, ï¿½ï¿½Ç°Ò³ï¿½ï¿½Â¼ï¿½ï¿½: 2
-2025-07-01 16:16:00 - root - INFO - operation_service:146 - ï¿½ï¿½Ç°Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½:
-2025-07-01 16:16:00 - root - INFO - operation_service:148 - ï¿½ï¿½Â¼ 1: {'id': 6, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 06:52:47', 'file_name': 'ï¿½ï¿½Â¼'}
-2025-07-01 16:16:00 - root - INFO - operation_service:148 - ï¿½ï¿½Â¼ 2: {'id': 5, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 02:13:42', 'file_name': 'ï¿½ï¿½Â¼'}
-2025-07-01 16:16:00 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:16:00] "GET /api/operations/user/2?page=1&per_page=10 HTTP/1.1" 200 -
-2025-07-01 16:17:10 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:17:10] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
-2025-07-01 16:17:11 - root - INFO - paper_controller:329 - begin check plagiarism with file upload
-2025-07-01 16:17:11 - root - INFO - paper_controller:345 - begin controller check plagiarism
-2025-07-01 16:17:11 - root - INFO - paper_service:361 - begin service check_plagiarism with Semantic Scholar API
-2025-07-01 16:17:11 - app - ERROR - paper_service:644 - ÎÄ¼ş½âÎö´íÎó: File is not a zip file
-2025-07-01 16:17:11 - root - INFO - paper_controller:347 - end controller check plagiarism with file upload
-2025-07-01 16:17:11 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:17:11] "POST /api/paper/plagiarism HTTP/1.1" 200 -
-2025-07-01 16:17:17 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:17:17] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
-2025-07-01 16:17:18 - root - INFO - paper_controller:329 - begin check plagiarism with file upload
-2025-07-01 16:17:18 - root - INFO - paper_controller:345 - begin controller check plagiarism
-2025-07-01 16:17:18 - root - INFO - paper_service:361 - begin service check_plagiarism with Semantic Scholar API
-2025-07-01 16:17:18 - root - INFO - paper_service:105 - begin extract_keywords
-2025-07-01 16:17:18 - root - INFO - paper_service:119 - end extract_keywords
-2025-07-01 16:17:18 - root - INFO - paper_service:409 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ¼¼Êõ ¼ÆËã ½øĞĞ Êı×Ö ÍøÂç
-2025-07-01 16:17:19 - root - ERROR - paper_service:83 - API HTTP´íÎó 429: {"message": "Too Many Requests. Please wait and try again or apply for a key for higher rate limits. https://www.semanticscholar.org/product/api#api-key-form", "code": "429"}
-2025-07-01 16:17:19 - root - INFO - paper_controller:347 - end controller check plagiarism with file upload
-2025-07-01 16:17:19 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:17:19] "POST /api/paper/plagiarism HTTP/1.1" 200 -
-2025-07-01 16:20:35 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-2025-07-01 16:20:35 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
-2025-07-01 16:20:35 - werkzeug - INFO - _internal:97 -  * Restarting with stat
-2025-07-01 16:20:41 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
-2025-07-01 16:20:41 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
-2025-07-01 16:20:43 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:20:43] "OPTIONS /api/user/login HTTP/1.1" 200 -
-2025-07-01 16:20:43 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: 123@qq.com
-2025-07-01 16:20:43 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
-2025-07-01 16:20:43 - dao.user_dao - INFO - user_dao:21 - check user
-2025-07-01 16:20:43 - root - INFO - user_service:47 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-01 08:20:44
-2025-07-01 16:20:43 - root - INFO - user_service:74 - µÇÂ¼³É¹¦ - ÓÃ»§: 123@qq.com
-2025-07-01 16:20:43 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
-2025-07-01 16:20:43 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:20:43] "POST /api/user/login HTTP/1.1" 200 -
-2025-07-01 16:20:58 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:20:58] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
-2025-07-01 16:20:58 - root - INFO - paper_controller:329 - begin check plagiarism with file upload
-2025-07-01 16:20:58 - root - INFO - paper_controller:345 - begin controller check plagiarism
-2025-07-01 16:20:58 - root - INFO - paper_service:361 - begin service check_plagiarism with Semantic Scholar API
-2025-07-01 16:20:58 - root - INFO - paper_service:105 - begin extract_keywords
-2025-07-01 16:20:59 - root - INFO - paper_service:119 - end extract_keywords
-2025-07-01 16:20:59 - root - INFO - paper_service:409 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ¼¼Êõ ¼ÆËã ½øĞĞ Êı×Ö ÍøÂç
-2025-07-01 16:20:59 - root - ERROR - paper_service:83 - API HTTP´íÎó 429: {"message": "Too Many Requests. Please wait and try again or apply for a key for higher rate limits. https://www.semanticscholar.org/product/api#api-key-form", "code": "429"}
-2025-07-01 16:20:59 - root - INFO - paper_controller:347 - end controller check plagiarism with file upload
-2025-07-01 16:20:59 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:20:59] "POST /api/paper/plagiarism HTTP/1.1" 200 -
-2025-07-01 16:23:45 - root - INFO - operation_controller:86 - begin controller getoperaitons
-2025-07-01 16:23:45 - root - INFO - operation_service:137 - ¿ªÊ¼²éÑ¯ÓÃ»§ 2 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
-2025-07-01 16:23:45 - root - INFO - operation_service:143 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 2, µ±Ç°Ò³¼ÇÂ¼Êı: 2
-2025-07-01 16:23:45 - root - INFO - operation_service:146 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
-2025-07-01 16:23:45 - root - INFO - operation_service:148 - ¼ÇÂ¼ 1: {'id': 6, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 06:52:47', 'file_name': 'µÇÂ¼'}
-2025-07-01 16:23:45 - root - INFO - operation_service:148 - ¼ÇÂ¼ 2: {'id': 5, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 02:13:42', 'file_name': 'µÇÂ¼'}
-2025-07-01 16:23:45 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:23:45] "GET /api/operations/user/2?page=1&per_page=10 HTTP/1.1" 200 -
-2025-07-01 16:27:30 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\controller\\operation_controller.py', reloading
-2025-07-01 16:27:31 - werkzeug - INFO - _internal:97 -  * Restarting with stat
-2025-07-01 16:27:38 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
-2025-07-01 16:27:38 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
-2025-07-01 16:28:53 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\operation_service.py', reloading
-2025-07-01 16:28:54 - werkzeug - INFO - _internal:97 -  * Restarting with stat
-2025-07-01 16:29:00 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
-2025-07-01 16:29:00 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
-2025-07-01 17:07:07 - root - INFO - operation_controller:86 - begin controller getoperaitons
-2025-07-01 17:07:07 - root - INFO - operation_service:137 - ¿ªÊ¼²éÑ¯ÓÃ»§ 2 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
-2025-07-01 17:07:07 - root - INFO - operation_service:143 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 2, µ±Ç°Ò³¼ÇÂ¼Êı: 2
-2025-07-01 17:07:07 - root - INFO - operation_service:146 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
-2025-07-01 17:07:07 - root - INFO - operation_service:148 - ¼ÇÂ¼ 1: {'id': 6, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 06:52:47', 'file_name': 'µÇÂ¼'}
-2025-07-01 17:07:07 - root - INFO - operation_service:148 - ¼ÇÂ¼ 2: {'id': 5, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 02:13:42', 'file_name': 'µÇÂ¼'}
-2025-07-01 17:07:07 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 17:07:07] "GET /api/operations/user/2?page=1&per_page=10 HTTP/1.1" 200 -
-2025-07-01 17:11:50 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\controller\\paper_controller.py', reloading
-2025-07-01 17:11:51 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-01 19:32:25 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 19:32:25 - root - INFO - operation_service:137 - ¿ªÊ¼²éÑ¯ÓÃ»§ 1 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
+2025-07-01 19:32:25 - root - INFO - operation_service:143 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 14, µ±Ç°Ò³¼ÇÂ¼Êı: 10
+2025-07-01 19:32:25 - root - INFO - operation_service:146 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-01 19:32:25 - root - INFO - operation_service:148 - ¼ÇÂ¼ 1: {'id': 18, 'user_id': 1, 'paper_id': None, 'operation_type': '²éÖØ', 'operation_time': '2025-07-01 18:58:10', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:32:25 - root - INFO - operation_service:148 - ¼ÇÂ¼ 2: {'id': 16, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:55:27', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:32:25 - root - INFO - operation_service:148 - ¼ÇÂ¼ 3: {'id': 15, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:50:47', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:32:25 - root - INFO - operation_service:148 - ¼ÇÂ¼ 4: {'id': 13, 'user_id': 1, 'paper_id': None, 'operation_type': '²éÖØ', 'operation_time': '2025-07-01 18:50:02', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:32:25 - root - INFO - operation_service:148 - ¼ÇÂ¼ 5: {'id': 10, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 17:19:23', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:32:25 - root - INFO - operation_service:151 -   ... »¹ÓĞ 5 Ìõ¼ÇÂ¼Î´ÏÔÊ¾
+2025-07-01 19:32:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:32:25] "GET /api/operations/user/1?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 19:44:39 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 19:44:39 - root - INFO - operation_service:137 - ¿ªÊ¼²éÑ¯ÓÃ»§ 1 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
+2025-07-01 19:44:39 - root - INFO - operation_service:143 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 14, µ±Ç°Ò³¼ÇÂ¼Êı: 10
+2025-07-01 19:44:39 - root - INFO - operation_service:146 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-01 19:44:39 - root - INFO - operation_service:148 - ¼ÇÂ¼ 1: {'id': 18, 'user_id': 1, 'paper_id': None, 'operation_type': '²éÖØ', 'operation_time': '2025-07-01 18:58:10', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:44:39 - root - INFO - operation_service:148 - ¼ÇÂ¼ 2: {'id': 16, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:55:27', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:44:39 - root - INFO - operation_service:148 - ¼ÇÂ¼ 3: {'id': 15, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:50:47', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:44:39 - root - INFO - operation_service:148 - ¼ÇÂ¼ 4: {'id': 13, 'user_id': 1, 'paper_id': None, 'operation_type': '²éÖØ', 'operation_time': '2025-07-01 18:50:02', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:44:39 - root - INFO - operation_service:148 - ¼ÇÂ¼ 5: {'id': 10, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 17:19:23', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:44:39 - root - INFO - operation_service:151 -   ... »¹ÓĞ 5 Ìõ¼ÇÂ¼Î´ÏÔÊ¾
+2025-07-01 19:44:39 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:44:39] "GET /api/operations/user/1?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 19:45:11 - werkzeug - INFO - _internal:97 -  * Detected change in 'D:\\Java\\test\\Paper-assistance-tools\\papertools\\backend\\dao\\operation_dao.py', reloading
+2025-07-01 19:45:12 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-01 19:45:13 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-01 19:45:13 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 866-833-435
+2025-07-01 19:46:33 - werkzeug - INFO - _internal:97 -  * Detected change in 'D:\\Java\\test\\Paper-assistance-tools\\papertools\\backend\\service\\operation_service.py', reloading
+2025-07-01 19:46:33 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-01 19:46:35 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-01 19:46:35 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 866-833-435
+2025-07-01 19:47:14 - werkzeug - INFO - _internal:97 -  * Detected change in 'D:\\Java\\test\\Paper-assistance-tools\\papertools\\backend\\controller\\operation_controller.py', reloading
+2025-07-01 19:47:14 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-01 19:47:16 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-01 19:47:16 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 866-833-435
+2025-07-01 19:47:18 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:47:18] "OPTIONS /api/operations/18 HTTP/1.1" 200 -
+2025-07-01 19:47:18 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:47:18] "DELETE /api/operations/18 HTTP/1.1" 200 -
+2025-07-01 19:47:18 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 19:47:18 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 1 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
+2025-07-01 19:47:18 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 13, µ±Ç°Ò³¼ÇÂ¼Êı: 10
+2025-07-01 19:47:18 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-01 19:47:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 16, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:55:27', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:47:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 2: {'id': 15, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:50:47', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:47:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 3: {'id': 13, 'user_id': 1, 'paper_id': None, 'operation_type': '²éÖØ', 'operation_time': '2025-07-01 18:50:02', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:47:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 4: {'id': 10, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 17:19:23', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:47:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 5: {'id': 9, 'user_id': 1, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 08:24:42', 'file_name': 'µÇÂ¼'}
+2025-07-01 19:47:18 - root - INFO - operation_service:149 -   ... »¹ÓĞ 5 Ìõ¼ÇÂ¼Î´ÏÔÊ¾
+2025-07-01 19:47:18 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:47:18] "GET /api/operations/user/1?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 19:47:27 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 19:47:27 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 1 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
+2025-07-01 19:47:27 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 13, µ±Ç°Ò³¼ÇÂ¼Êı: 10
+2025-07-01 19:47:27 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-01 19:47:27 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 16, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:55:27', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:47:27 - root - INFO - operation_service:146 - ¼ÇÂ¼ 2: {'id': 15, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:50:47', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:47:27 - root - INFO - operation_service:146 - ¼ÇÂ¼ 3: {'id': 13, 'user_id': 1, 'paper_id': None, 'operation_type': '²éÖØ', 'operation_time': '2025-07-01 18:50:02', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:47:27 - root - INFO - operation_service:146 - ¼ÇÂ¼ 4: {'id': 10, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 17:19:23', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:47:27 - root - INFO - operation_service:146 - ¼ÇÂ¼ 5: {'id': 9, 'user_id': 1, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 08:24:42', 'file_name': 'µÇÂ¼'}
+2025-07-01 19:47:27 - root - INFO - operation_service:149 -   ... »¹ÓĞ 5 Ìõ¼ÇÂ¼Î´ÏÔÊ¾
+2025-07-01 19:47:27 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:47:27] "GET /api/operations/user/1?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 19:52:53 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 19:52:53 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 1 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
+2025-07-01 19:52:53 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 13, µ±Ç°Ò³¼ÇÂ¼Êı: 10
+2025-07-01 19:52:53 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-01 19:52:53 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 16, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:55:27', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:52:53 - root - INFO - operation_service:146 - ¼ÇÂ¼ 2: {'id': 15, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 18:50:47', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:52:53 - root - INFO - operation_service:146 - ¼ÇÂ¼ 3: {'id': 13, 'user_id': 1, 'paper_id': None, 'operation_type': '²éÖØ', 'operation_time': '2025-07-01 18:50:02', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:52:53 - root - INFO - operation_service:146 - ¼ÇÂ¼ 4: {'id': 10, 'user_id': 1, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 17:19:23', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-01 19:52:53 - root - INFO - operation_service:146 - ¼ÇÂ¼ 5: {'id': 9, 'user_id': 1, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 08:24:42', 'file_name': 'µÇÂ¼'}
+2025-07-01 19:52:53 - root - INFO - operation_service:149 -   ... »¹ÓĞ 5 Ìõ¼ÇÂ¼Î´ÏÔÊ¾
+2025-07-01 19:52:53 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:52:53] "GET /api/operations/user/1?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 19:53:18 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:53:18] "OPTIONS /api/user/register HTTP/1.1" 200 -
+2025-07-01 19:53:19 - root - INFO - user_controller:131 - 111111111111: lmkno.1
+2025-07-01 19:53:19 - root - INFO - user_controller:136 - ÃÜÂë¼ÓÃÜ³É¹¦
+2025-07-01 19:53:19 - root - INFO - user_service:32 - user_service use rgister
+2025-07-01 19:53:19 - dao.user_dao - INFO - user_dao:37 - make new user: lmkno.1
+2025-07-01 19:53:19 - dao.user_dao - INFO - user_dao:50 - new user has been created,waiting for writing
+2025-07-01 19:53:19 - dao.user_dao - INFO - user_dao:54 - ÓÃ»§´´½¨³É¹¦: ID=7, ÓÃ»§Ãû=lmkno.1, ÓÊÏä=2074437070@qq.com, È¨ÏŞ=7
+2025-07-01 19:53:19 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:53:19] "[35m[1mPOST /api/user/register HTTP/1.1[0m" 201 -
+2025-07-01 19:53:23 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:53:23] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-01 19:53:23 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: 2074437070@qq.com
+2025-07-01 19:53:23 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-01 19:53:23 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-01 19:53:23 - root - INFO - user_service:58 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-01 11:53:24
+2025-07-01 19:53:23 - root - INFO - user_service:86 - µÇÂ¼³É¹¦ - ÓÃ»§: lmkno.1
+2025-07-01 19:53:23 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-01 19:53:23 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:53:23] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-01 19:53:24 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 19:53:24 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 7 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
+2025-07-01 19:53:24 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 0, µ±Ç°Ò³¼ÇÂ¼Êı: 0
+2025-07-01 19:53:24 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-01 19:53:24 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:53:24] "GET /api/operations/user/7?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 19:54:07 - root - INFO - paper_controller:364 - begin 111111 extract theme
+2025-07-01 19:54:07 - root - INFO - paper_service:185 - begin  find theme
+2025-07-01 19:54:07 - jieba - DEBUG - __init__:113 - Building prefix dict from the default dictionary ...
+2025-07-01 19:54:07 - jieba - DEBUG - __init__:132 - Loading model from cache C:\Users\ROG\AppData\Local\Temp\jieba.cache
+2025-07-01 19:54:08 - jieba - DEBUG - __init__:164 - Loading model cost 0.344 seconds.
+2025-07-01 19:54:08 - jieba - DEBUG - __init__:166 - Prefix dict has been built successfully.
+2025-07-01 19:54:08 - root - INFO - paper_service:153 - begin extract_keywords
+2025-07-01 19:54:08 - root - INFO - paper_service:163 - end extract_keywords
+2025-07-01 19:54:08 - root - INFO - paper_service:260 - begin theme summary
+2025-07-01 19:54:08 - root - ERROR - paper_service:295 - end theme111111111 summary'À¶ÔÂĞÇÇòÉÏ¸²¸Ç×ÅÃ¯ÃÜµÄÉ­ÁÖºÍ¹ãÀ«µÄº£Ñó£¬ÆäÉúÌ¬ÏµÍ³·á¸»¶àÑù¡£´«ËµÖĞ£¬À¶ÔÂĞÇÇòÉÏ¾Ó×¡×ÅÒ»ÖÖÉñÃØµÄÉúÎï¡ª¡ªÔÂ¹â¾«Áé¡£ÔÚÒ£Ô¶µÄÒøºÓÏµÖĞ£¬ÓĞÒ»¿ÅÃûÎª¡°À¶ÔÂ¡±µÄĞÇÇò¡£Ëı´©Ô½ÁËÃ¯ÃÜµÄÉ­ÁÖ£¬¿ç¹ıÁËÍÄ¼±µÄºÓÁ÷£¬ÖÕÓÚÔÚÒ»Æ¬ÉñÃØµÄ»¨º£ÖĞ·¢ÏÖÁËÔÂ¹â¾«ÁéµÄ×Ù¼£¡£\nÒ»Ìì£¬ÒÔÎ»Ãû½Ğ°¬ÀòÑÇµØÄêÇáÌ½ÏÕ¼Ò¾ö¶¨Ì¤ÉÏÑ°ÕÒÔÂ¹â¾«ÁéµÄÂÃ³Ì¡£ÕâĞ©¾«ÁéÓµÓĞÍ¸Ã÷µÄ³á°òºÍÉÁË¸µÄ¹â»·£¬ÄÜ¹»ÔÚÒ¹Íí·¢³öÈáºÍµÄ¹âÃ¢¡£°¬ÀòÑÇĞ¡ĞÄÒíÒíµØ½Ó½ü£¬ÉúÅÂ¾ªÈÅÁËÕâĞ©ÃÀÀöµÄÉúÎï¡£\n¾ÍÔÚËı¼´½«´¥Ãşµ½Ò»Ö»ÔÂ¹â¾«ÁéÊ±£¬Í»È»¼ä£¬ÖÜÎ§µÄ¾°Ïó·¢ÉúÁË±ä»¯¡£°¬ÀòÑÇÉîÎüÒ»¿ÚÆø£¬Âõ²½×ß½øÁË¹âÃÅ£¬¿ªÊ¼ÁËËıĞÂµÄÃ°ÏÕ¡£»¨º£ÖĞ³öÏÖÁËÒ»µÀÉÁË¸µÄ¹âÃÅ£¬·Â·ğÍ¨ÍùÁíÒ»¸öÊÀ½ç¡£\n'
+2025-07-01 19:54:08 - root - INFO - paper_service:206 - end  find theme11111111À¶ÔÂĞÇÇòÉÏ¸²¸Ç×ÅÃ¯ÃÜµÄÉ­ÁÖºÍ¹ãÀ«µÄº£Ñó£¬ÆäÉúÌ¬ÏµÍ³·á¸»¶àÑù¡£´«ËµÖĞ£¬À¶ÔÂĞÇÇòÉÏ¾Ó×¡×ÅÒ»ÖÖÉñÃØµÄÉúÎï¡ª¡ªÔÂ¹â¾«Áé¡£ÔÚÒ£Ô¶µÄÒøºÓÏµÖĞ£¬ÓĞÒ»¿ÅÃûÎª¡°À¶ÔÂ¡±µÄĞÇÇò¡£Ëı´©Ô½ÁËÃ¯ÃÜµÄÉ­ÁÖ£¬¿ç¹ıÁËÍÄ¼±µÄºÓÁ÷£¬ÖÕÓÚÔÚÒ»Æ¬ÉñÃØµÄ»¨º£ÖĞ·¢ÏÖÁËÔÂ¹â¾«ÁéµÄ×Ù¼£¡£
+Ò»Ìì£¬ÒÔÎ»Ãû½Ğ°¬ÀòÑÇµØÄêÇáÌ½ÏÕ¼Ò¾ö¶¨Ì¤ÉÏÑ°ÕÒÔÂ¹â¾«ÁéµÄÂÃ³Ì¡£ÕâĞ©¾«ÁéÓµÓĞÍ¸Ã÷µÄ³á°òºÍÉÁË¸µÄ¹â»·£¬ÄÜ¹»ÔÚÒ¹Íí·¢³öÈáºÍµÄ¹âÃ¢¡£°¬ÀòÑÇĞ¡ĞÄÒíÒíµØ½Ó½ü£¬ÉúÅÂ¾ªÈÅÁËÕâĞ©ÃÀÀöµÄÉúÎï¡£
+¾ÍÔÚËı¼´½«´¥Ãşµ½Ò»Ö»ÔÂ¹â¾«ÁéÊ±£¬Í»È»¼ä£¬ÖÜÎ§µÄ¾°Ïó·¢ÉúÁË±ä»¯¡£°¬ÀòÑÇÉîÎüÒ»¿ÚÆø£¬Âõ²½×ß½øÁË¹âÃÅ£¬¿ªÊ¼ÁËËıĞÂµÄÃ°ÏÕ¡£»¨º£ÖĞ³öÏÖÁËÒ»µÀÉÁË¸µÄ¹âÃÅ£¬·Â·ğÍ¨ÍùÁíÒ»¸öÊÀ½ç¡£
+
+2025-07-01 19:54:08 - root - INFO - paper_service:215 - end  find themeÀ¶ÔÂĞÇÇòÉÏ¸²¸Ç×ÅÃ¯ÃÜµÄÉ­ÁÖºÍ¹ãÀ«µÄº£Ñó£¬ÆäÉúÌ¬ÏµÍ³·á¸»¶àÑù¡£´«ËµÖĞ£¬À¶ÔÂĞÇÇòÉÏ¾Ó×¡×ÅÒ»ÖÖÉñÃØµÄÉúÎï¡ª¡ªÔÂ¹â¾«Áé¡£ÔÚÒ£Ô¶µÄÒøºÓÏµÖĞ£¬ÓĞÒ»¿ÅÃûÎª¡°À¶ÔÂ¡±µÄĞÇÇò¡£Ëı´©Ô½ÁËÃ¯ÃÜµÄÉ­ÁÖ£¬¿ç¹ıÁËÍÄ¼±µÄºÓÁ÷£¬ÖÕÓÚÔÚÒ»Æ¬ÉñÃØµÄ»¨º£ÖĞ·¢ÏÖÁËÔÂ¹â¾«ÁéµÄ×Ù¼£¡£
+Ò»Ìì£¬ÒÔÎ»Ãû½Ğ°¬ÀòÑÇµØÄêÇáÌ½ÏÕ¼Ò¾ö¶¨Ì¤ÉÏÑ°ÕÒÔÂ¹â¾«ÁéµÄÂÃ³Ì¡£ÕâĞ©¾«ÁéÓµÓĞÍ¸Ã÷µÄ³á°òºÍÉÁË¸µÄ¹â»·£¬ÄÜ¹»ÔÚÒ¹Íí·¢³öÈáºÍµÄ¹âÃ¢¡£°¬ÀòÑÇĞ¡ĞÄÒíÒíµØ½Ó½ü£¬ÉúÅÂ¾ªÈÅÁËÕâĞ©ÃÀÀöµÄÉúÎï¡£
+¾ÍÔÚËı¼´½«´¥Ãşµ½Ò»Ö»ÔÂ¹â¾«ÁéÊ±£¬Í»È»¼ä£¬ÖÜÎ§µÄ¾°Ïó·¢ÉúÁË±ä»¯¡£°¬ÀòÑÇÉîÎüÒ»¿ÚÆø£¬Âõ²½×ß½øÁË¹âÃÅ£¬¿ªÊ¼ÁËËıĞÂµÄÃ°ÏÕ¡£»¨º£ÖĞ³öÏÖÁËÒ»µÀÉÁË¸µÄ¹âÃÅ£¬·Â·ğÍ¨ÍùÁíÒ»¸öÊÀ½ç¡£
+
+2025-07-01 19:54:08 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:54:08] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-07-01 19:54:09 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 19:54:09 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 7 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
+2025-07-01 19:54:09 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 1, µ±Ç°Ò³¼ÇÂ¼Êı: 1
+2025-07-01 19:54:09 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-01 19:54:09 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 19, 'user_id': 7, 'paper_id': None, 'operation_type': 'Ö÷ÌâÌáÈ¡', 'operation_time': '2025-07-01 19:54:08', 'file_name': 'test2.docx'}
+2025-07-01 19:54:09 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 19:54:09] "GET /api/operations/user/7?page=1&per_page=10 HTTP/1.1" 200 -

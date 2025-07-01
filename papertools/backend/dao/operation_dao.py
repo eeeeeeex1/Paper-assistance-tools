@@ -52,17 +52,6 @@ class OperationDao:
             logger.error(f"记录操作失败: {str(e)}")
             return None, f"记录操作失败: {str(e)}"
     
-    def delete_operations_by_paper(self, paper_id):
-        """删除与论文相关的所有操作记录"""
-        try:
-            count = Operation.query.filter_by(paper_id=paper_id).delete()
-            db.session.commit()
-            return True, f"成功删除 {count} 条操作记录"
-        except Exception as e:
-            db.session.rollback()
-            logger.error(f"删除操作记录失败: {str(e)}")
-            return False, f"删除操作记录失败: {str(e)}"
-    
     def get_operation_stats(self, user_id=None, start_date=None, end_date=None):
         """获取操作统计信息"""
         query = Operation.query
@@ -95,3 +84,17 @@ class OperationDao:
             return query.paginate(page=page, per_page=per_page, error_out=False)
         except Exception as e:
             raise e  # 抛出异常，由Service层处理
+    def delete_operation(self, operation_id):
+        """删除操作记录"""
+        try:
+            operation = Operation.query.get(operation_id)
+            if operation:
+                db.session.delete(operation)
+                db.session.commit()
+                return True, None
+            else:
+                return False, "操作记录不存在"
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"删除操作记录失败: {str(e)}")
+            return False, f"删除操作记录失败: {str(e)}"

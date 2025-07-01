@@ -1,64 +1,70 @@
 <template>
   <div class="summary-container">
-    <!-- 左右布局（左侧上传，右侧预览） -->
-    <div class="summary-layout">
-      <!-- 左侧文件上传区域 -->
-      <div class="upload-section">
-        <div class="upload-area">
-          <h3>上传文件</h3>
-          <div class="upload-box" @dragover.prevent="dragover" @drop.prevent="drop">
-            <input 
-              type="file" 
-              id="fileInput" 
-              ref="fileInput" 
-              @change="handleFileUpload" 
-              accept=".txt,.doc,.docx,.pdf" 
-              style="display: none;"
-            />
-            <i class="iconfont icon-upload"></i>
-            <p>拖放文件到此处或</p>
-            <button class="upload-btn" @click="triggerFileInput">选择文件</button>
-            <p class="file-format">支持格式: .txt, .doc, .docx, .pdf</p>
+    <!-- 检查用户权限 -->
+    <div v-if="hasPermission">
+      <!-- 左右布局（左侧上传，右侧预览） -->
+      <div class="summary-layout">
+        <!-- 左侧文件上传区域 -->
+        <div class="upload-section">
+          <div class="upload-area">
+            <h3>上传文件</h3>
+            <div class="upload-box" @dragover.prevent="dragover" @drop.prevent="drop">
+              <input 
+                type="file" 
+                id="fileInput" 
+                ref="fileInput" 
+                @change="handleFileUpload" 
+                accept=".txt,.doc,.docx,.pdf" 
+                style="display: none;"
+              />
+              <i class="iconfont icon-upload"></i>
+              <p>拖放文件到此处或</p>
+              <button class="upload-btn" @click="triggerFileInput">选择文件</button>
+              <p class="file-format">支持格式: .txt, .doc, .docx, .pdf</p>
+            </div>
           </div>
-        </div>
 
-        <div class="file-info" v-if="fileContent">
-          <h4>已上传文件</h4>
-          <p><strong>文件名:</strong> {{ fileName }}</p>
-          <p><strong>大小:</strong> {{ fileSize }} KB</p>
-          <p><strong>字数:</strong> {{ wordCount }} 字</p>
-        </div>
+          <div class="file-info" v-if="fileContent">
+            <h4>已上传文件</h4>
+            <p><strong>文件名:</strong> {{ fileName }}</p>
+            <p><strong>大小:</strong> {{ fileSize }} KB</p>
+            <p><strong>字数:</strong> {{ wordCount }} 字</p>
+          </div>
 
-        <button 
-          class="summary-btn" 
-          :disabled="!fileContent || isSummarizing"
-          @click="generateSummary"
-        >
-          <span v-if="!isSummarizing"><i class="iconfont icon-summarize"></i> 主题总结</span>
-          <span v-else><i class="iconfont icon-loading"></i> 总结中...</span>
-        </button>
-      </div>
-
-      <!-- 右侧总结预览区域 -->
-      <div class="preview-section">
-        <div class="preview-header">
-          <h3>主题总结预览</h3>
           <button 
-            class="export-btn"
-            :disabled="!summaryContent"
-            @click="exportSummary"
+            class="summary-btn" 
+            :disabled="!fileContent || isSummarizing"
+            @click="generateSummary"
           >
-            <i class="iconfont icon-export"></i> 导出总结
+            <span v-if="!isSummarizing"><i class="iconfont icon-summarize"></i> 主题总结</span>
+            <span v-else><i class="iconfont icon-loading"></i> 总结中...</span>
           </button>
         </div>
-        <div class="preview-content" v-if="summaryContent">
-          <div v-html="highlightedSummary"></div>
-        </div>
-        <div class="empty-preview" v-else>
-          <i class="iconfont icon-summary"></i>
-          <p>请上传文件并点击"主题总结"按钮</p>
+
+        <!-- 右侧总结预览区域 -->
+        <div class="preview-section">
+          <div class="preview-header">
+            <h3>主题总结预览</h3>
+            <button 
+              class="export-btn"
+              :disabled="!summaryContent"
+              @click="exportSummary"
+            >
+              <i class="iconfont icon-export"></i> 导出总结
+            </button>
+          </div>
+          <div class="preview-content" v-if="summaryContent">
+            <div v-html="highlightedSummary"></div>
+          </div>
+          <div class="empty-preview" v-else>
+            <i class="iconfont icon-summary"></i>
+            <p>请上传文件并点击"主题总结"按钮</p>
+          </div>
         </div>
       </div>
+    </div>
+    <div v-else>
+      <p>您没有权限使用此功能</p>
     </div>
   </div>
 </template>
@@ -66,8 +72,15 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import * as mammoth from 'mammoth';
-import { getAuthorId } from '@/utils/auth';
 import axios from 'axios';
+import { getAuthorId } from '@/utils/auth';
+
+// 读取用户权限
+const userData = localStorage.getItem('user');
+console.log('从 localStorage 读取的 userData:', userData); // 添加调试信息
+const permission = userData ? JSON.parse(userData).permission : null;
+console.log('解析得到的权限值:', permission); // 添加调试信息
+const hasPermission = ref([3, 5, 6, 7].includes(permission));
 // 文件处理相关
 const fileInput = ref<HTMLInputElement | null>(null);
 const fileContent = ref<string>('');
@@ -76,13 +89,14 @@ const fileSize = ref<number>(0);
 const isSummarizing = ref<boolean>(false);
 const summaryContent = ref<string>('');
 const errorMessage = ref<string>('');
+
 // 统计信息
 const wordCount = computed(() => {
   return fileContent.value ? fileContent.value.split(/\s+/).length : 0;
 });
+
 // 从后端返回结果中提取的关键词（用于高亮）
 const extractedKeywords = ref<string[]>([]);
-
 
 // 高亮显示关键词
 const highlightedSummary = computed(() => {
@@ -188,6 +202,9 @@ const exportSummary = () => {
 
 // 调用后端API生成主题总结
 const generateSummary = async () => {
+  if (!hasPermission.value) {
+    return;
+  }
   const file = fileInput.value?.files[0];
   if (!file) {
     errorMessage.value = '请先上传文件';
@@ -202,6 +219,8 @@ const generateSummary = async () => {
     // 注意：当前实现是将文件内容转为文本上传，更优的方式是直接上传文件对象
     const formData = new FormData();
     formData.append('file', file);
+    const authorId = getAuthorId();
+    formData.append('user_id', authorId);
     
     // 调用后端API
     const response = await axios.post(`http://localhost:5000/api/paper/theme`, formData, {
@@ -227,7 +246,6 @@ const generateSummary = async () => {
   }
 };
 
-
 // 根据后端返回数据生成HTML摘要
 const generateSummaryHTML = (data: any): string => {
   if (!data) return '';
@@ -242,7 +260,7 @@ const generateSummaryHTML = (data: any): string => {
       
       <div class="summary-meta">
         <p><strong>文档标题:</strong> ${title || '未提取到标题'}</p>
-        <p><strong>关键词:</strong> ${keywords.join('，')}</p>
+        <p><strong>关键词:</strong> ${keywords.join(',')}</p>
       </div>
       
       <div class="summary-section">

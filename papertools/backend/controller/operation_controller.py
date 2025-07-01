@@ -201,3 +201,28 @@ def log_operation():
 def get_operation_stats():
     """获取操作统计信息"""
     return operation_service.get_operation_stats()
+
+@operation_bp.route('/<int:operation_id>', methods=['DELETE'])
+@swag_from({
+    'tags': ['日志管理'],
+    'description': '删除操作记录',
+    'parameters': [
+        {'name': 'operation_id', 'in': 'path', 'type': 'integer', 'required': True, 'description': '操作记录ID'}
+    ],
+    'responses': {
+        200: {
+            'description': '操作记录删除成功',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'code': {'type': 'integer', 'example': 200},
+                    'message': {'type': 'string', 'example': '操作记录删除成功'}
+                }
+            }
+        },
+        400: {'description': '删除操作记录失败'}
+    }
+})
+def delete_operation(operation_id):
+    """删除操作记录"""
+    return operation_service.delete_operation(operation_id)

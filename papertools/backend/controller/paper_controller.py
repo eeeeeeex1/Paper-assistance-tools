@@ -55,6 +55,7 @@ def get_all_papers():
         'data': {'papers': []}
     })
 
+
 @paper_bp.route('/upload', methods=['POST'])
 @swag_from({
     'tags': ['论文管理'],
@@ -219,6 +220,7 @@ def get_user_papers(user_id):
     per_page = request.args.get('per_page', 10, type=int)
     return paper_service.get_user_papers(user_id, page, per_page)
 
+
 @paper_bp.route('/spelling', methods=['POST'])
 @swag_from({
     'tags': ['论文管理'],
@@ -266,9 +268,11 @@ def check_spelling():
             'code': 400,
             'message': '文件名为空'
         }), 400
+    #获取查询参数
+    user_id=request.form.get('user_id',type=int)
     
     # 调用服务层方法
-    success, result = paper_service.check_spelling(file)
+    success, result = paper_service.check_spelling(file,user_id)
     logger.info("end check spelling")
     if success:
         return jsonify({
@@ -281,6 +285,7 @@ def check_spelling():
             'code': 400,
             'message': result
         }), 400
+
 
 
 @paper_bp.route('/plagiarism', methods=['POST'])
@@ -327,10 +332,9 @@ def check_spelling():
 })
 def check_plagiarism():
     logger.info("begin check plagiarism with file upload")
-   
+
     # 获取上传的文件
     file = request.files.get('file')
-    userid=request.form.get('userid',type=int)
     if not file:
         return jsonify({
             'code': 400,
@@ -340,10 +344,11 @@ def check_plagiarism():
     
     # 获取查询参数
     num_articles = request.form.get('num_articles', 5, type=int)
+    user_id=request.form.get('user_id',type=int)
     try:
         # 调用服务层方法
         logger.info("begin controller check plagiarism")
-        result = paper_service.check_plagiarism(file, num_articles,userid)
+        result = paper_service.check_plagiarism(file, num_articles,user_id)
         logger.info("end controller check plagiarism with file upload")
         return jsonify(result), 200
     except Exception as e:
@@ -356,10 +361,8 @@ def check_plagiarism():
 
 @paper_bp.route('/theme', methods=['POST'])
 def extract_theme():
-    """论文主题提取（接收文件上传）"""
     logger.info("begin 111111 extract theme")
     
-    # 从请求中获取文件
     if 'file' not in request.files:
         return jsonify({
             'code': 400,
@@ -372,7 +375,19 @@ def extract_theme():
             'code': 400,
             'message': '文件名为空'
         }), 400
-    
-    # 调用服务层方法
-    result = paper_service.extract_theme(file)
-    return jsonify(result), result.get('code', 500)
+    #获取查询参数
+    user_id=request.form.get('user_id',type=int)
+    try:
+        # 调用服务层方法
+        result = paper_service.extract_theme(file,user_id)
+        return jsonify(result), result.get('code', 500)
+    except Exception as e:
+        # 记录详细的错误堆栈信息
+        import traceback
+        logger.error(f"调用服务层方法时发生错误: {str(e)}")
+        logger.error(traceback.format_exc())
+        return jsonify({
+            'code': 500,
+            'message': f'服务器内部错误: {str(e)}'
+        }), 500
+#-----------------------------------------------------------------------------------

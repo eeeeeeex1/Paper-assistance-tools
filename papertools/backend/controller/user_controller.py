@@ -264,7 +264,8 @@ def login():
             'user': {
                 'id': user['id'],
                 'username': user['username'],
-                'email': user['email']
+                'email': user['email'],
+                'permission': user['permission']
             }
         }), 200
         
@@ -492,3 +493,216 @@ def get_user_home_data():
         'message': '获取成功',
         'data': data
     }), 200    
+
+#------------------------------------------------------
+    
+
+@user_bp.route('/getall', methods=['GET'])
+def get_all_users():
+    """
+    获取所有用户列表的API接口
+    ---
+    GET /api/users
+    参数:
+      - name: page
+        in: query
+        type: integer
+        default: 1
+        description: 页码
+      - name: per_page
+        in: query
+        type: integer
+        default: 10
+        description: 每页数量
+      - name: username
+        in: query
+        type: string
+        description: 按用户名过滤
+      - name: include_sensitive
+        in: query
+        type: boolean
+        default: false
+        description: 是否包含敏感信息
+    responses:
+      200:
+        description: 成功获取用户列表
+      400:
+        description: 参数错误
+      401:
+        description: 未授权（需要管理员权限）
+      500:
+        description: 服务器内部错误
+    """
+    try:
+        logger.info('get user number')
+        # 1. 从请求中获取参数
+        page = int(request.args.get('page', 1))
+        per_page = int(request.args.get('per_page', 10))
+        filter_username = request.args.get('username', None)
+        include_sensitive = request.args.get('include_sensitive', 'false').lower() == 'true'
+        
+        # 2. 参数校验
+        if page < 1 or per_page < 1 or per_page > 100:
+            raise ValueError("分页参数无效，page≥1，per_page在1-100之间")
+        logger.info('use user service')
+        # 3. 调用服务层获取用户列表
+        users_data = user_service.get_all_users(
+            page=page,
+            per_page=per_page,
+            filter_username=filter_username,
+            include_sensitive=include_sensitive
+        )
+        
+        # 4. 构造成功响应
+        response = {
+            'status': 'success',
+            'message': '用户列表获取成功',
+            'data': users_data
+        }
+        return jsonify(response), 200
+        
+    except ValueError as ve:
+        # 处理参数验证错误
+        logger.warning(f"参数错误: {str(ve)}")
+        return jsonify({
+            'status': 'error',
+            'message': str(ve)
+        }), 400
+        
+    except Exception as e:
+        # 处理其他异常
+        logger.error(f"获取用户列表失败: {str(e)}", exc_info=True)
+        return jsonify({
+            'status': 'error',
+            'message': f'服务器内部错误: {str(e)}'
+        }), 500
+    #----------------------------------------------------------------------------------
+# 新增权限管理接口
+@user_bp.route('/<int:user_id>/permissions', methods=['PUT'])
+@swag_from({
+    'tags': ['用户管理'],
+    'summary': '修改用户权限',
+    'description': '修改指定用户的权限，提供三个选项：论文相似度功能，错字纠正功能，主题总结功能',
+    'security': [{'Bearer': []}],
+    'parameters': [
+        {
+            'name': 'user_id',
+            'in': 'path',
+            'type': 'integer',
+            'required': True,
+            'description': '要修改权限的用户ID',
+            'example': 1001
+        },
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'checkPlagiarism': {
+                        'type': 'boolean',
+                        'description': '是否启用论文相似度功能',
+                        'example': True
+                    },
+                    'checkTypos': {
+                        'type': 'boolean',
+                        'description': '是否启用错字纠正功能',
+                        'example': True
+                    },
+                    'extractTheme': {
+                        'type': 'boolean',
+                        'description': '是否启用主题总结功能',
+                        'example': True
+                    }
+                }
+            }
+        },
+        {
+            'name': 'Authorization',
+            'in': 'header',
+            'type': 'string',
+            'required': True,
+            'description': 'JWT Token(格式:Bearer {token})',
+            'example': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': '用户权限修改成功',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'success': {'type': 'boolean', 'example': True},
+                    'message': {'type': 'string', 'example': '用户权限已成功修改'}
+                }
+            }
+        },
+        401: {
+            'description': '未授权',
+        },
+        403: {'description': '权限不足'},
+        404: {
+            'description': '用户不存在',
+        },
+        500: {'description': '服务器内部错误'}
+    }
+})
+def update_user_permissions(user_id):
+    try:
+        # 验证用户ID是否合法
+        if not isinstance(user_id, int) or user_id <= 0:
+            return jsonify({
+                'message': '无效的用户ID',
+                'error_code': 400
+            }), 400
+
+        data = request.get_json()
+        if not data:
+            return jsonify({
+                'message': '请求数据为空',
+                'error_code': 400
+            }), 400
+
+        checkPlagiarism = data.get('checkPlagiarism', False)
+        checkTypos = data.get('checkTypos', False)
+        extractTheme = data.get('extractTheme', False)
+
+        # 根据新的对应关系计算权限值
+        if not checkPlagiarism and not checkTypos and not extractTheme:
+            permission = 0
+        elif checkPlagiarism and not checkTypos and not extractTheme:
+            permission = 1
+        elif not checkPlagiarism and checkTypos and not extractTheme:
+            permission = 2
+        elif not checkPlagiarism and not checkTypos and extractTheme:
+            permission = 3
+        elif checkPlagiarism and checkTypos and not extractTheme:
+            permission = 4
+        elif checkPlagiarism and not checkTypos and extractTheme:
+            permission = 5
+        elif not checkPlagiarism and checkTypos and extractTheme:
+            permission = 6
+        elif checkPlagiarism and checkTypos and extractTheme:
+            permission = 7
+
+        # 调用服务层更新用户权限
+        result = user_service.update_user_permissions(user_id, permission)
+
+        if result:
+            return jsonify({
+                'success': True,
+                'message': '用户权限已成功修改'
+            }), 200
+        else:
+            return jsonify({
+                'message': '用户不存在',
+                'error_code': 404
+            }), 404
+
+    except Exception as e:
+        current_app.logger.error(f'修改用户权限错误: {str(e)}')
+        return jsonify({
+            'message': '修改用户权限失败，请稍后再试',
+            'error_code': 500
+        }), 500

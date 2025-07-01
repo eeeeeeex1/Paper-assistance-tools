@@ -2,14 +2,18 @@
 from backend.config.database import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import func  # 导入 func 对象
+from sqlalchemy import func, CheckConstraint  # 导入 CheckConstraint
 
 from backend.models.paper import Paper
 from backend.models.operation import Operation
+permission = db.Column(db.Integer, default=7)  
 
 class User(db.Model):
     __tablename__ = 'users'
-    __table_args__ = {'extend_existing': True}  # 支持表结构扩展
+    __table_args__ = (
+        CheckConstraint('permission >= 0 AND permission <= 7', name='permission_check'),
+        {'extend_existing': True}
+    )
     
     # 基本字段定义
     id = db.Column(
@@ -39,6 +43,12 @@ class User(db.Model):
         server_default=func.now(),
         onupdate=func.now()
     )
+    # 新增权限字段
+    permission = db.Column(
+        db.SmallInteger,
+        nullable=False,
+        default=0
+    )
 
     # 密码相关方法
     def set_password(self, password):
@@ -60,7 +70,8 @@ class User(db.Model):
             'username': self.username,
             'email': self.email,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-            'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+            'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'permission': self.permission
         }
         if include_sensitive:
             data['created_at_utc'] = self.created_at

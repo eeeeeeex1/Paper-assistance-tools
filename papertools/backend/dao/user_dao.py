@@ -7,6 +7,13 @@ from datetime import datetime, timedelta,timezone
 import logging
 import bcrypt
 from config.logging_config import logger
+from typing import Optional
+from typing import Dict, Any
+
+#------------------------------------------
+from typing import List, Dict, Any,Optional
+from sqlalchemy.exc import SQLAlchemyError
+#-----------------------------------------
 # 初始化日志记录器
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
@@ -29,21 +36,14 @@ class UserDao:
         # 检查用户名是否已存在
         logger.info(f"make new user: {username}")
 
-        #if self.get_user_by_username(username):
-        #   return None, "用户名已存在"
-
-        #logger.info(f" user has exist")
-        # 密码加密
-        #hashed_password = self._hash_password(password)
-
-        logger.info(f" user 1")
-        # 创建用户对象
+        # 创建用户对象，设置 permission 为 7
         new_user = User(
             username=username,
             password_hash=password,
             email=email,
             created_at=datetime.now(timezone.utc),
-            updated_at=datetime.now(timezone.utc)
+            updated_at=datetime.now(timezone.utc),
+            permission=7  # 设置默认 permission 为 7
         )
         db.session.add(new_user)
         db.session.commit()
@@ -51,15 +51,8 @@ class UserDao:
         created_user = User.query.filter_by(username=username).first()
         if created_user:
             # 记录用户创建成功及详细信息（排除敏感字段）
-            logger.info(f"用户创建成功: ID={created_user.id}, 用户名={created_user.username}, 邮箱={created_user.email}")
+            logger.info(f"用户创建成功: ID={created_user.id}, 用户名={created_user.username}, 邮箱={created_user.email}, 权限={created_user.permission}")
             return created_user, None
-        #else:
-        #    logger.error(f"用户创建后查询失败: {username}")
-         #   return None, "用户创建失败，数据库查询未找到"
-          #  logger.info(f" user make")
-            # 保存到数据库
-        
-           # logger.info(f" user 3")
         return new_user, None
 
     def verify_password(self, plain_password: str, stored_password: str) -> bool:
@@ -114,4 +107,42 @@ class UserDao:
     def hash_password(self, plain_password: str) -> str:
         return plain_password  # 直接返回明文
     
+    #-------------------------------------------------------------------------------
+    # dao/user_dao.py
+    def get_all_user(
+        self,
+        page: int = 1,
+        per_page: int = 10,
+        filter_username: Optional[str] = None,
+        include_sensitive: bool = False
+    ) -> Dict[str, Any]:
+        """
+        获取分页用户数据
+        :param include_sensitive: 是否包含敏感信息
+        :param page: 页码
+        :param per_page: 每页数量
+        :param filter_username: 按用户名过滤
+        :return: 包含分页信息的字典
+        """
+        try:
+            logger.info(f"Dao get all user")
+            query = User.query
+            
+            if filter_username:
+                query = query.filter(User.username.like(f"%{filter_username}%"))
+            
+            paginated_users = query.paginate(page=page, per_page=per_page, error_out=False)
+            logger.info('Dao get all user success')
+            return {
+                'items': [user.to_dict(include_sensitive) for user in paginated_users.items],
+                'total': paginated_users.total,
+                'pages': paginated_users.pages,
+                'current_page': page,
+                'per_page': per_page
+            }
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            raise e
+#--------------------------------------------------------------------
+
     

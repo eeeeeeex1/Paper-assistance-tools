@@ -1,202 +1,208 @@
 <template>
   <div class="similarity-check-page">
-    <div class="page-header">
-      <h2>论文相似度查询</h2>
-      <p>上传您的论文并与现有文献进行对比</p>
-    </div>
+    <!-- 根据权限显示不同内容 -->
+    <div v-if="hasPermission">
+      <div class="page-header">
+        <h2>论文相似度查询</h2>
+        <p>上传您的论文并与现有文献进行对比</p>
+      </div>
 
-    <div class="function-container">
-      <!-- 上传文件模块 -->
-      <div class="upload-section">
-        <h3>上传文件</h3>
-        <div 
-          class="upload-area"
-          @dragover.prevent="dragOver = true"
-          @dragleave="dragOver = false"
-          @drop.prevent="handleFileDrop"
-          :class="{ 'drag-over': dragOver }"
-        >
-          <i class="iconfont icon-upload"></i>
-          <p>拖拽文件到此处或</p>
-          <input 
-            type="file" 
-            id="fileInput"
-            @change="handleFileSelect"
-            accept=".doc,.docx,.pdf,.txt"
-            hidden
+      <div class="function-container">
+        <!-- 上传文件模块 -->
+        <div class="upload-section">
+          <h3>上传文件</h3>
+          <div 
+            class="upload-area"
+            @dragover.prevent="dragOver = true"
+            @dragleave="dragOver = false"
+            @drop.prevent="handleFileDrop"
+            :class="{ 'drag-over': dragOver }"
           >
-          <label for="fileInput" class="browse-btn">浏览文件</label>
-
-          <!-- 新增：上传进度条 -->
-          <div v-if="isUploading" class="upload-progress">
-            <div class="progress-bar" :style="{ width: uploadProgress + '%' }">
-              {{ uploadProgress }}%
-            </div>
-          </div>
-        
-        <!-- 新增：错误提示 -->
-        <div v-if="uploadError" class="upload-error">
-          <i class="iconfont icon-error"></i>
-          <span>{{ uploadError }}</span>
-        </div>
-          <p class="file-info" v-if="uploadedFile">
-            <i class="iconfont icon-file"></i>
-            {{ uploadedFile.name }} ({{ formatFileSize(uploadedFile.size) }})
-            <button @click.stop="removeFile" class="remove-btn">
-              <i class="iconfont icon-close"></i>
-            </button>
-          </p>
-        </div>
-
-        <!-- 文件预览区域 -->
-        <div v-if="fileContent" class="file-preview">
-          <h4>文件预览</h4>
-          <div class="preview-content">
-            <pre v-if="isTextFile">{{ fileContent }}</pre>
-            <iframe 
-              v-else-if="isPdfFile"
-              :src="pdfPreviewUrl"
-              width="100%"
-              height="500px"
-            ></iframe>
-            <p v-else>不支持预览此文件类型</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 对比文件模块 -->
-      <div class="compare-section">
-        <h3>对比文件</h3>
-        <div class="compare-options">
-          <div class="option-item">
+            <i class="iconfont icon-upload"></i>
+            <p>拖拽文件到此处或</p>
             <input 
-              type="checkbox" 
-              id="compareWeb"
-              v-model="compareOptions.webSearch"
+              type="file" 
+              id="fileInput"
+              @change="handleFileSelect"
+              accept=".doc,.docx,.pdf,.txt"
+              hidden
             >
-            <label for="compareWeb">网络文献对比</label>
-          </div>
-          <div class="option-item">
-            <input 
-              type="checkbox" 
-              id="compareDatabase"
-              v-model="compareOptions.databaseSearch"
-            >
-            <label for="compareDatabase">本地数据库对比</label>
-          </div>
-          <div class="option-item">
-            <input 
-              type="checkbox" 
-              id="comparePrevious"
-              v-model="compareOptions.previousWorks"
-            >
-            <label for="comparePrevious">历史作品对比</label>
-          </div>
-        </div>
-        <div class="api-settings" v-if="compareOptions.webSearch">
-          <h4>API设置</h4>
-          <div class="form-group">
-            <label>爬取深度</label>
-            <select v-model="apiSettings.depth">
-              <option value="1">浅层 (快速)</option>
-              <option value="2">中等</option>
-              <option value="3">深层 (全面)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>结果数量</label>
-            <input 
-              type="number" 
-              v-model.number="apiSettings.resultCount"
-              min="1"
-              max="20"
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+            <label for="fileInput" class="browse-btn">浏览文件</label>
 
-    <!-- 开始对比按钮 -->
-    <div class="action-section">
-      <button 
-        class="compare-btn"
-        :class="{ disabled: !canCompare }"
-        @click="startComparison"
-        :disabled="!canCompare"
-      >
-        <i class="iconfont icon-compare"></i>
-        开始对比
-      </button>
-    </div>
-
-    <!-- 对比结果 -->
-    <div class="result-section" :class="{ active: showResults }">
-      <div class="result-header">
-        <h3>对比结果</h3>
-        <div class="result-meta">
-          <span>检测时间: {{ new Date().toLocaleString() }}</span>
-          <button 
-            class="export-btn"
-            :disabled="!resultsReady || isExporting"
-            @click="handleExportReport"
-          >
-            <i class="iconfont" :class="exportBtnIcon"></i>
-            {{ exportBtnText }}
-          </button>
-        </div>
-      </div>
-      
-      <div class="result-content">
-        <div v-if="!resultsReady" class="empty-result">
-          <i class="iconfont icon-file-search"></i>
-          <p>请先上传文件并点击"开始对比"</p>
-        </div>
-        
-        <div v-else class="result-details">
-          <!-- 导出状态提示 -->
-          <div v-if="exportStatus" class="export-status" :class="exportStatus.type">
-            <i class="iconfont" :class="exportStatus.icon"></i>
-            <p>{{ exportStatus.message }}</p>
-            <a 
-              v-if="exportStatus.downloadUrl" 
-              :href="exportStatus.downloadUrl"
-              class="download-link"
-              download="论文相似度报告.pdf"
-            >
-              <i class="iconfont icon-download"></i>
-              下载报告
-            </a>
-          </div>
-
-          <!-- 对比结果内容 -->
-          <div class="similarity-score">
-            <div class="score-card">
-              <h4>总体相似度</h4>
-              <div class="score-value">{{ overallSimilarity }}%</div>
-              <div class="score-progress">
-                <div 
-                  class="progress-bar"
-                  :style="{ width: overallSimilarity + '%' }"
-                ></div>
+            <!-- 新增：上传进度条 -->
+            <div v-if="isUploading" class="upload-progress">
+              <div class="progress-bar" :style="{ width: uploadProgress + '%' }">
+                {{ uploadProgress }}%
               </div>
             </div>
+          
+            <!-- 新增：错误提示 -->
+            <div v-if="uploadError" class="upload-error">
+              <i class="iconfont icon-error"></i>
+              <span>{{ uploadError }}</span>
+            </div>
+            <p class="file-info" v-if="uploadedFile">
+              <i class="iconfont icon-file"></i>
+              {{ uploadedFile.name }} ({{ formatFileSize(uploadedFile.size) }})
+              <button @click.stop="removeFile" class="remove-btn">
+                <i class="iconfont icon-close"></i>
+              </button>
+            </p>
+          </div>
+
+          <!-- 文件预览区域 -->
+          <div v-if="fileContent" class="file-preview">
+            <h4>文件预览</h4>
+            <div class="preview-content">
+              <pre v-if="isTextFile">{{ fileContent }}</pre>
+              <iframe 
+                v-else-if="isPdfFile"
+                :src="pdfPreviewUrl"
+                width="100%"
+                height="500px"
+              ></iframe>
+              <p v-else>不支持预览此文件类型</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 对比文件模块 -->
+        <div class="compare-section">
+          <h3>对比文件</h3>
+          <div class="compare-options">
+            <div class="option-item">
+              <input 
+                type="checkbox" 
+                id="compareWeb"
+                v-model="compareOptions.webSearch"
+              >
+              <label for="compareWeb">网络文献对比</label>
+            </div>
+            <div class="option-item">
+              <input 
+                type="checkbox" 
+                id="compareDatabase"
+                v-model="compareOptions.databaseSearch"
+              >
+              <label for="compareDatabase">本地数据库对比</label>
+            </div>
+            <div class="option-item">
+              <input 
+                type="checkbox" 
+                id="comparePrevious"
+                v-model="compareOptions.previousWorks"
+              >
+              <label for="comparePrevious">历史作品对比</label>
+            </div>
+          </div>
+          <div class="api-settings" v-if="compareOptions.webSearch">
+            <h4>API设置</h4>
+            <div class="form-group">
+              <label>爬取深度</label>
+              <select v-model="apiSettings.depth">
+                <option value="1">浅层 (快速)</option>
+                <option value="2">中等</option>
+                <option value="3">深层 (全面)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>结果数量</label>
+              <input 
+                type="number" 
+                v-model.number="apiSettings.resultCount"
+                min="1"
+                max="20"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 开始对比按钮 -->
+      <div class="action-section">
+        <button 
+          class="compare-btn"
+          :class="{ disabled: !canCompare }"
+          @click="startComparison"
+          :disabled="!canCompare"
+        >
+          <i class="iconfont icon-compare"></i>
+          开始对比
+        </button>
+      </div>
+
+      <!-- 对比结果 -->
+      <div class="result-section" :class="{ active: showResults }">
+        <div class="result-header">
+          <h3>对比结果</h3>
+          <div class="result-meta">
+            <span>检测时间: {{ new Date().toLocaleString() }}</span>
+            <button 
+              class="export-btn"
+              :disabled="!resultsReady || isExporting"
+              @click="handleExportReport"
+            >
+              <i class="iconfont" :class="exportBtnIcon"></i>
+              {{ exportBtnText }}
+            </button>
+          </div>
+        </div>
+        
+        <div class="result-content">
+          <div v-if="!resultsReady" class="empty-result">
+            <i class="iconfont icon-file-search"></i>
+            <p>请先上传文件并点击"开始对比"</p>
           </div>
           
-          <div class="sources-list">
-            <h4>相似来源</h4>
-            <div class="source-item" v-for="(source, index) in sources" :key="index">
-              <div class="source-header">
-                <span class="source-title">{{ source.title }}</span>
-                <span class="source-similarity">{{ source.similarity }}%</span>
+          <div v-else class="result-details">
+            <!-- 导出状态提示 -->
+            <div v-if="exportStatus" class="export-status" :class="exportStatus.type">
+              <i class="iconfont" :class="exportStatus.icon"></i>
+              <p>{{ exportStatus.message }}</p>
+              <a 
+                v-if="exportStatus.downloadUrl" 
+                :href="exportStatus.downloadUrl"
+                class="download-link"
+                download="论文相似度报告.pdf"
+              >
+                <i class="iconfont icon-download"></i>
+                下载报告
+              </a>
+            </div>
+
+            <!-- 对比结果内容 -->
+            <div class="similarity-score">
+              <div class="score-card">
+                <h4>总体相似度</h4>
+                <div class="score-value">{{ overallSimilarity }}%</div>
+                <div class="score-progress">
+                  <div 
+                    class="progress-bar"
+                    :style="{ width: overallSimilarity + '%' }"
+                  ></div>
+                </div>
               </div>
-              <div class="source-url">{{ source.url }}</div>
-              <div class="source-excerpt">
-                {{ source.excerpt }}
+            </div>
+            
+            <div class="sources-list">
+              <h4>相似来源</h4>
+              <div class="source-item" v-for="(source, index) in sources" :key="index">
+                <div class="source-header">
+                  <span class="source-title">{{ source.title }}</span>
+                  <span class="source-similarity">{{ source.similarity }}%</span>
+                </div>
+                <div class="source-url">{{ source.url }}</div>
+                <div class="source-excerpt">
+                  {{ source.excerpt }}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div v-else class="no-permission">
+      <p>您没有权限使用此功能</p>
     </div>
   </div>
 </template>
@@ -207,9 +213,6 @@ import { ElMessage } from 'element-plus';
 import { getAuthorId } from '@/utils/auth'; 
 import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios';
-
-// 新增：操作日志相关
-const operationLogStatus = ref('');
 
 const router = useRouter();
 const route = useRoute();
@@ -254,6 +257,13 @@ const exportStatus = ref<{
   downloadUrl?: string;
 } | null>(null);
 
+// 获取用户权限
+const userPermission = ref<number | null>(null);
+// 判断用户是否有权限
+const hasPermission = computed(() => {
+  return [1, 4, 5, 7].includes(userPermission.value || 0);
+});
+
 // 计算属性
 const canCompare = computed(() => {
   return uploadedFile.value !== null && (
@@ -269,6 +279,15 @@ const exportBtnText = computed(() => {
 
 const exportBtnIcon = computed(() => {
   return isExporting.value ? 'icon-loading spin' : 'icon-export';
+});
+
+// 在页面加载时获取用户权限
+onMounted(() => {
+  const userInfo = localStorage.getItem('user');
+  if (userInfo) {
+    const { permission } = JSON.parse(userInfo);
+    userPermission.value = permission;
+  }
 });
 
 // 文件上传与查重核心函数
@@ -288,12 +307,12 @@ const uploadAndCheckPlagiarism = async (file: File) => {
   formData.append('file', file);
   // 附加API设置参数（可选）
   formData.append('num_articles', apiSettings.value.resultCount.toString());
-  formData.append('userid', authorId)
+  formData.append('user_id', authorId);
   try {
     console.log('发送查重请求到API...');
     isUploading.value = true;
     uploadProgress.value = 0;
-
+    
     // 注意：根据实际后端API调整路径
     const response = await axios.post('http://localhost:5000/api/paper/plagiarism', formData, {
       onUploadProgress: (progressEvent) => {
@@ -301,12 +320,11 @@ const uploadAndCheckPlagiarism = async (file: File) => {
         uploadProgress.value = percentCompleted;
       }
     });
-
-
+    
     console.log('查重成功:', response.data);
     isUploading.value = false;
     return response.data;
-
+    
   } catch (err: any) {
     console.error('查重失败详情:', {
       message: err.message,
@@ -328,6 +346,7 @@ const uploadAndCheckPlagiarism = async (file: File) => {
     return null;
   }
 };
+
 // 文件处理方法
 const handleFileDrop = async (e: DragEvent) => {
   dragOver.value = false;
@@ -935,5 +954,12 @@ h3, h4 {
     width: 100%;
     justify-content: center;
   }
+}
+
+.no-permission {
+  text-align: center;
+  color: red;
+  font-size: 18px;
+  margin-top: 50px;
 }
 </style>

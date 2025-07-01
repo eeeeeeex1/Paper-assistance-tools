@@ -64,7 +64,7 @@ class Config:
 # 可扩展不同环境的配置类，比如开发环境
 class DevelopmentConfig(Config):
     DEBUG = True  # 开发环境开启调试模式
-    QLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost:3306/paper_checker'
+    QLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost:3306/paper_system'
     JWT_SECRET_KEY = 'f50ce100db7f65247ee79cd3fa6f5e830b0298a435e646c6140fe9f33693fe3b'
     JWT_ALGORITHM = 'HS256'
     JWT_EXPIRE_HOURS = 24

@@ -33,41 +33,24 @@
           <thead>
             <tr>
               <th>序号</th>
+              <th>用户 ID</th> <!-- 新增列 -->
               <th>操作时间</th>
               <th>文档名称</th>
               <th>具体操作</th>
-              <th>操作后文件</th>
-              <th>操作前文件</th>
               <th>操作</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(record, index) in filteredRecords" :key="record.id">
-              <td>{{ index + 1 }}</td>
+            <tr v-for="record in filteredRecords" :key="record.id">
+              <!-- 直接显示id作为序号 -->
+              <td>{{ record.id }}</td>
+              <td>{{ record.userId }}</td> <!-- 显示用户 ID -->
               <td>{{ formatDate(record.operationTime) }}</td>
               <td>{{ record.documentName }}</td>
               <td>
                 <span :class="`operation-tag ${record.operationType}`">
                   {{ getOperationName(record.operationType) }}
                 </span>
-              </td>
-              <td>
-                <button 
-                  class="download-btn"
-                  @click="downloadFile(record.afterFileUrl, record.documentName)"
-                  :disabled="!record.afterFileUrl"
-                >
-                  <i class="iconfont icon-download"></i> 下载
-                </button>
-              </td>
-              <td>
-                <button 
-                  class="download-btn"
-                  @click="downloadFile(record.beforeFileUrl, record.documentName)"
-                  :disabled="!record.beforeFileUrl"
-                >
-                  <i class="iconfont icon-download"></i> 下载
-                </button>
               </td>
               <td>
                 <button 
@@ -116,13 +99,14 @@ import { getAuthorId } from '@/utils/auth';
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 
-// 模拟API获取操作记录*********************************************************************
+// 模拟API获取操作记录
 const operationTypes = {
   similarity: '论文相似度查询',
   spellcheck: '论文错字纠正',
   summary: '论文主题总结'
 };
 
+// 设置默认值为空数组
 const records = ref<any[]>([]);
 const searchQuery = ref('');
 const dateRange = ref<[Date, Date] | null>(null);
@@ -132,6 +116,7 @@ const historyRecords = ref([]);
 const totalRecords = ref(0);
 const isLoadingHistory = ref(false);
 const totalPages = ref(1)
+
 const fetchHistoryRecords = async (userId, page = 1, perPage = 20) => {
   try {
     // 显示加载状态
@@ -150,8 +135,20 @@ const fetchHistoryRecords = async (userId, page = 1, perPage = 20) => {
     
     // 处理成功响应
     if (response.data.code === 200) {
+      // 转换后端返回的数据格式以适配前端表格
+      const adaptedRecords = response.data.data.operations.map((record, index) => ({
+        id: record.id,
+        userId: record.user_id, // 新增用户 ID
+        operationTime: record.operation_time,
+        documentName: record.file_name,
+        operationType: record.operation_type,
+      }));
+
+      // 按照id降序排列
+      adaptedRecords.sort((a, b) => b.id - a.id);
+
       // 更新操作记录数据
-      historyRecords.value = response.data.data.operations;
+      historyRecords.value = adaptedRecords;
       totalRecords.value = response.data.data.total;
       currentPage.value = response.data.data.current_page;
       totalPages.value = response.data.data.pages;
@@ -173,7 +170,6 @@ const fetchHistoryRecords = async (userId, page = 1, perPage = 20) => {
 };
 
 // 初始化加载数据
-// 初始化加载数据
 onMounted(async () => {
   const userId = getAuthorId(); // 从auth工具获取用户ID
   if (!userId) {
@@ -183,14 +179,20 @@ onMounted(async () => {
   
   const result = await fetchHistoryRecords(userId, currentPage.value, pageSize);
   if (result) {
-    records.value = result.operations;
+    records.value = result.operations.map((record, index) => ({
+      id: record.id,
+      userId: record.user_id, // 新增用户 ID
+      operationTime: record.operation_time,
+      documentName: record.file_name,
+      operationType: record.operation_type,
+    }));
+    // 按照id降序排列
+    records.value.sort((a, b) => b.id - a.id);
     totalPages.value = result.pages;
     totalRecords.value = result.total;
   }
 });
 
-
-//*----------------------------------------------------------
 // 格式化日期
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -235,25 +237,34 @@ const filteredRecords = computed(() => {
   return result.slice(start, start + pageSize);
 });
 
-// 总页数
-
-
-// 下载文件
-const downloadFile = (url: string, filename: string) => {
-  if (!url) return;
-  
-  // 实际项目中这里应该是文件下载逻辑
-  console.log(`下载文件: ${filename} (${url})`);
-  alert(`开始下载: ${filename}`);
-};
-
 // 删除记录
-const confirmDelete = (id: string) => {
+const confirmDelete = async (id: number) => {
   if (confirm('确定要删除这条记录吗？')) {
-    records.value = records.value.filter(record => record.id !== id);
+    try {
+      // 发送删除请求到后端
+      const response = await axios.delete(`http://localhost:5000/api/operations/${id}`);
+      if (response.data.code === 200) {
+        ElMessage.success('操作记录删除成功');
+        // 从前端数据中移除已删除的记录
+        records.value = records.value.filter(record => record.id !== id);
+        // 重新加载操作记录
+        const userId = getAuthorId();
+        if (userId) {
+          await fetchHistoryRecords(userId, currentPage.value, pageSize);
+        }
+      } else {
+        ElMessage.error(response.data.message || '删除操作记录失败');
+      }
+    } catch (error) {
+      console.error('删除操作记录失败:', error);
+      ElMessage.error('网络错误，请稍后重试');
+    }
   }
 };
 </script>
+<style scoped>
+/* 样式部分保持不变 */
+</style>
 
 <style scoped>
 .history-container {
@@ -369,7 +380,7 @@ th {
   color: #86198f;
 }
 
-.download-btn, .delete-btn {
+.delete-btn {
   padding: 0.3rem 0.6rem;
   border: none;
   border-radius: 4px;
@@ -378,23 +389,6 @@ th {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-}
-
-.download-btn {
-  background-color: #e0f2fe;
-  color: #0369a1;
-}
-
-.download-btn:hover:not(:disabled) {
-  background-color: #bae6fd;
-}
-
-.download-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.delete-btn {
   background-color: #fee2e2;
   color: #b91c1c;
 }

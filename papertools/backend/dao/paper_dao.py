@@ -295,6 +295,3 @@ class PaperDao:
             # 回滚事务
             db.session.rollback()
             raise e  # 抛回异常由上层处理
-
-    
-    

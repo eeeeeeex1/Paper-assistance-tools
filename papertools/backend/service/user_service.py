@@ -10,10 +10,21 @@ from backend.models.user import User
 from backend.models.operation import Operation
 from flask import jsonify  # 添加导入
 from utils.response import format_response
+from typing import Optional
+from typing import Dict, Any
 
 class UserService:
     def __init__(self):
         self.user_dao = UserDao()
+    
+    def update_user_permissions(self, user_id, permission):
+        user = self.user_dao.get_user_by_id(user_id)
+        if not user:
+            return False
+
+        user.permission = permission
+        updated_user = self.user_dao.save_user(user)
+        return updated_user is not None
     
     def register(self, username, password, email):
         """用户注册处理"""
@@ -45,7 +56,7 @@ class UserService:
         user.updated_at = datetime.now(timezone.utc)
         db.session.commit()#单独处理更新最后登录时间
         logger.info(f"更新最后登录时间: {user.updated_at}")
-        # 使用OR条件查询username或email匹配的用户
+         # 使用OR条件查询username或email匹配的用户
 
         if not user:
             logger.warning(f"登录失败：用户不存在 - {email}")
@@ -66,10 +77,11 @@ class UserService:
         token = self.user_dao.generate_token(user.id, user.username)
         # 登录成功后记录操作
         #Operation.log_operation(
-        #   user_id=user.id,
+        #    user_id=user.id,
         #    paper_id=None,
         #    operation_type="login",
-        #    file_name="登录"
+        #    file_name="登录"，
+        
         #)
         logger.info(f"登录成功 - 用户: {user.username}")
 
@@ -78,6 +90,7 @@ class UserService:
             'id': user.id,
             'username': user.username,
             'email': user.email,
+            'permission': user.permission,
         }
     
     def get_user_info(self, identity):
@@ -165,7 +178,7 @@ class UserService:
             'message': message
         }
 
-def get_user_operations(self, user_id, page=1, per_page=20):
+    def get_user_operations(self, user_id, page=1, per_page=20):
         """获取用户的操作记录"""
         # 检查用户是否存在
         user = User.query.get(user_id)
@@ -190,3 +203,36 @@ def get_user_operations(self, user_id, page=1, per_page=20):
                 'current_page': operations_paginated.page
             }
         )
+#---------------------------------------------------------------------------------------------------------
+    def get_all_users(
+        self,  # 添加self参数
+        page: int = 1,
+        per_page: int = 10,
+        filter_username: Optional[str] = None,
+        include_sensitive: bool = False
+    ) -> Dict[str, Any]:
+        """
+        获取用户列表（支持分页和过滤）
+        :param include_sensitive: 是否包含敏感信息
+        :param page: 页码
+        :param per_page: 每页数量
+        :param filter_username: 按用户名过滤（可选）
+        :return: 包含用户列表、总页数、总数量的字典
+        """
+        try:
+            logger.info('Calling DAO layer to get all users')
+            result = self.user_dao.get_all_user(  # 使用self.user_dao
+                include_sensitive=include_sensitive,
+                page=page,
+                per_page=per_page,
+                filter_username=filter_username
+            )
+            logger.info(f"service get_all_users result: {result}")
+            return result
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            logger.error(f"获取用户列表失败: {str(e)}")
+            raise ValueError(f"数据库操作失败: {str(e)}")
+        except Exception as e:
+            logger.error(f"获取用户列表异常: {str(e)}")
+            raise ValueError(f"获取用户列表失败: {str(e)}")

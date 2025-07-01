@@ -1,92 +1,98 @@
 <template>
   <div class="spell-check-container">
-    <!-- 文件上传/预览区域 -->
-    <div class="file-section">
-      <div v-if="!fileContent" class="upload-area">
-        <h3>上传文件</h3>
-        <div class="upload-box" @dragover.prevent="dragover" @drop.prevent="drop">
-          <input 
-            type="file" 
-            id="fileInput" 
-            ref="fileInput" 
-            @change="handleFileUpload" 
-            accept=".txt,.doc,.docx" 
-            style="display: none;"
-          />
-          <i class="iconfont icon-upload"></i>
-          <p>拖放文件到此处或</p>
-          <button class="upload-btn" @click="triggerFileInput">选择文件</button>
-          <p class="file-format">支持格式: .txt, .doc, .docx</p>
+    <!-- 权限检查 -->
+    <div v-if="!hasPermission">
+      <p>您没有权限使用此功能</p>
+    </div>
+    <div v-else>
+      <!-- 文件上传/预览区域 -->
+      <div class="file-section">
+        <div v-if="!fileContent" class="upload-area">
+          <h3>上传文件</h3>
+          <div class="upload-box" @dragover.prevent="dragover" @drop.prevent="drop">
+            <input 
+              type="file" 
+              id="fileInput" 
+              ref="fileInput" 
+              @change="handleFileUpload" 
+              accept=".txt,.doc,.docx" 
+              style="display: none;"
+            />
+            <i class="iconfont icon-upload"></i>
+            <p>拖放文件到此处或</p>
+            <button class="upload-btn" @click="triggerFileInput">选择文件</button>
+            <p class="file-format">支持格式: .txt, .doc, .docx</p>
+          </div>
         </div>
-      </div>
-      
-      <div v-else class="preview-area">
-        <h3>预览修改内容</h3>
-        <div class="content-display">
-          <div 
-            class="text-content" 
-            v-html="highlightedContent"
-            v-if="checkedContent"
-          ></div>
-          <div class="text-content" v-else>
-            {{ fileContent }}
+        
+        <div v-else class="preview-area">
+          <h3>预览修改内容</h3>
+          <div class="content-display">
+            <div 
+              class="text-content" 
+              v-html="highlightedContent"
+              v-if="checkedContent"
+            ></div>
+            <div class="text-content" v-else>
+              {{ fileContent }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- 操作按钮区域 -->
-    <div class="action-section">
-      <button 
-        v-if="!isChecking && !checkedContent" 
-        class="action-btn check-btn" 
-        :disabled="!fileContent"
-        @click="checkSpelling"
-      >
-        开始纠正
-      </button>
       
-      <button 
-        v-if="isChecking" 
-        class="action-btn checking-btn" 
-        disabled
-      >
-        <i class="iconfont icon-loading"></i> 正在检测中...
-      </button>
+      <!-- 操作按钮区域 -->
+      <div class="action-section">
+        <button 
+          v-if="!isChecking && !checkedContent" 
+          class="action-btn check-btn" 
+          :disabled="!fileContent"
+          @click="checkSpelling"
+        >
+          开始纠正
+        </button>
+        
+        <button 
+          v-if="isChecking" 
+          class="action-btn checking-btn" 
+          disabled
+        >
+          <i class="iconfont icon-loading"></i> 正在检测中...
+        </button>
+        
+        <button 
+          v-if="checkedContent && !isChecking" 
+          class="action-btn export-btn" 
+          @click="exportResult"
+        >
+          导出纠正结果
+        </button>
+      </div>
       
-      <button 
-        v-if="checkedContent && !isChecking" 
-        class="action-btn export-btn" 
-        @click="exportResult"
-      >
-        导出纠正结果
-      </button>
-    </div>
-    
-    <!-- 错误统计信息 -->
-    <div v-if="checkedContent" class="stats-section">
-      <div class="stat-item">
-        <span class="stat-label">总字数:</span>
-        <span class="stat-value">{{ stats.totalWords }}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">错误数:</span>
-        <span class="stat-value error-count">{{ stats.errorCount }}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">错误率:</span>
-        <span class="stat-value">{{ stats.errorRate }}%</span>
+      <!-- 错误统计信息 -->
+      <div v-if="checkedContent" class="stats-section">
+        <div class="stat-item">
+          <span class="stat-label">总字数:</span>
+          <span class="stat-value">{{ stats.totalWords }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">错误数:</span>
+          <span class="stat-value error-count">{{ stats.errorCount }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">错误率:</span>
+          <span class="stat-value">{{ stats.errorRate }}%</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import * as docx from 'docx-preview';
 import * as mammoth from 'mammoth';
-import { getAuthorId } from '@/utils/auth';
 import axios from 'axios';
+import { getAuthorId } from '@/utils/auth';
 
 // 文件处理相关
 const fileInput = ref<HTMLInputElement | null>(null);
@@ -97,6 +103,9 @@ const errorPositions = ref<Array<{word: string, suggestions: string[]}>>([]);
 const fileName = ref<string>('');
 const errorMessage = ref<string>('');
 const tab = ref<string>('original');
+
+// 权限相关
+const hasPermission = ref<boolean>(false);
 
 // 统计信息
 const stats = computed(() => {
@@ -218,7 +227,6 @@ const parseDocFile = (arrayBuffer: ArrayBuffer): Promise<string> => {
   });
 };
 
-
 // 调用后端API检查拼写
 const checkSpelling = async () => {
   if (!fileContent.value) {
@@ -234,6 +242,8 @@ const checkSpelling = async () => {
     const formData = new FormData();
     const textFile = new File([fileContent.value], fileName.value, { type: 'text/plain' });
     formData.append('file', textFile);
+    const authorId = getAuthorId();
+    formData.append('user_id', authorId);
     
     // 调用后端API
     const response = await axios.post(`http://localhost:5000/api/paper/spelling`, formData, {
@@ -259,7 +269,6 @@ const checkSpelling = async () => {
   }
 };
 
-
 // 导出结果
 const exportResult = () => {
   if (!checkedContent.value) return;
@@ -283,6 +292,16 @@ const exportResult = () => {
 const switchTab = (tabName: string) => {
   tab.value = tabName;
 };
+
+// 权限检查
+onMounted(() => {
+  const userInfo = localStorage.getItem('user');
+  if (userInfo) {
+    const { permission } = JSON.parse(userInfo);
+    const allowedPermissions = [2, 4, 6, 7];
+    hasPermission.value = allowedPermissions.includes(permission);
+  }
+});
 </script>
 
 <style scoped>

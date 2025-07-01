@@ -1,20 +1,21 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Login from '../components/Login.vue';
+//登录注册界面
+import Login from '@/views/LoginAndRegister/Login.vue';
+import Register from '@/views/LoginAndRegister/Register.vue';
 //主界面
-import Home from '../views/Home.vue';
-import SimilarityCheck from '../views/home/SimilarityCheck.vue';
-import SpellCheck from '../views/home/SpellCheck.vue';
-import TextSummary from '../views/home/TextSummary.vue';
+import Home from '@/views/home/Home.vue';
+import SimilarityCheck from '@/views/home/SimilarityCheck.vue';
+import SpellCheck from '@/views/home/SpellCheck.vue';
+import TextSummary from '@/views/home/TextSummary.vue';
 import OperationHistory from '../views/home/OperationHistory.vue';
 //管理员界面
-import AdminLogin from '../views/AdminLogin.vue';
-import Layout from '../components/Layout.vue';
-import LogManage from '../views/LogManage.vue';
-import Statistic from '../views/Statistic.vue';
-import UserManage from '../views/UserManage.vue';
-import Register from '../components/Register.vue';
-import { getToken } from '../utils/auth'
-import { isAuthenticated } from '../utils/auth'; // 导入优化后的认证检查
+import AdminLogin from '@/views/Admin/AdminLogin.vue';
+import Layout from '@/views/Admin/Layout.vue';
+import LogManage from '@/views/Admin/LogManage.vue';
+import Statistic from '@/views/Admin/Statistic.vue';
+import UserManage from '@/views/Admin/UserManage.vue';
+import { getToken } from '@/utils/auth'
+import { isAuthenticated } from '@/utils/auth'; // 导入优化后的认证检查
 
 const routes: Array<RouteRecordRaw> = [
   // 登录页（根路径）
@@ -62,7 +63,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Register
   },
   {
-    path: '/admin-login',
+    path: '/admin/login',
     name: 'AdminLogin',
     component: AdminLogin
   }
