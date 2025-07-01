@@ -1,5 +1,5 @@
 # backend/app/routes/user_route.py
-from flask import Blueprint, request, jsonify, current_app
+from flask import Blueprint, request, jsonify, current_app,g
 from flasgger import swag_from , SwaggerView
 from marshmallow import Schema,fields  # 从marshmallow导入字段
 from service.user_service import UserService
@@ -11,51 +11,38 @@ import re
 from functools import wraps
 import os
 from config.logging_config import logger
-
+from functools import wraps
+from middleware.auth import token_required  # 导入认证装饰器
 
 user_bp = Blueprint('user', __name__, url_prefix='/api/user')
 user_service = UserService()
 user_dao = UserDao()
 
-# JWT认证装饰器zdef token_required(f):
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = None
-        # 从请求头中获取Token
-        if 'Authorization' in request.headers:
-            auth_header = request.headers['Authorization']
-            if auth_header.startswith('Bearer '):
-                token = auth_header.split(' ')[1]
+def load_current_user():
+    """在每个请求前加载当前用户信息"""
+    token = request.headers.get('Authorization', '').split('Bearer ')[-1]
+    if not token:
+        g.current_user = None
+        return
+    
+    try:
+        payload = jwt.decode(
+            token,
+            current_app.config['123456'],
+            algorithms=['HS256']
+        )
+        user_id = payload.get('user_id')
+        if not user_id:
+            g.current_user = None
+            return
         
-        if not token:
-            return jsonify({
-                'message': '缺少Token',
-                'error_code': 401
-            }), 401
-        
-        try:
-            # 使用配置的密钥解码Token
-            payload = jwt.decode(
-                token, 
-                current_app.config['JWT_SECRET_KEY'], 
-                algorithms=[current_app.config['JWT_ALGORITHM']]
-            )
-            # 将用户ID添加到请求上下文中
-            request.current_user_id = payload['user_id']
-        except jwt.ExpiredSignatureError:
-            return jsonify({
-                'message': 'Token已过期',
-                'error_code': 401
-            }), 401
-        except jwt.InvalidTokenError:
-            return jsonify({
-                'message': '无效的Token',
-                'error_code': 401
-            }), 401
-        
-        return f(*args, **kwargs)
-    return decorated
+        # 从数据库加载用户信息
+        from backend.models.user import User
+        g.current_user = User.query.get(user_id)
+    except jwt.ExpiredSignatureError:
+        g.current_user = None
+    except jwt.InvalidTokenError:
+        g.current_user = None
 
 # 验证邮箱格式
 def is_valid_email(email):
@@ -250,6 +237,7 @@ def login():
         logger.info("验证密码ing")
         # 检查是否返回错误
         if isinstance(result, dict) and 'code' in result and result['code'] != 200:
+
             return jsonify({
                 'message': result.get('message', '登录失败'),
                 'error_code': result.get('code', 401)
@@ -257,9 +245,8 @@ def login():
         
         # 如果没有错误，result 应该是用户对象
         user = result
-        
         # 生成JWT Token
-        expires = timedelta(hours=current_app.config.get('JWT_EXPIRE_HOURS', 1))
+        expires = timedelta(hours=current_app.config.get('JWT_EXPIRE_HOURS', 24))
         payload = {
             'user_id': user['id'],
             'username': user['username'],
@@ -341,35 +328,26 @@ def login():
 })
 def get_user_info():
     try:
-        user_id = request.current_user_id
-        if not user_id:
+        user = g.current_user  # 从 token_required 装饰器中获取用户
+        if not user:
             return jsonify({
-                'message': '用户ID不存在',
+                'message': '用户未登录',
                 'error_code': 401
             }), 401
         
-        # 调用控制器获取用户信息
-        user = user_service.get_user_by_id(user_id)
-        
-        if not user:
-            return jsonify({
-                'message': '用户不存在',
-                'error_code': 404
-            }), 404
-        
         # 更新最后登录时间
-        user_service.update_last_login(user_id)
+        user.updated_at = datetime.utcnow()
+        user_service.update_user(user)
+
+         # 包含操作记录数量
+        user_dict = user.to_dict()
+        user_dict['operation_records_count'] = len(user.user_operation_records)
         
-        # 格式化日期时间
-        user['created_at'] = user['created_at'].isoformat()
-        user['last_login'] = user['last_login'].isoformat() if user['last_login'] else None
-        
-        return jsonify(user), 200
-        
+        return jsonify(user_dict), 200
+    
     except Exception as e:
-        current_app.logger.error(f'获取用户信息错误: {str(e)}')
         return jsonify({
-            'message': '获取用户信息失败，请稍后再试',
+            'message': '获取用户信息失败',
             'error_code': 500
         }), 500
     
@@ -498,86 +476,19 @@ def logout(self):
         return jsonify({'message': message}), 404
     else:
         return jsonify({'message': message}), 403
-
-#------------------------------------------------------
     
-
-@user_bp.route('/getall', methods=['GET'])
-def get_all_users():
-    """
-    获取所有用户列表的API接口
-    ---
-    GET /api/users
-    参数:
-      - name: page
-        in: query
-        type: integer
-        default: 1
-        description: 页码
-      - name: per_page
-        in: query
-        type: integer
-        default: 10
-        description: 每页数量
-      - name: username
-        in: query
-        type: string
-        description: 按用户名过滤
-      - name: include_sensitive
-        in: query
-        type: boolean
-        default: false
-        description: 是否包含敏感信息
-    responses:
-      200:
-        description: 成功获取用户列表
-      400:
-        description: 参数错误
-      401:
-        description: 未授权（需要管理员权限）
-      500:
-        description: 服务器内部错误
-    """
-    try:
-        logger.info('get user number')
-        # 1. 从请求中获取参数
-        page = int(request.args.get('page', 1))
-        per_page = int(request.args.get('per_page', 10))
-        filter_username = request.args.get('username', None)
-        include_sensitive = request.args.get('include_sensitive', 'false').lower() == 'true'
-        
-        # 2. 参数校验
-        if page < 1 or per_page < 1 or per_page > 100:
-            raise ValueError("分页参数无效，page≥1，per_page在1-100之间")
-        logger.info('use user service')
-        # 3. 调用服务层获取用户列表
-        users_data = user_service.get_all_users(
-            page=page,
-            per_page=per_page,
-            filter_username=filter_username,
-            include_sensitive=include_sensitive
-        )
-        
-        # 4. 构造成功响应
-        response = {
-            'status': 'success',
-            'message': '用户列表获取成功',
-            'data': users_data
-        }
-        return jsonify(response), 200
-        
-    except ValueError as ve:
-        # 处理参数验证错误
-        logger.warning(f"参数错误: {str(ve)}")
-        return jsonify({
-            'status': 'error',
-            'message': str(ve)
-        }), 400
-        
-    except Exception as e:
-        # 处理其他异常
-        logger.error(f"获取用户列表失败: {str(e)}", exc_info=True)
-        return jsonify({
-            'status': 'error',
-            'message': f'服务器内部错误: {str(e)}'
-        }), 500
+    
+#获取当前用户的个性化主页数据    
+@user_bp.route('/data', methods=['GET'])
+def get_user_home_data():
+    """获取当前用户的个性化主页数据"""
+    if not g.current_user:
+        return jsonify({'message': '未登录'}), 401
+    
+    user_service = UserService()
+    data = user_service.get_user_home_data(g.current_user.id)
+    
+    return jsonify({
+        'message': '获取成功',
+        'data': data
+    }), 200    

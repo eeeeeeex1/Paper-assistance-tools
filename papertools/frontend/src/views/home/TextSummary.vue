@@ -66,7 +66,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import * as mammoth from 'mammoth';
-
+import { getAuthorId } from '@/utils/auth';
+import axios from 'axios';
 // 文件处理相关
 const fileInput = ref<HTMLInputElement | null>(null);
 const fileContent = ref<string>('');
@@ -74,21 +75,21 @@ const fileName = ref<string>('');
 const fileSize = ref<number>(0);
 const isSummarizing = ref<boolean>(false);
 const summaryContent = ref<string>('');
-
+const errorMessage = ref<string>('');
 // 统计信息
 const wordCount = computed(() => {
   return fileContent.value ? fileContent.value.split(/\s+/).length : 0;
 });
+// 从后端返回结果中提取的关键词（用于高亮）
+const extractedKeywords = ref<string[]>([]);
+
 
 // 高亮显示关键词
 const highlightedSummary = computed(() => {
-  if (!summaryContent.value) return '';
+  if (!summaryContent.value || extractedKeywords.value.length === 0) return '';
   
-  // 简单的高亮关键词处理
-  const keywords = ['主题', '核心', '主要', '关键', '总结', '结论'];
   let content = summaryContent.value;
-  
-  keywords.forEach(keyword => {
+  extractedKeywords.value.forEach(keyword => {
     const regex = new RegExp(escapeRegExp(keyword), 'g');
     content = content.replace(regex, `<span class="highlight-keyword">${keyword}</span>`);
   });
@@ -185,23 +186,82 @@ const exportSummary = () => {
   URL.revokeObjectURL(url);
 };
 
-// 模拟主题总结API
+// 调用后端API生成主题总结
 const generateSummary = async () => {
-  if (!fileContent.value) return;
+  const file = fileInput.value?.files[0];
+  if (!file) {
+    errorMessage.value = '请先上传文件';
+    return;
+  }
   
   isSummarizing.value = true;
+  errorMessage.value = '';
+  
   try {
-    // 模拟API调用延迟
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // 创建FormData并添加文件内容（实际项目中应直接上传文件）
+    // 注意：当前实现是将文件内容转为文本上传，更优的方式是直接上传文件对象
+    const formData = new FormData();
+    formData.append('file', file);
     
-    // 模拟主题总结算法
-    summaryContent.value = mockSummaryAlgorithm(fileContent.value);
-  } catch (error) {
-    console.error('总结生成出错:', error);
-    alert('总结生成失败，请重试');
+    // 调用后端API
+    const response = await axios.post(`http://localhost:5000/api/paper/theme`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    
+    if (response.data.code === 200) {
+      // 处理成功响应
+      const data = response.data.data;
+      summaryContent.value = generateSummaryHTML(data);
+      extractedKeywords.value = data.keywords || [];
+    } else {
+      // 处理错误响应
+      errorMessage.value = response.data.message || '主题总结生成失败';
+    }
+  } catch (error: any) {
+    console.error('API调用出错:', error);
+    errorMessage.value = error.response?.data?.message || '网络错误，请稍后重试';
   } finally {
     isSummarizing.value = false;
   }
+};
+
+
+// 根据后端返回数据生成HTML摘要
+const generateSummaryHTML = (data: any): string => {
+  if (!data) return '';
+  
+  const { title, keywords, summary, top_words } = data;
+  const topWordsList = top_words.slice(0, 5).map(([word, count]) => `<li>${word} (${count}次)</li>`).join('');
+  
+  return `
+    <div class="summary-result">
+      <h4>文档主题总结</h4>
+      <p>生成时间: ${new Date().toLocaleString()}</p>
+      
+      <div class="summary-meta">
+        <p><strong>文档标题:</strong> ${title || '未提取到标题'}</p>
+        <p><strong>关键词:</strong> ${keywords.join('，')}</p>
+      </div>
+      
+      <div class="summary-section">
+        <h5>主题概述</h5>
+        <p>${summary || '暂无主题概述'}</p>
+      </div>
+      
+      <div class="summary-section">
+        <h5>高频词汇</h5>
+        <ul>
+          ${topWordsList}
+        </ul>
+      </div>
+      
+      <div class="summary-footer">
+        <p>本总结由智能系统生成，仅供参考。</p>
+      </div>
+    </div>
+  `;
 };
 
 // 模拟总结算法

@@ -1,13 +1,16 @@
 # backend/routes/paper_route.py
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify,current_app
 from service.paper_service import PaperService
 from flasgger import swag_from,Swagger
 from backend.models.user import  User
+from dao.paper_dao import PaperDao
+from backend.config.database import db
 from backend.models.paper import Paper # 导入相关模型
 import os
+from config.logging_config import logger
 
-paper_bp = Blueprint('paper', __name__, url_prefix='/api/papers')
-paper_service = PaperService()
+paper_bp = Blueprint('paper', __name__, url_prefix='/api/paper')
+paper_service=PaperService()
 
 @paper_bp.route('/', methods=['GET'])
 @swag_from({
@@ -52,24 +55,32 @@ def get_all_papers():
         'data': {'papers': []}
     })
 
-@paper_bp.route('/', methods=['POST'])
+@paper_bp.route('/upload', methods=['POST'])
 @swag_from({
     'tags': ['论文管理'],
     'description': '上传论文',
-    'consumes': ['application/json'],
+    'consumes': ['multipart/form-data'],  # 修改为表单数据
     'parameters': [
         {
-            'name': 'body',
-            'in': 'body',
+            'name': 'title',
+            'in': 'formData',  # 修改为 formData
+            'type': 'string',
             'required': True,
-            'schema': {
-                'type': 'object',
-                'properties': {
-                    'title': {'type': 'string', 'required': True, 'description': '论文标题'},
-                    'author_id': {'type': 'integer', 'required': True, 'description': '作者ID'},
-                    'file_path': {'type': 'string', 'required': True, 'description': '论文文件路径'}
-                }
-            }
+            'description': '论文标题'
+        },
+        {
+            'name': 'author_id',
+            'in': 'formData',  # 修改为 formData
+            'type': 'integer',
+            'required': True,
+            'description': '作者ID'
+        },
+        {
+            'name': 'file',
+            'in': 'formData',  # 添加文件参数
+            'type': 'file',
+            'required': True,
+            'description': '论文文件'
         }
     ],
     'responses': {
@@ -96,10 +107,33 @@ def get_all_papers():
     }
 })
 def upload_paper():
-    """上传新论文"""
-    return paper_service.upload_paper()
+    """上传论文并返回paper ID"""
+    logger.info("begin upload paper")
+    title = request.form.get('title')
+    author_id = request.form.get('author_id', type=int)
+    file = request.files.get('file')
+    logger.info("all is rignt ")
+    if not all([title, author_id, file]):
+        return jsonify({"code": 400, "message": "缺少必要参数"}), 400
+    
+    try:
+        paper = paper_service.upload_paper(title, author_id, file)
+        return jsonify({
+            "code": 201,  # 使用201表示创建成功
+            "message": "上传成功",
+            "data": {
+                "paper_id": paper.id,
+                "file_path": paper.file_path  # 可选：返回file_path（可能为空）
+            }
+        }), 201
+        
+    except ValueError as e:
+        return jsonify({"code": 400, "message": str(e)}), 400
+    except Exception as e:
+        logger.error(f"上传失败: {str(e)}")
+        return jsonify({"code": 500, "message": "服务器处理失败"}), 500
 
-@paper_bp.route('/<int:paper_id>', methods=['GET'])
+@paper_bp.route('/getpaperinfo', methods=['GET'])
 @swag_from({
     'tags': ['论文管理'],
     'description': '获取单个论文信息',
@@ -185,7 +219,7 @@ def get_user_papers(user_id):
     per_page = request.args.get('per_page', 10, type=int)
     return paper_service.get_user_papers(user_id, page, per_page)
 
-@paper_bp.route('/<int:paper_id>/spelling', methods=['GET'])
+@paper_bp.route('/spelling', methods=['POST'])
 @swag_from({
     'tags': ['论文管理'],
     'description': '论文错字检测',
@@ -215,17 +249,60 @@ def get_user_papers(user_id):
         404: {'description': '论文不存在'}
     }
 })
-def check_spelling(paper_id):
-    """论文错字检测"""
-    return paper_service.check_spelling(paper_id)
+def check_spelling():
+    """论文错字检测（接收文件上传）"""
+    logger.info("begin check spelling")
+    
+    # 从请求中获取文件
+    if 'file' not in request.files:
+        return jsonify({
+            'code': 400,
+            'message': '未上传文件'
+        }), 400
+    
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({
+            'code': 400,
+            'message': '文件名为空'
+        }), 400
+    
+    # 调用服务层方法
+    success, result = paper_service.check_spelling(file)
+    logger.info("end check spelling")
+    if success:
+        return jsonify({
+            'code': 200,
+            'message': '错字检测完成',
+            'data': result
+        }), 200
+    else:
+        return jsonify({
+            'code': 400,
+            'message': result
+        }), 400
 
-@paper_bp.route('/<int:paper_id>/plagiarism', methods=['GET'])
+
+@paper_bp.route('/plagiarism', methods=['POST'])
 @swag_from({
     'tags': ['论文管理'],
-    'description': '论文查重，计算与相似文章的综合相似度',
+    'description': '论文查重，直接上传文件计算相似度',
+    'consumes': ['multipart/form-data'],
     'parameters': [
-        {'name': 'paper_id', 'in': 'path', 'type': 'integer', 'required': True, 'description': '论文ID'},
-        {'name': 'num_articles', 'in': 'query', 'type': 'integer', 'default': 5, 'description': '爬取的相似文章数量'}
+        {
+            'name': 'file',
+            'in': 'formData',
+            'type': 'file',
+            'required': True,
+            'description': '上传的论文文件'
+        },
+        {
+            'name': 'num_articles',
+            'in': 'formData',
+            'type': 'integer',
+            'default': 5,
+            'description': '爬取的相似文章数量'
+        }
     ],
     'responses': {
         200: {
@@ -233,78 +310,69 @@ def check_spelling(paper_id):
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'code': {'type': 'integer', 'example': 200},
-                    'message': {'type': 'string', 'example': '查重完成'},
-                    'data': {
-                        'type': 'object',
-                        'properties': {
-                            'comprehensive_similarity': {'type': 'number', 'example': 25.63},
-                            'paper_title': {'type': 'string', 'example': '人工智能在医疗中的应用'},
-                            'keywords': {'type': 'array', 'example': ['人工智能', '医疗']},
-                            'comparison_results': {
-                                'type': 'array',
-                                'items': {
-                                    'type': 'object',
-                                    'properties': {
-                                        'article_title': {'type': 'string'},
-                                        'similarity_rate': {'type': 'number'},
-                                        'url': {'type': 'string'}
-                                    }
-                                }
-                            },
-                            'most_similar_sections': {
-                                'type': 'array',
-                                'items': {
-                                    'type': 'object',
-                                    'properties': {
-                                        'paper_para': {'type': 'string'},
-                                        'article_para': {'type': 'string'},
-                                        'similarity': {'type': 'number'}
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        404: {'description': '论文不存在'},
-        400: {'description': '参数错误或内容为空'},
-        500: {'description': '查重过程中服务器错误'}
-    }
-    })
-def check_plagiarism(paper_id):
-    """论文查重"""
-    return paper_service.check_plagiarism(paper_id)
-
-@paper_bp.route('/<int:paper_id>/theme', methods=['GET'])
-@swag_from({
-    'tags': ['论文管理'],
-    'description': '主题提取',
-    'parameters': [
-        {'name': 'paper_id', 'in': 'path', 'type': 'integer', 'required': True}
-    ],
-    'responses': {
-        200: {
-            'description': '成功，返回关键词和摘要',
-            'examples': {
-                'application/json': {
                     'code': 200,
-                    'message': '主题提取完成',
+                    'message': '查重完成',
                     'data': {
-                        'keywords': ['人工智能', '医疗诊断'],
-                        'summary': '本研究主要探讨了...'
+                        'comprehensive_similarity': 25.63,
+                        'paper_title': '人工智能在医疗中的应用',
+                        'keywords': ['人工智能', '医疗'],
+                        # 其他字段...
                     }
                 }
             }
         },
-        404: {'description': '论文不存在'},
-        400: {'description': '请求参数错误'}
+        400: {'description': '缺少文件或参数错误'},
+        500: {'description': '服务器内部错误'}
     }
 })
-def extract_theme(paper_id):
-    """论文主题提取"""
-    return paper_service.extract_theme(paper_id)
+def check_plagiarism():
+    logger.info("begin check plagiarism with file upload")
+   
+    # 获取上传的文件
+    file = request.files.get('file')
+    userid=request.form.get('userid',type=int)
+    if not file:
+        return jsonify({
+            'code': 400,
+            'message': '未上传论文文件',
+            'data': None
+        }), 400
+    
+    # 获取查询参数
+    num_articles = request.form.get('num_articles', 5, type=int)
+    try:
+        # 调用服务层方法
+        logger.info("begin controller check plagiarism")
+        result = paper_service.check_plagiarism(file, num_articles,userid)
+        logger.info("end controller check plagiarism with file upload")
+        return jsonify(result), 200
+    except Exception as e:
+        logger.error(f"查重失败: {str(e)}")
+        return jsonify({
+            'code': 500,
+            'message': '查重过程中服务器错误',
+            'data': None
+        }), 500
 
-
-
+@paper_bp.route('/theme', methods=['POST'])
+def extract_theme():
+    """论文主题提取（接收文件上传）"""
+    logger.info("begin 111111 extract theme")
+    
+    # 从请求中获取文件
+    if 'file' not in request.files:
+        return jsonify({
+            'code': 400,
+            'message': '未上传文件'
+        }), 400
+    
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({
+            'code': 400,
+            'message': '文件名为空'
+        }), 400
+    
+    # 调用服务层方法
+    result = paper_service.extract_theme(file)
+    return jsonify(result), result.get('code', 500)

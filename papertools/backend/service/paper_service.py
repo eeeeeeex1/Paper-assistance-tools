@@ -1,10 +1,193 @@
 # backend/controllers/paper_controller.py
-from flask import current_app, request
+from flask import current_app, request,jsonify
+from werkzeug.utils import secure_filename  # 新版本正确导入方式
 from dao.paper_dao import PaperDao
+from backend.models.operation import Operation
+from backend.models.paper import Paper
+from backend.config.database import db
+from config.logging_config import logger
+from service.ChineseTypoDetector import ChineseTypoDetector
+import re
+import jieba
+from collections import Counter
+import requests
+import math
+from bs4 import BeautifulSoup
+import requests  # 添加这行
+import os
+import uuid
+import time
+import io
+import base64  # 需要安装: pip install textract
+import random
+from urllib.parse import quote, urlencode
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from typing import List, Dict, Tuple, Optional
+from werkzeug.datastructures import FileStorage
+from backend.models.operation import Operation
+
 
 class PaperService:
     def __init__(self):
         self.paper_dao = PaperDao()
+        # 复用浏览器实例（关键优化）
+        self.api_key = None
+        self.last_api_call_time = 0
+        self.min_api_interval = 1  # 两次API请求之间至少间隔1秒
+        self.typo_detector = ChineseTypoDetector()  # 假设该类已正确实现
+    #---------------------------------------------------------------------------
+    def set_api_key(self, api_key):
+        """设置Semantic Scholar API Key"""
+        self.api_key = api_key
+    
+    def search_semantic_scholar(self, query, num_articles=5):
+        """通过Semantic Scholar API搜索论文（增强频率控制）"""
+        # 实现请求间隔控制
+        current_time = time.time()
+        elapsed = current_time - self.last_api_call_time
+        
+        if elapsed < self.min_api_interval:
+            wait_time = self.min_api_interval - elapsed
+            logger.info(f"等待{wait_time:.2f}秒后再请求API")
+            time.sleep(wait_time)
+        
+        self.last_api_call_time = time.time()
+        url = "https://api.semanticscholar.org/graph/v1/paper/search"
+        headers = {"x-api-key": self.api_key} if self.api_key else {}
+        
+        params = {
+            'query': query,
+            'limit': num_articles,
+            'fields': 'title,authors,abstract,venue,year,citationCount,referenceCount'
+        }
+        
+        try:
+            response = requests.get(url, params=params, headers=headers, timeout=15)
+            response.raise_for_status()  # 检查HTTP状态码
+            
+            data = response.json()
+            if not data.get('data'):
+                logger.warning(f"API返回空结果: {data}")
+                return None
+                
+            return data
+            
+        except requests.exceptions.HTTPError as e:
+            # 处理HTTP错误（如401、429等）
+            logger.error(f"API HTTP错误 {e.response.status_code}: {e.response.text}")
+            if e.response.status_code == 429:  # 限流错误
+                return {"error": "rate_limit_exceeded", "message": "请求频率过高，请稍后再试"}
+            return None
+            
+        except requests.exceptions.RequestException as e:
+            # 处理网络连接错误
+            logger.error(f"API连接错误: {str(e)}")
+            return None
+            
+        except Exception as e:
+            # 处理其他意外错误
+            logger.error(f"API请求异常: {str(e)}", exc_info=True)
+            return None
+
+    def __del__(self):
+        """类销毁时关闭浏览器"""
+        if hasattr(self, 'driver'):
+            self.driver.quit()
+### 辅助函数：主题关键词提取
+    def extract_keywords(self, text, top_n=5):
+        """优化关键词提取（增强中文支持）"""
+        logger.info("begin extract_keywords")
+        # 去除标点符号和特殊字符（保留中文标点）
+        text = re.sub(r'[^\u4e00-\u9fa5a-zA-Z0-9\uff00-\uffff]', ' ', text)
+        # 分词
+        words = jieba.cut(text)
+        # 过滤停用词（扩展中文停用词）
+        stop_words = set([
+            '的', '了', '在', '是', '我', '有', '和', '就', '不', '人', '都', '一', '一个', 
+            '上', '也', '很', '到', '说', '要', '去', '你', '会', '着', '没有', '看', '好', 
+            '自己', '这个', '那个', '然后', '如果', '所以', '但是', '因为', '或者', '而且'
+        ])
+        filtered_words = [word for word in words if word and word not in stop_words and len(word) > 1]
+        # 统计词频并取前n个
+        word_counts = Counter(filtered_words)
+        logger.info("end extract_keywords")
+        
+        # 确保关键词为中文（维普网主要收录中文文献）
+        return [word for word, _ in word_counts.most_common(top_n) if re.search(r'[\u4e00-\u9fa5]', word)]
+    def crawl_google_scholar(self, query, num_articles=5):
+        """爬取Google Scholar相关论文"""
+        articles = []
+        try:
+            # 编码查询关键词
+            encoded_query = quote(query)
+            url = f'https://scholar.google.com/scholar?q={encoded_query}&hl=zh-CN&as_sdt=0,5'
+            logger.info(f"爬取Google Scholar URL: {url}")
+            
+            # 使用复用的浏览器实例
+            self.driver.get(url)
+            
+            # 等待搜索结果加载
+            WebDriverWait(self.driver, 15).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, 'div.gs_ri'))
+            )
+            
+            # 滚动页面加载更多结果
+            for _ in range(2):
+                self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                time.sleep(random.uniform(1, 2))
+            
+            # 解析搜索结果
+            results = self.driver.find_elements(By.CSS_SELECTOR, 'div.gs_ri')
+            logger.info(f"找到 {len(results)} 条Google Scholar结果")
+            
+            # 提取前num_articles篇文章
+            for result in results[:num_articles]:
+                article = self._extract_google_scholar_article(result)
+                if article:
+                    articles.append(article)
+                    # 随机延迟避免反爬
+                    time.sleep(random.uniform(3, 6))
+            
+            return articles
+            
+        except Exception as e:
+            logger.error(f"Google Scholar爬取出错: {str(e)}", exc_info=True)
+            return articles
+
+    def _extract_google_scholar_article(self, element):
+        """从Google Scholar结果元素中提取论文信息"""
+        try:
+            # 提取标题和链接
+            title_elem = element.find_element(By.CSS_SELECTOR, 'h3 a')
+            title = title_elem.text
+            url = title_elem.get_attribute('href')
+            
+            # 提取作者信息
+            author_elem = element.find_element(By.CSS_SELECTOR, 'div.gs_a')
+            author_text = author_elem.text
+            
+            # 提取摘要
+            abstract_elem = element.find_element(By.CSS_SELECTOR, 'div.gs_rs')
+            abstract = abstract_elem.text if abstract_elem else "无摘要"
+            
+            return {
+                'title': title,
+                'url': url,
+                'authors': author_text,
+                'abstract': abstract
+            }
+            
+        except Exception as e:
+            logger.warning(f"解析Google Scholar文章出错: {str(e)}")
+            return None
+#--------------------------------------------------------------------------
+
     
     def get_paper(self, paper_id):
         """获取单个论文信息"""
@@ -46,49 +229,79 @@ class PaperService:
                 'papers': [paper.to_dict() for paper in papers]
             }
         }
-    
-    def upload_paper(self):
-        """上传论文"""
+
+    def generate_file_path(self, original_filename):
+        """生成简单的唯一文件路径（无日期）"""
+        # 确保文件名安全
+        filename = secure_filename(original_filename)
+        ext = os.path.splitext(filename)[1].lower()
+        
+        # 生成唯一文件名
+        unique_filename = f"{uuid.uuid4().hex}{ext}"
+        file_path = os.path.join("papers", unique_filename)  # 存储相对路径
+        full_path = os.path.join(self.upload_folder, unique_filename)  # 完整物理路径
+
+        return file_path, full_path
+    def upload_paper(self, title, author_id, file):
+        """上传逻辑（不保存文件，仅提取内容）"""
         try:
-            # 获取请求参数
-            title = request.json.get('title')
-            author_id = request.json.get('author_id')
-            file_path = request.json.get('file_path')  # 实际应用中可能通过文件上传获取
+            logger.info(f"开始上传文件: {file.filename}")
             
-            if not title or not author_id or not file_path:
-                return {
-                    'code': 400,
-                    'message': '缺少必要参数（标题、作者ID、文件路径）'
-                }
+            # 安全检查文件名
+            filename = secure_filename(file.filename)
+            #if not Paper.is_allowed_file(filename):
+            #    raise ValueError("11111111111111111不支持的文件类型")
+                
+            # 不保存文件，file_path 设为 None
+            file_path = None
+            # 尝试提取内容（如果文件类型支持）
+            content = None
+            if filename.endswith(('.txt', '.pdf', '.docx')):
+                # 读取文件内容但不保存
+                content_bytes = file.stream.read()
+                file.stream.seek(0)  # 重置文件指针
+                
+                # 将字节转换为字符串（假设文本文件为 UTF-8 编码）
+                if filename.endswith('.txt'):
+                    try:
+                        content = content_bytes.decode('utf-8')
+                    except UnicodeDecodeError:
+                        # 尝试其他编码
+                        content = content_bytes.decode('gbk', errors='ignore')
+                else:
+                    # 对于 PDF/DOCX，使用提取器（需要安装相应库）
+                    content = Paper.extract_content(content_bytes, filename)
+
+            logger.info("win")
+            # 创建论文记录
+            new_paper = Paper(
+                title=title,
+                author_id=author_id,
+                file_path=file_path,  # None
+                content=content
+            )
             
-            # 调用服务层上传论文
-            paper, error = self.paper_dao.upload_paper(title, author_id, file_path)
+            #保存到数据库
+            self.paper_dao.create_paper(new_paper)
+            logger.info(f"论文上传成功 - ID: {new_paper.id}")
+            return new_paper
             
-            if error:
-                return {
-                    'code': 400,
-                    'message': error
-                }
-            
-            return {
-                'code': 201,
-                'message': '论文上传成功',
-                'data': {
-                    'paper_id': paper.id,
-                    'title': paper.title,
-                    'upload_time': paper.upload_time.strftime('%Y-%m-%d %H:%M:%S')
-                }
-            }
         except Exception as e:
-            return {
-                'code': 500,
-                'message': f'上传论文失败: {str(e)}'
-            }
-    
+            logger.error(f"上传失败: {str(e)}")
+            raise
+
+
     def delete_paper(self, paper_id):
         """删除论文"""
         success, message = self.paper_dao.delete_paper(paper_id)
-        
+
+        #计入操作记录
+        Operation.log_operation(
+            user_id=self.paper.author_id,
+            paper_id=paper_id,
+            operation_type="删除论文",
+            file_name="self.paper.title"
+        )
         if not success:
             return {
                 'code': 400,
@@ -100,146 +313,262 @@ class PaperService:
             'message': message
         }
     
-    def check_spelling(self, paper_id):
-        """论文错字检测"""
-        success, result = self.paper_dao.check_spelling(paper_id)
-        
-        if not success:
-            return {
-                'code': 400,
-                'message': result
-            }
-        
-        return {
-            'code': 200,
-            'message': '错字检测完成',
-            'data': result
-        }
-
-    async def check_plagiarism(paper_id, num_articles=5):
-        """
-        论文查重：获取目标论文，爬取多篇主题相似文章，计算综合相似度
-        num_articles: 爬取的相似文章数量(默认5篇)
-        """
-        # 1. 获取目标论文信息
-        paper = Paper.query.get(paper_id)
-        if not paper:
-            return {
-                'code': 404,
-                'message': '论文不存在',
-                'data': None
-            }
-        
-        paper_title = paper.title
-        paper_content = paper.content
-        
-        if not paper_content:
-            return {
-                'code': 400,
-                'message': '论文内容为空，无法查重',
-                'data': None
-            }
-        
+    def check_spelling(self, file: FileStorage) -> Tuple[bool, Dict[str, any]]:
+        """论文错字检测主方法（增强错误处理与类型提示）"""
         try:
-            # 2. 提取论文主题关键词
-            keywords = extract_keywords(paper_title)
-            if not keywords:
-                return {
-                    'code': 400,
-                    'message': '无法提取主题关键词',
-                    'data': None
-                }
+            logger.info("开始论文错字检测服务")
             
-            # 3. 异步爬取多篇相似文章
-            similar_articles = await crawl_multiple_articles(keywords, num_articles)
-            if not similar_articles:
-                return {
-                    'code': 400,
-                    'message': '未找到相似文章，无法查重',
-                    'data': None
-                }
-            
-            # 4. 文本预处理
-            processed_paper = preprocess_text(paper_content)
-            
-            # 5. 计算与每篇文章的相似度
-            comparison_results = []
-            all_similar_sections = []
-            
-            for article in similar_articles:
-                article_content = article.get('content', '')
-                if not article_content:
-                    continue
-                    
-                processed_article = preprocess_text(article_content)
-                similarity = calculate_similarity(processed_paper, processed_article)
+            # 1. 文件有效性检查（增强类型判断）
+            if not isinstance(file, FileStorage) or not file.filename:
+                return False, {"error": "未提供有效文件", "code": 400}
                 
-                # 查找相似段落
-                similar_sections = find_similar_sections(paper_content, article_content)
-                all_similar_sections.extend(similar_sections)
+            # 2. 解析文件内容（添加返回值类型检查）
+            file_ext = file.filename.split('.')[-1].lower()
+            content: Optional[str] = self._extract_file_content(file, file_ext)
+            
+            if not content:
+                return False, {"error": "文件内容为空或无法解析", "code": 404}
                 
-                comparison_results.append({
-                    'article_title': article.get('title', '未知'),
-                    'similarity_rate': similarity,
-                    'url': article.get('url', '')
-                })
+            # 3. 执行错字检测（明确返回值类型）
+            typo_results: List[Dict[str, any]] = self.typo_detector.detect_typos(content)
             
-            # 6. 计算综合相似度（加权平均）
-            if comparison_results:
-                total_similarity = sum(res['similarity_rate'] for res in comparison_results)
-                avg_similarity = total_similarity / len(comparison_results)
-            else:
-                avg_similarity = 0
+            # 4. 生成标记文本（添加空结果处理）
+            checked_text: str = self.typo_detector.highlight_typos(content, typo_results)
             
-            # 7. 生成结果（按相似度降序排列）
-            comparison_results.sort(key=lambda x: x['similarity_rate'], reverse=True)
-            all_similar_sections.sort(key=lambda x: x['similarity'], reverse=True)
-            
-            result = {
-                'comprehensive_similarity': round(avg_similarity, 2),  # 综合相似度
-                'paper_title': paper_title,
-                'comparison_results': comparison_results,  # 每篇文章的对比结果
-                'most_similar_sections': all_similar_sections[:5],  # 前5个最相似段落
-                'keywords': keywords,
-                'num_articles': len(similar_articles)
+            logger.info(f"错字检测完成，发现 {len(typo_results)} 处错误")
+            return True, {
+                "status": "success",
+                "total_typos": len(typo_results),
+                "typo_details": typo_results,
+                "checked_text": checked_text,
+                "content_length": len(content)
             }
             
-            return {
-                'code': 200,
-                'message': '查重完成',
-                'data': result
-            }
+        except FileNotFoundError:
+            logger.error("文件不存在")
+            return False, {"error": "文件不存在", "code": 404}
+        except UnicodeDecodeError:
+            logger.error("文件编码错误，无法解析")
+            return False, {"error": "文件编码错误，请检查文件格式", "code": 400}
+        except Exception as e:
+            logger.error(f"错字检测服务异常: {str(e)}", exc_info=True)
+            return False, {"error": f"错字检测失败: {str(e)}", "code": 500}
+        finally:
+            logger.info("论文错字检测服务结束")
+
+    def check_plagiarism(self, file,userid,num_articles=5, api_key=None):
+        """基于Semantic Scholar API的论文查重（增强健壮性）"""
+        logger.info("begin service check_plagiarism with Semantic Scholar API")
+        
+        # 1. 解析上传文件获取内容
+        try:
+            filename = file.filename
+            if not filename:
+                return {
+                    'code': 400,
+                    'message': '未上传有效文件',
+                    'data': None
+                }
+                
+            file_ext = filename.split('.')[-1].lower()
+            paper_content = self._extract_file_content(file, file_ext)
+            
+            if not paper_content:
+                return {
+                    'code': 400,
+                    'message': '论文内容为空，无法查重',
+                    'data': None
+                }
+                
+            paper_title = filename.rsplit('.', 1)[0]
             
         except Exception as e:
             return {
                 'code': 500,
-                'message': f'查重过程出错：{str(e)}',
+                'message': f'文件解析失败: {str(e)}',
                 'data': None
-            }
-
-    
-    def extract_theme(self, paper_id):
-        """论文主题提取"""
-        # 1. 获取论文内容
-        paper = self.paper_dao.get_paper_by_id(paper_id)
-        if not paper:
-            return {
-                'code': 404,
-                'message': '论文不存在'
-            }
-        
-        paper_content = paper.content
-        if not paper_content:
-            return {
-                'code': 400,
-                'message': '论文内容为空，无法提取主题'
             }
         
         try:
-            # 2. 文本预处理
+            # 2. 设置API Key
+            if api_key:
+                self.set_api_key(api_key)
+            
+            # 3. 提取关键词
+            keywords = self.extract_keywords(paper_content)
+            if not keywords:
+                keywords = re.findall(r'[\u4e00-\u9fa5a-zA-Z0-9]{2,}', paper_title)[:3]
+                if not keywords:
+                    return {
+                        'code': 400,
+                        'message': '无法生成搜索关键词',
+                        'data': None
+                    }
+                    
+            search_query = ' '.join(keywords)
+            logger.info(f"Semantic Scholar搜索关键词: {search_query}")
+            
+            # 4. 通过API获取相似文章
+            api_results = self.search_semantic_scholar(search_query, num_articles)
+            
+            # 增强错误处理
+            if not api_results:
+                return {
+                    'code': 500,
+                    'message': 'Semantic Scholar API请求失败',
+                    'data': None
+                }
+                
+            if isinstance(api_results, dict) and 'error' in api_results:
+                return {
+                    'code': 500,
+                    'message': f"API错误: {api_results['message']}",
+                    'data': None
+                }
+                
+            if not api_results.get('data'):
+                # 尝试使用不同的搜索策略（如使用标题）
+                title_query = re.sub(r'[^\w\s]', '', paper_title)
+                logger.info(f"尝试备用搜索策略: {title_query}")
+                api_results = self.search_semantic_scholar(title_query, num_articles)
+                
+                if not api_results or not api_results.get('data'):
+                    return {
+                        'code': 400,
+                        'message': '未找到相关学术文献，建议调整论文关键词或内容',
+                        'data': {
+                            'comprehensive_similarity': 0,  # 确保返回基础数据结构
+                            'paper_title': paper_title,
+                            'comparison_results': [],
+                            'keywords': keywords,
+                            'num_articles': 0,
+                            'using_api': True
+                        }
+                    }
+            
+            # 5. 计算相似度
+            similar_articles = api_results['data']
+            comparison_results = []
+            
+            for article in similar_articles:
+                abstract = article.get('abstract', '')
+                if not abstract:
+                    continue  # 跳过没有摘要的文章
+                    
+                similarity = self._calculate_advanced_similarity(paper_content, abstract)
+                comparison_results.append({
+                    'article_title': article['title'],
+                    'similarity_rate': round(similarity, 2),
+                    'url': article.get('url', f"https://www.semanticscholar.org/paper/{article.get('paperId', '')}"),
+                    'authors': ', '.join([author['name'] for author in article.get('authors', [])])
+                })
+            
+            # 6. 计算综合相似度
+            avg_similarity = sum(res['similarity_rate'] for res in comparison_results) / max(1, len(comparison_results))
+            Operation.log_operation(
+                user_id=userid,
+                paper_id=None,
+                operation_type="查重",
+                file_name="filename",
+                operation_time=datatime.now()
+            )
+            
+            # 7. 返回结果（确保数据结构完整性）
+            return {
+                'code': 200,
+                'message': '查重完成（使用Semantic Scholar API）',
+                'data': {
+                    'comprehensive_similarity': round(avg_similarity, 2),
+                    'paper_title': paper_title,
+                    'comparison_results': comparison_results,
+                    'keywords': keywords,
+                    'num_articles': len(comparison_results),
+                    'using_api': True
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"查重过程出错：{str(e)}", exc_info=True)
+            return {
+                'code': 500,
+                'message': f'查重过程出错：{str(e)}',
+                'data': {
+                    'comprehensive_similarity': 0,
+                    'paper_title': paper_title,
+                    'comparison_results': [],
+                    'keywords': keywords,
+                    'num_articles': 0,
+                    'using_api': True
+                }
+            }
+
+    def _calculate_advanced_similarity(self, text1, text2):
+        """改进的相似度计算（结合关键词和语义相似度）"""
+        if not text1 or not text2:
+            return 0.0
+        
+        # 1. 基于关键词的相似度（原逻辑）
+        keywords1 = self.extract_keywords(text1, top_n=10)
+        keyword_match = sum(1 for kw in keywords1 if kw in text2)
+        keyword_similarity = (keyword_match / len(keywords1)) * 0.4 * 100  # 占40%权重
+        
+        # 2. 基于词频的相似度
+        from collections import Counter
+        words1 = re.findall(r'\b[\w]+\b', text1.lower())
+        words2 = re.findall(r'\b[\w]+\b', text2.lower())
+        count1 = Counter(words1)
+        count2 = Counter(words2)
+        
+        # 计算Jaccard相似度
+        intersection = sum((count1 & count2).values())
+        union = sum((count1 | count2).values())
+        jaccard_similarity = (intersection / union) * 0.3 * 100  # 占30%权重
+        
+        # 3. 语义相似度（使用简单词嵌入，需安装sentence-transformers）
+        semantic_similarity = 0.0
+        try:
+            from sentence_transformers import SentenceTransformer
+            import numpy as np
+            
+            # 加载轻量级模型
+            model = SentenceTransformer('all-MiniLM-L6-v2')
+            # 计算文本嵌入
+            embedding1 = model.encode(text1)
+            embedding2 = model.encode(text2)
+            # 余弦相似度
+            cosine_sim = np.dot(embedding1, embedding2) / (np.linalg.norm(embedding1) * np.linalg.norm(embedding2))
+            semantic_similarity = cosine_sim * 0.3 * 100  # 占30%权重
+        except Exception as e:
+            logger.warning(f"语义相似度计算失败，使用基础算法: {str(e)}")
+        
+        # 综合相似度
+        total_similarity = keyword_similarity + jaccard_similarity + semantic_similarity
+        return min(total_similarity, 100.0)  # 限制最大值为100
+    def extract_theme(self, file):
+        """论文主题提取（直接接收文件）"""
+        try:
+            # 1. 检查文件是否有效
+            if not file or not file.filename:
+                return {
+                    'code': 400,
+                    'message': '未上传有效文件'
+                }
+            
+            # 2. 解析文件获取内容
+            filename = file.filename
+            file_ext = filename.split('.')[-1].lower()
+            paper_content = self._extract_file_content(file, file_ext)
+            
+            if not paper_content:
+                return {
+                    'code': 400,
+                    'message': '文件内容为空，无法提取主题'
+                }
+            
+            # 3. 文本预处理
             processed_text = self.preprocess_text(paper_content)
             
-            # 3. 提取关键词（使用已有辅助函数）
+            # 4. 提取关键词
             keywords = self.extract_keywords(paper_content, top_n=5)
             if not keywords:
                 return {
@@ -247,22 +576,24 @@ class PaperService:
                     'message': '无法提取主题关键词'
                 }
             
-            # 4. 统计词频，获取主题相关高频词
+            # 5. 统计词频，获取高频词
             word_counts = Counter(processed_text)
             top_words = word_counts.most_common(20)  # 取前20个高频词
             
-            # 5. 生成主题摘要（基于关键词和高频词）
+            # 6. 生成主题摘要
             theme_summary = self._generate_theme_summary(paper_content, keywords, top_words)
             
-            # 6. 构建返回结果
+            # 7. 构建返回结果（从文件名获取标题）
+            paper_title = filename.rsplit('.', 1)[0]  # 使用文件名作为标题
+
             result = {
-                'title': paper.title,
+                'title': paper_title,
                 'keywords': keywords,
                 'top_words': top_words,
                 'summary': theme_summary,
-                'word_frequency': dict(word_counts)
+                'word_frequency': dict(word_counts),
+                'filename': filename
             }
-            
             return {
                 'code': 200,
                 'message': '主题提取完成',
@@ -275,9 +606,49 @@ class PaperService:
                 'code': 500,
                 'message': f'主题提取失败: {str(e)}'
             }
-    def _generate_theme_summary(self, text, keywords, top_words, summary_length=150):
+
+    def _extract_file_content(self, file, file_ext):
+        """从文件对象中提取内容（支持多种格式）"""
+        try:
+            # 读取文件字节数据
+            file_bytes = file.read()
+            
+            if file_ext == 'txt':
+                # 文本文件直接解码
+                return file_bytes.decode('utf-8', errors='ignore')
+            
+            elif file_ext == 'pdf':
+                # PDF文件解析（需要pdfplumber库）
+                import pdfplumber
+                with pdfplumber.open(io.BytesIO(file_bytes)) as pdf:
+                    return ''.join([page.extract_text() or '' for page in pdf.pages])
+            
+            elif file_ext == 'docx':
+                # DOCX文件解析（基于XML的ZIP格式）
+                from docx import Document
+                doc = Document(io.BytesIO(file_bytes))
+                return '\n'.join([para.text for para in doc.paragraphs])
+        
+            elif file_ext == 'doc':
+                # DOC文件解析（二进制格式）
+                import textract  # 需要安装textract库
+                text = textract.process(io.BytesIO(file_bytes), extension='doc')
+                return text.decode('utf-8', errors='ignore')
+        
+            else:
+                # 不支持的文件格式
+                current_app.logger.warning(f'不支持的文件格式: {file_ext}')
+                return None
+                
+        except Exception as e:
+            current_app.logger.error(f'文件解析错误: {str(e)}')
+            return None
+
+
+    def _generate_theme_summary(self, text, keywords, top_words, summary_length=500):
         """生成主题摘要"""
         # 1. 按句号、问号、感叹号分割段落
+        logger.info("begin theme summary")
         paragraphs = re.split(r'(。|！|\?|\.|!|\?)', text)
         # 合并分割的标点符号和内容
         full_paragraphs = []
@@ -319,166 +690,6 @@ class PaperService:
         summary = ''.join(selected_paragraphs)
         if len(summary) > summary_length:
             summary = summary[:summary_length] + '...'
-        
+        logger.error(f"end theme111111111 summary{summary!r}")
         return summary
 
-#---------------------------------------------------------------------------
-
-### 辅助函数：主题关键词提取
-    def extract_keywords(text, top_n=3):
-        """使用jieba提取文本中的关键词"""
-        # 去除标点符号和特殊字符
-        text = re.sub(r'[^\u4e00-\u9fa5a-zA-Z0-9]', ' ', text)
-        # 分词
-        words = jieba.cut(text)
-        # 过滤停用词（需提前准备停用词表）
-        stop_words = set(['的', '了', '在', '是', '我', '有', '和', '就', '不', '人', '都', '一', '一个', '上', '也', '很', '到', '说', '要', '去', '你', '会', '着', '没有', '看', '好', '自己'])
-        filtered_words = [word for word in words if word and word not in stop_words]
-        # 统计词频并取前n个
-        word_counts = Counter(filtered_words)
-        return [word for word, _ in word_counts.most_common(top_n)]
-        
-            
-    ### 辅助函数：爬虫获取相似文章（以百度学术为例）
-    def crawl_similar_article(keywords):
-        """根据关键词爬取一篇主题相似的文章"""
-        try:
-            # 拼接搜索URL（百度学术）
-            search_keywords = '+'.join(keywords)
-            url = f'https://xueshu.baidu.com/s?wd={search_keywords}&tn=SE_baiduxueshu_c1gjeupa&ie=utf-8&sc_from=&sc_as_para=sc_lib%3A'
-            
-            # 发送请求（添加请求头模拟浏览器）
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-            }
-            response = requests.get(url, headers=headers, timeout=10)
-            response.raise_for_status()  # 检查请求是否成功
-            
-            # 解析HTML
-            soup = BeautifulSoup(response.text, 'html.parser')
-            # 查找第一篇文章的标题和链接
-            article = {}
-            
-            # 提取标题（示例：百度学术的标题选择器）
-            title_elem = soup.find('h3', class_='t c_font')
-            if title_elem:
-                article['title'] = title_elem.text.strip()
-                link = title_elem.find('a', href=True)
-                if link:
-                    article['url'] = link['href']
-            
-            # 如果获取到链接，进一步爬取文章内容
-            if 'url' in article:
-                # 处理百度学术的重定向链接
-                if article['url'].startswith('/'):
-                    article['url'] = 'https://xueshu.baidu.com' + article['url']
-                
-                # 发送请求获取文章详情
-                article_response = requests.get(article['url'], headers=headers, timeout=15)
-                article_soup = BeautifulSoup(article_response.text, 'html.parser')
-                
-                # 提取文章内容（示例：假设内容在class为'content'的元素中）
-                content_elem = article_soup.find('div', class_='content')
-                if content_elem:
-                    article['content'] = content_elem.text.strip()
-                else:
-                    # 备选：从摘要中提取
-                    abstract_elem = article_soup.find('div', class_='abstract_content')
-                    article['content'] = abstract_elem.text.strip() if abstract_elem else "无法提取文章内容"
-            else:
-                # 未获取到链接时，使用搜索结果中的摘要
-                abstract_elem = soup.find('div', class_='content-right_8Zs40')
-                article['content'] = abstract_elem.text.strip() if abstract_elem else "无法提取文章内容"
-            
-            return article
-        
-        except Exception as e:
-            print(f"爬虫出错: {str(e)}")
-            return None
-
-                
-
-    ### 辅助函数：文本预处理
-    def preprocess_text(text):
-        """清洗文本、分词、去除停用词"""
-        if not text:
-            return []
-        
-        # 去除标点符号和特殊字符
-        text = re.sub(r'[^\u4e00-\u9fa5a-zA-Z0-9]', ' ', text)
-        # 分词
-        words = jieba.cut(text)
-        # 过滤停用词
-        stop_words = set(['的', '了', '在', '是', '我', '有', '和', '就', '不', '人', '都', '一', '一个', '上', '也', '很', '到', '说', '要', '去', '你', '会', '着', '没有', '看', '好', '自己'])
-        return [word for word in words if word and word not in stop_words]
-
-
-    ### 辅助函数：计算文本相似度（余弦相似度）
-    def calculate_similarity(text1, text2):
-        """使用余弦相似度计算两篇文章的相似度"""
-        if not text1 or not text2:
-            return 0.0
-        
-        # 合并所有词，创建词袋
-        all_words = list(set(text1 + text2))
-        
-        # 生成词频向量
-        def get_word_vector(words):
-            vector = []
-            for word in all_words:
-                vector.append(words.count(word))
-            return vector
-        
-        vec1 = get_word_vector(text1)
-        vec2 = get_word_vector(text2)
-        
-        # 计算点积
-        dot_product = sum(a * b for a, b in zip(vec1, vec2))
-        # 计算模长
-        mag1 = math.sqrt(sum(a**2 for a in vec1))
-        mag2 = math.sqrt(sum(b**2 for b in vec2))
-        # 避免除零错误
-        if mag1 * mag2 == 0:
-            return 0.0
-        # 计算余弦相似度
-        similarity = dot_product / (mag1 * mag2)
-        # 转换为百分比并保留两位小数
-        return round(similarity * 100, 2)
-
-
-    ### 辅助函数：查找相似段落
-    def find_similar_sections(text1, text2, window_size=200):
-        """查找两篇文章中的相似段落（简化版）"""
-        if not text1 or not text2:
-            return []
-        
-        similar_sections = []
-        # 将文本分割成段落
-        paragraphs1 = re.split(r'\n|\。|\！|\？|\.|!|\?', text1)
-        paragraphs2 = re.split(r'\n|\。|\！|\？|\.|!|\?', text2)
-        
-        for para1 in paragraphs1:
-            if len(para1) < 50:  # 跳过太短的段落
-                continue
-            for para2 in paragraphs2:
-                if len(para2) < 50:
-                    continue
-                # 预处理段落
-                proc_para1 = preprocess_text(para1)
-                proc_para2 = preprocess_text(para2)
-                # 计算段落相似度
-                para_sim = calculate_similarity(proc_para1, proc_para2)
-                # 如果相似度超过阈值，记录相似段落
-                if para_sim > 30:  # 相似度阈值
-                    similar_sections.append({
-                        'paper_para': para1[:window_size] + '...',
-                        'article_para': para2[:window_size] + '...',
-                        'similarity': round(para_sim, 2)
-                    })
-                    # 为避免重复匹配，找到一个相似段落后跳出循环
-                    break
-        
-        # 按相似度降序排序
-        similar_sections.sort(key=lambda x: x['similarity'], reverse=True)
-        return similar_sections[:5]  # 返回前5个最相似的段落
-#---------------------------------------------------------------------

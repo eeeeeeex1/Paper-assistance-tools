@@ -3,6 +3,11 @@ from dotenv import load_dotenv  # 若用 .env 文件加载环境变量，需安�
 
 # 加载环境变量（如果有 developmentconfig.env 等文件）
 load_dotenv(os.path.join(os.path.dirname(__file__), 'developmentconfig.env'))
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# 上传文件配置
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'store', 'papers')
+MAX_CONTENT_LENGTH = 10 * 1024 * 1024  # 10MB 最大文件大小
 
 class Config:
     # Flask 通用配置
@@ -60,8 +65,9 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True  # 开发环境开启调试模式
     QLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost:3306/paper_checker'
-    JWT_SECRET_KEY = '123456'
+    JWT_SECRET_KEY = 'f50ce100db7f65247ee79cd3fa6f5e830b0298a435e646c6140fe9f33693fe3b'
     JWT_ALGORITHM = 'HS256'
+    JWT_EXPIRE_HOURS = 24
 # 生产环境配置（示例）
 class ProductionConfig(Config):
     DEBUG = False

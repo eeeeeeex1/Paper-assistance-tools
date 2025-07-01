@@ -8,7 +8,6 @@ from backend.models.paper import Paper # 导入相关模型
 from backend.models.operation import Operation
 import os
 from config.logging_config import logger
-
 # 创建操作记录模块的蓝图
 operation_bp = Blueprint('operation', __name__, url_prefix='/api/operations')
 
@@ -84,6 +83,7 @@ def get_operation(operation_id):
 })
 def get_user_operations(user_id):
     """获取用户的所有操作记录"""
+    logger.info("begin controller getoperaitons")
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 20, type=int)
     return operation_service.get_user_operations(user_id, page, per_page)
@@ -130,7 +130,7 @@ def get_paper_operations(paper_id):
     per_page = request.args.get('per_page', 20, type=int)
     return operation_service.get_paper_operations(paper_id, page, per_page)
 
-@operation_bp.route('/', methods=['POST'])
+@operation_bp.route('/log', methods=['POST'])
 @swag_from({
     'tags': ['日志管理'],
     'description': '记录新操作',
@@ -168,6 +168,7 @@ def get_paper_operations(paper_id):
 })
 def log_operation():
     """记录新的操作"""
+    logger.info('begin log_operation')
     return operation_service.log_operation()
 
 @operation_bp.route('/stats', methods=['GET'])
@@ -200,34 +201,3 @@ def log_operation():
 def get_operation_stats():
     """获取操作统计信息"""
     return operation_service.get_operation_stats()
-#----------------------------------------------------------
-
-@operation_bp.route('/getall', methods=['GET'])
-@operation_bp.route('/getall/user/<int:user_id>', methods=['GET'])
-@operation_bp.route('/getall/paper/<int:paper_id>', methods=['GET'])
-def get_operations(user_id=None, paper_id=None):
-    try:
-        logger.info('begin operation get all')
-        # 参数校验
-        page = max(1, request.args.get('page', 1, type=int))
-        per_page = min(max(1, request.args.get('per_page', 10, type=int)), 100)
-        operation_type = request.args.get('operation', None)
-        
-        # 调用Service层
-        data = operation_service.get_operations(
-            page=page,
-            per_page=per_page,
-            user_id=user_id,
-            paper_id=paper_id,
-            operation_type=operation_type
-        )
-        logger.info('finish operation get all')
-        return jsonify({
-            'status': 'success',
-            'data': data
-        })
-        
-    except ValueError as e:
-        return jsonify({'status': 'error', 'message': str(e)}), 400
-    except Exception as e:
-        return jsonify({'status': 'error', 'message': '服务器内部错误'}), 500

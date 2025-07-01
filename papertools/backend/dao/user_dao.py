@@ -7,19 +7,14 @@ from datetime import datetime, timedelta,timezone
 import logging
 import bcrypt
 from config.logging_config import logger
-
-#------------------------------------------
-from typing import List, Dict, Any,Optional
-from sqlalchemy.exc import SQLAlchemyError
-#-----------------------------------------
 # 初始化日志记录器
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 class UserDao:
-    #def get_user_by_id(self, user_id):
-        #"""通过 ID 获取用户"""
-        #return User.query.get(user_id)
+    def get_user_by_id(self, user_id):
+        """通过 ID 获取用户"""
+        return User.query.get(user_id)
 
     def get_user_by_identity(self, identity):
         """通过用户名获取用户"""
@@ -88,25 +83,16 @@ class UserDao:
         )
 
         return token
-
-    def update_user_info(self, identity, **kwargs):
-        """更新用户信息"""
-        user = self.get_user_by_identity(identity)
-        if not user:
-            return False, "用户不存在"
-
-        # 更新允许修改的字段
-        for key, value in kwargs.items():
-            if hasattr(user, key) and key not in ['id', 'password']:
-                setattr(user, key, value)
-
-        # 如果需要更新密码，单独处理
-        if 'password' in kwargs:
-            user.password = self._hash_password(kwargs['password'])
-
-        # 提交更改
-        db.session.commit()
-        return True, "更新成功"
+#保存
+    def save_user(self, user):
+        """保存用户到数据库（新增或更新）"""
+        try:
+            db.session.add(user)
+            db.session.commit()
+            return user
+        except Exception as e:
+            db.session.rollback()
+            raise e
 
     def delete_user(self, user_id):
         """删除用户"""
@@ -127,40 +113,5 @@ class UserDao:
     # 辅助方法：密码加密
     def hash_password(self, plain_password: str) -> str:
         return plain_password  # 直接返回明文
-#-------------------------------------------------------------------------------
-    # dao/user_dao.py
-    def get_all_user(
-        self,
-        page: int = 1,
-        per_page: int = 10,
-        filter_username: Optional[str] = None,
-        include_sensitive: bool = False
-    ) -> Dict[str, Any]:
-        """
-        获取分页用户数据
-        :param include_sensitive: 是否包含敏感信息
-        :param page: 页码
-        :param per_page: 每页数量
-        :param filter_username: 按用户名过滤
-        :return: 包含分页信息的字典
-        """
-        try:
-            logger.info(f"Dao get all user")
-            query = User.query
-            
-            if filter_username:
-                query = query.filter(User.username.like(f"%{filter_username}%"))
-            
-            paginated_users = query.paginate(page=page, per_page=per_page, error_out=False)
-            logger.info('Dao get all user success')
-            return {
-                'items': [user.to_dict(include_sensitive) for user in paginated_users.items],
-                'total': paginated_users.total,
-                'pages': paginated_users.pages,
-                'current_page': page,
-                'per_page': per_page
-            }
-        except SQLAlchemyError as e:
-            db.session.rollback()
-            raise e
-#--------------------------------------------------------------------
+    
+    

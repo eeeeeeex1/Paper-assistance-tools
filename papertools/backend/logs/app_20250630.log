@@ -1,0 +1,320 @@
+456542025-06-30 20:35:27 - urllib3.connectionpool - WARNING - connectionpool:868 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000248E3C74B90>: Failed to establish a new connection: [WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�')': /session/3d62acda6e07d61cb1322178a8331010
+2025-06-30 20:35:32 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:35:32 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:35:33 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:35:33 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:35:34 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-30 20:35:34 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-30 20:35:34 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:35:36 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:35:36 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:35:37 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:35:37 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:35:38 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:35:38 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:35:52 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:35:52 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:35:52 - app - ERROR - paper_service:769 - �ļ���������: File is not a zip file
+2025-06-30 20:35:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:35:52] "[31m[1mPOST /api/paper/theme HTTP/1.1[0m" 400 -
+2025-06-30 20:38:23 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:38:23 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:39:11 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:39:12 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:39:12 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:39:12 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:39:14 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-30 20:39:14 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-30 20:39:14 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:39:15 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:39:16 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:39:16 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:39:16 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:39:18 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:39:18 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:39:59 - urllib3.connectionpool - WARNING - connectionpool:868 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023CF5424B90>: Failed to establish a new connection: [WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�')': /session/27510a5c72032021e578f3479ae64095
+2025-06-30 20:40:08 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:40:09 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:40:09 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:40:09 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:40:11 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-30 20:40:11 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-30 20:40:11 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:40:12 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:40:13 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:40:13 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:40:13 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:40:15 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:40:15 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:40:28 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:40:28 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:40:28 - app - ERROR - paper_service:775 - �ļ���������: File is not a zip file
+2025-06-30 20:40:28 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:40:28] "[31m[1mPOST /api/paper/theme HTTP/1.1[0m" 400 -
+2025-06-30 20:43:08 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:43:09 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:43:09 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:43:09 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:43:11 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-30 20:43:11 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-30 20:43:11 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:43:12 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:43:13 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:43:13 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:43:14 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:43:15 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:43:15 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:43:21 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:43:21 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:43:21 - jieba - DEBUG - __init__:113 - Building prefix dict from the default dictionary ...
+2025-06-30 20:43:21 - jieba - DEBUG - __init__:132 - Loading model from cache C:\Users\lenovo\AppData\Local\Temp\jieba.cache
+2025-06-30 20:43:21 - jieba - DEBUG - __init__:164 - Loading model cost 0.328 seconds.
+2025-06-30 20:43:21 - jieba - DEBUG - __init__:166 - Prefix dict has been built successfully.
+2025-06-30 20:43:21 - root - INFO - paper_service:94 - begin extract_keywords
+2025-06-30 20:43:21 - root - INFO - paper_service:108 - end extract_keywords
+2025-06-30 20:43:21 - root - INFO - paper_service:727 - end  find theme
+2025-06-30 20:43:21 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:43:21] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-06-30 20:49:30 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:49:30 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:49:32 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:49:32 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:49:33 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:49:33 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:49:34 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:49:34 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:49:37 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:49:37 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:49:55 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:49:55 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:49:56 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:49:56 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:49:57 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-30 20:49:57 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-30 20:49:57 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:49:59 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:50:00 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:50:00 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:50:00 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:50:02 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:50:02 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:50:35 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:50:36 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:50:37 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:50:37 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:50:38 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-30 20:50:38 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-06-30 20:50:38 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:50:40 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:50:40 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:50:41 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:50:41 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:50:42 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:50:42 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:50:51 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:50:51 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:50:51 - jieba - DEBUG - __init__:113 - Building prefix dict from the default dictionary ...
+2025-06-30 20:50:51 - jieba - DEBUG - __init__:132 - Loading model from cache C:\Users\lenovo\AppData\Local\Temp\jieba.cache
+2025-06-30 20:50:51 - jieba - DEBUG - __init__:164 - Loading model cost 0.313 seconds.
+2025-06-30 20:50:51 - jieba - DEBUG - __init__:166 - Prefix dict has been built successfully.
+2025-06-30 20:50:51 - root - INFO - paper_service:94 - begin extract_keywords
+2025-06-30 20:50:51 - root - INFO - paper_service:108 - end extract_keywords
+2025-06-30 20:50:51 - root - INFO - paper_service:719 - end  find theme
+2025-06-30 20:50:51 - root - INFO - paper_service:728 - end  find theme
+2025-06-30 20:50:51 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:50:51] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-06-30 20:51:07 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:51:07 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:51:08 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:51:09 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:51:09 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:51:10 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:51:11 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:51:11 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:51:11 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:51:11 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:51:11 - jieba - DEBUG - __init__:113 - Building prefix dict from the default dictionary ...
+2025-06-30 20:51:11 - jieba - DEBUG - __init__:132 - Loading model from cache C:\Users\lenovo\AppData\Local\Temp\jieba.cache
+2025-06-30 20:51:11 - jieba - DEBUG - __init__:164 - Loading model cost 0.336 seconds.
+2025-06-30 20:51:11 - jieba - DEBUG - __init__:166 - Prefix dict has been built successfully.
+2025-06-30 20:51:11 - root - INFO - paper_service:94 - begin extract_keywords
+2025-06-30 20:51:11 - root - INFO - paper_service:108 - end extract_keywords
+2025-06-30 20:51:11 - root - INFO - paper_service:719 - end  find theme11111111
+2025-06-30 20:51:11 - root - INFO - paper_service:728 - end  find theme
+2025-06-30 20:51:11 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:51:11] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-06-30 20:51:22 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:51:22 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:51:22 - root - INFO - paper_service:94 - begin extract_keywords
+2025-06-30 20:51:22 - root - INFO - paper_service:108 - end extract_keywords
+2025-06-30 20:51:22 - root - INFO - paper_service:719 - end  find theme11111111
+2025-06-30 20:51:22 - root - INFO - paper_service:728 - end  find theme
+2025-06-30 20:51:22 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:51:22] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-06-30 20:51:38 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:51:38 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:51:39 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:51:40 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:51:40 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:51:41 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:51:42 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:51:42 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:51:43 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:51:43 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:51:44 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:51:45 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:51:46 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:51:46 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:51:47 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:51:47 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:51:51 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:51:51 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:51:51 - jieba - DEBUG - __init__:113 - Building prefix dict from the default dictionary ...
+2025-06-30 20:51:51 - jieba - DEBUG - __init__:132 - Loading model from cache C:\Users\lenovo\AppData\Local\Temp\jieba.cache
+2025-06-30 20:51:52 - jieba - DEBUG - __init__:164 - Loading model cost 0.339 seconds.
+2025-06-30 20:51:52 - jieba - DEBUG - __init__:166 - Prefix dict has been built successfully.
+2025-06-30 20:51:52 - root - INFO - paper_service:94 - begin extract_keywords
+2025-06-30 20:51:52 - root - INFO - paper_service:108 - end extract_keywords
+2025-06-30 20:51:52 - root - INFO - paper_service:719 - end  find theme11111111
+2025-06-30 20:51:52 - root - INFO - paper_service:728 - end  find theme
+2025-06-30 20:51:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:51:52] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-06-30 20:53:03 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:53:03 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:53:05 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:53:05 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:53:06 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:53:06 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:53:07 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:53:07 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:53:11 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:53:12 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:53:13 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:53:14 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:53:14 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:53:14 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:53:16 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:53:16 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:53:21 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:53:21 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:53:22 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:53:23 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:53:24 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:53:24 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:53:25 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:53:25 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:53:28 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:53:28 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:53:30 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:53:31 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:53:31 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:53:31 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:53:33 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:53:33 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:53:55 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:53:55 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:53:55 - jieba - DEBUG - __init__:113 - Building prefix dict from the default dictionary ...
+2025-06-30 20:53:55 - jieba - DEBUG - __init__:132 - Loading model from cache C:\Users\lenovo\AppData\Local\Temp\jieba.cache
+2025-06-30 20:53:55 - jieba - DEBUG - __init__:164 - Loading model cost 0.315 seconds.
+2025-06-30 20:53:55 - jieba - DEBUG - __init__:166 - Prefix dict has been built successfully.
+2025-06-30 20:53:55 - root - INFO - paper_service:94 - begin extract_keywords
+2025-06-30 20:53:55 - root - INFO - paper_service:108 - end extract_keywords
+2025-06-30 20:53:55 - root - INFO - paper_service:783 - begin theme summary
+2025-06-30 20:53:55 - root - INFO - paper_service:825 - end theme summary
+2025-06-30 20:53:55 - root - INFO - paper_service:719 - end  find theme11111111
+2025-06-30 20:53:55 - root - INFO - paper_service:728 - end  find theme
+2025-06-30 20:53:55 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:53:55] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-06-30 20:54:29 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:54:29 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:54:31 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:54:31 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:54:32 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:54:32 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:54:33 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:54:33 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:54:35 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:54:35 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:54:37 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:54:38 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:54:38 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:54:38 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:54:40 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:54:40 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:54:46 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:54:46 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:54:47 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:54:48 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:54:48 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:54:49 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:54:50 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:54:50 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:54:52 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:54:52 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:54:52 - jieba - DEBUG - __init__:113 - Building prefix dict from the default dictionary ...
+2025-06-30 20:54:52 - jieba - DEBUG - __init__:132 - Loading model from cache C:\Users\lenovo\AppData\Local\Temp\jieba.cache
+2025-06-30 20:54:52 - jieba - DEBUG - __init__:164 - Loading model cost 0.350 seconds.
+2025-06-30 20:54:52 - jieba - DEBUG - __init__:166 - Prefix dict has been built successfully.
+2025-06-30 20:54:52 - root - INFO - paper_service:94 - begin extract_keywords
+2025-06-30 20:54:52 - root - INFO - paper_service:108 - end extract_keywords
+2025-06-30 20:54:52 - root - INFO - paper_service:783 - begin theme summary
+2025-06-30 20:54:52 - root - INFO - paper_service:825 - end theme111111111 summary
+2025-06-30 20:54:52 - root - INFO - paper_service:719 - end  find theme11111111
+2025-06-30 20:54:52 - root - INFO - paper_service:728 - end  find theme
+2025-06-30 20:54:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:54:52] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-06-30 20:56:25 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:56:25 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:56:27 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:56:28 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:56:28 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:56:29 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:56:30 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:56:30 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:56:39 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:56:39 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:56:41 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:56:42 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:56:42 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:56:42 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:56:44 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:56:44 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:56:50 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:56:50 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:56:50 - jieba - DEBUG - __init__:113 - Building prefix dict from the default dictionary ...
+2025-06-30 20:56:50 - jieba - DEBUG - __init__:132 - Loading model from cache C:\Users\lenovo\AppData\Local\Temp\jieba.cache
+2025-06-30 20:56:50 - jieba - DEBUG - __init__:164 - Loading model cost 0.313 seconds.
+2025-06-30 20:56:50 - jieba - DEBUG - __init__:166 - Prefix dict has been built successfully.
+2025-06-30 20:56:50 - root - INFO - paper_service:94 - begin extract_keywords
+2025-06-30 20:56:50 - root - INFO - paper_service:108 - end extract_keywords
+2025-06-30 20:56:50 - root - INFO - paper_service:783 - begin theme summary
+2025-06-30 20:56:50 - root - ERROR - paper_service:825 - end theme111111111 summary''
+2025-06-30 20:56:50 - root - INFO - paper_service:719 - end  find theme11111111
+2025-06-30 20:56:50 - root - INFO - paper_service:728 - end  find theme
+2025-06-30 20:56:50 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:56:50] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-06-30 20:58:02 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:58:02 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:58:04 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:58:05 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:58:05 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:58:05 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:58:07 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:58:07 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 20:59:11 - root - INFO - paper_controller:359 - begin 111111 extract theme
+2025-06-30 20:59:11 - root - INFO - paper_service:680 - begin  find theme
+2025-06-30 20:59:11 - jieba - DEBUG - __init__:113 - Building prefix dict from the default dictionary ...
+2025-06-30 20:59:11 - jieba - DEBUG - __init__:132 - Loading model from cache C:\Users\lenovo\AppData\Local\Temp\jieba.cache
+2025-06-30 20:59:11 - jieba - DEBUG - __init__:164 - Loading model cost 0.307 seconds.
+2025-06-30 20:59:11 - jieba - DEBUG - __init__:166 - Prefix dict has been built successfully.
+2025-06-30 20:59:11 - root - INFO - paper_service:94 - begin extract_keywords
+2025-06-30 20:59:11 - root - INFO - paper_service:108 - end extract_keywords
+2025-06-30 20:59:11 - root - INFO - paper_service:783 - begin theme summary
+2025-06-30 20:59:11 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 20:59:11] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-06-30 20:59:22 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\paper_service.py', reloading
+2025-06-30 20:59:23 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-06-30 20:59:24 - WDM - INFO - logger:11 - ====== WebDriver manager ======
+2025-06-30 20:59:25 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:59:25 - WDM - INFO - logger:11 - Get LATEST chromedriver version for google-chrome
+2025-06-30 20:59:25 - WDM - INFO - logger:11 - Driver [C:\Users\lenovo\.wdm\drivers\chromedriver\win64\138.0.7204.49\chromedriver-win32/chromedriver.exe] found in cache
+2025-06-30 20:59:27 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-06-30 20:59:27 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-06-30 21:03:54 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 21:03:54] "[31m[1mPOST /api/paper/spelling HTTP/1.1[0m" 405 -
+2025-06-30 21:04:04 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 21:04:04] "[31m[1mPOST /api/paper/spelling HTTP/1.1[0m" 405 -
+2025-06-30 21:04:04 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [30/Jun/2025 21:04:04] "[31m[1mPOST /api/paper/spelling HTTP/1.1[0m" 405 -

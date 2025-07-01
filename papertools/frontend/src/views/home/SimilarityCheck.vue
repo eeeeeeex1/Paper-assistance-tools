@@ -26,6 +26,19 @@
             hidden
           >
           <label for="fileInput" class="browse-btn">浏览文件</label>
+
+          <!-- 新增：上传进度条 -->
+          <div v-if="isUploading" class="upload-progress">
+            <div class="progress-bar" :style="{ width: uploadProgress + '%' }">
+              {{ uploadProgress }}%
+            </div>
+          </div>
+        
+        <!-- 新增：错误提示 -->
+        <div v-if="uploadError" class="upload-error">
+          <i class="iconfont icon-error"></i>
+          <span>{{ uploadError }}</span>
+        </div>
           <p class="file-info" v-if="uploadedFile">
             <i class="iconfont icon-file"></i>
             {{ uploadedFile.name }} ({{ formatFileSize(uploadedFile.size) }})
@@ -189,9 +202,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onUnmounted } from 'vue';
+import { ref, computed, onUnmounted, onMounted } from 'vue';
+import { ElMessage } from 'element-plus';
+import { getAuthorId } from '@/utils/auth'; 
+import { useRouter, useRoute } from 'vue-router'
+import axios from 'axios';
 
+// 新增：操作日志相关
+const operationLogStatus = ref('');
+
+const router = useRouter();
+const route = useRoute();
 // 上传文件状态
+const isUploading = ref(false);
+const uploadProgress = ref(0);
+const title = ref(''); 
+const uploadError = ref<string | null>(null);
+
 const dragOver = ref(false);
 const uploadedFile = ref<File | null>(null);
 const fileContent = ref('');
@@ -244,6 +271,63 @@ const exportBtnIcon = computed(() => {
   return isExporting.value ? 'icon-loading spin' : 'icon-export';
 });
 
+// 文件上传与查重核心函数
+const uploadAndCheckPlagiarism = async (file: File) => {
+  const formData = new FormData();
+  console.group('【查重请求】参数检查');
+  console.log('文件对象:', file);
+  console.log('文件名:', file.name);
+
+  const authorId = getAuthorId();
+  console.log('作者ID(localStorage):', authorId);
+  if (!authorId) {
+    ElMessage.error('未获取到用户ID');
+    return null;
+  }
+  
+  formData.append('file', file);
+  // 附加API设置参数（可选）
+  formData.append('num_articles', apiSettings.value.resultCount.toString());
+  formData.append('userid', authorId)
+  try {
+    console.log('发送查重请求到API...');
+    isUploading.value = true;
+    uploadProgress.value = 0;
+
+    // 注意：根据实际后端API调整路径
+    const response = await axios.post('http://localhost:5000/api/paper/plagiarism', formData, {
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        uploadProgress.value = percentCompleted;
+      }
+    });
+
+
+    console.log('查重成功:', response.data);
+    isUploading.value = false;
+    return response.data;
+
+  } catch (err: any) {
+    console.error('查重失败详情:', {
+      message: err.message,
+      responseData: err.response?.data,
+      responseStatus: err.response?.status
+    });
+    
+    let errorMessage = '查重失败，请重试';
+    if (err.response?.status === 404) {
+      errorMessage = 'API路径不存在，请检查后端配置';
+    } else if (err.response?.status === 400) {
+      errorMessage = err.response.data.message || '请求格式错误';
+    } else if (err.response?.status === 500) {
+      errorMessage = err.response.data.message || '服务器内部错误';
+    }
+    
+    isUploading.value = false;
+    uploadError.value = errorMessage;
+    return null;
+  }
+};
 // 文件处理方法
 const handleFileDrop = async (e: DragEvent) => {
   dragOver.value = false;
@@ -253,11 +337,26 @@ const handleFileDrop = async (e: DragEvent) => {
   }
 };
 
+// 处理文件选择
 const handleFileSelect = async (e: Event) => {
+  console.log("处理文件选择");
   const input = e.target as HTMLInputElement;
   if (input.files?.length) {
-    uploadedFile.value = input.files[0];
-    await previewFile(uploadedFile.value);
+    const file = input.files[0];
+    const authorId = getAuthorId();
+    
+    if (!authorId) {
+      ElMessage.warning('请先登录');
+      router.push('/login');
+      return;
+    }
+    
+    uploadedFile.value = file;
+    const titleWithoutExt = file.name.split('.').slice(0, -1).join('.');
+    title.value = titleWithoutExt;
+
+    await previewFile(file);
+    uploadError.value = null; // 重置错误信息
   }
 };
 
@@ -296,37 +395,45 @@ const formatFileSize = (bytes: number) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 };
 
-// 对比功能
-const startComparison = () => {
+// 对比功能（修改后 - 直接调用上传和查重函数）
+const startComparison = async () => {
   if (!canCompare.value) return;
   
   showResults.value = true;
   resultsReady.value = false;
+  uploadError.value = null;
   
-  // 模拟API调用
-  setTimeout(() => {
-    // 模拟结果数据
-    overallSimilarity.value = Math.floor(Math.random() * 30) + 5; // 5-35%
-    sources.value = [
-      {
-        title: "基于深度学习的文本相似度计算方法研究",
-        url: "https://example.com/paper1",
-        similarity: Math.floor(Math.random() * 20) + 5, // 5-25%
-        excerpt: "本文提出了一种基于注意力机制的文本相似度计算方法..."
-      },
-      {
-        title: "学术论文抄袭检测系统设计与实现",
-        url: "https://example.com/paper2",
-        similarity: Math.floor(Math.random() * 15) + 5, // 5-20%
-        excerpt: "针对学术论文抄袭问题，本文设计了一种基于..."
-      }
-    ].sort((a, b) => b.similarity - a.similarity);
+  if (!uploadedFile.value) {
+    ElMessage.error('请先上传文件');
+    return;
+  }
+  
+  try {
+    console.log('[API请求] 开始查重...');
+    const result = await uploadAndCheckPlagiarism(uploadedFile.value);
+    
+    if (!result) return; // 查重失败时返回
+    
+    // 处理响应数据
+    const data = result.data;
+    overallSimilarity.value = data.comprehensive_similarity || 0;
+    sources.value = data.comparison_results.map((item: any) => ({
+      title: item.article_title,
+      url: item.url,
+      similarity: Math.round(item.similarity_rate * 100), // 转换为百分比
+      excerpt: item.most_similar_sections?.[0]?.excerpt || '未找到相似片段'
+    }));
     
     resultsReady.value = true;
-  }, 2000);
+    ElMessage.success('查重完成');
+    
+  } catch (error: any) {
+    console.error('查重处理失败:', error);
+    uploadError.value = '查重分析失败，请稍后重试';
+  }
 };
 
-// 导出报告功能
+// 导出报告功能（保持逻辑不变，后续可扩展）
 const handleExportReport = async () => {
   if (!resultsReady.value || isExporting.value) return;
   
@@ -422,6 +529,41 @@ h3, h4 {
   color: #1e293b;
   margin-top: 0;
   margin-bottom: 1.5rem;
+}
+
+.upload-progress {
+  margin-top: 1rem;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.upload-progress .progress-bar {
+  height: 100%;
+  background: #4f46e5;
+  transition: width 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+}
+
+.upload-error {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: #fee2e2;
+  border-radius: 4px;
+  color: #991b1b;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.upload-error i {
+  margin-right: 0.5rem;
 }
 
 .upload-area {

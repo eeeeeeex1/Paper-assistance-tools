@@ -103,7 +103,7 @@ const filter = ref({
 })
 
 // API路径
-const OPERATIONS_API = 'http://localhost:5000/api/operations/getall'
+const OPERATIONS_API = '/api/operations'
 
 // 操作类型映射（用于显示友好名称）
 const OPERATION_TYPES = {

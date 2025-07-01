@@ -130,7 +130,7 @@ const handleLogin = async () => {
       await new Promise(resolve => setTimeout(resolve, 800));
       
       // 登录成功后跳转到用户管理页面
-      router.push('/admin/user-manage');
+      router.push('/user-manage');
     } else {
       accountError.value = '账号或密码错误';
     }
