@@ -1,12 +1,11 @@
 # backend/services/operation_service.py
-from backend.models import operation
+from backend.models.operation import Operation
+from backend.models.user import User
 from backend.config.database import db
 import logging
 from datetime import datetime, timedelta
-from sqlalchemy import desc
-from typing import Dict, Any, Optional, List
 from config.logging_config import logger
-from models.operation import Operation
+from sqlalchemy import desc  # 缺少这行导入
 
 # 初始化日志记录器
 logging.basicConfig(level=logging.ERROR)
@@ -15,25 +14,25 @@ logger = logging.getLogger(__name__)
 class OperationDao:
     def get_operation_by_id(self, operation_id):
         """通过ID获取操作记录"""
-        return operation.query.get(operation_id)
+        return Operation.query.get(operation_id)
     
     def get_operations_by_user(self, user_id, page=1, per_page=20):
         """获取用户的操作记录（支持分页）"""
-        return operation.query.filter_by(user_id=user_id).paginate(
+        return Operation.query.filter_by(user_id=user_id).paginate(
             page=page, per_page=per_page, error_out=False
         )
     
     def get_operations_by_paper(self, paper_id, page=1, per_page=20):
         """获取与论文相关的操作记录（支持分页）"""
-        return operation.query.filter_by(paper_id=paper_id).paginate(
+        return Operation.query.filter_by(paper_id=paper_id).paginate(
             page=page, per_page=per_page, error_out=False
         )
     
     def get_recent_operations(self, days=7, page=1, per_page=20):
-        """获取最近N天的操作记录（支持分页）"""
+        """获取最近N天的操作记录(支持分页)"""
         start_time = datetime.utcnow() - timedelta(days=days)
-        return operation.query.filter(
-            operation.operation_time >= start_time
+        return Operation.query.filter(
+            Operation.operation_time >= start_time
         ).paginate(page=page, per_page=per_page, error_out=False)
     
     def log_operation(self, user_id, paper_id, operation_type):
@@ -56,7 +55,7 @@ class OperationDao:
     def delete_operations_by_paper(self, paper_id):
         """删除与论文相关的所有操作记录"""
         try:
-            count = operation.query.filter_by(paper_id=paper_id).delete()
+            count = Operation.query.filter_by(paper_id=paper_id).delete()
             db.session.commit()
             return True, f"成功删除 {count} 条操作记录"
         except Exception as e:
@@ -66,7 +65,7 @@ class OperationDao:
     
     def get_operation_stats(self, user_id=None, start_date=None, end_date=None):
         """获取操作统计信息"""
-        query = operation.query
+        query = Operation.query
         
         # 按用户过滤
         if user_id:
@@ -75,64 +74,24 @@ class OperationDao:
         # 按时间范围过滤
         if start_date and end_date:
             query = query.filter(
-                operation.operation_time >= start_date,
-                operation.operation_time <= end_date
+                Operation.operation_time >= start_date,
+                Operation.operation_time <= end_date
             )
         
         # 统计各操作类型的数量
         from sqlalchemy.sql import func
         stats = query.with_entities(
-            operation.operation_type,
-            func.count(operation.operation_type).label('count')
-        ).group_by(operation.operation_type).all()
+            Operation.operation_type,
+            func.count(Operation.operation_type).label('count')
+        ).group_by(Operation.operation_type).all()
         
         return {stat.operation_type: stat.count for stat in stats}
-
-
-        #-----------------------------------------------------
-    def query_operations(
-        self,
-        page: int = 1,
-        per_page: int = 10,
-        user_id: Optional[int] = None,
-        paper_id: Optional[int] = None,
-        operation_type: Optional[str] = None
-    ) -> Dict[str, any]:
-        """
-        基础查询方法（DAO层）
-        :return: {
-            'items': List[Operation], 
-            'total': int,
-            'pages': int
-        }
-        """
+#-----------------------------------------------------------------------
+    
+    def get_user_operations(self,user_id, page, per_page):
+        """获取用户的操作记录（带分页），返回原始Pagination对象"""
         try:
-            logger.info('begin dao find`operations')
-            query = Operation.query
-            
-            # 条件过滤
-            if user_id:
-                query = query.filter(Operation.user_id == user_id)
-            if paper_id:
-                query = query.filter(Operation.paper_id == paper_id)
-            if operation_type:
-                query = query.filter(Operation.operation_type == operation_type)
-            logger.info('1111111111')
-            # 执行分页查询
-            pagination = query.order_by(
-                desc(Operation.operation_time)
-            ).paginate(
-                page=page,
-                per_page=per_page,
-                error_out=False
-            )
-            logger.info('finish dao find`operations')
-            return {
-                'items': pagination.items,
-                'total': pagination.total,
-                'pages': pagination.pages
-            }
-            
+            query = Operation.query.filter_by(user_id=user_id).order_by(desc(Operation.operation_time))
+            return query.paginate(page=page, per_page=per_page, error_out=False)
         except Exception as e:
-            db.session.rollback()
-            raise ValueError(f"数据库查询失败: {str(e)}")
+            raise e  # 抛出异常，由Service层处理

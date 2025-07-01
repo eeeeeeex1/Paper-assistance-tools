@@ -66,28 +66,26 @@ const error = ref('')
 const USER_API_BASE = '/api/user'
 
 // 获取用户列表
-const fetchUsers = async (params = {}) => {
+const fetchUsers = async () => {
+  loading.value = true
+  error.value = ''
+  
   try {
-    const response = await axios.get('http://localhost:5000/api/user/getall', {
-      params: {
-        page: params.page || 1,                // 页码，默认第1页
-        per_page: params.perPage || 10,        // 每页数量，默认10条
-        username: params.filterUsername || '', // 用户名过滤，默认为空
-        include_sensitive: params.includeSensitive || false // 是否包含敏感信息
-      },
+    // 假设获取用户列表的API为 /api/user/list
+    const response = await axios.get(`${USER_API_BASE}/list`, {
       headers: {
-        // 使用管理员token（根据你的认证机制调整）
-        Authorization: `Bearer ${localStorage.getItem('admin_token') || 'test-token'}`
+        Authorization: `Bearer ${localStorage.getItem('token') || 'test-token'}` // 测试时可固定token
       }
-    });
-    
-    // 假设后端返回格式为 { status, message, data }
-    return response.data;
-  } catch (error) {
-    console.error('获取用户列表失败', error);
-    throw error;
+    })
+    userList.value = Array.isArray(response.data) ? response.data : []
+  } catch (err) {
+    console.error('API错误', err)
+    error.value = getErrorMessage(err)
+  } finally {
+    loading.value = false
   }
-};
+}
+
 // 删除用户
 const deleteUser = async (userId) => {
   if (!confirm('确定要删除该用户吗？此操作不可恢复！')) return

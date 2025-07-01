@@ -1,6 +1,4 @@
 # backend/models/operation.py
-from typing import Optional  # 添加这行
-
 from backend.config.database import db
 from datetime import datetime
 # models/user_operation.py
@@ -32,10 +30,8 @@ class Operation(db.Model):
     )
     file_name=db.Column(
         db.String(255),
-        nullable=True
+        nullable=False
     )
-    
-
     def to_dict(self):
         """将操作记录转换为字典"""
         return {
@@ -44,16 +40,18 @@ class Operation(db.Model):
             'paper_id': self.paper_id,
             'operation_type': self.operation_type,
             'operation_time': self.operation_time.strftime('%Y-%m-%d %H:%M:%S'),
-            'file_name':self.file_name
+            'file_name': self.file_name
         }
     
     @staticmethod
-    def log_operation(user_id, paper_id, operation_type):
+    def log_operation(user_id, paper_id, operation_type,file_name,operation_time):
         """记录操作日志（静态方法）"""
         new_operation = Operation(
             user_id=user_id,
             paper_id=paper_id,
-            operation_type=operation_type
+            operation_type=operation_type,
+            file_name=file_name,
+            operation_time=operation_time
         )
         db.session.add(new_operation)
         db.session.commit()

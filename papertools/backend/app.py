@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))  # 添加项目根目录到 sys.path
-
+from dao.paper_dao import PaperDao
 from flask import Flask
 from flasgger import Swagger
 # 从 config 包导入配置类和数据库实例
@@ -19,6 +19,7 @@ def create_app():
     app = Flask(__name__)
     # 加载配置（开发环境用 DevelopmentConfig）
     app.config.from_object(DevelopmentConfig)
+    app.config['UPLOAD_FOLDER'] = 'uploads'  # 明确设置上传文件夹
     # 初始化数据库，将 db 与 app 绑定
     #db.init_app(app)
     db.init_app(app)
@@ -47,7 +48,6 @@ def create_app():
     swagger_config = app.config['SWAGGER_CONFIG']
     # 初始化 Swagger
     swagger = Swagger(app, template=swagger_template, config=swagger_config)
-
     
     return app
 #-------------------------------------------------------

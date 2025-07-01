@@ -13,6 +13,8 @@ import LogManage from '../views/LogManage.vue';
 import Statistic from '../views/Statistic.vue';
 import UserManage from '../views/UserManage.vue';
 import Register from '../components/Register.vue';
+import { getToken } from '../utils/auth'
+import { isAuthenticated } from '../utils/auth'; // 导入优化后的认证检查
 
 const routes: Array<RouteRecordRaw> = [
   // 登录页（根路径）
@@ -21,11 +23,18 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Login', // 添加命名路由
     component: Login
   },
-  
+   // 显式添加/login路径，指向同一个登录组件
+  {
+    path: '/login',
+    name: 'LoginRedirect', // 使用不同的名称避免冲突
+    component: Login
+  },
   // 用户主页（需要认证）
   {
     path: '/home',
+    name:'Home',
     component: Home,
+    meta: { requiresAuth: true }, // 标记需要认证的路由
     children: [
       { path: 'similarity', name: 'Similarity', component: SimilarityCheck },
       { path: 'spellcheck', name: 'SpellCheck', component: SpellCheck },
@@ -33,6 +42,7 @@ const routes: Array<RouteRecordRaw> = [
       { path: 'history', name: 'History', component: OperationHistory }
     ]
   },
+  
   // 管理员界面（需要权限）
   {
     path: '/admin',
@@ -52,7 +62,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Register
   },
   {
-    path: '/admin/login',
+    path: '/admin-login',
     name: 'AdminLogin',
     component: AdminLogin
   }
@@ -61,6 +71,19 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+});
+
+// 全局前置守卫 - 验证路由访问权限
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = localStorage.getItem('token');
+  
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    next('/login');
+  } else if (to.path === '/login' && isLoggedIn) {
+    next('/home'); // 已登录时访问登录页，重定向到主页
+  } else {
+    next(); // 正常放行
+  }
 });
 
 export default router;

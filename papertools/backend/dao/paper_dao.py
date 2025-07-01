@@ -17,13 +17,38 @@ from difflib import SequenceMatcher
 import re
 from collections import Counter
 import asyncio
-from config.logging_config import logger
+from werkzeug.utils import secure_filename
 
 # 初始化日志记录器
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 class PaperDao:
+
+    def init_upload_folder(self, app):
+        # 从 app 中获取配置，而非 current_app
+        self.upload_folder = app.config.get('UPLOAD_FOLDER', 'uploads')
+        self.allowed_extensions = {'pdf', 'docx','doc', 'txt'}  # 允许的文件类型
+        self.logger.info(f"上传文件夹已初始化为: {self.upload_folder}")
+
+    def allowed_file(self, filename):
+        """检查文件扩展名是否允许"""
+        return '.' in filename and filename.rsplit('.', 1)[1].lower() in self.allowed_extensions
+    
+    def generate_unique_filename(self, original_filename):
+        """生成唯一文件名，避免冲突"""
+        try:
+            # 确保文件名是字符串
+            if isinstance(original_filename, bytes):
+                original_filename = original_filename.decode('utf-8', errors='replace')
+            
+            ext = os.path.splitext(original_filename)[1]
+            unique_id = uuid.uuid4().hex
+            return f"{unique_id}{ext}"
+        except Exception as e:
+            self.logger.error(f"生成唯一文件名失败: {str(e)}")
+            return f"{uuid.uuid4().hex}.unknown"
+    
     def get_paper_by_id(self, paper_id):
         """通过ID获取论文"""
         return Paper.query.get(paper_id)
@@ -36,27 +61,75 @@ class PaperDao:
         """获取所有论文（支持分页）"""
         return Paper.query.paginate(page=page, per_page=per_page, error_out=False)
     
-    def upload_paper(self, title, author_id, file_path):
-        """上传论文"""
+    def upload_paper(self, title, author_id, file):
+        self.logger.info(f"开始上传论文: {title}, 作者ID: {author_id}")
+        logger.info(f"begin dao upload paper")
+        """上传论文（改进版）"""
+         # 确保上传文件夹已初始化
+        if not self.upload_folder:
+            self.logger.error("上传文件夹未初始化")
+            return None, "系统配置错误，请联系管理员"
+        
         # 检查作者是否存在
         author = User.query.get(author_id)
         if not author:
+            self.logger.warning(f"作者不存在: {author_id}")
             return None, "作者不存在"
-        content = self._extract_content(file_path)
-        # 创建论文对象
-        new_paper = Paper(
-            title=title,
-            author_id=author_id,
-            upload_time=datetime.utcnow(),
-            file_path=file_path,
-            content=content  # 保存提取的内容
-        )
         
-        # 保存到数据库
-        db.session.add(new_paper)
-        db.session.commit()
+        # 检查文件是否存在且合法
+        if file is None or file.filename == '':
+            self.logger.warning("未选择文件")
+            return None, "未选择文件"
+            
+        if not self.allowed_file(file.filename):
+            self.logger.warning(f"不支持的文件类型: {file.filename}")
+            return None, f"不支持的文件类型，允许的类型: {', '.join(self.allowed_extensions)}"
         
-        return new_paper, None
+        # 生成唯一文件名并保存文件
+        unique_filename = self.generate_unique_filename(file.filename)
+        save_path = os.path.join(self.upload_folder, unique_filename)
+        
+        self.logger.info(f"准备保存文件: {save_path}")
+        
+        try:
+            # 确保上传目录存在
+            os.makedirs(self.upload_folder, exist_ok=True)
+            
+            # 保存文件
+            file.save(save_path)
+            self.logger.info(f"文件已保存: {save_path}")
+            
+            # 提取文件内容
+            content = self._extract_content(save_path)
+            self.logger.info(f"成功提取文件内容，长度: {len(content)}")
+            
+            # 创建论文对象
+            new_paper = Paper(
+                title=title,
+                author_id=author_id,
+                upload_time=datetime.utcnow(),
+                file_path=unique_filename,  # 只保存文件名，而非完整路径
+                content=content
+            )
+            
+            # 保存到数据库
+            self.db.session.add(new_paper)
+            self.db.session.commit()
+            self.logger.info(f"论文已成功保存到数据库,ID: {new_paper.id}")
+            logger.info(f"end dao upload paper")
+            return new_paper, None
+            
+        except Exception as e:
+            # 记录详细的错误信息
+            self.logger.error(f"上传失败: {str(e)}", exc_info=True)
+            
+            # 出错时回滚事务并删除已上传的文件
+            self.db.session.rollback()
+            if os.path.exists(save_path):
+                os.remove(save_path)
+                self.logger.info(f"已删除临时文件: {save_path}")
+                
+            return None, f"上传失败: {str(e)}"
     
     def delete_paper(self, paper_id):
         """删除论文"""
@@ -204,4 +277,24 @@ class PaperDao:
         except Exception as e:
             logger.error(f"主题提取失败: {str(e)}")
             return False, f"主题提取失败: {str(e)}"
-    #-----------------------------------------------------------
+            
+    def create_paper(self, paper: Paper) -> Paper:
+        """创建新论文记录"""
+        try:
+            logger.info("begin dao")
+            # 添加到会话
+            db.session.add(paper)
+            
+            # 提交事务
+            db.session.commit()
+            logger.info("end dao")
+            # 返回带 ID 的实例
+            return paper
+            
+        except Exception as e:
+            # 回滚事务
+            db.session.rollback()
+            raise e  # 抛回异常由上层处理
+
+    
+    

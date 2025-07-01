@@ -24,7 +24,7 @@
         </div>
       </nav>
 
-      <div class="sidebar-footer" @click="logout">
+      <div class="sidebar-footer" @click="handleLogout">
         <i class="iconfont icon-logout"></i>
         <span>退出登录</span>
       </div>
@@ -87,8 +87,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed,onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { ElMessage } from 'element-plus';
+import { logout } from '../utils/auth';
 
 const router = useRouter();
 const route = useRoute();
@@ -140,19 +142,103 @@ const navigateTo = (path: string) => {
   router.push(path);
 };
 
-// 退出登录
-const logout = () => {
-  // 这里添加实际的登出逻辑
-    // 1. 清除本地存储的token和用户信息
-  localStorage.removeItem('token');
-  localStorage.removeItem('userInfo');
-   // 2. 清除Vuex/Pinia中的用户状态（如果有）
-  // 例如：store.commit('clearUser');  
-  // 3. 清除所有缓存数据（可选）
-  sessionStorage.clear();  
-  // 4. 跳转到登录页面
-  router.push('/');
+// 组件挂载后执行
+onMounted(() => {
+  console.log('Home 组件已挂载');
+  
+  // 示例：检查用户权限
+  checkUserPermissions();
+  
+  // 示例：显示欢迎消息（仅首次加载时）
+  //ElMessage.success('欢迎回来！');
+});
+
+// 检查用户权限
+const checkUserPermissions = () => {
+  try {
+    // 获取并解析用户信息
+    const userStr = localStorage.getItem('user');
+    let user = null;
+    
+    // 如果 userStr 存在且不是 JWT 格式，则尝试解析为 JSON
+    if (userStr && !userStr.startsWith('eyJ')) {
+      user = JSON.parse(userStr);
+    } else if (userStr) {
+      // 如果是 JWT 格式，尝试解码
+      user = decodeJwt(userStr);
+    }
+    
+    // 获取令牌（不解码，直接使用）
+    const token = localStorage.getItem('token');
+    
+    // 验证用户和令牌
+    if (!user || !token) {
+      throw new Error('用户信息或令牌缺失');
+    }
+    
+    // 检查令牌有效性
+    if (!isTokenValid(token)) {
+      throw new Error('令牌无效或已过期');
+    }
+    
+    console.log('用户已登录:', user);
+  } catch (error) {
+    console.error('权限检查失败:', error);
+    ElMessage.warning('请先登录');
+    router.push('/login');
+  }
 };
+
+// 解码 JWT 令牌
+const decodeJwt = (token: string) => {
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      return null;
+    }
+    
+    // 解码 payload 部分
+    const base64Url = parts[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    console.error('解码 JWT 失败:', error);
+    logout();
+    router.push('/login');
+  }
+};
+
+// 验证令牌有效性
+const isTokenValid = (token: string) => {
+  if (!token) return false;
+  
+  try {
+    const decoded = decodeJwt(token);
+    if (!decoded || !decoded.exp) return false;
+    
+    // 检查过期时间（单位：秒）
+    return Date.now() < decoded.exp * 1000;
+  } catch (error) {
+    console.error('验证令牌失败:', error);
+    return false;
+  }
+};
+// 退出登录
+const handleLogout = () => {
+  logout();
+  console.log(localStorage.getItem('user'));
+  console.log(localStorage.getItem('token'));
+  setTimeout(() => {
+    router.push('/login').then(() => {
+       window.location.reload();
+   });
+  }, 100);
+}
+
 </script>
 
 <style scoped>

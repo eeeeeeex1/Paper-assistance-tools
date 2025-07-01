@@ -112,51 +112,11 @@
 import { ref, computed, onMounted } from 'vue';
 import { DatePicker as VanDatePicker } from 'vant';
 import 'vant/lib/date-picker/style';
+import { getAuthorId } from '@/utils/auth';
+import axios from 'axios';
+import { ElMessage } from 'element-plus';
 
 // 模拟API获取操作记录*********************************************************************
-const fetchHistoryRecords = async () => {
-  // 实际项目中这里应该是API调用
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: '1',
-          operationTime: '2023-05-15T10:30:00',
-          documentName: '论文初稿.docx',
-          operationType: 'similarity',
-          beforeFileUrl: '/files/original/1.docx',
-          afterFileUrl: '/files/processed/1.docx'
-        },
-        {
-          id: '2',
-          operationTime: '2023-05-16T14:20:00',
-          documentName: '研究报告.pdf',
-          operationType: 'spellcheck',
-          beforeFileUrl: '/files/original/2.pdf',
-          afterFileUrl: '/files/processed/2.pdf'
-        },
-        {
-          id: '3',
-          operationTime: '2023-05-17T09:15:00',
-          documentName: '毕业论文终稿.doc',
-          operationType: 'summary',
-          beforeFileUrl: '/files/original/3.doc',
-          afterFileUrl: '/files/processed/3.doc'
-        },
-        {
-          id: '4',
-          operationTime: '2023-05-18T16:45:00',
-          documentName: '学术论文.txt',
-          operationType: 'similarity',
-          beforeFileUrl: '/files/original/4.txt',
-          afterFileUrl: '/files/processed/4.txt'
-        }
-      ]);
-    }, 500);
-  });
-};
-
-// 操作类型映射
 const operationTypes = {
   similarity: '论文相似度查询',
   spellcheck: '论文错字纠正',
@@ -168,12 +128,69 @@ const searchQuery = ref('');
 const dateRange = ref<[Date, Date] | null>(null);
 const currentPage = ref(1);
 const pageSize = 10;
+const historyRecords = ref([]);
+const totalRecords = ref(0);
+const isLoadingHistory = ref(false);
+const totalPages = ref(1)
+const fetchHistoryRecords = async (userId, page = 1, perPage = 20) => {
+  try {
+    // 显示加载状态
+    isLoadingHistory.value = true;
+    
+    // 发送GET请求到后端API
+    const response = await axios.get(
+      `http://localhost:5000/api/operations/user/${userId}`,
+      {
+        params: {
+          page,
+          per_page: perPage
+        }
+      }
+    );
+    
+    // 处理成功响应
+    if (response.data.code === 200) {
+      // 更新操作记录数据
+      historyRecords.value = response.data.data.operations;
+      totalRecords.value = response.data.data.total;
+      currentPage.value = response.data.data.current_page;
+      totalPages.value = response.data.data.pages;
+      
+      ElMessage.info('操作记录获取成功');
+      return response.data.data;
+    } else {
+      ElMessage.error(response.data.message || '获取操作记录失败');
+      return null;
+    }
+  } catch (error) {
+    console.error('获取操作记录失败:', error);
+    ElMessage.error('网络错误，请稍后重试');
+    return null;
+  } finally {
+    // 隐藏加载状态
+    isLoadingHistory.value = false;
+  }
+};
 
 // 初始化加载数据
+// 初始化加载数据
 onMounted(async () => {
-  records.value = await fetchHistoryRecords() as any[];
+  const userId = getAuthorId(); // 从auth工具获取用户ID
+  if (!userId) {
+    ElMessage.error('未获取到用户ID，无法加载操作记录');
+    return;
+  }
+  
+  const result = await fetchHistoryRecords(userId, currentPage.value, pageSize);
+  if (result) {
+    records.value = result.operations;
+    totalPages.value = result.pages;
+    totalRecords.value = result.total;
+  }
 });
 
+
+//*----------------------------------------------------------
 // 格式化日期
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -219,9 +236,7 @@ const filteredRecords = computed(() => {
 });
 
 // 总页数
-const totalPages = computed(() => {
-  return Math.ceil(records.value.length / pageSize);
-});
+
 
 // 下载文件
 const downloadFile = (url: string, filename: string) => {

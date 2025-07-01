@@ -1,0 +1,79 @@
+2025-07-01 16:15:58 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 16:15:58 - root - INFO - operation_service:137 - ï¿½ï¿½Ê¼ï¿½ï¿½Ñ¯ï¿½Ã»ï¿½ 2 ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ò³ï¿½ï¿½: 1, Ã¿Ò³: 10
+2025-07-01 16:15:58 - root - INFO - operation_service:143 - ï¿½ï¿½Ñ¯ï¿½ï¿½É£ï¿½ï¿½Ü¼ï¿½Â¼ï¿½ï¿½: 2, ï¿½ï¿½Ç°Ò³ï¿½ï¿½Â¼ï¿½ï¿½: 2
+2025-07-01 16:15:58 - root - INFO - operation_service:146 - ï¿½ï¿½Ç°Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½:
+2025-07-01 16:15:58 - root - INFO - operation_service:148 - ï¿½ï¿½Â¼ 1: {'id': 6, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 06:52:47', 'file_name': 'ï¿½ï¿½Â¼'}
+2025-07-01 16:15:58 - root - INFO - operation_service:148 - ï¿½ï¿½Â¼ 2: {'id': 5, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 02:13:42', 'file_name': 'ï¿½ï¿½Â¼'}
+2025-07-01 16:15:58 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:15:58] "GET /api/operations/user/2?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 16:16:00 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 16:16:00 - root - INFO - operation_service:137 - ï¿½ï¿½Ê¼ï¿½ï¿½Ñ¯ï¿½Ã»ï¿½ 2 ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ò³ï¿½ï¿½: 1, Ã¿Ò³: 10
+2025-07-01 16:16:00 - root - INFO - operation_service:143 - ï¿½ï¿½Ñ¯ï¿½ï¿½É£ï¿½ï¿½Ü¼ï¿½Â¼ï¿½ï¿½: 2, ï¿½ï¿½Ç°Ò³ï¿½ï¿½Â¼ï¿½ï¿½: 2
+2025-07-01 16:16:00 - root - INFO - operation_service:146 - ï¿½ï¿½Ç°Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½:
+2025-07-01 16:16:00 - root - INFO - operation_service:148 - ï¿½ï¿½Â¼ 1: {'id': 6, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 06:52:47', 'file_name': 'ï¿½ï¿½Â¼'}
+2025-07-01 16:16:00 - root - INFO - operation_service:148 - ï¿½ï¿½Â¼ 2: {'id': 5, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 02:13:42', 'file_name': 'ï¿½ï¿½Â¼'}
+2025-07-01 16:16:00 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:16:00] "GET /api/operations/user/2?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 16:17:10 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:17:10] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-01 16:17:11 - root - INFO - paper_controller:329 - begin check plagiarism with file upload
+2025-07-01 16:17:11 - root - INFO - paper_controller:345 - begin controller check plagiarism
+2025-07-01 16:17:11 - root - INFO - paper_service:361 - begin service check_plagiarism with Semantic Scholar API
+2025-07-01 16:17:11 - app - ERROR - paper_service:644 - ÎÄ¼þ½âÎö´íÎó: File is not a zip file
+2025-07-01 16:17:11 - root - INFO - paper_controller:347 - end controller check plagiarism with file upload
+2025-07-01 16:17:11 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:17:11] "POST /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-01 16:17:17 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:17:17] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-01 16:17:18 - root - INFO - paper_controller:329 - begin check plagiarism with file upload
+2025-07-01 16:17:18 - root - INFO - paper_controller:345 - begin controller check plagiarism
+2025-07-01 16:17:18 - root - INFO - paper_service:361 - begin service check_plagiarism with Semantic Scholar API
+2025-07-01 16:17:18 - root - INFO - paper_service:105 - begin extract_keywords
+2025-07-01 16:17:18 - root - INFO - paper_service:119 - end extract_keywords
+2025-07-01 16:17:18 - root - INFO - paper_service:409 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ¼¼Êõ ¼ÆËã ½øÐÐ Êý×Ö ÍøÂç
+2025-07-01 16:17:19 - root - ERROR - paper_service:83 - API HTTP´íÎó 429: {"message": "Too Many Requests. Please wait and try again or apply for a key for higher rate limits. https://www.semanticscholar.org/product/api#api-key-form", "code": "429"}
+2025-07-01 16:17:19 - root - INFO - paper_controller:347 - end controller check plagiarism with file upload
+2025-07-01 16:17:19 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:17:19] "POST /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-01 16:20:35 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-01 16:20:35 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-07-01 16:20:35 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-01 16:20:41 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-01 16:20:41 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-07-01 16:20:43 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:20:43] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-01 16:20:43 - root - INFO - user_controller:227 - ´¦ÀíÊý¾Ý: 123@qq.com
+2025-07-01 16:20:43 - root - INFO - user_controller:228 - ´¦ÀíÊý¾Ý: 123456
+2025-07-01 16:20:43 - dao.user_dao - INFO - user_dao:21 - check user
+2025-07-01 16:20:43 - root - INFO - user_service:47 - ¸üÐÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-01 08:20:44
+2025-07-01 16:20:43 - root - INFO - user_service:74 - µÇÂ¼³É¹¦ - ÓÃ»§: 123@qq.com
+2025-07-01 16:20:43 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-01 16:20:43 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:20:43] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-01 16:20:58 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:20:58] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-01 16:20:58 - root - INFO - paper_controller:329 - begin check plagiarism with file upload
+2025-07-01 16:20:58 - root - INFO - paper_controller:345 - begin controller check plagiarism
+2025-07-01 16:20:58 - root - INFO - paper_service:361 - begin service check_plagiarism with Semantic Scholar API
+2025-07-01 16:20:58 - root - INFO - paper_service:105 - begin extract_keywords
+2025-07-01 16:20:59 - root - INFO - paper_service:119 - end extract_keywords
+2025-07-01 16:20:59 - root - INFO - paper_service:409 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ¼¼Êõ ¼ÆËã ½øÐÐ Êý×Ö ÍøÂç
+2025-07-01 16:20:59 - root - ERROR - paper_service:83 - API HTTP´íÎó 429: {"message": "Too Many Requests. Please wait and try again or apply for a key for higher rate limits. https://www.semanticscholar.org/product/api#api-key-form", "code": "429"}
+2025-07-01 16:20:59 - root - INFO - paper_controller:347 - end controller check plagiarism with file upload
+2025-07-01 16:20:59 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:20:59] "POST /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-01 16:23:45 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 16:23:45 - root - INFO - operation_service:137 - ¿ªÊ¼²éÑ¯ÓÃ»§ 2 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
+2025-07-01 16:23:45 - root - INFO - operation_service:143 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êý: 2, µ±Ç°Ò³¼ÇÂ¼Êý: 2
+2025-07-01 16:23:45 - root - INFO - operation_service:146 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-01 16:23:45 - root - INFO - operation_service:148 - ¼ÇÂ¼ 1: {'id': 6, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 06:52:47', 'file_name': 'µÇÂ¼'}
+2025-07-01 16:23:45 - root - INFO - operation_service:148 - ¼ÇÂ¼ 2: {'id': 5, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 02:13:42', 'file_name': 'µÇÂ¼'}
+2025-07-01 16:23:45 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 16:23:45] "GET /api/operations/user/2?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 16:27:30 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\controller\\operation_controller.py', reloading
+2025-07-01 16:27:31 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-01 16:27:38 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-01 16:27:38 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-07-01 16:28:53 - werkzeug - INFO - _internal:97 -  * Detected change in 'C:\\Users\\lenovo\\Desktop\\papertools\\backend\\service\\operation_service.py', reloading
+2025-07-01 16:28:54 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-01 16:29:00 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-01 16:29:00 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-07-01 17:07:07 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-01 17:07:07 - root - INFO - operation_service:137 - ¿ªÊ¼²éÑ¯ÓÃ»§ 2 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 10
+2025-07-01 17:07:07 - root - INFO - operation_service:143 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êý: 2, µ±Ç°Ò³¼ÇÂ¼Êý: 2
+2025-07-01 17:07:07 - root - INFO - operation_service:146 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-01 17:07:07 - root - INFO - operation_service:148 - ¼ÇÂ¼ 1: {'id': 6, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 06:52:47', 'file_name': 'µÇÂ¼'}
+2025-07-01 17:07:07 - root - INFO - operation_service:148 - ¼ÇÂ¼ 2: {'id': 5, 'user_id': 2, 'paper_id': None, 'operation_type': 'login', 'operation_time': '2025-07-01 02:13:42', 'file_name': 'µÇÂ¼'}
+2025-07-01 17:07:07 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [01/Jul/2025 17:07:07] "GET /api/operations/user/2?page=1&per_page=10 HTTP/1.1" 200 -
+2025-07-01 17:11:50 - werkzeug - INFO - _internal:97 -  * Detected change in 'c:\\Users\\lenovo\\Desktop\\papertools\\backend\\controller\\paper_controller.py', reloading
+2025-07-01 17:11:51 - werkzeug - INFO - _internal:97 -  * Restarting with stat

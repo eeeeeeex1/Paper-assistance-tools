@@ -85,6 +85,8 @@
 import { ref, computed } from 'vue';
 import * as docx from 'docx-preview';
 import * as mammoth from 'mammoth';
+import { getAuthorId } from '@/utils/auth';
+import axios from 'axios';
 
 // 文件处理相关
 const fileInput = ref<HTMLInputElement | null>(null);
@@ -93,6 +95,8 @@ const isChecking = ref<boolean>(false);
 const checkedContent = ref<string>('');
 const errorPositions = ref<Array<{word: string, suggestions: string[]}>>([]);
 const fileName = ref<string>('');
+const errorMessage = ref<string>('');
+const tab = ref<string>('original');
 
 // 统计信息
 const stats = computed(() => {
@@ -195,7 +199,7 @@ const parseDocFile = (arrayBuffer: ArrayBuffer): Promise<string> => {
       container.style.display = 'none';
       document.body.appendChild(container);
       
- docx.renderAsync(arrayBuffer, container, undefined, {
+      docx.renderAsync(arrayBuffer, container, undefined, {
         ignoreLastRenderedPageBreak: true
       }).then(() => {
         // 获取解析后的文本内容
@@ -214,67 +218,47 @@ const parseDocFile = (arrayBuffer: ArrayBuffer): Promise<string> => {
   });
 };
 
-// 模拟拼写检查API
-const mockSpellCheckApi = async (text: string) => {
-  // 模拟网络延迟
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  
-  // 模拟一些常见的拼写错误
-  const commonErrors: Record<string, string[]> = {
-    'teh': ['the'],
-    'adn': ['and'],
-    'thier': ['their', 'there'],
-    'recieve': ['receive'],
-    'seperate': ['separate'],
-    'definately': ['definitely'],
-    'occured': ['occurred'],
-    'untill': ['until'],
-    'wich': ['which', 'witch'],
-    'alot': ['a lot']
-  };
-  
-  const errors: Array<{word: string, suggestions: string[]}> = [];
-  let checkedText = text;
-  
-  // 检查文本中的常见错误
-  for (const [error, suggestions] of Object.entries(commonErrors)) {
-    if (text.includes(error)) {
-      errors.push({
-        word: error,
-        suggestions
-      });
-      
-      // 自动用第一个建议替换
-        checkedText = checkedText.replace(
-      new RegExp(escapeRegExp(error), 'g'), // 匹配模式（全局匹配）
-      suggestions[0] // 替换字符串
-    );
-    }
+
+// 调用后端API检查拼写
+const checkSpelling = async () => {
+  if (!fileContent.value) {
+    errorMessage.value = '请先上传并解析文件';
+    return;
   }
   
-  return {
-    checkedText,
-    errors
-  };
-};
-
-// 调用API检查拼写
-const checkSpelling = async () => {
-  if (!fileContent.value) return;
-  
   isChecking.value = true;
+  errorMessage.value = '';
+  
   try {
-    // 调用模拟API检查拼写
-    const result = await mockSpellCheckApi(fileContent.value);
-    checkedContent.value = result.checkedText;
-    errorPositions.value = result.errors;
-  } catch (error) {
-    console.error('拼写检查出错:', error);
-    alert('拼写检查失败，请重试');
+    // 创建FormData并添加文件内容
+    const formData = new FormData();
+    const textFile = new File([fileContent.value], fileName.value, { type: 'text/plain' });
+    formData.append('file', textFile);
+    
+    // 调用后端API
+    const response = await axios.post(`http://localhost:5000/api/paper/spelling`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    
+    if (response.data.code === 200) {
+      // 处理成功响应
+      const data = response.data.data;
+      checkedContent.value = data.checked_text || fileContent.value;
+      errorPositions.value = data.typo_details || [];
+    } else {
+      // 处理错误响应
+      errorMessage.value = response.data.message || '拼写检查失败';
+    }
+  } catch (error: any) {
+    console.error('API调用出错:', error);
+    errorMessage.value = error.response?.data?.message || '网络错误，请稍后重试';
   } finally {
     isChecking.value = false;
   }
 };
+
 
 // 导出结果
 const exportResult = () => {
@@ -293,6 +277,11 @@ const exportResult = () => {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+};
+
+// 切换标签页
+const switchTab = (tabName: string) => {
+  tab.value = tabName;
 };
 </script>
 

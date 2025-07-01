@@ -90,6 +90,8 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import {setToken} from '../utils/auth'
+import { ElMessage } from 'element-plus';
 
 const email = ref('');
 const password = ref('');
@@ -159,16 +161,12 @@ const handleLogin = async () => {
     // 处理登录成功
     if (response.status >= 200 && response.status < 300) {
       // 存储用户信息和token
-      localStorage.setItem('token', response.data.token);
+      setToken(response.data.token); // 调用 auth.ts 的 setToken
       localStorage.setItem('user', JSON.stringify(response.data.user));
       
       // 显示成功消息并跳转
-      emailError.value = '登录成功，正在跳转...';
-      
-      // 延迟跳转，给用户看到成功消息
-      setTimeout(() => {
-        router.push('/home');
-      }, 500);
+      //ElMessage.success('登录成功，正在跳转...');
+      await router.push('/home'); // 确保跳转完成
     } else {
       emailError.value = response.data.message || '登录失败，请重试';
     }
@@ -210,6 +208,7 @@ onMounted(() => {
     form.classList.add('fade-in');
   }
 });
+
 </script>
 
 

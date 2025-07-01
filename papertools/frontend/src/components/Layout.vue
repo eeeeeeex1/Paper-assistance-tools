@@ -24,9 +24,9 @@ import { ref, computed } from 'vue'
 
 const router = useRouter()
 const menuList = [
-  { label: '用户管理界面', path: '/admin/user-manage' },
-  { label: '日志管理界面', path: '/admin/log-manage' },
-  { label: '统计界面', path: '/admin/statistic' }
+  { label: '用户管理界面', path: '/user-manage' },
+  { label: '日志管理界面', path: '/log-manage' },
+  { label: '统计界面', path: '/statistic' }
 ]
 
 const currentRoute = computed(() => router.currentRoute.value.path)

@@ -5,6 +5,10 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.utils import secure_filename
+from io import BytesIO
+from config.logging_config import logger
+import docx
+
 
 class Paper(db.Model):
     __tablename__ = 'papers'
@@ -26,9 +30,13 @@ class Paper(db.Model):
         db.DateTime(timezone=True),
         default=datetime.now(timezone.utc)
     )
-    file_path = db.Column(db.String(255))
+    file_path = db.Column(
+        db.String(255),
+        nullable=True
+    )
     content = db.Column(
-        db.Text
+        db.Text,
+        nullable=True
     )  # Text类型支持大文本存储
 
 
@@ -36,12 +44,23 @@ class Paper(db.Model):
         return f"<Paper(id={self.id}, title='{self.title}', author_id={self.author_id}, status='{self.status}')>"
     
     # 类方法：验证文件类型
-    @classmethod
-    def is_allowed_file(cls, filename):
-        allowed_extensions = {'pdf', 'docx', 'txt', 'md'}
-        return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
     
-    # 实例方法：获取文件URL
+    @staticmethod
+    def is_allowed_file(filename):
+        """改进版：正确处理中文和特殊字符文件名"""
+        allowed_extensions = {'txt', 'pdf', 'docx'}
+        
+        # 安全检查：确保文件名不为空
+        if not filename:
+            return False
+            
+        # 处理带点的中文文件名（如 "报告.测试.docx"）
+        if '.' not in filename:
+            return False
+            
+        # 提取最后一个点后的扩展名并转为小写
+        ext = filename.rsplit('.', 1)[1].lower()
+        return ext in allowed_extensions
     def get_file_url(self):
         if not self.file_path:
             return None
@@ -58,3 +77,34 @@ class Paper(db.Model):
             'file_path': self.file_path,
             'file_url': self.get_file_url()
         }
+
+    @staticmethod
+    def extract_content(content_bytes, filename):
+        """提取文件内容（支持 .docx）"""
+        if filename.endswith('.docx'):
+            try:
+                logger.info("begin to fix docx")
+                # 将二进制数据转换为文档对象
+                docx_file = BytesIO(content_bytes)
+                doc = docx.Document(docx_file)
+                
+                # 提取所有段落文本
+                content = "\n".join([para.text for para in doc.paragraphs])
+                
+                return content
+            except Exception as e:
+                print(f"提取 docx 内容失败111111111111111: {e}")
+                return None
+        elif filename.endswith('.pdf'):
+            # 处理 PDF 提取（需要 PyPDF2 库）
+            from PyPDF2 import PdfReader
+            pdf_file = BytesIO(content_bytes)
+            reader = PdfReader(pdf_file)
+            content = ""
+            for page in reader.pages:
+                content += page.extract_text() or ""
+            return content
+        elif filename.endswith('.txt'):
+            # 已在服务层处理
+            return content_bytes.decode('utf-8', errors='ignore')
+        return None
