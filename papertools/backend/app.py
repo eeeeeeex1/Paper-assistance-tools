@@ -12,10 +12,20 @@ from backend.config.database import db  # 导入 db 实例
 from flask_cors import CORS  # 引入 CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
+#lmk---------------
+from dotenv import load_dotenv
+import os
 #-----------------------------------------------------------------
 # 工厂函数创建 Flask 应用
 def create_app():
+    #lmk------------------------------ 加载环境变量
+    load_dotenv()
+    # 验证环境变量
+    print("启动环境变量检查:")
+    print(f"XINGHUO_APP_ID: {os.getenv('XINGHUO_APP_ID')}")
+    print(f"XINGHUO_API_KEY: {os.getenv('XINGHUO_API_KEY')}")
+    print(f"XINGHUO_API_PASSWORD: {os.getenv('XINGHUO_API_PASSWORD')}")
+    #lmk------------------------------------------    
     app = Flask(__name__)
     # 加载配置（开发环境用 DevelopmentConfig）
     app.config.from_object(DevelopmentConfig)
@@ -23,7 +33,7 @@ def create_app():
     # 初始化数据库，将 db 与 app 绑定
     #db.init_app(app)
     db.init_app(app)
-
+   
     migrate = Migrate(app, db)# 初始化迁移工具
 
     # 导入所有模型（确保 Flask-Migrate 能发现它们）
@@ -37,12 +47,16 @@ def create_app():
     from controller.paper_controller import paper_bp
     from controller.user_controller import user_bp
     from controller.operation_controller import operation_bp 
-
+    #lmk----------------------------------------
+    from backend.controller.ai_controller import ai_bp
+    #lmk-----------------------------------------------
     # 配置 Swagger
     app.register_blueprint(user_bp)
     app.register_blueprint(paper_bp)
     app.register_blueprint(operation_bp)
-
+    #lmk-----------------------------------
+    app.register_blueprint(ai_bp)
+    #-----------------------------------------
 
     swagger_template = app.config['SWAGGER_TEMPLATE']
     swagger_config = app.config['SWAGGER_CONFIG']
@@ -53,6 +67,7 @@ def create_app():
 #-------------------------------------------------------
 
 if __name__ == '__main__':
+    
     app = create_app()
     with app.app_context():
 

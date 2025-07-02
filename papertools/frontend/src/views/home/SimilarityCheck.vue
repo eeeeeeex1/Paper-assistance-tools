@@ -439,7 +439,7 @@ const startComparison = async () => {
     sources.value = data.comparison_results.map((item: any) => ({
       title: item.article_title,
       url: item.url,
-      similarity: Math.round(item.similarity_rate * 100), // 转换为百分比
+      similarity: Math.round(item.similarity_rate), // 转换为百分比
       excerpt: item.most_similar_sections?.[0]?.excerpt || '未找到相似片段'
     }));
     

@@ -143,6 +143,31 @@ class UserDao:
         except SQLAlchemyError as e:
             db.session.rollback()
             raise e
-#--------------------------------------------------------------------
-
-    
+#lmk--------------------------------------------------------------------
+    def get_total_user_count(self):
+            """获取用户的总数量"""
+            return User.query.count()
+#lmk----------------------------------------------------------
+    @staticmethod
+    def get_weekly_login_count():
+        """使用updated_at字段统计近7天登录用户数"""
+        end_date = datetime.utcnow().date()
+        date_range = [end_date - timedelta(days=i) for i in range(6, -1, -1)]
+        date_strings = [d.strftime('%Y-%m-%d') for d in date_range]
+        
+        daily_counts = []
+        for date in date_range:
+            start_time = datetime.combine(date, datetime.min.time())
+            end_time = datetime.combine(date, datetime.max.time())
+            
+            # 使用updated_at字段统计
+            count = User.query.filter(
+                User.updated_at.between(start_time, end_time)
+            ).count()
+            
+            daily_counts.append(count)
+        
+        return {
+            'dates': date_strings,
+            'counts': daily_counts
+        }

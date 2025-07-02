@@ -35,7 +35,6 @@
             :class="{ 'active-tab': activeTab === 'corrected' }"
             @click="switchTab('corrected')"
           >
-            //修正后
           </button>
         </div>
         
@@ -128,7 +127,7 @@ import { ref, computed, watch } from 'vue';
 import * as docx from 'docx-preview';
 import * as mammoth from 'mammoth';
 import axios from 'axios';
-
+import { getAuthorId } from '@/utils/auth';
 // 定义错字详情类型
 interface TypoDetail {
   position: number;     // 错字起始位置
@@ -338,6 +337,8 @@ const checkSpelling = async () => {
   try {
     const formData = new FormData();
     const textFile = new File([fileContent.value], fileName.value, { type: 'text/plain' });
+    const authorId = getAuthorId();
+    formData.append('user_id', authorId);
     formData.append('file', textFile);
     
     const response = await axios.post(`http://localhost:5000/api/paper/spelling`, formData, {

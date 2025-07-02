@@ -295,3 +295,7 @@ class PaperDao:
             # 回滚事务
             db.session.rollback()
             raise e  # 抛回异常由上层处理
+#--------------------------------------------------
+    def get_total_paper_count(self):
+        """获取上传的论文总数"""
+        return Paper.query.count()

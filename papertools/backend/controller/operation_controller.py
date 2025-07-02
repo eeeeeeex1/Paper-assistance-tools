@@ -226,3 +226,21 @@ def get_operation_stats():
 def delete_operation(operation_id):
     """删除操作记录"""
     return operation_service.delete_operation(operation_id)
+#lmk----------------------------------------------------------------
+@operation_bp.route('/type_count', methods=['GET'])
+def get_operation_type_count():
+    """获取操作类型统计接口"""
+    logger.info('get front request')
+    try:
+        data = OperationService.get_operation_type_count()
+        return jsonify({
+            'code': 200,
+            'message': '获取操作类型统计成功',
+            'data': data
+        })
+    except Exception as e:
+        return jsonify({
+            'code': 500,
+            'message': f'获取操作类型统计失败: {str(e)}'
+        }), 500
+#lmk-----------------------------------------------------------------------

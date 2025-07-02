@@ -184,3 +184,9 @@ class OperationService:
                 'code': 400,
                 'message': error
             }
+#lmk----------------------------------------------------
+    @staticmethod
+    def get_operation_type_count():
+        """调用DAO层获取操作类型统计"""
+        return OperationDao.get_operation_type_count()
+#lmk----------------------------------------------------    

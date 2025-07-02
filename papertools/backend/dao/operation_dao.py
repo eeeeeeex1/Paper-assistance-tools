@@ -6,7 +6,9 @@ import logging
 from datetime import datetime, timedelta
 from config.logging_config import logger
 from sqlalchemy import desc  # 缺少这行导入
-
+#lmk-----------------------------------------------
+from sqlalchemy import func
+#lmk------------------------------------------------
 # 初始化日志记录器
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
@@ -98,3 +100,23 @@ class OperationDao:
             db.session.rollback()
             logger.error(f"删除操作记录失败: {str(e)}")
             return False, f"删除操作记录失败: {str(e)}"
+#lmk---------------------------------------------------------------------
+    @staticmethod
+    def get_operation_type_count():
+        try:
+            result = db.session.query(
+                Operation.operation_type,
+                func.count(Operation.id).label('count')
+            ).group_by(Operation.operation_type).all()
+            
+            operation_types = ["查重", "纠错", "主题提取"]
+            type_count = {type_: 0 for type_ in operation_types}
+            
+            for type_, count in result:
+                if type_ in type_count:
+                    type_count[type_] = count
+                    
+            return type_count
+        finally:
+            db.session.close()  # 确保会话关闭
+#lmk---------------------------------------------------------------------    

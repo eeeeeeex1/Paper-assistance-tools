@@ -563,7 +563,7 @@ class PaperService:
         return {'code': 200, 'message': message}
     
     ### 错字检测功能
-    def check_spelling(self, file: FileStorage) -> Tuple[bool, Dict]:
+    def check_spelling(self, file: FileStorage,user_id) -> Tuple[bool, Dict]:
         """优化版论文错字检测主方法"""
         try:
             logger.info("开始论文错字检测服务")
@@ -573,6 +573,7 @@ class PaperService:
                 return False, '未提供有效文件'
                 
             # 2. 解析文件内容
+            filename = file.filename
             file_ext = file.filename.split('.')[-1].lower()
             content = self._extract_file_content(file, file_ext)
             
@@ -586,13 +587,14 @@ class PaperService:
             checked_text = self._format_checked_text(content, typo_results)
             
             logger.info(f"finish,find {len(typo_results)} wrong(s)")
-            # 改错成功后记录操作
-            #Operation.log_operation(
-            #    user_id=self.paper.author_id,
-            #   paper_id=self.id,
-            #    operation_type="Spelling",
-            #   file_name="纠错"
-            #)
+            #纠错成功后记录操作
+            Operation.log_operation(
+                user_id=user_id,
+                paper_id=None,
+                operation_type="纠错",
+                file_name=filename,
+                operation_time=datetime.now()
+            )
              # 4. 转换结果格式（关键修改）
             formatted_results = []
             for typo in typo_results:
@@ -650,3 +652,15 @@ class PaperService:
         prefix = "..." if start > 0 else ""
         suffix = "..." if end < len(text) else ""
         return f"{prefix}{text[start:end]}{suffix}"
+#lmk------------------------------------------------------------
+    def get_total_paper_count(self):
+        """获取上传的论文总数"""
+        try:
+            logger.info('Calling DAO layer to get total paper count')
+            total_count = self.paper_dao.get_total_paper_count()
+            logger.info(f"Total paper count: {total_count}")
+            return total_count
+        except Exception as e:
+            logger.error(f"获取论文总数失败: {str(e)}")
+            raise ValueError(f"获取论文总数失败: {str(e)}")
+#lmk------------------------------------------------------------

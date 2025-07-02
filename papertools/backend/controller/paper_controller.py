@@ -280,6 +280,7 @@ def check_spelling():
         }), 400
         
     file = request.files['file']
+    user_id=request.form.get('user_id',type=int)
     if file.filename == '':
         logger.warning("上传文件名为空")
         return jsonify({
@@ -297,7 +298,7 @@ def check_spelling():
     # 2. 调用服务层处理
     try:
         logger.info("go wrong service")
-        success, result = paper_service.check_spelling(file)
+        success, result = paper_service.check_spelling(file,user_id)
         
         if success:
             logger.info(f"spelling finish,find {len(result['typo_details'])} wrongs")
@@ -424,4 +425,24 @@ def extract_theme():
             'code': 500,
             'message': f'服务器内部错误: {str(e)}'
         }), 500
-#-----------------------------------------------------------------------------------
+#lmk-----------------------------------------------------------------------------------
+@paper_bp.route('/total_count', methods=['GET'])
+def get_total_paper_count():
+    """获取上传的论文总数"""
+    try:
+        logger.info("开始获取论文总数")
+        total_count = paper_service.get_total_paper_count()
+        return jsonify({
+            'code': 200,
+            'message': '获取论文总数成功',
+            'data': {
+                'total_count': total_count
+            }
+        }), 200
+    except Exception as e:
+        logger.error(f"获取论文总数失败: {str(e)}")
+        return jsonify({
+            'code': 500,
+            'message': f'获取论文总数失败: {str(e)}'
+        }), 500
+#lmk-----------------------------------------------------------------------------------    

@@ -87,3 +87,9 @@ class User(db.Model):
     @staticmethod
     def get_by_email(email):
         return User.query.filter_by(email=email).first()
+    
+#lmk-----------------------------------
+    def update_login_time(self):
+        self.updated_at = datetime.utcnow()
+        db.session.commit()
+#lmk---------------------------------------

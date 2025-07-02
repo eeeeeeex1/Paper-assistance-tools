@@ -12,7 +12,9 @@ from flask import jsonify  # 添加导入
 from utils.response import format_response
 from typing import Optional
 from typing import Dict, Any
-
+#lmk-----------------------------
+import calendar
+#lmk--------------------------------
 class UserService:
     def __init__(self):
         self.user_dao = UserDao()
@@ -236,3 +238,18 @@ class UserService:
         except Exception as e:
             logger.error(f"获取用户列表异常: {str(e)}")
             raise ValueError(f"获取用户列表失败: {str(e)}")
+#lmk--------------------------------------------------------
+    def get_total_user_count(self):
+        """获取用户的总数量"""
+        try:
+            logger.info('Calling DAO layer to get total user count')
+            total_count = self.user_dao.get_total_user_count()
+            logger.info(f"Total user count: {total_count}")
+            return total_count
+        except Exception as e:
+            logger.error(f"获取用户总数量失败: {str(e)}")
+            raise ValueError(f"获取用户总数量失败: {str(e)}")    
+#lmk-------------------------------------------------------
+    @staticmethod
+    def get_weekly_login_count():
+        return UserDao.get_weekly_login_count()

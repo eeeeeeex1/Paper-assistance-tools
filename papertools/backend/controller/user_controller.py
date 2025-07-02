@@ -245,6 +245,7 @@ def login():
         
         # 如果没有错误，result 应该是用户对象
         user = result
+        
         # 生成JWT Token
         expires = timedelta(hours=current_app.config.get('JWT_EXPIRE_HOURS', 24))
         payload = {
@@ -706,3 +707,39 @@ def update_user_permissions(user_id):
             'message': '修改用户权限失败，请稍后再试',
             'error_code': 500
         }), 500
+#lmk----------------------------------------------------
+@user_bp.route('/total_count', methods=['GET'])
+def get_total_user_count():
+    """获取用户的总数量"""
+    try:
+        logger.info("开始获取用户总数量")
+        total_count = user_service.get_total_user_count()
+        return jsonify({
+            'code': 200,
+            'message': '获取用户总数量成功',
+            'data': {
+                'total_count': total_count
+            }
+        }), 200
+    except Exception as e:
+        logger.error(f"获取用户总数量失败: {str(e)}")
+        return jsonify({
+            'code': 500,
+            'message': f'获取用户总数量失败: {str(e)}'
+        }), 500    
+#lmk----------------------------------------------------
+@user_bp.route('/weekly', methods=['GET'])
+def get_weekly_login_stats():
+    try:
+        stats = UserService.get_weekly_login_count()
+        return jsonify({
+            'code': 200,
+            'message': '获取周登录统计成功',
+            'data': stats
+        })
+    except Exception as e:
+        return jsonify({
+            'code': 500,
+            'message': f'获取周登录统计失败: {str(e)}'
+        }), 500
+#lmk----------------------------------------------------
