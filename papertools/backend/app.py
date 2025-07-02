@@ -66,7 +66,7 @@ if __name__ == '__main__':
         #db.metadata.clear()
 
         # 重新创建
-        db.create_all()
+        #db.create_all()
         print("已执行 db.create_all()")
         # 检查表是否创建
     app.run(debug=DevelopmentConfig.DEBUG)

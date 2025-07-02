@@ -1,116 +1,158 @@
 <template>
   <div class="spell-check-container">
-    <!-- 权限检查 -->
-    <div v-if="!hasPermission">
-      <p>您没有权限使用此功能</p>
+    <!-- 文件上传/预览区域 -->
+    <div class="file-section">
+      <div v-if="!fileContent" class="upload-area">
+        <h3>上传文件</h3>
+        <div class="upload-box" @dragover.prevent="dragover" @drop.prevent="drop">
+          <input 
+            type="file" 
+            id="fileInput" 
+            ref="fileInput" 
+            @change="handleFileUpload" 
+            accept=".txt,.doc,.docx" 
+            style="display: none;"
+          />
+          <i class="iconfont icon-upload"></i>
+          <p>拖放文件到此处或</p>
+          <button class="upload-btn" @click="triggerFileInput">选择文件</button>
+          <p class="file-format">支持格式: .txt, .doc, .docx</p>
+        </div>
+      </div>
+      
+      <div v-else class="preview-area">
+        <h3>预览修改内容</h3>
+        
+        <!-- 新增：标签页切换 -->
+        <div class="tabs" v-if="checkedContent">
+          <button 
+            :class="{ 'active-tab': activeTab === 'original' }"
+            @click="switchTab('original')"
+          >
+            原文
+          </button>
+          <button 
+            :class="{ 'active-tab': activeTab === 'corrected' }"
+            @click="switchTab('corrected')"
+          >
+            //修正后
+          </button>
+        </div>
+        
+        <div class="content-display">
+          <div v-if="fileContent && !checkedContent" class="empty-content">
+            <p>文件内容已加载，点击"开始纠正"按钮进行错字检测</p>
+          </div>
+          
+          <!-- 根据标签页切换显示不同内容 -->
+          <div 
+            class="text-content" 
+            v-html="activeTab === 'original' ? highlightedContent : checkedContent"
+            v-if="checkedContent"
+          ></div>
+        </div>
+      </div>
     </div>
-    <div v-else>
-      <!-- 文件上传/预览区域 -->
-      <div class="file-section">
-        <div v-if="!fileContent" class="upload-area">
-          <h3>上传文件</h3>
-          <div class="upload-box" @dragover.prevent="dragover" @drop.prevent="drop">
-            <input 
-              type="file" 
-              id="fileInput" 
-              ref="fileInput" 
-              @change="handleFileUpload" 
-              accept=".txt,.doc,.docx" 
-              style="display: none;"
-            />
-            <i class="iconfont icon-upload"></i>
-            <p>拖放文件到此处或</p>
-            <button class="upload-btn" @click="triggerFileInput">选择文件</button>
-            <p class="file-format">支持格式: .txt, .doc, .docx</p>
-          </div>
-        </div>
-        
-        <div v-else class="preview-area">
-          <h3>预览修改内容</h3>
-          <div class="content-display">
-            <div 
-              class="text-content" 
-              v-html="highlightedContent"
-              v-if="checkedContent"
-            ></div>
-            <div class="text-content" v-else>
-              {{ fileContent }}
-            </div>
-          </div>
-        </div>
-      </div>
+    
+    <!-- 操作按钮区域 -->
+    <div class="action-section">
+      <button 
+        v-if="!isChecking && !checkedContent" 
+        class="action-btn check-btn" 
+        :disabled="!fileContent"
+        @click="checkSpelling"
+      >
+        开始纠正
+      </button>
       
-      <!-- 操作按钮区域 -->
-      <div class="action-section">
-        <button 
-          v-if="!isChecking && !checkedContent" 
-          class="action-btn check-btn" 
-          :disabled="!fileContent"
-          @click="checkSpelling"
-        >
-          开始纠正
-        </button>
-        
-        <button 
-          v-if="isChecking" 
-          class="action-btn checking-btn" 
-          disabled
-        >
-          <i class="iconfont icon-loading"></i> 正在检测中...
-        </button>
-        
-        <button 
-          v-if="checkedContent && !isChecking" 
-          class="action-btn export-btn" 
-          @click="exportResult"
-        >
-          导出纠正结果
-        </button>
-      </div>
+      <button 
+        v-if="isChecking" 
+        class="action-btn checking-btn" 
+        disabled
+      >
+        <i class="iconfont icon-loading"></i> 正在检测中...
+      </button>
       
-      <!-- 错误统计信息 -->
-      <div v-if="checkedContent" class="stats-section">
-        <div class="stat-item">
-          <span class="stat-label">总字数:</span>
-          <span class="stat-value">{{ stats.totalWords }}</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">错误数:</span>
-          <span class="stat-value error-count">{{ stats.errorCount }}</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">错误率:</span>
-          <span class="stat-value">{{ stats.errorRate }}%</span>
-        </div>
+      <button 
+        v-if="checkedContent && !isChecking" 
+        class="action-btn export-btn" 
+        @click="exportResult"
+      >
+        导出纠正结果
+      </button>
+    </div>
+    
+    <!-- 导出结果预览 -->
+    <div v-if="exportedResult" class="export-result-box">
+      <h4>导出结果文本预览</h4>
+      <div class="export-result-content" v-html="exportedResult"></div>
+    </div>
+
+    <!-- 错误统计信息 -->
+    <div v-if="checkedContent" class="stats-section">
+      <div class="stat-item">
+        <span class="stat-label">总字数:</span>
+        <span class="stat-value">{{ stats.totalWords }}</span>
       </div>
+      <div class="stat-item">
+        <span class="stat-label">错误数:</span>
+        <span class="stat-value error-count">{{ stats.errorCount }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">错误率:</span>
+        <span class="stat-value">{{ stats.errorRate }}%</span>
+      </div>
+    </div>
+    
+    <!-- 错误消息提示 -->
+    <div v-if="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    
+    <!-- 新增：错字列表详情 -->
+    <div v-if="typoDetails.length > 0" class="typo-details">
+      <h3>错字详情</h3>
+      <ul>
+        <li v-for="(typo, index) in typoDetails" :key="index">
+          <span class="typo-word">{{ typo.word }}</span>
+          <span class="typo-suggestion">→ {{ typo.suggestions[0] || '无建议' }}</span>
+          <span class="typo-position">(位置: {{ typo.position }})</span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, watch } from 'vue';
 import * as docx from 'docx-preview';
 import * as mammoth from 'mammoth';
 import axios from 'axios';
-import { getAuthorId } from '@/utils/auth';
+
+// 定义错字详情类型
+interface TypoDetail {
+  position: number;     // 错字起始位置
+  word: string;         // 错误词
+  length: number;       // 错字长度
+  suggestions: string[]; // 修正建议
+}
 
 // 文件处理相关
 const fileInput = ref<HTMLInputElement | null>(null);
 const fileContent = ref<string>('');
 const isChecking = ref<boolean>(false);
 const checkedContent = ref<string>('');
-const errorPositions = ref<Array<{word: string, suggestions: string[]}>>([]);
+const typoDetails = ref<TypoDetail[]>([]); // 存储错字详情
 const fileName = ref<string>('');
 const errorMessage = ref<string>('');
-const tab = ref<string>('original');
-
-// 权限相关
-const hasPermission = ref<boolean>(false);
+const exportedResult = ref<string>(''); // 存导出结果
+const activeTab = ref<string>('original'); // 新增：用于切换原始/修正视图
 
 // 统计信息
 const stats = computed(() => {
-  const totalWords = fileContent.value ? fileContent.value.split(/\s+/).length : 0;
-  const errorCount = errorPositions.value.length;
+  const totalWords = fileContent.value ? 
+    fileContent.value.replace(/\s/g, '').length : 0; // 更准确的字数统计
+  const errorCount = typoDetails.value.length;
   const errorRate = totalWords > 0 ? ((errorCount / totalWords) * 100).toFixed(2) : '0.00';
   
   return {
@@ -122,21 +164,70 @@ const stats = computed(() => {
 
 // 高亮显示错误内容
 const highlightedContent = computed(() => {
-  if (!fileContent.value || errorPositions.value.length === 0) {
+  if (!fileContent.value || typoDetails.value.length === 0) {
     return fileContent.value;
   }
   
   let content = fileContent.value;
-  errorPositions.value.forEach(error => {
-    const regex = new RegExp(escapeRegExp(error.word), 'g');
-    content = content.replace(regex, `<span class="error-word" title="建议: ${error.suggestions.join(', ')}">${error.word}</span>`);
+  
+  // 按位置倒序处理错字（从后往前，避免替换后位置偏移）
+  const sortedTypos = [...typoDetails.value].sort((a, b) => b.position - a.position);
+  
+  sortedTypos.forEach(typo => {
+    const { position, word, length, suggestions } = typo;
+    
+    // 验证错字位置和内容
+    if (
+      position < 0 || 
+      position + length > content.length || 
+      content.substr(position, length) !== word
+    ) {
+      console.warn(`错字位置无效: ${word} (位置: ${position}, 长度: ${length})`);
+      return;
+    }
+    
+    // 生成高亮标签
+    const suggestionText = suggestions.length > 0 ? suggestions[0] : '无建议';
+    const highlightTag = `<span class="error-word" title="建议: ${suggestionText}">${word}</span>`;
+    
+    // 替换错字（使用切片确保位置准确）
+    content = content.substring(0, position) + 
+              highlightTag + 
+              content.substring(position + length);
   });
   
   return content;
 });
 
-// 转义正则特殊字符
-const escapeRegExp = (string: string) => {
+// 生成导出格式的内容
+const exportableContent = computed(() => {
+  if (!fileContent.value || typoDetails.value.length === 0) {
+    return fileContent.value;
+  }
+  
+  let content = fileContent.value;
+  
+  // 按位置倒序处理错字
+  const sortedTypos = [...typoDetails.value].sort((a, b) => b.position - a.position);
+  
+  sortedTypos.forEach(typo => {
+    const { position, word, suggestions } = typo;
+    const suggestion = suggestions.length > 0 ? suggestions[0] : word;
+    
+    // 生成导出格式：错误文本[正确文本]
+    const exportTag = `${word}[${suggestion}]`;
+    
+    content = content.substring(0, position) + 
+              exportTag + 
+              content.substring(position + word.length);
+  });
+  
+  return content;
+});
+
+// 转义正则特殊字符（保留用于兼容旧格式）
+const escapeRegExp = (string: string | undefined) => {
+  if (!string) return '';
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 };
 
@@ -171,7 +262,7 @@ const processFile = async (file: File) => {
   // 重置状态
   fileContent.value = '';
   checkedContent.value = '';
-  errorPositions.value = [];
+  typoDetails.value = [];
   fileName.value = file.name;
   
   try {
@@ -212,7 +303,14 @@ const parseDocFile = (arrayBuffer: ArrayBuffer): Promise<string> => {
         ignoreLastRenderedPageBreak: true
       }).then(() => {
         // 获取解析后的文本内容
-        const textContent = container.querySelector('.docx-wrapper')?.textContent || '';
+        let textContent = container.querySelector('.docx-wrapper')?.textContent || '';
+        
+        // 清理多余空白和换行
+        textContent = textContent
+          .replace(/\s+/g, ' ')  // 合并连续空白
+          .replace(/\n+/g, '\n')  // 合并连续换行
+          .trim();
+        
         // 清理临时容器
         document.body.removeChild(container);
         resolve(textContent);
@@ -220,7 +318,7 @@ const parseDocFile = (arrayBuffer: ArrayBuffer): Promise<string> => {
         // 确保在出错时也清理临时容器
         document.body.removeChild(container);
         reject(error);
-         });
+      });
     } catch (error) {
       reject(error);
     }
@@ -235,17 +333,13 @@ const checkSpelling = async () => {
   }
   
   isChecking.value = true;
-  errorMessage.value = '';
+  errorMessage.value = '正在进行错字检测...';
   
   try {
-    // 创建FormData并添加文件内容
     const formData = new FormData();
     const textFile = new File([fileContent.value], fileName.value, { type: 'text/plain' });
     formData.append('file', textFile);
-    const authorId = getAuthorId();
-    formData.append('user_id', authorId);
     
-    // 调用后端API
     const response = await axios.post(`http://localhost:5000/api/paper/spelling`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -253,12 +347,13 @@ const checkSpelling = async () => {
     });
     
     if (response.data.code === 200) {
-      // 处理成功响应
       const data = response.data.data;
       checkedContent.value = data.checked_text || fileContent.value;
-      errorPositions.value = data.typo_details || [];
+      typoDetails.value = data.typo_details || []; // 关键：更新错字详情
+      
+      errorMessage.value = '';
+      exportedResult.value = exportableContent.value; // 使用计算属性生成导出内容
     } else {
-      // 处理错误响应
       errorMessage.value = response.data.message || '拼写检查失败';
     }
   } catch (error: any) {
@@ -271,14 +366,13 @@ const checkSpelling = async () => {
 
 // 导出结果
 const exportResult = () => {
-  if (!checkedContent.value) return;
+  if (!exportableContent.value) return;
   
-  const blob = new Blob([checkedContent.value], { type: 'text/plain' });
+  const blob = new Blob([exportableContent.value], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
   
-  // 根据原始文件名生成新文件名
   const originalName = fileName.value.split('.')[0];
   a.download = `${originalName}_corrected.txt`;
   
@@ -290,18 +384,13 @@ const exportResult = () => {
 
 // 切换标签页
 const switchTab = (tabName: string) => {
-  tab.value = tabName;
+  activeTab.value = tabName;
 };
 
-// 权限检查
-onMounted(() => {
-  const userInfo = localStorage.getItem('user');
-  if (userInfo) {
-    const { permission } = JSON.parse(userInfo);
-    const allowedPermissions = [2, 4, 6, 7];
-    hasPermission.value = allowedPermissions.includes(permission);
-  }
-});
+// 监听错字详情变化，用于调试
+watch(typoDetails, (newVal) => {
+  console.log('错字详情更新:', newVal);
+}, { deep: true });
 </script>
 
 <style scoped>
@@ -508,5 +597,103 @@ onMounted(() => {
   animation: spin 1s linear infinite;
   display: inline-block;
   margin-right: 0.5rem;
+}
+
+.error-message {
+  color: #ef4444;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #fee2e2;
+  border-radius: 6px;
+}
+
+.empty-content {
+  color: #64748b;
+  text-align: center;
+  padding: 2rem 0;
+  border: 1px dashed #e2e8f0;
+  border-radius: 6px;
+}
+
+.export-result-box {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background-color: #f8fafc;
+}
+
+.export-result-box h4 {
+  margin-top: 0;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.export-result-content {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.tabs button {
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+}
+
+.tabs button.active-tab {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.typo-details {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+
+.typo-details h3 {
+  margin-top: 0;
+  color: #334155;
+}
+
+.typo-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.typo-details li {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.typo-word {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.typo-suggestion {
+  color: #10b981;
+  margin-left: 0.5rem;
+}
+
+.typo-position {
+  color: #64748b;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
 }
 </style>

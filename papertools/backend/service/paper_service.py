@@ -28,9 +28,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+
+from service.typo_detection_service import Typo_Detection
+from typing import Tuple, Dict, Union,List
+from werkzeug.datastructures import FileStorage
+import pdfplumber
+from docx import Document
+
 class PaperService:
     def __init__(self):
         self.paper_dao = PaperDao()
+        self.typo_detection_service =Typo_Detection()
         self.api_key = None
         self.last_api_call_time = 0
         self.min_api_interval = 1  # 两次API请求之间至少间隔1秒
@@ -555,56 +563,90 @@ class PaperService:
         return {'code': 200, 'message': message}
     
     ### 错字检测功能
-    def check_spelling(self, file,user_id):
-        """论文错字检测（直接处理文件）"""
+    def check_spelling(self, file: FileStorage) -> Tuple[bool, Dict]:
+        """优化版论文错字检测主方法"""
         try:
-            logger.info("begin service check_spelling")
-            if not file or not file.filename:
-                return False, '未提供有效文件'
+            logger.info("开始论文错字检测服务")
             
+            # 1. 检查文件有效性
+            if not file or file.filename == '':
+                return False, '未提供有效文件'
+                
+            # 2. 解析文件内容
             file_ext = file.filename.split('.')[-1].lower()
             content = self._extract_file_content(file, file_ext)
             
             if not content:
-                return False, '文件内容为空或无法解析'
+                return False, {"error": "文件内容为空或无法解析", "code": 404}
+                
+            # 3. 执行错字检测（使用专业库）
+            typo_results = self.typo_detection_service._detect_typos(content)
             
-            typo_results = self._detect_typos(content)
-            checked_text = self._highlight_typos(content, typo_results)
-            logger.info("end service check_spelling")
-             #错字纠正成功后记录操作
-            Operation.log_operation(
-                user_id=user_id,
-                paper_id=None,
-                operation_type="错字纠正",
-                file_name=file.filename,
-                operation_time=datetime.now()
-            )
+            # 4. 生成标记文本
+            checked_text = self._format_checked_text(content, typo_results)
+            
+            logger.info(f"finish,find {len(typo_results)} wrong(s)")
+            # 改错成功后记录操作
+            #Operation.log_operation(
+            #    user_id=self.paper.author_id,
+            #   paper_id=self.id,
+            #    operation_type="Spelling",
+            #   file_name="纠错"
+            #)
+             # 4. 转换结果格式（关键修改）
+            formatted_results = []
+            for typo in typo_results:
+                formatted_typo = {
+                'position': typo['position'],
+                'word': typo['wrong_word'],
+                'length': typo['length'],
+                'suggestions': typo['suggestions'],
+                'context': typo['context']
+                }
+                formatted_results.append(formatted_typo)
+        
             return True, {
-                'total_typos': len(typo_results),
-                'typo_details': typo_results,
-                'checked_text': checked_text,
-                'content_length': len(content)
+            "total_typos": len(formatted_results),
+            "typo_details": formatted_results,
+            "checked_text": checked_text,
+            "original_text": content
             }
+            
+        except FileNotFoundError:
+            logger.error("文件no exist")
+            return False, {"error": "文件不存在", "code": 404}
+        except UnicodeDecodeError:
+            logger.error("文件编码错误，无法解析")
+            return False, {"error": "文件code wrong，请检查文件格式", "code": 400}
         except Exception as e:
-            return False, f'错字检测失败: {str(e)}'
+            logger.error(f"错字检测服务fail: {str(e)}", exc_info=True)
+            return False, {"error": f"错字检测失败: {str(e)}", "code": 500}
+        finally:
+            logger.info("spelling end")
 
-    def _highlight_typos(self, content, typo_results):
-        """标记文本中的错误"""
-        result = content
-        for typo in reversed(typo_results):
-            start = typo['start']
-            end = typo['end']
-            result = result[:start] + f"[ERROR]{result[start:end]}[/ERROR]" + result[end:]
-        return result
+    def _format_checked_text(self, content: str, typo_results: List[Dict]) -> str:
+        """生成标记错字的文本，适配前端HTML格式"""
+        if not typo_results:
+            return content
+            
+        # 按位置倒序排序，避免插入标记后位置偏移
+        for result in sorted(typo_results, key=lambda x: x['position'], reverse=True):
+            pos = result['position']
+            word = result['wrong_word']
+            suggestions = result['suggestions']
+            
+            # 生成后端标记，前端会转换为HTML
+            marker = f"[TYPO:{suggestions[0]}]"  # 取第一个建议
+            #marker = f'[TYPO:{",".join(suggestions)}]'
+            content = f"{content[:pos]}{marker}{word}{marker}{content[pos+len(word):]}"
+            
+        return content
+    
 
-    def _detect_typos(self, content):
-        """执行错字检测算法（简化版）"""
-        typo_results = []
-        # 实际项目中应实现完整的错字检测逻辑
-        return typo_results
-
-    def _get_context(self, content, position, length):
-        """获取错字位置的上下文"""
+    def _get_context(self, text: str, position: int, length: int) -> str:
+        """获取错字上下文"""
         start = max(0, position - length)
-        end = min(len(content), position + length)
-        return content[start:end]
+        end = min(len(text), position + length)
+        prefix = "..." if start > 0 else ""
+        suffix = "..." if end < len(text) else ""
+        return f"{prefix}{text[start:end]}{suffix}"

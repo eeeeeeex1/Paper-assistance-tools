@@ -9,8 +9,23 @@ from backend.models.paper import Paper # 导入相关模型
 import os
 from config.logging_config import logger
 
+
 paper_bp = Blueprint('paper', __name__, url_prefix='/api/paper')
 paper_service=PaperService()
+
+def safe_delete_file(file_path, retries=3, delay=0.5):
+    """安全删除文件，带有重试机制"""
+    for i in range(retries):
+        try:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                return True
+        except Exception as e:
+            print(f"删除文件失败 ({i+1}/{retries}): {str(e)}")
+            time.sleep(delay)
+    
+    print(f"无法删除文件: {file_path}")
+    return False
 
 @paper_bp.route('/', methods=['GET'])
 @swag_from({
@@ -219,8 +234,8 @@ def get_user_papers(user_id):
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
     return paper_service.get_user_papers(user_id, page, per_page)
-
-
+#--------------------------------------------------
+#--------------------------------------------------------------------    
 @paper_bp.route('/spelling', methods=['POST'])
 @swag_from({
     'tags': ['论文管理'],
@@ -251,40 +266,59 @@ def get_user_papers(user_id):
         404: {'description': '论文不存在'}
     }
 })
+
 def check_spelling():
-    """论文错字检测（接收文件上传）"""
-    logger.info("begin check spelling")
+    """论文错字检测API接口"""
+    logger.info("get spelling request")
     
-    # 从请求中获取文件
+    # 1. 检查文件上传
     if 'file' not in request.files:
+        logger.warning("request no file")
         return jsonify({
             'code': 400,
             'message': '未上传文件'
         }), 400
-    
+        
     file = request.files['file']
     if file.filename == '':
+        logger.warning("上传文件名为空")
         return jsonify({
             'code': 400,
             'message': '文件名为空'
         }), 400
-    #获取查询参数
-    user_id=request.form.get('user_id',type=int)
-    
-    # 调用服务层方法
-    success, result = paper_service.check_spelling(file,user_id)
-    logger.info("end check spelling")
-    if success:
+
+    # 检查文件类型
+    if not file.filename.endswith(('.txt', '.doc', '.docx')):
         return jsonify({
-            'code': 200,
-            'message': '错字检测完成',
-            'data': result
-        }), 200
-    else:
-        return jsonify({
-            'code': 400,
-            'message': result
+                'code': 400,
+                'message': '不支持的文件格式，仅支持 .txt, .doc, .docx'
         }), 400
+            
+    # 2. 调用服务层处理
+    try:
+        logger.info("go wrong service")
+        success, result = paper_service.check_spelling(file)
+        
+        if success:
+            logger.info(f"spelling finish,find {len(result['typo_details'])} wrongs")
+            return jsonify({
+                'code': 200,
+                'message': '错字检测完成',
+                'data': result
+            }), 200
+        else:
+            
+            return jsonify({
+                'code': 400,
+                'message': result
+            }), 400
+            
+    except Exception as e:
+        logger.error(f"jiekouwrong: {str(e)}", exc_info=True)
+        return jsonify({
+            'code': 500,
+            'message': f'服务器错误: {str(e)}'
+        }), 500
 
 
 

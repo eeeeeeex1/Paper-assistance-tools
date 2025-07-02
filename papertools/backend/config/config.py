@@ -19,7 +19,7 @@ class Config:
     # 配置 MySQL 数据库连接，通过环境变量获取信息，方便不同环境切换
     SQLALCHEMY_DATABASE_URI = os.getenv(
         'SQLALCHEMY_DATABASE_URI',
-        'mysql+pymysql://root:123456@localhost:3306/paper_system'
+        'mysql+pymysql://root:123456@localhost:3306/paper_checker'
     )
     # 上面 URI 格式解释：
     # mysql+pymysql：用 pymysql 驱动连接 MySQL；user 是数据库用户名，password 是密码，localhost 是主机，3306 是端口，your_database 是数据库名
