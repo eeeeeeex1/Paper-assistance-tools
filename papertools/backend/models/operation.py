@@ -3,7 +3,6 @@ from backend.config.database import db
 from datetime import datetime
 # models/user_operation.py
 from sqlalchemy import BigInteger  # 导入 BigInteger
-from backend.utils.decorators import convert_to_beijing
 
 class Operation(db.Model):
     __tablename__ = 'operations'
@@ -33,8 +32,6 @@ class Operation(db.Model):
         db.String(255),
         nullable=False
     )
-    
-    @convert_to_beijing
     def to_dict(self):
         """将操作记录转换为字典"""
         return {
@@ -47,13 +44,14 @@ class Operation(db.Model):
         }
     
     @staticmethod
-    def log_operation(user_id, paper_id, operation_type,file_name):
+    def log_operation(user_id, paper_id, operation_type,file_name,operation_time):
         """记录操作日志（静态方法）"""
         new_operation = Operation(
             user_id=user_id,
             paper_id=paper_id,
             operation_type=operation_type,
-            file_name=file_name
+            file_name=file_name,
+            operation_time=operation_time
         )
         db.session.add(new_operation)
         db.session.commit()

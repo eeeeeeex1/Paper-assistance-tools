@@ -4,8 +4,12 @@ from backend.models.user import User
 from backend.config.database import db
 import logging
 from datetime import datetime, timedelta
-from sqlalchemy import desc
+from config.logging_config import logger
+from sqlalchemy import desc  # 缺少这行导入
 from typing import Dict, Any, Optional, List
+#lmk-----------------------------------------------
+from sqlalchemy import func
+#lmk------------------------------------------------
 
 # 初始化日志记录器
 logging.basicConfig(level=logging.ERROR)
@@ -52,17 +56,6 @@ class OperationDao:
             logger.error(f"记录操作失败: {str(e)}")
             return None, f"记录操作失败: {str(e)}"
     
-    def delete_operations_by_paper(self, paper_id):
-        """删除与论文相关的所有操作记录"""
-        try:
-            count = Operation.query.filter_by(paper_id=paper_id).delete()
-            db.session.commit()
-            return True, f"成功删除 {count} 条操作记录"
-        except Exception as e:
-            db.session.rollback()
-            logger.error(f"删除操作记录失败: {str(e)}")
-            return False, f"删除操作记录失败: {str(e)}"
-    
     def get_operation_stats(self, user_id=None, start_date=None, end_date=None):
         """获取操作统计信息"""
         query = Operation.query
@@ -86,17 +79,40 @@ class OperationDao:
         ).group_by(Operation.operation_type).all()
         
         return {stat.operation_type: stat.count for stat in stats}
+#-----------------------------------------------------------------------
     
+    def get_user_operations(self,user_id, page, per_page):
+        """获取用户的操作记录（带分页），返回原始Pagination对象"""
+        try:
+            query = Operation.query.filter_by(user_id=user_id).order_by(desc(Operation.operation_time))
+            return query.paginate(page=page, per_page=per_page, error_out=False)
+        except Exception as e:
+            raise e  # 抛出异常，由Service层处理
+    def delete_operation(self, operation_id):
+        """删除操作记录"""
+        try:
+            operation = Operation.query.get(operation_id)
+            if operation:
+                db.session.delete(operation)
+                db.session.commit()
+                return True, None
+            else:
+                return False, "操作记录不存在"
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"删除操作记录失败: {str(e)}")
+            return False, f"删除操作记录失败: {str(e)}"
 
-    #-----------------------------------------------------
+
+    
+        #-----------------------------------------------------
     def query_operations(
         self,
         page: int = 1,
         per_page: int = 10,
         user_id: Optional[int] = None,
         paper_id: Optional[int] = None,
-        operation_type: Optional[str] = None,
-        file_name: Optional[str] = None
+        operation_type: Optional[str] = None
     ) -> Dict[str, any]:
         """
         基础查询方法（DAO层）
@@ -136,10 +152,24 @@ class OperationDao:
         except Exception as e:
             db.session.rollback()
             raise ValueError(f"数据库查询失败: {str(e)}")
-        
-    def get_user_operations(self, user_id, page=1, per_page=20):
-        """获取用户的操作记录（分页）"""
-        return Operation.query \
-            .filter_by(user_id=user_id) \
-            .order_by(Operation.operation_time.desc()) \
-            .paginate(page=page, per_page=per_page, error_out=False)
+
+            #lmk---------------------------------------------------------------------
+    @staticmethod
+    def get_operation_type_count():
+        try:
+            result = db.session.query(
+                Operation.operation_type,
+                func.count(Operation.id).label('count')
+            ).group_by(Operation.operation_type).all()
+            
+            operation_types = ["similaritycheck", "spellcheck", "textsummary"]
+            type_count = {type_: 0 for type_ in operation_types}
+            
+            for type_, count in result:
+                if type_ in type_count:
+                    type_count[type_] = count
+                    
+            return type_count
+        finally:
+            db.session.close()  # 确保会话关闭
+#lmk---------------------------------------------------------------------

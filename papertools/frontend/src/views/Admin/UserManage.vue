@@ -30,15 +30,16 @@
           <td>{{ formatTime(user.created_at) }}</td>
           <td>{{ formatTime(user.updated_at) }}</td>
           <td>
-            <div v-if="user.permissions">
-              <input type="checkbox" v-model="user.permissions.checkPlagiarism"> 论文查重
+            <div>
+              <input type="checkbox" v-model="user.permissions.checkPlagiarism"> 论文相似度
             </div>
-            <div v-if="user.permissions">
-              <input type="checkbox" v-model="user.permissions.checkTypos"> 论文错字检测
+            <div>
+              <input type="checkbox" v-model="user.permissions.checkTypos"> 错字纠正
             </div>
-            <div v-if="user.permissions">
-              <input type="checkbox" v-model="user.permissions.extractTheme"> 论文主题提取
+            <div>
+              <input type="checkbox" v-model="user.permissions.extractTheme"> 主题总结
             </div>
+            <button @click="savePermissions(user.id, user.permissions)">保存权限</button>
           </td>
           <td><button @click="deleteUser(user.id)">删除</button></td>
         </tr>
@@ -84,7 +85,15 @@ const fetchUsers = async (page = 1) => {
     })
 
     const responseData = response.data.data
-    userList.value = responseData.items
+    userList.value = responseData.items.map(user => {
+      // 根据新的权限值初始化权限勾选状态
+      const permissions = {
+        checkPlagiarism: [1, 4, 5, 7].includes(user.permission),
+        checkTypos: [2, 4, 6, 7].includes(user.permission),
+        extractTheme: [3, 5, 6, 7].includes(user.permission)
+      }
+      return { ...user, permissions }
+    })
     pagination.value = {
       total: responseData.total,
       pages: responseData.pages,
@@ -119,6 +128,25 @@ const deleteUser = async (userId) => {
     alert(`删除用户失败: ${error.value}`)
   } finally {
     loading.value = false
+  }
+}
+
+const savePermissions = async (userId, permissions) => {
+  try {
+    const response = await axios.put(`http://localhost:5000/api/user/${userId}/permissions`, permissions, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('admin_token') || 'test-token'}`
+      }
+    })
+    if (response.status === 200) {
+      alert('用户权限已成功修改')
+      await fetchUsers(pagination.value.currentPage)
+    } else {
+      throw new Error(`请求失败，状态码: ${response.status}`)
+    }
+  } catch (err) {
+    const errorMessage = getErrorMessage(err)
+    alert(`修改用户权限失败: ${errorMessage}`)
   }
 }
 

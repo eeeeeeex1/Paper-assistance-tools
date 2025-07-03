@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))  # 添加项目根目录到 sys.path
-
+from dao.paper_dao import PaperDao
 from flask import Flask
 from flasgger import Swagger
 # 从 config 包导入配置类和数据库实例
@@ -12,20 +12,20 @@ from backend.config.database import db  # 导入 db 实例
 from flask_cors import CORS  # 引入 CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from dotenv import load_dotenv
+import os
 
 #-----------------------------------------------------------------
 # 工厂函数创建 Flask 应用
 def create_app():
+    load_dotenv()
     app = Flask(__name__)
     # 加载配置（开发环境用 DevelopmentConfig）
     app.config.from_object(DevelopmentConfig)
+    app.config['UPLOAD_FOLDER'] = 'uploads'  # 明确设置上传文件夹
     # 初始化数据库，将 db 与 app 绑定
     #db.init_app(app)
     db.init_app(app)
-
-    # 注册时区中间件
-    #from backend.middleware.timezone import setup_timezone_middleware
-    #setup_timezone_middleware(app, db)
 
     migrate = Migrate(app, db)# 初始化迁移工具
 
@@ -40,18 +40,18 @@ def create_app():
     from controller.paper_controller import paper_bp
     from controller.user_controller import user_bp
     from controller.operation_controller import operation_bp 
-
+    from controller.ai_controller import ai_bp
     # 配置 Swagger
     app.register_blueprint(user_bp)
     app.register_blueprint(paper_bp)
     app.register_blueprint(operation_bp)
+    app.register_blueprint(ai_bp)
 
 
     swagger_template = app.config['SWAGGER_TEMPLATE']
     swagger_config = app.config['SWAGGER_CONFIG']
     # 初始化 Swagger
     swagger = Swagger(app, template=swagger_template, config=swagger_config)
-
     
     return app
 #-------------------------------------------------------
@@ -70,7 +70,7 @@ if __name__ == '__main__':
         #db.metadata.clear()
 
         # 重新创建
-        #db.create_all()
+        db.create_all()
         print("已执行 db.create_all()")
         # 检查表是否创建
     app.run(debug=DevelopmentConfig.DEBUG)

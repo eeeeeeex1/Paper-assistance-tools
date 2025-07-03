@@ -1,7 +1,7 @@
 <template>
   <div class="log-manage">
     <h2>日志管理界面</h2>
-    
+
     <!-- 搜索与筛选区域 -->
     <div class="filter-area">
       <div>
@@ -9,29 +9,17 @@
         <input type="number" v-model="filter.userId" placeholder="输入用户ID">
       </div>
       <div>
-        <label>论文ID: </label>
-        <input type="number" v-model="filter.paperId" placeholder="输入论文ID">
-      </div>
-      <div>
         <label>操作类型: </label>
         <select v-model="filter.operationType">
           <option value="">全部</option>
-          <option value="download">下载</option>
-          <option value="upload">上传</option>
-          <option value="checkPlagiarism">论文查重</option>
-          <option value="checkTypos">论文错字检测</option>
-          <option value="extractTheme">论文主题提取</option>
+          <option value="similaritycheck">similaritycheck</option>
+          <option value="spellcheck">spellcheck</option>
+          <option value="textsummary">textsummary</option>
         </select>
       </div>
-      <div>
-        <label>日期范围: </label>
-        <input type="date" v-model="filter.startDate">
-        <span>至</span>
-        <input type="date" v-model="filter.endDate">
-      </div>
-      <button @click="fetchLogs">筛选</button>
+      <button @click="applyFilter">筛选</button>
     </div>
-    
+
     <!-- 表格 -->
     <table border="1" cellpadding="8" cellspacing="0">
       <thead>
@@ -42,41 +30,45 @@
           <th>操作类型</th>
           <th>操作时间</th>
           <th>文件名</th>
+          <th>下载</th>
           <th>操作</th>
         </tr>
       </thead>
-      
+
       <tbody>
         <!-- 加载中状态 -->
         <tr v-if="loading">
           <td colspan="7" class="loading-message">加载日志中...</td>
         </tr>
-        
+
         <!-- 错误状态 -->
         <tr v-else-if="error">
           <td colspan="7" class="error-message">{{ error }}</td>
         </tr>
-        
+
         <!-- 空数据状态 -->
-        <tr v-else-if="logList.length === 0">
+        <tr v-else-if="filteredLogList.length === 0">
           <td colspan="7" class="empty-message">暂无日志记录</td>
         </tr>
-        
+
         <!-- 正常数据状态 -->
-        <tr v-for="(log, index) in logList" :key="log.id" v-else>
-          <td>{{ globalIndex(index) }}</td>
+        <tr v-for="(log, index) in sortedLogList" :key="log.id">
+          <td>{{ log.id }}</td>
           <td>{{ log.user_id }}</td>
           <td>{{ log.paper_id || '-' }}</td>
           <td>{{ getOperationName(log.operation_type) }}</td>
           <td>{{ formatTime(log.operation_time) }}</td>
           <td>{{ log.file_name || '-' }}</td>
           <td>
+            <button @click="downloadFile(log)" style="margin-left: 5px;">下载</button>
+          </td>
+          <td>
             <button @click="deleteLog(log.id)" style="margin-left: 5px;">删除</button>
           </td>
         </tr>
       </tbody>
     </table>
-    
+
     <!-- 统计信息区域 -->
     <div v-if="statsData && Object.keys(statsData).length > 0" class="stats-area">
       <h3>操作统计信息</h3>
@@ -94,7 +86,7 @@
           <div class="stats-value">{{ statsData.totalPapers || 0 }}</div>
         </div>
       </div>
-      
+
       <div class="stats-chart">
         <h4>操作类型分布</h4>
         <ul>
@@ -104,16 +96,16 @@
         </ul>
       </div>
     </div>
-    
+
     <!-- 分页组件 -->
-    <div class="pagination" v-if="logList.length > 0">
+    <div class="pagination" v-if="filteredLogList.length > 0">
       <button @click="goToPage(1)" :disabled="currentPage === 1">首页</button>
       <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">上一页</button>
       <span>第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</span>
       <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages">下一页</button>
       <button @click="goToPage(totalPages)" :disabled="currentPage === totalPages">末页</button>
       <span style="margin-left: 20px;">每页显示: {{ filter.perPage }} 条</span>
-      <select v-model="filter.perPage" @change="fetchLogs">
+      <select v-model="filter.perPage" @change="applyFilter">
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="50">50</option>
@@ -124,7 +116,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch,computed } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import axios from 'axios'
 
 // 状态管理
@@ -139,191 +131,244 @@ const statsData = ref({}) // 新增：统计数据
 // 筛选条件
 const filter = ref({
   userId: '',
-  paperId: '',
   operationType: '',
   page: 1,
-  perPage: 14,
-  startDate: '',
-  endDate: ''
+  perPage: 20
 })
 
 // 操作类型映射
 const OPERATIONS_TYPES = {
-  download: '下载',
-  upload: '上传',
-  checkPlagiarism: '论文查重',
-  checkTypos: '论文错字检测',
-  extractTheme: '论文主题提取'
+  similaritycheck: '论文相似度查询',
+  spellcheck: '论文错字纠正',
+  textsummary: '论文主题总结'
 }
 
 // API路径
 const OPERATIONS_API = '/api/operations'
 
 // 加载日志列表
-const fetchLogs = async (page = 1) => {
+const fetchLogs = async () => {
   loading.value = true
   error.value = ''
-  filter.value.page = page
-  currentPage.value = page
-  
+
   try {
-    // 构建请求URL和参数
-    let url = `${OPERATIONS_API}/getall`
-    const params = {
-      page: filter.value.page,
-      per_page: filter.value.perPage
-    }
-    
-    // 如果指定了用户ID或论文ID，使用带参数的URL
-    if (filter.value.userId) {
-      url = `${OPERATIONS_API}/getall/user/${filter.value.userId}`
-    } else if (filter.value.paperId) {
-      url = `${OPERATIONS_API}/getall/paper/${filter.value.paperId}`
-    }
-    
-    // 添加操作类型筛选
-    if (filter.value.operationType) {
-      params.operation = filter.value.operationType
-    }
-    
-    // 添加日期范围筛选
-    if (filter.value.startDate) params.start_date = filter.value.startDate
-    if (filter.value.endDate) params.end_date = filter.value.endDate
-    
-    // 发送请求
-    const response = await axios.get('http://localhost:5000/api/operations/getall', { params })
-    
+    const response = await axios.get(`http://localhost:5000${OPERATIONS_API}/getall`);
+
     // 处理响应数据
-    const data = response.data
+    const data = response.data;
     if (data.status === 'success') {
-      logList.value = data.data.records || []
-      totalRecords.value = data.data.total || 0
-      totalPages.value = data.data.pages || 1
-      currentPage.value = data.data.current_page || page
+      logList.value = data.data.records || [];
+      totalRecords.value = data.data.total || 0;
+      totalPages.value = Math.ceil(totalRecords.value / filter.value.perPage);
+      currentPage.value = 1;
     } else {
-      throw new Error(data.message || '获取日志失败')
+      throw new Error(data.message || '获取日志失败');
     }
   } catch (err) {
-    console.error('获取日志失败', err)
-    error.value = err.message || '网络错误，请重试'
+    console.error('获取日志失败', err);
+    error.value = err.message || '网络错误，请重试';
   } finally {
-    loading.value = false
+    loading.value = false;
+    applyFilter();
   }
 }
 
 // 获取操作统计信息
 const getOperationStats = async () => {
-  loading.value = true
-  statsData.value = {} // 清空之前的统计数据
-  
+  loading.value = true;
+  statsData.value = {}; // 清空之前的统计数据
+
   try {
-    const params = {}
-    if (filter.value.userId) params.user_id = filter.value.userId
-    if (filter.value.paperId) params.paper_id = filter.value.paperId
-    if (filter.value.operationType) params.operation = filter.value.operationType
-    if (filter.value.startDate) params.start_date = filter.value.startDate
-    if (filter.value.endDate) params.end_date = filter.value.endDate
+    const params = {};
+    if (filter.value.userId) params.user_id = filter.value.userId;
+    if (filter.value.operationType) params.operation = filter.value.operationType;
 
     const response = await axios.get(`${OPERATIONS_API}/stats`, {
       params,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token') || 'test-token'}`
       }
-    })
+    });
 
     // 处理统计数据
-    const data = response.data
+    const data = response.data;
     if (data.status === 'success') {
-      statsData.value = data.data || {}
-      console.log('操作统计', statsData.value)
+      statsData.value = data.data || {};
+      console.log('操作统计', statsData.value);
     } else {
-      throw new Error(data.message || '获取统计信息失败')
+      throw new Error(data.message || '获取统计信息失败');
     }
   } catch (err) {
-    console.error('获取统计失败', err)
-    error.value = err.message || '网络错误，请重试'
+    console.error('获取统计失败', err);
+    error.value = err.message || '网络错误，请重试';
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
 
-
 // 删除日志记录
 const deleteLog = async (logId) => {
-  if (!confirm('确定要删除这条日志吗？')) return
-  
-  loading.value = true
+  if (!confirm('确定要删除这条日志吗？')) return;
+
+  loading.value = true;
   try {
     // 发送删除请求
-    await axios.delete(`${OPERATIONS_API}/${logId}`)
-    
+    await axios.delete(`http://localhost:5000${OPERATIONS_API}/${logId}`);
+
     // 重新加载日志列表
-    fetchLogs(currentPage.value)
-    alert('日志删除成功')
+    fetchLogs();
+    alert('日志删除成功');
   } catch (err) {
-    console.error('删除日志失败', err)
-    error.value = err.message || '删除失败，请重试'
+    console.error('删除日志失败', err);
+    error.value = err.message || '删除失败，请重试';
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
 
 // 错误处理函数
 const handleError = (err) => {
   if (err.response) {
-    const { status, data } = err.response
+    const { status, data } = err.response;
     switch (status) {
-      case 401: return '未授权，请重新登录'
-      case 403: return '权限不足，无法访问'
-      case 404: return '资源不存在'
-      default: return data.message || `错误 ${status}`
+      case 401: return '未授权，请重新登录';
+      case 403: return '权限不足，无法访问';
+      //case 404: return '资源不存在';
+      default: return data.message || `错误 ${status}`;
     }
   }
-  return '网络错误，请检查连接'
+  return '网络错误，请检查连接';
 }
 
 // 格式化时间
 const formatTime = (timeStr) => {
-  if (!timeStr) return '-'
-  return new Date(timeStr).toLocaleString()
+  if (!timeStr) return '-';
+  return new Date(timeStr).toLocaleString();
 }
 
 // 获取操作类型的友好名称
 const getOperationName = (operationType) => {
-  return OPERATIONS_TYPES[operationType] || operationType
+  return OPERATIONS_TYPES[operationType] || operationType;
 }
 
 // 分页跳转
 const goToPage = (page) => {
-  if (page < 1 || page > totalPages.value) return
-  fetchLogs(page)
+  if (page < 1 || page > totalPages.value) return;
+  currentPage.value = page;
+  applyFilter();
 }
 
-// 监听筛选条件变化，自动刷新列表
-watch([
-  () => filter.value.userId,
-  () => filter.value.paperId,
-  () => filter.value.operationType,
-  () => filter.value.startDate,
-  () => filter.value.endDate
-], () => {
-  fetchLogs(1)  // 重置到第一页
-})
+// 应用筛选条件
+const applyFilter = () => {
+  let filtered = logList.value;
+
+  if (filter.value.userId) {
+    const userId = parseInt(filter.value.userId);
+    filtered = filtered.filter(log => log.user_id === userId);
+  }
+
+  if (filter.value.operationType) {
+    filtered = filtered.filter(log => log.operation_type === filter.value.operationType);
+  }
+
+  totalRecords.value = filtered.length;
+  totalPages.value = Math.ceil(totalRecords.value / filter.value.perPage);
+
+  const startIndex = (currentPage.value - 1) * filter.value.perPage;
+  const endIndex = startIndex + parseInt(filter.value.perPage);
+  filteredLogList.value = filtered.slice(startIndex, endIndex);
+}
+
+// 对日志列表进行降序排序
+const sortedLogList = computed(() => {
+  return [...filteredLogList.value].sort((a, b) => b.id - a.id);
+});
+
+const filteredLogList = ref([]);
+
+
+//zyb----------------------------------------
+// 下载文件函数，根据论文ID调用后端接口
+const downloadFile = async (log) => {
+  // 获取论文ID，若为'-'表示没有论文ID，给出提示并返回
+  console.log('下载按钮点击，日志数据:', log.paper_id); // 调试日志
+  const paperId = log.paper_id;
+  if (paperId === '-') {
+    alert('该操作记录无有效论文ID，无法下载');
+    return;
+  }
+  try {
+    // 显示加载状态（可选，若需要提示用户正在下载）
+    loading.value = true;
+
+    // 调用后端下载接口，这里假设后端下载接口为 /api/downloadPaper，需要传递论文ID参数
+    const response = await axios.get(`http://localhost:5000/api/paper/downloadPaper?paper_id=${paperId}`, {
+      // 配置响应类型为 blob，用于处理文件下载
+      responseType: 'blob',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token') || 'test-token'}`
+      }
+    });
+    // 处理响应，创建 blob 对象
+    const blob = new Blob([response.data]);
+    // 创建 a 标签用于下载
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    // 从响应头中获取文件名（如果后端设置了的话），这里假设后端返回的 Content-Disposition 包含文件名
+    console.log('响应头完整信息:', response.headers);
+    console.log('Content-Type:', response.headers.get('content-type'));
+    console.log('Content-Disposition:', response.headers.get('content-disposition'));
+    const contentDisposition = response.headers['content-disposition'];
+    let fileName = 'downloaded_file';
+    // 1. 精准解析文件名
+    if (contentDisposition) {
+      // 匹配 filename*=UTF-8''xxx 或 filename="xxx" 格式，只提取 xxx 部分
+      const match = contentDisposition.match(/filename(?:\*=UTF-8''|=")([^;"]+)(?="|;|$)/);
+      if (match && match[1]) {
+        fileName = decodeURIComponent(match[1].trim());
+      }
+    }
+
+    // 2. 清理多余后缀（如 ; filename=）
+    fileName = fileName.replace(/; filename=.*$/, '');
+
+    // 3. 删除前缀（如果需要）
+    const separatorIndex = fileName.indexOf('_');
+    if (separatorIndex !== -1) {
+      fileName = fileName.slice(separatorIndex + 1);
+    }
+
+    // 4. 确保文件名包含扩展名
+    if (!fileName.match(/\.\w+$/)) {
+      // 如果扩展名丢失，可从 Content-Type 推断（示例：docx）
+      if (contentType.includes('docx')) {
+        fileName += '.docx';
+      }
+    }
+
+    
+    link.download = fileName;
+    // 模拟点击 a 标签触发下载
+    link.click();
+    // 释放 blob 对象 URL
+    window.URL.revokeObjectURL(link.href);
+    alert('文件下载请求已发送，若有文件将开始下载');
+  } catch (err) {
+    console.error('文件下载失败', err);
+    // 调用统一错误处理函数
+    error.value = handleError(err);
+    alert(error.value);
+  } finally {
+    // 关闭加载状态
+    loading.value = false;
+  }
+};
+//zyb----------------------------------------
 
 // 组件挂载时加载日志
 onMounted(() => {
-  fetchLogs()
-})
-///序号函数
-const globalIndex = computed(() => {
-  return (index) => {
-    const offset = (currentPage.value - 1) * filter.value.perPage
-    // 考虑最后一页记录数可能不足一页的情况
-    const actualPerPage = Math.min(filter.value.perPage, totalRecords.value - offset)
-    return offset + index + 1
-  }
-})
-
+  fetchLogs();
+});
 </script>
 
 <style scoped>
@@ -442,4 +487,5 @@ td {
 .stats-chart li {
   margin-bottom: 8px;
 }
+
 </style>

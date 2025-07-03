@@ -24,10 +24,6 @@ logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 class PaperDao:
-    def __init__(self, db):
-        self.db = db
-        self.upload_folder = None  # 先初始化空值
-        self.logger = logging.getLogger(__name__)  # 为每个实例创建日志记录器
 
     def init_upload_folder(self, app):
         # 从 app 中获取配置，而非 current_app
@@ -67,7 +63,7 @@ class PaperDao:
     
     def upload_paper(self, title, author_id, file):
         self.logger.info(f"开始上传论文: {title}, 作者ID: {author_id}")
-        logger.info(f"begin789")
+        logger.info(f"begin dao upload paper")
         """上传论文（改进版）"""
          # 确保上传文件夹已初始化
         if not self.upload_folder:
@@ -120,7 +116,7 @@ class PaperDao:
             self.db.session.add(new_paper)
             self.db.session.commit()
             self.logger.info(f"论文已成功保存到数据库,ID: {new_paper.id}")
-            
+            logger.info(f"end dao upload paper")
             return new_paper, None
             
         except Exception as e:
@@ -282,3 +278,25 @@ class PaperDao:
             logger.error(f"主题提取失败: {str(e)}")
             return False, f"主题提取失败: {str(e)}"
             
+    def create_paper(self, paper: Paper) -> Paper:
+        """创建新论文记录"""
+        try:
+            logger.info("begin dao")
+            # 添加到会话
+            db.session.add(paper)
+            
+            # 提交事务
+            db.session.commit()
+            logger.info("end dao")
+            # 返回带 ID 的实例
+            return paper
+            
+        except Exception as e:
+            # 回滚事务
+            db.session.rollback()
+            raise e  # 抛回异常由上层处理
+
+    #lmk--------------------------------------------------
+    def get_total_paper_count(self):
+        """获取上传的论文总数"""
+        return Paper.query.count()

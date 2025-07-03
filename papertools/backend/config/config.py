@@ -4,9 +4,12 @@ from dotenv import load_dotenv  # 若用 .env 文件加载环境变量，需安�
 # 加载环境变量（如果有 developmentconfig.env 等文件）
 load_dotenv(os.path.join(os.path.dirname(__file__), 'developmentconfig.env'))
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+XINGHUO_APP_ID="62a961ad"
+XINGHUO_API_KEY="bf04cc4678d1363f0b5db3d7060ea7b5"
+XINGHUO_API_PASSWORD="gLpqVRrdFHZuPNTYfeeU:YKOTbtqeeKVypNSTGcsK"
 
 # 上传文件配置
-UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'store', 'papers')
 MAX_CONTENT_LENGTH = 10 * 1024 * 1024  # 10MB 最大文件大小
 
 class Config:
@@ -19,7 +22,7 @@ class Config:
     # 配置 MySQL 数据库连接，通过环境变量获取信息，方便不同环境切换
     SQLALCHEMY_DATABASE_URI = os.getenv(
         'SQLALCHEMY_DATABASE_URI',
-        'mysql+pymysql://root:123456@localhost:3306/paper_checker'
+        'mysql+pymysql://root:123456@localhost:3306/paper_system'
     )
     # 上面 URI 格式解释：
     # mysql+pymysql：用 pymysql 驱动连接 MySQL；user 是数据库用户名，password 是密码，localhost 是主机，3306 是端口，your_database 是数据库名
@@ -64,7 +67,7 @@ class Config:
 # 可扩展不同环境的配置类，比如开发环境
 class DevelopmentConfig(Config):
     DEBUG = True  # 开发环境开启调试模式
-    QLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost:3306/paper_checker'
+    QLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost:3306/paper_system'
     JWT_SECRET_KEY = 'f50ce100db7f65247ee79cd3fa6f5e830b0298a435e646c6140fe9f33693fe3b'
     JWT_ALGORITHM = 'HS256'
     JWT_EXPIRE_HOURS = 24

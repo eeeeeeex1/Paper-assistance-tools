@@ -10,14 +10,24 @@ from backend.models.user import User
 from backend.models.operation import Operation
 from flask import jsonify  # 添加导入
 from utils.response import format_response
-from typing import List, Dict, Any, Optional
-#----------------------------------------------
-from sqlalchemy.exc import SQLAlchemyError
-#---------------------------------------------
+from typing import Optional
+from typing import Dict, Any
+#lmk-----------------------------
+import calendar
+#lmk--------------------------------
 
 class UserService:
     def __init__(self):
         self.user_dao = UserDao()
+    
+    def update_user_permissions(self, user_id, permission):
+        user = self.user_dao.get_user_by_id(user_id)
+        if not user:
+            return False
+
+        user.permission = permission
+        updated_user = self.user_dao.save_user(user)
+        return updated_user is not None
     
     def register(self, username, password, email):
         """用户注册处理"""
@@ -69,12 +79,13 @@ class UserService:
         # 生成 Token
         token = self.user_dao.generate_token(user.id, user.username)
         # 登录成功后记录操作
-        Operation.log_operation(
-            user_id=user.id,
-            paper_id=None,
-            operation_type="login",
-            file_name="登录"
-        )
+        #Operation.log_operation(
+        #    user_id=user.id,
+        #    paper_id=None,
+        #    operation_type="login",
+        #    file_name="登录"，
+        
+        #)
         logger.info(f"登录成功 - 用户: {user.username}")
 
         # 返回用户信息字典，而非整个对象
@@ -82,6 +93,7 @@ class UserService:
             'id': user.id,
             'username': user.username,
             'email': user.email,
+            'permission': user.permission,
         }
     
     def get_user_info(self, identity):
@@ -168,7 +180,33 @@ class UserService:
             'code': 200,
             'message': message
         }
-    #####
+
+    def get_user_operations(self, user_id, page=1, per_page=20):
+        """获取用户的操作记录"""
+        # 检查用户是否存在
+        user = User.query.get(user_id)
+        if not user:
+            return format_response(code=404, message="用户不存在")
+        
+        # 正确调用 DAO 方法并接收分页对象
+        operations_paginated = self.operation_dao.get_user_operations(
+            user_id, page, per_page
+        )
+        
+         # 格式化响应数据
+        operations = [op.to_dict() for op in operations_paginated.items]
+        return format_response(
+            code=200,
+            message="获取成功",
+            data={
+                'user_info': user.to_dict(),
+                'operations': operations,
+                'total': operations_paginated.total,
+                'pages': operations_paginated.pages,
+                'current_page': operations_paginated.page
+            }
+        )
+#---------------------------------------------------------------------------------------------------------
     def get_all_users(
         self,  # 添加self参数
         page: int = 1,
@@ -201,31 +239,18 @@ class UserService:
         except Exception as e:
             logger.error(f"获取用户列表异常: {str(e)}")
             raise ValueError(f"获取用户列表失败: {str(e)}")
-#####
-def get_user_operations(self, user_id, page=1, per_page=20):
-        """获取用户的操作记录"""
-        # 检查用户是否存在
-        user = User.query.get(user_id)
-        if not user:
-            return format_response(code=404, message="用户不存在")
-        
-        # 正确调用 DAO 方法并接收分页对象
-        operations_paginated = self.operation_dao.get_user_operations(
-            user_id, page, per_page
-        )
-        
-         # 格式化响应数据
-        operations = [op.to_dict() for op in operations_paginated.items]
-        return format_response(
-            code=200,
-            message="获取成功",
-            data={
-                'user_info': user.to_dict(),
-                'operations': operations,
-                'total': operations_paginated.total,
-                'pages': operations_paginated.pages,
-                'current_page': operations_paginated.page
-            }
-        )
-    #---------------------------------------------------------------------------------------------------------
-    
+    #lmk--------------------------------------------------------
+    def get_total_user_count(self):
+        """获取用户的总数量"""
+        try:
+            logger.info('Calling DAO layer to get total user count')
+            total_count = self.user_dao.get_total_user_count()
+            logger.info(f"Total user count: {total_count}")
+            return total_count
+        except Exception as e:
+            logger.error(f"获取用户总数量失败: {str(e)}")
+            raise ValueError(f"获取用户总数量失败: {str(e)}")    
+#lmk-------------------------------------------------------
+    @staticmethod
+    def get_weekly_login_count():
+        return UserDao.get_weekly_login_count()

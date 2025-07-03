@@ -147,6 +147,7 @@ const handleLogin = async () => {
         id: number;
         username: string;
         email: string;
+         permission: number;
       };
     }>('http://localhost:5000/api/user/login', {
       email: email.value,

@@ -22,15 +22,34 @@
       
       <div v-else class="preview-area">
         <h3>预览修改内容</h3>
+        
+        <!-- 新增：标签页切换 -->
+        <div class="tabs" v-if="checkedContent">
+          <button 
+            :class="{ 'active-tab': activeTab === 'original' }"
+            @click="switchTab('original')"
+          >
+            原文
+          </button>
+          <button 
+            :class="{ 'active-tab': activeTab === 'corrected' }"
+            @click="switchTab('corrected')"
+          >
+            //修正后
+          </button>
+        </div>
+        
         <div class="content-display">
+          <div v-if="fileContent && !checkedContent" class="empty-content">
+            <p>文件内容已加载，点击"开始纠正"按钮进行错字检测</p>
+          </div>
+          
+          <!-- 根据标签页切换显示不同内容 -->
           <div 
             class="text-content" 
-            v-html="highlightedContent"
+            v-html="activeTab === 'original' ? highlightedContent : checkedContent"
             v-if="checkedContent"
           ></div>
-          <div class="text-content" v-else>
-            {{ fileContent }}
-          </div>
         </div>
       </div>
     </div>
@@ -63,6 +82,12 @@
       </button>
     </div>
     
+    <!-- 导出结果预览 -->
+    <div v-if="exportedResult" class="export-result-box">
+      <h4>导出结果文本预览</h4>
+      <div class="export-result-content" v-html="exportedResult"></div>
+    </div>
+
     <!-- 错误统计信息 -->
     <div v-if="checkedContent" class="stats-section">
       <div class="stat-item">
@@ -78,26 +103,58 @@
         <span class="stat-value">{{ stats.errorRate }}%</span>
       </div>
     </div>
+    
+    <!-- 错误消息提示 -->
+    <div v-if="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    
+    <!-- 新增：错字列表详情 -->
+    <div v-if="typoDetails.length > 0" class="typo-details">
+      <h3>错字详情</h3>
+      <ul>
+        <li v-for="(typo, index) in typoDetails" :key="index">
+          <span class="typo-word">{{ typo.word }}</span>
+          <span class="typo-suggestion">→ {{ typo.suggestions[0] || '无建议' }}</span>
+          <span class="typo-position">(位置: {{ typo.position }})</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import * as docx from 'docx-preview';
 import * as mammoth from 'mammoth';
+import axios from 'axios';
+import { getAuthorId } from '@/utils/auth'; 
+import { ElMessage } from 'element-plus';
+// 定义错字详情类型
+interface TypoDetail {
+  position: number;     // 错字起始位置
+  word: string;         // 错误词
+  length: number;       // 错字长度
+  suggestions: string[]; // 修正建议
+}
 
 // 文件处理相关
 const fileInput = ref<HTMLInputElement | null>(null);
 const fileContent = ref<string>('');
 const isChecking = ref<boolean>(false);
 const checkedContent = ref<string>('');
-const errorPositions = ref<Array<{word: string, suggestions: string[]}>>([]);
+const typoDetails = ref<TypoDetail[]>([]); // 存储错字详情
 const fileName = ref<string>('');
-
+const errorMessage = ref<string>('');
+const exportedResult = ref<string>(''); // 存导出结果
+const activeTab = ref<string>('original'); // 新增：用于切换原始/修正视图
+const paperId = ref<number | null>(null);
+const storedFileData = ref<File | null>(null); 
 // 统计信息
 const stats = computed(() => {
-  const totalWords = fileContent.value ? fileContent.value.split(/\s+/).length : 0;
-  const errorCount = errorPositions.value.length;
+  const totalWords = fileContent.value ? 
+    fileContent.value.replace(/\s/g, '').length : 0; // 更准确的字数统计
+  const errorCount = typoDetails.value.length;
   const errorRate = totalWords > 0 ? ((errorCount / totalWords) * 100).toFixed(2) : '0.00';
   
   return {
@@ -109,21 +166,70 @@ const stats = computed(() => {
 
 // 高亮显示错误内容
 const highlightedContent = computed(() => {
-  if (!fileContent.value || errorPositions.value.length === 0) {
+  if (!fileContent.value || typoDetails.value.length === 0) {
     return fileContent.value;
   }
   
   let content = fileContent.value;
-  errorPositions.value.forEach(error => {
-    const regex = new RegExp(escapeRegExp(error.word), 'g');
-    content = content.replace(regex, `<span class="error-word" title="建议: ${error.suggestions.join(', ')}">${error.word}</span>`);
+  
+  // 按位置倒序处理错字（从后往前，避免替换后位置偏移）
+  const sortedTypos = [...typoDetails.value].sort((a, b) => b.position - a.position);
+  
+  sortedTypos.forEach(typo => {
+    const { position, word, length, suggestions } = typo;
+    
+    // 验证错字位置和内容
+    if (
+      position < 0 || 
+      position + length > content.length || 
+      content.substr(position, length) !== word
+    ) {
+      console.warn(`错字位置无效: ${word} (位置: ${position}, 长度: ${length})`);
+      return;
+    }
+    
+    // 生成高亮标签
+    const suggestionText = suggestions.length > 0 ? suggestions[0] : '无建议';
+    const highlightTag = `<span class="error-word" title="建议: ${suggestionText}">${word}</span>`;
+    
+    // 替换错字（使用切片确保位置准确）
+    content = content.substring(0, position) + 
+              highlightTag + 
+              content.substring(position + length);
   });
   
   return content;
 });
 
-// 转义正则特殊字符
-const escapeRegExp = (string: string) => {
+// 生成导出格式的内容
+const exportableContent = computed(() => {
+  if (!fileContent.value || typoDetails.value.length === 0) {
+    return fileContent.value;
+  }
+  
+  let content = fileContent.value;
+  
+  // 按位置倒序处理错字
+  const sortedTypos = [...typoDetails.value].sort((a, b) => b.position - a.position);
+  
+  sortedTypos.forEach(typo => {
+    const { position, word, suggestions } = typo;
+    const suggestion = suggestions.length > 0 ? suggestions[0] : word;
+    
+    // 生成导出格式：错误文本[正确文本]
+    const exportTag = `${word}[${suggestion}]`;
+    
+    content = content.substring(0, position) + 
+              exportTag + 
+              content.substring(position + word.length);
+  });
+  
+  return content;
+});
+
+// 转义正则特殊字符（保留用于兼容旧格式）
+const escapeRegExp = (string: string | undefined) => {
+  if (!string) return '';
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 };
 
@@ -152,36 +258,87 @@ const handleFileUpload = (event: Event) => {
     processFile(input.files[0]);
   }
 };
-
 // 处理文件内容
 const processFile = async (file: File) => {
   // 重置状态
   fileContent.value = '';
   checkedContent.value = '';
-  errorPositions.value = [];
+  typoDetails.value = [];
   fileName.value = file.name;
   
   try {
+    let fileData = null;
+    
     if (file.name.endsWith('.txt')) {
       // 处理TXT文件
       const content = await file.text();
       fileContent.value = content;
-    } else if (file.name.endsWith('.docx')) {
-      // 处理DOCX文件
+      fileData = new File([content], file.name, { type: 'text/plain' });
+    } 
+    else if (file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
+     // 处理DOCX/DOC文件
       const arrayBuffer = await file.arrayBuffer();
       const result = await mammoth.extractRawText({ arrayBuffer });
       fileContent.value = result.value;
-    } else if (file.name.endsWith('.doc')) {
-      // 处理DOC文件 - 使用docx-preview解析
-      const arrayBuffer = await file.arrayBuffer();
-      const result = await parseDocFile(arrayBuffer);
-      fileContent.value = result;
-    } else {
-      alert('不支持的文件格式，请上传.txt、.doc或.docx文件');
+      fileData = new File([arrayBuffer], file.name, { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
     }
+    else {
+      alert('不支持的文件格式，请上传.txt、.doc或.docx文件');
+      return;
+    }
+
+    // 新增：调用后端上传接口
+    /*if (fileData) {
+      await uploadFileToBackend(fileData);
+    }*/
+    // 存储 fileData 到响应式变量中
+    storedFileData.value = fileData;
+
   } catch (error) {
     console.error('文件解析出错:', error);
     alert('文件解析失败，请重试');
+  }
+};
+
+// 上传文件到后端
+const uploadFileToBackend = async (file: File) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    // 获取用户ID（假设通过JWT获取）
+    const authorId = getAuthorId();
+    if (authorId) {
+      formData.append('user_id', authorId.toString());
+    }
+    
+    // 添加文件标题（使用文件名）
+    formData.append('title', fileName.value);
+    
+    // 调用后端上传接口（假设接口为/api/paper/upload）
+    const response = await axios.post(
+      'http://localhost:5000/api/paper/upload',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    );
+    
+    if (response.data.code === 200) {
+      console.log('文件上传成功:', response.data.data);
+      // 可以在这里添加成功提示
+      paperId.value = response.data.data; // 假设后端返回的数据结构里有paper_id字段
+      console.info('paperid',paperId.value)
+      ElMessage.success('文件上传成功');
+    } else {
+      console.error('文件上传失败:', response.data.message);
+      errorMessage.value = response.data.message || '文件上传失败';
+    }
+  } catch (error: any) {
+    console.error('上传文件到后端出错:', error);
+    errorMessage.value = error.response?.data?.message || '网络错误，文件上传失败';
   }
 };
 
@@ -195,11 +352,18 @@ const parseDocFile = (arrayBuffer: ArrayBuffer): Promise<string> => {
       container.style.display = 'none';
       document.body.appendChild(container);
       
- docx.renderAsync(arrayBuffer, container, undefined, {
+      docx.renderAsync(arrayBuffer, container, undefined, {
         ignoreLastRenderedPageBreak: true
       }).then(() => {
         // 获取解析后的文本内容
-        const textContent = container.querySelector('.docx-wrapper')?.textContent || '';
+        let textContent = container.querySelector('.docx-wrapper')?.textContent || '';
+        
+        // 清理多余空白和换行
+        textContent = textContent
+          .replace(/\s+/g, ' ')  // 合并连续空白
+          .replace(/\n+/g, '\n')  // 合并连续换行
+          .trim();
+        
         // 清理临时容器
         document.body.removeChild(container);
         resolve(textContent);
@@ -207,70 +371,53 @@ const parseDocFile = (arrayBuffer: ArrayBuffer): Promise<string> => {
         // 确保在出错时也清理临时容器
         document.body.removeChild(container);
         reject(error);
-         });
+      });
     } catch (error) {
       reject(error);
     }
   });
 };
 
-// 模拟拼写检查API
-const mockSpellCheckApi = async (text: string) => {
-  // 模拟网络延迟
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  
-  // 模拟一些常见的拼写错误
-  const commonErrors: Record<string, string[]> = {
-    'teh': ['the'],
-    'adn': ['and'],
-    'thier': ['their', 'there'],
-    'recieve': ['receive'],
-    'seperate': ['separate'],
-    'definately': ['definitely'],
-    'occured': ['occurred'],
-    'untill': ['until'],
-    'wich': ['which', 'witch'],
-    'alot': ['a lot']
-  };
-  
-  const errors: Array<{word: string, suggestions: string[]}> = [];
-  let checkedText = text;
-  
-  // 检查文本中的常见错误
-  for (const [error, suggestions] of Object.entries(commonErrors)) {
-    if (text.includes(error)) {
-      errors.push({
-        word: error,
-        suggestions
-      });
-      
-      // 自动用第一个建议替换
-        checkedText = checkedText.replace(
-      new RegExp(escapeRegExp(error), 'g'), // 匹配模式（全局匹配）
-      suggestions[0] // 替换字符串
-    );
-    }
+// 调用后端API检查拼写
+const checkSpelling = async () => {
+  if (!fileContent.value) {
+    errorMessage.value = '请先上传并解析文件';
+    return;
   }
   
-  return {
-    checkedText,
-    errors
-  };
-};
-
-// 调用API检查拼写
-const checkSpelling = async () => {
-  if (!fileContent.value) return;
-  
   isChecking.value = true;
+  errorMessage.value = '正在进行错字检测...';
+  
   try {
-    // 调用模拟API检查拼写
-    const result = await mockSpellCheckApi(fileContent.value);
-    checkedContent.value = result.checkedText;
-    errorPositions.value = result.errors;
-  } catch (error) {
-    console.error('拼写检查出错:', error);
-    alert('拼写检查失败，请重试');
+    if (storedFileData.value) {
+      await uploadFileToBackend(storedFileData.value);
+    }
+
+    const formData = new FormData();
+    const textFile = new File([fileContent.value], fileName.value, { type: 'text/plain' });
+    formData.append('file', textFile);
+    const authorId = getAuthorId();
+    formData.append('user_id', authorId);
+    formData.append('paper_id', paperId.value.toString());
+    const response = await axios.post(`http://localhost:5000/api/paper/spelling`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    
+    if (response.data.code === 200) {
+      const data = response.data.data;
+      checkedContent.value = data.checked_text || fileContent.value;
+      typoDetails.value = data.typo_details || []; // 关键：更新错字详情
+      
+      errorMessage.value = '';
+      exportedResult.value = exportableContent.value; // 使用计算属性生成导出内容
+    } else {
+      errorMessage.value = response.data.message || '拼写检查失败';
+    }
+  } catch (error: any) {
+    console.error('API调用出错:', error);
+    errorMessage.value = error.response?.data?.message || '网络错误，请稍后重试';
   } finally {
     isChecking.value = false;
   }
@@ -278,14 +425,13 @@ const checkSpelling = async () => {
 
 // 导出结果
 const exportResult = () => {
-  if (!checkedContent.value) return;
+  if (!exportableContent.value) return;
   
-  const blob = new Blob([checkedContent.value], { type: 'text/plain' });
+  const blob = new Blob([exportableContent.value], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
   
-  // 根据原始文件名生成新文件名
   const originalName = fileName.value.split('.')[0];
   a.download = `${originalName}_corrected.txt`;
   
@@ -294,6 +440,16 @@ const exportResult = () => {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 };
+
+// 切换标签页
+const switchTab = (tabName: string) => {
+  activeTab.value = tabName;
+};
+
+// 监听错字详情变化，用于调试
+watch(typoDetails, (newVal) => {
+  console.log('错字详情更新:', newVal);
+}, { deep: true });
 </script>
 
 <style scoped>
@@ -500,5 +656,103 @@ const exportResult = () => {
   animation: spin 1s linear infinite;
   display: inline-block;
   margin-right: 0.5rem;
+}
+
+.error-message {
+  color: #ef4444;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #fee2e2;
+  border-radius: 6px;
+}
+
+.empty-content {
+  color: #64748b;
+  text-align: center;
+  padding: 2rem 0;
+  border: 1px dashed #e2e8f0;
+  border-radius: 6px;
+}
+
+.export-result-box {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background-color: #f8fafc;
+}
+
+.export-result-box h4 {
+  margin-top: 0;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.export-result-content {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.tabs button {
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+}
+
+.tabs button.active-tab {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.typo-details {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+
+.typo-details h3 {
+  margin-top: 0;
+  color: #334155;
+}
+
+.typo-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.typo-details li {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.typo-word {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.typo-suggestion {
+  color: #10b981;
+  margin-left: 0.5rem;
+}
+
+.typo-position {
+  color: #64748b;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
 }
 </style>

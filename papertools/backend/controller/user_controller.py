@@ -264,7 +264,8 @@ def login():
             'user': {
                 'id': user['id'],
                 'username': user['username'],
-                'email': user['email']
+                'email': user['email'],
+                'permission': user['permission']
             }
         }), 200
         
@@ -575,3 +576,173 @@ def get_all_users():
             'status': 'error',
             'message': f'服务器内部错误: {str(e)}'
         }), 500
+    #----------------------------------------------------------------------------------
+# 新增权限管理接口
+@user_bp.route('/<int:user_id>/permissions', methods=['PUT'])
+@swag_from({
+    'tags': ['用户管理'],
+    'summary': '修改用户权限',
+    'description': '修改指定用户的权限，提供三个选项：论文相似度功能，错字纠正功能，主题总结功能',
+    'security': [{'Bearer': []}],
+    'parameters': [
+        {
+            'name': 'user_id',
+            'in': 'path',
+            'type': 'integer',
+            'required': True,
+            'description': '要修改权限的用户ID',
+            'example': 1001
+        },
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'checkPlagiarism': {
+                        'type': 'boolean',
+                        'description': '是否启用论文相似度功能',
+                        'example': True
+                    },
+                    'checkTypos': {
+                        'type': 'boolean',
+                        'description': '是否启用错字纠正功能',
+                        'example': True
+                    },
+                    'extractTheme': {
+                        'type': 'boolean',
+                        'description': '是否启用主题总结功能',
+                        'example': True
+                    }
+                }
+            }
+        },
+        {
+            'name': 'Authorization',
+            'in': 'header',
+            'type': 'string',
+            'required': True,
+            'description': 'JWT Token(格式:Bearer {token})',
+            'example': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': '用户权限修改成功',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'success': {'type': 'boolean', 'example': True},
+                    'message': {'type': 'string', 'example': '用户权限已成功修改'}
+                }
+            }
+        },
+        401: {
+            'description': '未授权',
+        },
+        403: {'description': '权限不足'},
+        404: {
+            'description': '用户不存在',
+        },
+        500: {'description': '服务器内部错误'}
+    }
+})
+def update_user_permissions(user_id):
+    try:
+        # 验证用户ID是否合法
+        if not isinstance(user_id, int) or user_id <= 0:
+            return jsonify({
+                'message': '无效的用户ID',
+                'error_code': 400
+            }), 400
+
+        data = request.get_json()
+        if not data:
+            return jsonify({
+                'message': '请求数据为空',
+                'error_code': 400
+            }), 400
+
+        checkPlagiarism = data.get('checkPlagiarism', False)
+        checkTypos = data.get('checkTypos', False)
+        extractTheme = data.get('extractTheme', False)
+
+        # 根据新的对应关系计算权限值
+        if not checkPlagiarism and not checkTypos and not extractTheme:
+            permission = 0
+        elif checkPlagiarism and not checkTypos and not extractTheme:
+            permission = 1
+        elif not checkPlagiarism and checkTypos and not extractTheme:
+            permission = 2
+        elif not checkPlagiarism and not checkTypos and extractTheme:
+            permission = 3
+        elif checkPlagiarism and checkTypos and not extractTheme:
+            permission = 4
+        elif checkPlagiarism and not checkTypos and extractTheme:
+            permission = 5
+        elif not checkPlagiarism and checkTypos and extractTheme:
+            permission = 6
+        elif checkPlagiarism and checkTypos and extractTheme:
+            permission = 7
+
+        # 调用服务层更新用户权限
+        result = user_service.update_user_permissions(user_id, permission)
+
+        if result:
+            return jsonify({
+                'success': True,
+                'message': '用户权限已成功修改'
+            }), 200
+        else:
+            return jsonify({
+                'message': '用户不存在',
+                'error_code': 404
+            }), 404
+
+    except Exception as e:
+        current_app.logger.error(f'修改用户权限错误: {str(e)}')
+        return jsonify({
+            'message': '修改用户权限失败，请稍后再试',
+            'error_code': 500
+        }), 500
+
+
+
+#lmk----------------------------------------------------
+@user_bp.route('/total_count', methods=['GET'])
+def get_total_user_count():
+    """获取用户的总数量"""
+    try:
+        logger.info("开始获取用户总数量")
+        total_count = user_service.get_total_user_count()
+        return jsonify({
+            'code': 200,
+            'message': '获取用户总数量成功',
+            'data': {
+                'total_count': total_count
+            }
+        }), 200
+    except Exception as e:
+        logger.error(f"获取用户总数量失败: {str(e)}")
+        return jsonify({
+            'code': 500,
+            'message': f'获取用户总数量失败: {str(e)}'
+        }), 500    
+#lmk----------------------------------------------------
+@user_bp.route('/weekly', methods=['GET'])
+def get_weekly_login_stats():
+    try:
+        stats = UserService.get_weekly_login_count()
+        return jsonify({
+            'code': 200,
+            'message': '获取周登录统计成功',
+            'data': stats
+        })
+    except Exception as e:
+        return jsonify({
+            'code': 500,
+            'message': f'获取周登录统计失败: {str(e)}'
+        }), 500
+#lmk----------------------------------------------------
+

@@ -1,9 +1,8 @@
 # backend/app/routes/__init__.py
 from flask import Blueprint
-from .user_controller import user_bp  # 导入用户模块蓝图
+from .user_controller import user_bp
+from .paper_controller import paper_bp  # 导入论文模块蓝图
 
-# 如果有其他路由蓝图，继续导入
-# from .paper_routes import paper_bp  
 
 def register_blueprints(app):
     """

@@ -6,8 +6,8 @@ from backend.models.operation import Operation
 from backend.models.user import  User
 from backend.models.paper import Paper # 导入相关模型
 from backend.models.operation import Operation
-from config.logging_config import logger
 import os
+from config.logging_config import logger
 # 创建操作记录模块的蓝图
 operation_bp = Blueprint('operation', __name__, url_prefix='/api/operations')
 
@@ -83,6 +83,7 @@ def get_operation(operation_id):
 })
 def get_user_operations(user_id):
     """获取用户的所有操作记录"""
+    logger.info("begin controller getoperaitons")
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 20, type=int)
     return operation_service.get_user_operations(user_id, page, per_page)
@@ -129,7 +130,7 @@ def get_paper_operations(paper_id):
     per_page = request.args.get('per_page', 20, type=int)
     return operation_service.get_paper_operations(paper_id, page, per_page)
 
-@operation_bp.route('/', methods=['POST'])
+@operation_bp.route('/log', methods=['POST'])
 @swag_from({
     'tags': ['日志管理'],
     'description': '记录新操作',
@@ -167,6 +168,7 @@ def get_paper_operations(paper_id):
 })
 def log_operation():
     """记录新的操作"""
+    logger.info('begin log_operation')
     return operation_service.log_operation()
 
 @operation_bp.route('/stats', methods=['GET'])
@@ -199,7 +201,33 @@ def log_operation():
 def get_operation_stats():
     """获取操作统计信息"""
     return operation_service.get_operation_stats()
-#----------------------------------------------------------
+
+@operation_bp.route('/<int:operation_id>', methods=['DELETE'])
+@swag_from({
+    'tags': ['日志管理'],
+    'description': '删除操作记录',
+    'parameters': [
+        {'name': 'operation_id', 'in': 'path', 'type': 'integer', 'required': True, 'description': '操作记录ID'}
+    ],
+    'responses': {
+        200: {
+            'description': '操作记录删除成功',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'code': {'type': 'integer', 'example': 200},
+                    'message': {'type': 'string', 'example': '操作记录删除成功'}
+                }
+            }
+        },
+        400: {'description': '删除操作记录失败'}
+    }
+})
+def delete_operation(operation_id):
+    """删除操作记录"""
+    return operation_service.delete_operation(operation_id)
+
+    #----------------------------------------------------------
 
 @operation_bp.route('/getall', methods=['GET'])
 @operation_bp.route('/getall/user/<int:user_id>', methods=['GET'])
@@ -230,3 +258,22 @@ def get_operations(user_id=None, paper_id=None):
         return jsonify({'status': 'error', 'message': str(e)}), 400
     except Exception as e:
         return jsonify({'status': 'error', 'message': '服务器内部错误'}), 500
+    
+#lmk----------------------------------------------------------------
+@operation_bp.route('/type_count', methods=['GET'])
+def get_operation_type_count():
+    """获取操作类型统计接口"""
+    logger.info('get front request')
+    try:
+        data = OperationService.get_operation_type_count()
+        return jsonify({
+            'code': 200,
+            'message': '获取操作类型统计成功',
+            'data': data
+        })
+    except Exception as e:
+        return jsonify({
+            'code': 500,
+            'message': f'获取操作类型统计失败: {str(e)}'
+        }), 500
+#lmk-----------------------------------------------------------------------

@@ -2,16 +2,18 @@
 from backend.config.database import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import func  # 导入 func 对象
+from sqlalchemy import func, CheckConstraint  # 导入 CheckConstraint
 
 from backend.models.paper import Paper
 from backend.models.operation import Operation
-
-from backend.utils.decorators import convert_to_beijing
+permission = db.Column(db.Integer, default=7)  
 
 class User(db.Model):
     __tablename__ = 'users'
-    __table_args__ = {'extend_existing': True}  # 支持表结构扩展
+    __table_args__ = (
+        CheckConstraint('permission >= 0 AND permission <= 7', name='permission_check'),
+        {'extend_existing': True}
+    )
     
     # 基本字段定义
     id = db.Column(
@@ -34,12 +36,18 @@ class User(db.Model):
     )
     created_at = db.Column(
         db.DateTime,
-        server_default=datetime.utcnow
+        server_default=func.now()
     )
     updated_at = db.Column(
         db.DateTime, 
-        server_default=datetime.utcnow,
-        onupdate=datetime.utcnow
+        server_default=func.now(),
+        onupdate=func.now()
+    )
+    # 新增权限字段
+    permission = db.Column(
+        db.SmallInteger,
+        nullable=False,
+        default=0
     )
 
     # 密码相关方法
@@ -52,7 +60,6 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
     
     # 对象转字典（用于 API 响应）
-    @convert_to_beijing
     def to_dict(self, include_sensitive=False):
         """
         将用户对象转换为字典
@@ -63,7 +70,8 @@ class User(db.Model):
             'username': self.username,
             'email': self.email,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-            'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+            'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'permission': self.permission
         }
         if include_sensitive:
             data['created_at_utc'] = self.created_at

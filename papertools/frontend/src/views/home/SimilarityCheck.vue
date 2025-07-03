@@ -1,208 +1,203 @@
 <template>
   <div class="similarity-check-page">
-    <div class="page-header">
-      <h2>论文相似度查询</h2>
-      <p>上传您的论文并与现有文献进行对比</p>
-    </div>
+    <!-- 根据权限显示不同内容 -->
+    <div v-if="hasPermission">
+      <div class="page-header">
+        <h2>论文相似度查询</h2>
+        <p>上传您的论文并与现有文献进行对比</p>
+      </div>
 
-    <div class="function-container">
-      <!-- 上传文件模块 -->
-      <div class="upload-section">
-        <h3>上传文件</h3>
-        <div 
-          class="upload-area"
-          @dragover.prevent="dragOver = true"
-          @dragleave="dragOver = false"
-          @drop.prevent="handleFileDrop"
-          :class="{ 'drag-over': dragOver }"
-        >
-          <i class="iconfont icon-upload"></i>
-          <p>拖拽文件到此处或</p>
-          <input 
-            type="file" 
-            id="fileInput"
-            @change="handleFileSelect"
-            accept=".doc,.docx,.pdf,.txt"
-            hidden
+      <div class="function-container">
+        <!-- 上传文件模块 -->
+        <div class="upload-section">
+          <h3>上传文件</h3>
+          <div 
+            class="upload-area"
+            @dragover.prevent="dragOver = true"
+            @dragleave="dragOver = false"
+            @drop.prevent="handleFileDrop"
+            :class="{ 'drag-over': dragOver }"
           >
-          <label for="fileInput" class="browse-btn">浏览文件</label>
-
-          <!-- 新增：上传进度条 -->
-          <div v-if="isUploading" class="upload-progress">
-            <div class="progress-bar" :style="{ width: uploadProgress + '%' }">
-              {{ uploadProgress }}%
-            </div>
-          </div>
-        
-        <!-- 新增：错误提示 -->
-        <div v-if="uploadError" class="upload-error">
-          <i class="iconfont icon-error"></i>
-          <span>{{ uploadError }}</span>
-        </div>
-          <p class="file-info" v-if="uploadedFile">
-            <i class="iconfont icon-file"></i>
-            {{ uploadedFile.name }} ({{ formatFileSize(uploadedFile.size) }})
-            <button @click.stop="removeFile" class="remove-btn">
-              <i class="iconfont icon-close"></i>
-            </button>
-          </p>
-        </div>
-
-        <!-- 文件预览区域 -->
-        <div v-if="fileContent" class="file-preview">
-          <h4>文件预览</h4>
-          <div class="preview-content">
-            <pre v-if="isTextFile">{{ fileContent }}</pre>
-            <iframe 
-              v-else-if="isPdfFile"
-              :src="pdfPreviewUrl"
-              width="100%"
-              height="500px"
-            ></iframe>
-            <p v-else>不支持预览此文件类型</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 对比文件模块 -->
-      <div class="compare-section">
-        <h3>对比文件</h3>
-        <div class="compare-options">
-          <div class="option-item">
+            <i class="iconfont icon-upload"></i>
+            <p>拖拽文件到此处或</p>
             <input 
-              type="checkbox" 
-              id="compareWeb"
-              v-model="compareOptions.webSearch"
+              type="file" 
+              id="fileInput"
+              @change="handleFileSelect"
+              accept=".doc,.docx,.pdf,.txt"
+              hidden
             >
-            <label for="compareWeb">网络文献对比</label>
-          </div>
-          <div class="option-item">
-            <input 
-              type="checkbox" 
-              id="compareDatabase"
-              v-model="compareOptions.databaseSearch"
-            >
-            <label for="compareDatabase">本地数据库对比</label>
-          </div>
-          <div class="option-item">
-            <input 
-              type="checkbox" 
-              id="comparePrevious"
-              v-model="compareOptions.previousWorks"
-            >
-            <label for="comparePrevious">历史作品对比</label>
-          </div>
-        </div>
-        <div class="api-settings" v-if="compareOptions.webSearch">
-          <h4>API设置</h4>
-          <div class="form-group">
-            <label>爬取深度</label>
-            <select v-model="apiSettings.depth">
-              <option value="1">浅层 (快速)</option>
-              <option value="2">中等</option>
-              <option value="3">深层 (全面)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>结果数量</label>
-            <input 
-              type="number" 
-              v-model.number="apiSettings.resultCount"
-              min="1"
-              max="20"
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+            <label for="fileInput" class="browse-btn">浏览文件</label>
 
-    <!-- 开始对比按钮 -->
-    <div class="action-section">
-      <button 
-        class="compare-btn"
-        :class="{ disabled: !canCompare }"
-        @click="startComparison"
-        :disabled="!canCompare"
-      >
-        <i class="iconfont icon-compare"></i>
-        开始对比
-      </button>
-    </div>
-
-    <!-- 对比结果 -->
-    <div class="result-section" :class="{ active: showResults }">
-      <div class="result-header">
-        <h3>对比结果</h3>
-        <div class="result-meta">
-          <span>检测时间: {{ new Date().toLocaleString() }}</span>
-          <button 
-            class="export-btn"
-            :disabled="!resultsReady || isExporting"
-            @click="handleExportReport"
-          >
-            <i class="iconfont" :class="exportBtnIcon"></i>
-            {{ exportBtnText }}
-          </button>
-        </div>
-      </div>
-      
-      <div class="result-content">
-        <div v-if="!resultsReady" class="empty-result">
-          <i class="iconfont icon-file-search"></i>
-          <p>请先上传文件并点击"开始对比"</p>
-        </div>
-        
-        <div v-else class="result-details">
-          <!-- 导出状态提示 -->
-          <div v-if="exportStatus" class="export-status" :class="exportStatus.type">
-            <i class="iconfont" :class="exportStatus.icon"></i>
-            <p>{{ exportStatus.message }}</p>
-            <a 
-              v-if="exportStatus.downloadUrl" 
-              :href="exportStatus.downloadUrl"
-              class="download-link"
-              download="论文相似度报告.pdf"
-            >
-              <i class="iconfont icon-download"></i>
-              下载报告
-            </a>
-          </div>
-
-          <!-- 对比结果内容 -->
-          <div class="similarity-score">
-            <div class="score-card">
-              <h4>总体相似度</h4>
-              <div class="score-value">{{ overallSimilarity }}%</div>
-              <div class="score-progress">
-                <div 
-                  class="progress-bar"
-                  :style="{ width: overallSimilarity + '%' }"
-                ></div>
+            <!-- 新增：上传进度条 -->
+            <div v-if="isUploading" class="upload-progress">
+              <div class="progress-bar" :style="{ width: uploadProgress + '%' }">
+                {{ uploadProgress }}%
               </div>
             </div>
+          
+            <!-- 新增：错误提示 -->
+            <div v-if="uploadError" class="upload-error">
+              <i class="iconfont icon-error"></i>
+              <span>{{ uploadError }}</span>
+            </div>
+            <p class="file-info" v-if="uploadedFile">
+              <i class="iconfont icon-file"></i>
+              {{ uploadedFile.name }} ({{ formatFileSize(uploadedFile.size) }})
+              <button @click.stop="removeFile" class="remove-btn">
+                <i class="iconfont icon-close"></i>
+              </button>
+            </p>
+          </div>
+
+          <!-- 文件预览区域 -->
+          <div v-if="fileContent" class="file-preview">
+            <h4>文件预览</h4>
+            <div class="preview-content">
+              <pre v-if="isTextFile">{{ fileContent }}</pre>
+              <iframe 
+                v-else-if="isPdfFile"
+                :src="pdfPreviewUrl"
+                width="100%"
+                height="500px"
+              ></iframe>
+              <p v-else>不支持预览此文件类型</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- API设置 -->
+        <div class="api-settings">
+          <h3>API设置</h3>
+          <div class="settings-group">
+            <div class="setting-item">
+              <label>爬取深度</label>
+              <select v-model="apiSettings.depth">
+                <option value="1">浅</option>
+                <option value="2">中</option>
+                <option value="3">深</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <label>结果数量</label>
+              <input 
+                type="number" 
+                v-model.number="apiSettings.resultCount" 
+                min="1" 
+                max="20"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 开始对比按钮 -->
+      <div class="action-section">
+        <button 
+          class="compare-btn"
+          :class="{ disabled: !canCompare }"
+          @click="startComparison"
+          :disabled="!canCompare"
+        >
+          <i class="iconfont icon-compare"></i>
+          开始对比
+        </button>
+      </div>
+
+      <!-- 对比结果 -->
+      <div class="result-section" :class="{ active: showResults }">
+        <div class="result-header">
+          <h3>对比结果</h3>
+          <div class="result-meta">
+            <span>检测时间: {{ new Date().toLocaleString() }}</span>
+            <button 
+              class="export-btn"
+              :disabled="!resultsReady || isExporting"
+              @click="handleExportReport"
+            >
+              <i class="iconfont" :class="exportBtnIcon"></i>
+              {{ exportBtnText }}
+            </button>
+          </div>
+        </div>
+        
+        <div class="result-content">
+          <div v-if="!resultsReady" class="empty-result">
+            <i class="iconfont icon-file-search"></i>
+            <p>请先上传文件并点击"开始对比"</p>
           </div>
           
-          <div class="sources-list">
-            <h4>相似来源</h4>
-            <div class="source-item" v-for="(source, index) in sources" :key="index">
-              <div class="source-header">
-                <span class="source-title">{{ source.title }}</span>
-                <span class="source-similarity">{{ source.similarity }}%</span>
+          <div v-else class="result-details">
+            <!-- 导出状态提示 -->
+            <div v-if="exportStatus" class="export-status" :class="exportStatus.type">
+              <i class="iconfont" :class="exportStatus.icon"></i>
+              <p>{{ exportStatus.message }}</p>
+              <a 
+                v-if="exportStatus.downloadUrl" 
+                :href="exportStatus.downloadUrl"
+                class="download-link"
+                download="论文相似度报告.pdf"
+              >
+                <i class="iconfont icon-download"></i>
+                下载报告
+              </a>
+            </div>
+
+            <!-- 对比结果内容 -->
+            <div class="similarity-score">
+              <div class="score-card">
+                <h4>总体相似度</h4>
+                <div class="score-value">{{ overallSimilarity.toFixed(2) }}%</div>
+                <div class="score-progress">
+                  <div 
+                    class="progress-bar"
+                    :style="{ width: overallSimilarity.toFixed(2) + '%' }"
+                  ></div>
+                </div>
               </div>
-              <div class="source-url">{{ source.url }}</div>
-              <div class="source-excerpt">
-                {{ source.excerpt }}
+            </div>
+            
+            <div class="sources-list">
+              <h4>相似来源</h4>
+              <div class="source-item" v-for="(source, index) in sources" :key="index">
+                <div class="source-header">
+                  <span class="source-title">{{ source.title }}</span>
+                  <span class="source-similarity">{{ source.similarity }}%</span>
+                  <button @click="showSimilarFragments(index)" class="view-fragments-btn">查看相似片段</button>
+                </div>
+                <div class="source-url">{{ source.url }}</div>
+                <div class="source-excerpt">
+                  {{ source.excerpt }}
+                </div>
+              </div>
+            </div>
+
+            <!-- 显示相似片段 -->
+            <div v-if="showSimilarFragmentDetails" class="similar-fragment-details">
+              <h4>相似片段详情</h4>
+              <div class="fragment-container">
+                <div class="fragment-item">
+                  <h5>上传文章片段</h5>
+                  <pre>{{ selectedSource.myArticleFragment }}</pre>
+                </div>
+                <div class="fragment-item">
+                  <h5>对比文章片段</h5>
+                  <pre>{{ selectedSource.excerpt }}</pre>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div v-else class="no-permission">
+      <p>您没有权限使用此功能</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onUnmounted, onMounted } from 'vue';
+import { ref, computed, onUnmounted, onMounted, watch } from 'vue';
 import { ElMessage } from 'element-plus';
 import { getAuthorId } from '@/utils/auth'; 
 import { useRouter, useRoute } from 'vue-router'
@@ -213,10 +208,8 @@ const route = useRoute();
 // 上传文件状态
 const isUploading = ref(false);
 const uploadProgress = ref(0);
-const uploadedFilePath = ref<string | null>(null); // 存储后端返回的文件路径
-const title = ref(''); // 存储论文标题（即文件名）
+const title = ref(''); 
 const uploadError = ref<string | null>(null);
-
 
 const dragOver = ref(false);
 const uploadedFile = ref<File | null>(null);
@@ -225,18 +218,21 @@ const isTextFile = ref(false);
 const isPdfFile = ref(false);
 const pdfPreviewUrl = ref('');
 
-// 对比选项
-const compareOptions = ref({
-  webSearch: true,
-  databaseSearch: false,
-  previousWorks: false
+// 默认选择网络文献对比
+const selectedOption = ref('webSearch'); 
+const paperId = ref<number | null>(null);
+const storedFile = ref<File | null>(null); // 新增：存储文件对象
+// API设置 - 从localStorage加载或使用默认值
+const savedApiSettings = localStorage.getItem('plagiarismApiSettings');
+const apiSettings = ref(savedApiSettings ? JSON.parse(savedApiSettings) : {
+  depth: '2',
+  resultCount: 5
 });
 
-// API设置
-const apiSettings = ref({
-  depth: '2',
-  resultCount: 10
-});
+// 监听API设置变化，保存到localStorage
+watch(apiSettings, (newSettings) => {
+  localStorage.setItem('plagiarismApiSettings', JSON.stringify(newSettings));
+}, { deep: true });
 
 // 对比结果状态
 const showResults = ref(false);
@@ -253,13 +249,16 @@ const exportStatus = ref<{
   downloadUrl?: string;
 } | null>(null);
 
+// 获取用户权限
+const userPermission = ref<number | null>(null);
+// 判断用户是否有权限
+const hasPermission = computed(() => {
+  return [1, 4, 5, 7].includes(userPermission.value || 0);
+});
+
 // 计算属性
 const canCompare = computed(() => {
-  return uploadedFile.value !== null && (
-    compareOptions.value.webSearch || 
-    compareOptions.value.databaseSearch || 
-    compareOptions.value.previousWorks
-  );
+  return uploadedFile.value !== null;
 });
 
 const exportBtnText = computed(() => {
@@ -270,90 +269,129 @@ const exportBtnIcon = computed(() => {
   return isExporting.value ? 'icon-loading spin' : 'icon-export';
 });
 
-//文件上传
-const uploadFile = async (file: File) => {
-  isUploading.value = true;
-  uploadProgress.value = 0;
-  uploadError.value = null;
-  console.log("上传开始");
+// 新增：显示相似片段详情状态
+const showSimilarFragmentDetails = ref(false);
+const selectedSource = ref<any>(null);
+
+// 在页面加载时获取用户权限
+onMounted(() => {
+  const userInfo = localStorage.getItem('user');
+  if (userInfo) {
+    const { permission } = JSON.parse(userInfo);
+    userPermission.value = permission;
+  }
+});
+
+// 文件上传与查重核心函数
+const uploadAndCheckPlagiarism = async (file: File) => {
+  const formData = new FormData();
+  console.group('【查重请求】参数检查');
+  console.log('文件对象:', file);
+  console.log('文件名:', file.name);
+  const compareMethod = selectedOption.value;
+
+  const authorId = getAuthorId();
+  console.log('作者ID(localStorage):', authorId);
+  if (!authorId) {
+    ElMessage.error('未获取到用户ID');
+    return null;
+  }
+  await(uploadFileToServer(storedFile.value));
+  formData.append('file', file);
+  // 附加API设置参数
+  formData.append('num_articles', apiSettings.value.resultCount.toString());
+  formData.append('user_id', authorId);
+  formData.append('checkfunction', compareMethod);
+  // 添加爬取深度参数
+  formData.append('depth', apiSettings.value.depth);
+  formData.append('paper_id', paperId.value?.toString())
   
   try {
-    const formData = new FormData();
-    formData.append('file', file);
-    console.log(file);
-    formData.append('title', title.value);
-    console.log("上传文件名为：",title.value);
-    // 获取当前用户的author_id
-    const authorId = getAuthorId();
-    if (!authorId) {
-      throw new Error('未获取到用户信息，请先登录');
+    console.log('发送查重请求到API...');
+    isUploading.value = true;
+    uploadProgress.value = 0;
+    
+    // 注意：根据实际后端API调整路径
+    const response = await axios.post('http://localhost:5000/api/paper/plagiarism', formData, {
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        uploadProgress.value = percentCompleted;
+      }
+    });
+    
+    console.log('查重成功:', response.data);
+    isUploading.value = false;
+    return response.data;
+    
+  } catch (err: any) {
+    console.error('查重失败详情:', {
+      message: err.message,
+      responseData: err.response?.data,
+      responseStatus: err.response?.status
+    });
+    
+    let errorMessage = '查重失败，请重试';
+    if (err.response?.status === 404) {
+      errorMessage = 'API路径不存在，请检查后端配置';
+    } else if (err.response?.status === 400) {
+      errorMessage = err.response.data.message || '请求格式错误';
+    } else if (err.response?.status === 500) {
+      errorMessage = err.response.data.message || '服务器内部错误';
     }
     
-    formData.append('author_id', authorId);
-    console.log("上传用户id为:",authorId);
-    // 使用axios发送请求（更稳定）
-    const response = await axios.post(
-      'http://localhost:5000/api/paper/upload', 
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-      }
-    );
-
-    uploadedFilePath.value = response.data.paper.file_url;
-    console.log("文件上传成功")
-    ElMessage.success('文件上传成功');
-  } catch (error: any) {
-    // 区分网络错误和业务错误
-    if (error.response) {
-      // 后端返回错误
-      ElMessage.error(`上传失败: ${error.response.data.message || '服务器错误'}`);
-    } else if (error.request) {
-      // 网络错误
-      ElMessage.error('上传请求发生网络错误，请检查后端服务是否启动');
-    } else {
-      // 其他错误
-      ElMessage.error('上传失败，请重试');
-    }
-    uploadError.value = error.message;
-  } finally {
     isUploading.value = false;
+    uploadError.value = errorMessage;
+    return null;
   }
 };
-// 文件处理方法
+
 const handleFileDrop = async (e: DragEvent) => {
   dragOver.value = false;
   if (e.dataTransfer?.files) {
-    uploadedFile.value = e.dataTransfer.files[0];
-    await previewFile(uploadedFile.value);
-  }
-};
-//处理文件选择
-const handleFileSelect = async (e: Event) => {
-  console.log("处理文件选择")
-  const input = e.target as HTMLInputElement;
-  if (input.files?.length) {
-    const file = input.files[0];
-
-    // 验证用户是否登录
+    const file = e.dataTransfer.files[0];
     const authorId = getAuthorId();
+    
     if (!authorId) {
-      ElMessage.warning('请先登录');
-      router.push('/login'); // 跳转到登录页
+      ElMessage.error('未获取到用户ID');
+      router.push('/login');
       return;
     }
     
     uploadedFile.value = file;
+    const titleWithoutExt = file.name.split('.').slice(0, -1).join('.');
+    title.value = titleWithoutExt;
+    
+    // 新增：调用后端上传接口
+    //await uploadFileTo(file, authorId);
+    storedFile.value = file; // 新增：存储文件对象
+    
+    await previewFile(file);
+  }
+};
 
-     // 提取文件名作为标题（去除扩展名）
-    const fileName = file.name;
-    const titleWithoutExt = fileName.split('.').slice(0, -1).join('.');
+// 处理文件选择
+const handleFileSelect = async (e: Event) => {
+  console.log("处理文件选择");
+  const input = e.target as HTMLInputElement;
+  if (input.files?.length) {
+    const file = input.files[0];
+    const authorId = getAuthorId();
+    
+    if (!authorId) {
+      ElMessage.warning('请先登录');
+      router.push('/login');
+      return;
+    }
+    
+    uploadedFile.value = file;
+    const titleWithoutExt = file.name.split('.').slice(0, -1).join('.');
     title.value = titleWithoutExt;
 
+
+    storedFile.value = file; // 新增：存储文件对象
+
     await previewFile(file);
-    await uploadFile(file);
+    uploadError.value = null; // 重置错误信息
   }
 };
 
@@ -392,37 +430,47 @@ const formatFileSize = (bytes: number) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 };
 
-// 对比功能
-const startComparison = () => {
+// 对比功能（修改后 - 直接调用上传和查重函数）
+const startComparison = async () => {
   if (!canCompare.value) return;
   
   showResults.value = true;
   resultsReady.value = false;
+  uploadError.value = null;
   
-  // 模拟API调用
-  setTimeout(() => {
-    // 模拟结果数据
-    overallSimilarity.value = Math.floor(Math.random() * 30) + 5; // 5-35%
-    sources.value = [
-      {
-        title: "基于深度学习的文本相似度计算方法研究",
-        url: "https://example.com/paper1",
-        similarity: Math.floor(Math.random() * 20) + 5, // 5-25%
-        excerpt: "本文提出了一种基于注意力机制的文本相似度计算方法..."
-      },
-      {
-        title: "学术论文抄袭检测系统设计与实现",
-        url: "https://example.com/paper2",
-        similarity: Math.floor(Math.random() * 15) + 5, // 5-20%
-        excerpt: "针对学术论文抄袭问题，本文设计了一种基于..."
-      }
-    ].sort((a, b) => b.similarity - a.similarity);
+  if (!uploadedFile.value) {
+    ElMessage.error('请先上传文件');
+    return;
+  }
+  
+  try {
+    
+    console.log('[API请求] 开始查重...');
+    const result = await uploadAndCheckPlagiarism(uploadedFile.value);
+    
+    if (!result) return; // 查重失败时返回
+    
+    // 处理响应数据
+    const data = result.data;
+    overallSimilarity.value = data.comprehensive_similarity || 0;
+    sources.value = data.comparison_results.map((item: any) => ({
+      title: item.article_title,
+      url: item.url,
+      similarity: Math.round(item.similarity_rate), // 转换为百分比
+      excerpt: item.most_similar_sections?.[0]?.excerpt || '未找到相似片段',
+      myArticleFragment: item.most_similar_sections?.[0]?.my_article_fragment || '未找到相似片段'
+    }));
     
     resultsReady.value = true;
-  }, 2000);
+    ElMessage.success('查重完成');
+    
+  } catch (error: any) {
+    console.error('查重处理失败:', error);
+    uploadError.value = '查重分析失败，请稍后重试';
+  }
 };
 
-// 导出报告功能
+// 导出报告功能（保持逻辑不变，后续可扩展）
 const handleExportReport = async () => {
   if (!resultsReady.value || isExporting.value) return;
   
@@ -470,6 +518,49 @@ const handleExportReport = async () => {
   }
 };
 
+// 上传文件到服务器
+const uploadFileToServer = async (file: File) => {
+  try {
+    // 创建FormData对象
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('user_id', getAuthorId()); // 假设getAuthorId()获取用户ID
+    formData.append('title', file.name);
+    formData.append('file_size', file.size.toString());
+    
+    // 发送POST请求到后端文件上传接口
+    const response = await axios.post(
+      'http://localhost:5000/api/paper/upload',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('token') || 'test-token'}`
+        }
+      }
+    );
+    
+    if (response.data.code !== 200) {
+      throw new Error(response.data.message || '文件上传失败');
+    }
+    
+    console.log('文件上传成功:', response.data.data);
+    paperId.value = response.data.data; // 假设后端返回的数据结构里有paper_id字段
+    console.info('paperid',paperId.value)
+    // 可以在这里获取后端返回的文件存储信息（如file_id, file_path等）
+    // 例如：fileStorageInfo.value = response.data.data;
+  } catch (error: any) {
+    console.error('文件上传失败:', error);
+    throw new Error(error.response?.data?.message || '文件上传失败，请重试');
+  }
+};
+
+// 新增：显示相似片段函数
+const showSimilarFragments = (index: number) => {
+  selectedSource.value = sources.value[index];
+  showSimilarFragmentDetails.value = true;
+};
+
 // 清理资源
 onUnmounted(() => {
   if (pdfPreviewUrl.value) {
@@ -501,12 +592,12 @@ onUnmounted(() => {
 
 .function-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr; /* 修改为单栏布局 */
   gap: 2rem;
   margin-bottom: 2rem;
 }
 
-.upload-section, .compare-section {
+.upload-section {
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
@@ -635,47 +726,43 @@ h3, h4 {
   margin: 0;
 }
 
-.compare-options {
-  display: flex;
-  flex-direction: column;
+/* API设置样式 */
+.api-settings {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.settings-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-.option-item {
+.setting-item {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
-.option-item input {
-  margin-right: 0.75rem;
-}
-
-.api-settings {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #f1f5f9;
-}
-
-.api-settings h4 {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-group label {
-  display: block;
+.setting-item label {
   margin-bottom: 0.5rem;
-  color: #475569;
+  color: #64748b;
+  font-size: 0.9rem;
 }
 
-.form-group select, .form-group input {
-  width: 100%;
-  padding: 0.5rem;
+.setting-item select,
+.setting-item input {
+  padding: 0.75rem;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
+  background: #f8fafc;
+}
+
+.setting-item input:focus,
+.setting-item select:focus {
+  outline: none;
+  border-color: #4f46e5;
 }
 
 .action-section {
@@ -880,6 +967,20 @@ h3, h4 {
   font-weight: bold;
 }
 
+.view-fragments-btn {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.view-fragments-btn:hover {
+  background: #4338ca;
+}
+
 .source-url {
   color: #3b82f6;
   font-size: 0.9rem;
@@ -891,6 +992,42 @@ h3, h4 {
   color: #475569;
   font-size: 0.95rem;
   line-height: 1.6;
+}
+
+/* 显示相似片段详情样式 */
+.similar-fragment-details {
+  margin-top: 2rem;
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.fragment-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.fragment-item {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.fragment-item h5 {
+  font-size: 1rem;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.fragment-item pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+  margin: 0;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 1rem;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 /* 响应式设计 */
@@ -909,6 +1046,14 @@ h3, h4 {
     width: 100%;
     justify-content: space-between;
   }
+  
+  .settings-group {
+    grid-template-columns: 1fr;
+  }
+
+  .fragment-container {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 480px) {
@@ -924,5 +1069,12 @@ h3, h4 {
     width: 100%;
     justify-content: center;
   }
+}
+
+.no-permission {
+  text-align: center;
+  color: red;
+  font-size: 18px;
+  margin-top: 50px;
 }
 </style>

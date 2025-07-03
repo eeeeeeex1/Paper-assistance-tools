@@ -7,10 +7,8 @@ class Base(DeclarativeBase):
 db = SQLAlchemy()
 
 def init_app(app):
-    #移除 URI 中的时区参数
-    app.config['SQLALCHEMY_DATABASE_URI'] = (
-    'mysql+pymysql://root:123456@localhost/paper_checker'
-    '?charset=utf8mb4&sql_mode=STRICT_TRANS_TABLES'
-)
-
+    """
+    初始化数据库，将 SQLAlchemy 实例和 Flask 应用关联
+    :param app: Flask 应用实例
+    """
     db.init_app(app)
