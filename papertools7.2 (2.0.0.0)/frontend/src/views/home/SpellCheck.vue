@@ -1,130 +1,138 @@
 <template>
   <div class="spell-check-container">
-    <!-- 文件上传/预览区域 -->
-    <div class="file-section">
-      <div v-if="!fileContent" class="upload-area">
-        <h3>上传文件</h3>
-        <div class="upload-box" @dragover.prevent="dragover" @drop.prevent="drop">
-          <input 
-            type="file" 
-            id="fileInput" 
-            ref="fileInput" 
-            @change="handleFileUpload" 
-            accept=".txt,.doc,.docx" 
-            style="display: none;"
-          />
-          <i class="iconfont icon-upload"></i>
-          <p>拖放文件到此处或</p>
-          <button class="upload-btn" @click="triggerFileInput">选择文件</button>
-          <p class="file-format">支持格式: .txt, .doc, .docx</p>
-        </div>
-      </div>
-      
-      <div v-else class="preview-area">
-        <h3>预览修改内容</h3>
-        
-        <!-- 新增：标签页切换 -->
-        <div class="tabs" v-if="checkedContent">
-          <button 
-            :class="{ 'active-tab': activeTab === 'original' }"
-            @click="switchTab('original')"
-          >
-            原文
-          </button>
-          <button 
-            :class="{ 'active-tab': activeTab === 'corrected' }"
-            @click="switchTab('corrected')"
-          >
-            //修正后
-          </button>
+    <!-- 根据权限显示不同内容 -->
+    <div v-if="hasPermission">
+      <!-- 文件上传/预览区域 -->
+      <div class="file-section">
+        <div v-if="!fileContent" class="upload-area">
+          <h3>上传文件</h3>
+          <div class="upload-box" @dragover.prevent="dragover" @drop.prevent="drop">
+            <input 
+              type="file" 
+              id="fileInput" 
+              ref="fileInput" 
+              @change="handleFileUpload" 
+              accept=".txt,.doc,.docx" 
+              style="display: none;"
+            />
+            <i class="iconfont icon-upload"></i>
+            <p>拖放文件到此处或</p>
+            <button class="upload-btn" @click="triggerFileInput">选择文件</button>
+            <p class="file-format">支持格式: .txt, .doc, .docx</p>
+          </div>
         </div>
         
-        <div class="content-display">
-          <div v-if="fileContent && !checkedContent" class="empty-content">
-            <p>文件内容已加载，点击"开始纠正"按钮进行错字检测</p>
+        <div v-else class="preview-area">
+          <h3>预览修改内容</h3>
+          
+          <!-- 新增：标签页切换 -->
+          <div class="tabs" v-if="checkedContent">
+            <button 
+              :class="{ 'active-tab': activeTab === 'original' }"
+              @click="switchTab('original')"
+            >
+              原文
+            </button>
+            <button 
+              :class="{ 'active-tab': activeTab === 'corrected' }"
+              @click="switchTab('corrected')"
+            >
+              //修正后
+            </button>
           </div>
           
-          <!-- 根据标签页切换显示不同内容 -->
-          <div 
-            class="text-content" 
-            v-html="activeTab === 'original' ? highlightedContent : checkedContent"
-            v-if="checkedContent"
-          ></div>
+          <div class="content-display">
+            <div v-if="fileContent && !checkedContent" class="empty-content">
+              <p>文件内容已加载，点击"开始纠正"按钮进行错字检测</p>
+            </div>
+            
+            <!-- 根据标签页切换显示不同内容 -->
+            <div 
+              class="text-content" 
+              v-html="activeTab === 'original' ? highlightedContent : checkedContent"
+              v-if="checkedContent"
+            ></div>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <!-- 操作按钮区域 -->
-    <div class="action-section">
-      <button 
-        v-if="!isChecking && !checkedContent" 
-        class="action-btn check-btn" 
-        :disabled="!fileContent"
-        @click="checkSpelling"
-      >
-        开始纠正
-      </button>
       
-      <button 
-        v-if="isChecking" 
-        class="action-btn checking-btn" 
-        disabled
-      >
-        <i class="iconfont icon-loading"></i> 正在检测中...
-      </button>
+      <!-- 操作按钮区域 -->
+      <div class="action-section">
+        <button 
+          v-if="!isChecking && !checkedContent" 
+          class="action-btn check-btn" 
+          :disabled="!fileContent"
+          @click="checkSpelling"
+        >
+          开始纠正
+        </button>
+        
+        <button 
+          v-if="isChecking" 
+          class="action-btn checking-btn" 
+          disabled
+        >
+          <i class="iconfont icon-loading"></i> 正在检测中...
+        </button>
+        
+        <button 
+          v-if="checkedContent && !isChecking" 
+          class="action-btn export-btn" 
+          @click="exportResult"
+        >
+          导出纠正结果
+        </button>
+      </div>
       
-      <button 
-        v-if="checkedContent && !isChecking" 
-        class="action-btn export-btn" 
-        @click="exportResult"
-      >
-        导出纠正结果
-      </button>
-    </div>
-    
-    <!-- 导出结果预览 -->
-    <div v-if="exportedResult" class="export-result-box">
-      <h4>导出结果文本预览</h4>
-      <div class="export-result-content" v-html="exportedResult"></div>
+      <!-- 导出结果预览 -->
+      <div v-if="exportedResult" class="export-result-box">
+        <h4>导出结果文本预览</h4>
+        <div class="export-result-content" v-html="exportedResult"></div>
+      </div>
+
+      <!-- 错误统计信息 -->
+      <div v-if="checkedContent" class="stats-section">
+        <div class="stat-item">
+          <span class="stat-label">总字数:</span>
+          <span class="stat-value">{{ stats.totalWords }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">错误数:</span>
+          <span class="stat-value error-count">{{ stats.errorCount }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">错误率:</span>
+          <span class="stat-value">{{ stats.errorRate }}%</span>
+        </div>
+      </div>
+      
+      <!-- 错误消息提示 -->
+      <div v-if="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      
+      <!-- 新增：错字列表详情 -->
+      <div v-if="typoDetails.length > 0" class="typo-details">
+        <h3>错字详情</h3>
+        <ul>
+          <li v-for="(typo, index) in typoDetails" :key="index">
+            <span class="typo-word">{{ typo.word }}</span>
+            <span class="typo-suggestion">→ {{ typo.suggestions[0] || '无建议' }}</span>
+            <span class="typo-position">(位置: {{ typo.position }})</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <!-- 错误统计信息 -->
-    <div v-if="checkedContent" class="stats-section">
-      <div class="stat-item">
-        <span class="stat-label">总字数:</span>
-        <span class="stat-value">{{ stats.totalWords }}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">错误数:</span>
-        <span class="stat-value error-count">{{ stats.errorCount }}</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">错误率:</span>
-        <span class="stat-value">{{ stats.errorRate }}%</span>
-      </div>
-    </div>
-    
-    <!-- 错误消息提示 -->
-    <div v-if="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-    
-    <!-- 新增：错字列表详情 -->
-    <div v-if="typoDetails.length > 0" class="typo-details">
-      <h3>错字详情</h3>
-      <ul>
-        <li v-for="(typo, index) in typoDetails" :key="index">
-          <span class="typo-word">{{ typo.word }}</span>
-          <span class="typo-suggestion">→ {{ typo.suggestions[0] || '无建议' }}</span>
-          <span class="typo-position">(位置: {{ typo.position }})</span>
-        </li>
-      </ul>
+    <div v-else class="no-permission">
+      <i class="iconfont icon-lock"></i>
+      <p>您没有权限使用此功能</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch,onMounted } from 'vue';
 import * as docx from 'docx-preview';
 import * as mammoth from 'mammoth';
 import axios from 'axios';
@@ -162,6 +170,13 @@ const stats = computed(() => {
     errorCount,
     errorRate
   };
+});
+
+// 获取用户权限
+const userPermission = ref<number | null>(null);
+// 判断用户是否有权限（假设权限1、4、5、7允许访问）
+const hasPermission = computed(() => {
+  return [2, 4, 6, 7].includes(userPermission.value || 0);
 });
 
 // 高亮显示错误内容
@@ -450,6 +465,16 @@ const switchTab = (tabName: string) => {
 watch(typoDetails, (newVal) => {
   console.log('错字详情更新:', newVal);
 }, { deep: true });
+
+// 在页面加载时获取用户权限
+onMounted(() => {
+  const userInfo = localStorage.getItem('user');
+  if (userInfo) {
+    const { permission } = JSON.parse(userInfo);
+    userPermission.value = permission;
+  }
+});
+
 </script>
 
 <style scoped>
@@ -754,5 +779,11 @@ watch(typoDetails, (newVal) => {
   color: #64748b;
   font-size: 0.8rem;
   margin-left: 0.5rem;
+}
+
+.no-permission i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #991b1b;
 }
 </style>

@@ -521,7 +521,7 @@ def download_file():
     try:
         # 从数据库查询文件记录
         paper = Paper.query.get(paper_id)
-        base_path = r'c:\\Users\\lenovo\\Desktop\\papertools7.2\\backend\\config\\'
+        base_path = r'D:\\2025shixun\\papertools\\papertools7.2 (2.0.0.0)\\backend\\config\\'
         if not paper or not paper.file_path:
             logger.error('文件记录不存在或路径为空')
             return jsonify({"error": "文件不存在01"}), 404

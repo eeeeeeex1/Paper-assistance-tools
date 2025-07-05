@@ -95,6 +95,9 @@
   </div>
 </template>
 
+
+
+
 <script setup lang="ts">
 import { ref, computed, onMounted,watch } from 'vue';
 import { DatePicker as VanDatePicker } from 'vant';
@@ -115,13 +118,13 @@ const records = ref<any[]>([]);
 const searchQuery = ref('');
 const dateRange = ref<[Date, Date] | null>(null);
 const currentPage = ref(1);
-const pageSize = 10;
+const pageSize = 8;
 const historyRecords = ref([]);
 const totalRecords = ref(0);
 const isLoadingHistory = ref(false);
 const totalPages = ref(1)
 
-const fetchHistoryRecords = async (userId, page = 1, perPage = 20) => {
+const fetchHistoryRecords = async (userId: any, page = 1, perPage = 8) => {
   try {
     // 显示加载状态
     isLoadingHistory.value = true;
@@ -140,7 +143,7 @@ const fetchHistoryRecords = async (userId, page = 1, perPage = 20) => {
     // 处理成功响应
     if (response.data.code === 200) {
       // 转换后端返回的数据格式以适配前端表格
-      const adaptedRecords = response.data.data.operations.map((record, index) => ({
+        records.value  = response.data.data.operations.map((record: { id: any; user_id: any; paper_id: any; operation_time: any; file_name: any; operation_type: any; }) => ({
         id: record.id,
         userId: record.user_id, // 新增用户 ID
         paperId: record.paper_id, // 新增论文 ID
@@ -148,17 +151,12 @@ const fetchHistoryRecords = async (userId, page = 1, perPage = 20) => {
         documentName: record.file_name,
         operationType: record.operation_type,
       }));
-      console.log('转换后的记录:', adaptedRecords); // 打印转换后的数据
-      // 按照id降序排列
-      adaptedRecords.sort((a, b) => b.id - a.id);
-
-      // 更新操作记录数据
-      historyRecords.value = adaptedRecords;
+      console.log('转换后的记录:',records.value); // 打印转换后的数据
+     // 更新操作记录数据
       totalRecords.value = response.data.data.total;
-      currentPage.value = response.data.data.current_page;
       totalPages.value = response.data.data.pages;
       
-      ElMessage.info('操作记录获取成功');
+      //ElMessage.info('操作记录获取成功');
       return response.data.data;
     } else {
       ElMessage.error(response.data.message || '获取操作记录失败');
@@ -177,26 +175,8 @@ const fetchHistoryRecords = async (userId, page = 1, perPage = 20) => {
 // 初始化加载数据
 onMounted(async () => {
   const userId = getAuthorId(); // 从auth工具获取用户ID
-  if (!userId) {
-    ElMessage.error('未获取到用户ID，无法加载操作记录');
-    return;
-  }
-  
-  const result = await fetchHistoryRecords(userId, currentPage.value, pageSize);
-  if (result) {
-    records.value = result.operations.map((record, index) => ({
-      id: record.id,
-      userId: record.user_id, // 新增用户 ID
-      paperId: record.paper_id, // 新增论文 ID
-      operationTime: record.operation_time,
-      documentName: record.file_name,
-      operationType: record.operation_type,
-    }));
-    // 按照id降序排列
-    records.value.sort((a, b) => b.id - a.id);
-    totalPages.value = result.pages;
-    totalRecords.value = result.total;
-  }
+
+ if (userId) await fetchHistoryRecords(userId, currentPage.value, pageSize);
 });
 
 // 格式化日期
@@ -236,11 +216,15 @@ const filteredRecords = computed(() => {
       const recordDate = new Date(record.operationTime);
       return recordDate >= start && recordDate <= end;
     });
+  }    
+  return result;
+});
+// 监听 currentPage 变化
+watch(currentPage, async (newPage) => {
+  const userId = getAuthorId();
+  if (userId) {
+    await fetchHistoryRecords(userId, newPage, pageSize);
   }
-  
-  // 分页
-  const start = (currentPage.value - 1) * pageSize;
-  return result.slice(start, start + pageSize);
 });
 
 // 删除记录

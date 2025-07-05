@@ -3,9 +3,9 @@
     <div class="login-wrapper">
       <!-- 左侧项目介绍区域 -->
       <div class="project-intro">
-        <h2 class="intro-title">项目名称</h2>
+        <h2 class="intro-title">万卷书</h2>
         <p class="intro-desc">
-          这是一个专业的管理系统，致力于为企业提供高效、安全的管理解决方案。系统集成了多种功能模块，帮助用户轻松处理各类业务需求。
+          这是一个专业的论文辅助工具系统，致力于为用户提供高效、好用的论文处理方案。系统集成了多种功能模块，帮助用户轻松处理各类需求。
         </p>
         <ul class="features-list">
           <li class="feature-item">
