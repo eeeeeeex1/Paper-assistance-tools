@@ -3,31 +3,40 @@
     <div class="login-wrapper">
       <!-- 左侧项目介绍区域 -->
       <div class="project-intro">
-        <h2 class="intro-title">管理员管理系统</h2>
-        <p class="intro-desc">
-          这是专业的管理员管理系统，为企业提供高效、安全的管理解决方案。系统集成多种功能模块，助力管理员轻松处理各类管理需求。
-        </p>
-        <ul class="features-list">
-          <li class="feature-item">
-            <i class="iconfont icon-security"></i>
-            <span>多重安全认证机制</span>
-          </li>
-          <li class="feature-item">
-            <i class="iconfont icon-efficiency"></i>
-            <span>高效的管理操作流程</span>
-          </li>
-          <li class="feature-item">
-            <i class="iconfont icon-data"></i>
-            <span>全面的数据分析报表</span>
-          </li>
-        </ul>
+        <div class="particles-background"></div>
+        <div class="intro-content">
+          <h2 class="intro-title">管理员管理系统</h2>
+          <p class="intro-desc">
+            这是专业的管理员管理系统，为企业提供高效、安全的管理解决方案。系统集成多种功能模块，助力管理员轻松处理各类管理需求。
+          </p>
+          <ul class="features-list">
+            <li class="feature-item">
+              <i class="iconfont icon-security"></i>
+              <span>多重安全认证机制</span>
+            </li>
+            <li class="feature-item">
+              <i class="iconfont icon-efficiency"></i>
+              <span>高效的管理操作流程</span>
+            </li>
+            <li class="feature-item">
+              <i class="iconfont icon-data"></i>
+              <span>全面的数据分析报表</span>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <!-- 右侧登录表单区域 -->
       <div class="login-form">
+        <div class="floating-elements">
+          <div class="floating-circle circle-1"></div>
+          <div class="floating-circle circle-2"></div>
+        </div>
         <h2 class="title">管理员登录</h2>
         <div class="avatar-container">
-          <div class="avatar"></div>
+          <div class="avatar">
+            <div class="avatar-ring"></div>
+          </div>
         </div>
         <div class="form-group">
           <label for="account" class="form-label">管理员账号</label>
@@ -62,7 +71,7 @@
         </div>
         <div class="btn-group">
           <button
-            class="login-btn"
+            class="login-btn btn-ripple"
             @click="handleLogin"
             :disabled="isFormInvalid"
             :class="{ 'btn-loading': isLoading }"
@@ -157,58 +166,95 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* 基础样式重置 (与原文件一致，省略重复部分) */
+/* 基础样式重置 */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
 
 .login-container {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #fcfffb;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
 .login-wrapper {
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
-/* 左侧项目介绍区域 (与原文件一致，修改了标题和描述) */
+/* 左侧项目介绍区域 */
 .project-intro {
   flex: 1;
-  background: linear-gradient(135deg, #304156 0%, #4e6c8e 100%);
-  color: #fff;
-  padding: 80px 60px;
+  position: relative;
+  padding: 60px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.particles-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #3e4557 0%, #1b4054 100%);
+  z-index: 0;
+}
+
+.particles-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                  radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
+  animation: particles-move 20s infinite alternate;
+}
+
+@keyframes particles-move {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 20px); }
+}
+
+.intro-content {
+  position: relative;
+  z-index: 1;
 }
 
 .intro-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 25px;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
   line-height: 1.3;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .intro-desc {
-  font-size: 18px;
-  margin-bottom: 50px;
-  line-height: 1.8;
+  font-size: 15px;
+  margin-bottom: 40px;
+  line-height: 1.7;
   opacity: 0.9;
 }
 
@@ -216,76 +262,148 @@ onMounted(() => {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 22px;
 }
 
 .feature-item {
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .feature-item i {
-  font-size: 28px;
-  margin-top: 2px;
+  font-size: 22px;
+  color: rgba(255,255,255,0.9);
 }
 
-/* 右侧登录表单区域 (与原文件一致，移除了注册按钮相关样式) */
+/* 右侧登录表单区域 */
 .login-form {
   flex: 1;
-  padding: 80px 70px 70px;
+  padding: 60px 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(102, 126, 234, 0.05);
+  animation: float 15s infinite ease-in-out;
+}
+
+.circle-1 {
+  width: 200px;
+  height: 200px;
+  top: -50px;
+  right: -50px;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 150px;
+  height: 150px;
+  bottom: -30px;
+  left: -30px;
+  animation-delay: 5s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, 20px) scale(1.05); }
 }
 
 .title {
   text-align: center;
-  margin-bottom: 40px;
-  color: #303133;
-  font-size: 32px;
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 26px;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
 }
 
 .avatar-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   position: relative;
+  z-index: 1;
 }
 
 .avatar {
-  width: 150px;
-  height: 150px;
-  background: linear-gradient(135deg, #304156, #4e6c8e);
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #15181b, #6189a9);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  font-size: 60px;
-  box-shadow: 0 8px 40px rgba(48, 65, 86, 0.4);
-  transition: all 0.3s ease;
+  font-size: 40px;
+  box-shadow: 0 8px 25px rgba(45, 89, 108, 0.4);
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .avatar:hover {
-  transform: scale(1.08);
-  box-shadow: 0 10px 45px rgba(48, 65, 86, 0.5);
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(45, 81, 88, 0.5);
+}
+
+.avatar-ring {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: 2px dashed rgba(103, 146, 160, 0.4);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 15s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .form-group {
-  margin-bottom: 35px;
+  margin-bottom: 28px;
   position: relative;
+  z-index: 1;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 12px;
-  color: #606266;
-  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 14px;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .input-group {
@@ -296,103 +414,123 @@ onMounted(() => {
 
 .input-group i {
   position: absolute;
-  left: 20px;
+  left: 15px;
   color: #909399;
-  font-size: 20px;
-  transition: all 0.2s ease;
+  font-size: 18px;
+  transition: all 0.3s ease;
 }
 
 .input-group .icon-eye {
-  right: 20px;
+  right: 15px;
   left: auto;
   cursor: pointer;
+  color: #c0c4cc;
+}
+
+.input-group .icon-eye:hover {
+  color: #66d2ea;
 }
 
 .form-input {
   width: 100%;
-  padding: 18px 20px 18px 50px;
-  border: 1px solid #dcdfe6;
-  border-radius: 10px;
-  background-color: #fff;
-  color: #606266;
-  font-size: 16px;
+  padding: 14px 15px 14px 45px;
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background-color: #f9fafc;
+  color: #333;
+  font-size: 14px;
   transition: all 0.3s ease;
   outline: none;
 }
 
 .form-input:focus {
-  border-color: #409eff;
-  box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.2);
+  border-color: #66c7ea;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
 .form-input.is-error {
-  border-color: #f56c6c;
+  border-color: #ff6b6b;
 }
 
 .form-input.is-error + .iconfont {
-  color: #f56c6c;
+  color: #ff6b6b;
 }
 
 .error-message {
   position: absolute;
-  bottom: -25px;
+  bottom: -20px;
   left: 0;
-  color: #f56c6c;
-  font-size: 14px;
+  color: #ff6b6b;
+  font-size: 12px;
   line-height: 1.5;
-  margin-top: 4px;
   transition: all 0.3s ease;
 }
 
 .btn-group {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 30px;
+  margin: 30px 0 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .login-btn {
-  padding: 18px;
+  width: 100%;
+  padding: 14px;
   border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 18px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #273c4a, #73afd2);
+  color: #edf4f7;
+  font-size: 16px;
   font-weight: 500;
-  color: #fff;
+  cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #304156, #4e6c8e);
-  box-shadow: 0 6px 30px rgba(48, 65, 86, 0.3);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
 .login-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 35px rgba(48, 65, 86, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(28, 110, 181, 0.4);
 }
 
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: scale(0.98);
+.login-btn:active {
+  transform: translateY(0);
+}
+
+.btn-ripple:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform .5s, opacity 1s;
+}
+
+.btn-ripple:active:after {
+  transform: scale(0, 0);
+  opacity: .3;
+  transition: 0s;
 }
 
 .loading-spinner {
-  width: 22px;
-  height: 22px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
   border-top-color: #fff;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* 响应式布局 (与原文件一致) */
+/* 响应式布局 */
 @media (max-width: 768px) {
   .login-wrapper {
     flex-direction: column;
@@ -400,7 +538,7 @@ button:disabled {
 
   .project-intro,
   .login-form {
-    padding: 50px 40px;
+    padding: 40px 30px;
   }
 
   .project-intro {
@@ -410,6 +548,14 @@ button:disabled {
 
   .features-list {
     align-items: center;
+  }
+  
+  .intro-title {
+    font-size: 28px;
+  }
+  
+  .title {
+    font-size: 24px;
   }
 }
 </style>

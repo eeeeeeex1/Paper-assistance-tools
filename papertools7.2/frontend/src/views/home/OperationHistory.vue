@@ -106,6 +106,9 @@ import { getAuthorId } from '@/utils/auth';
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 
+// 定义API基础路径（使用环境变量）
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 // 模拟API获取操作记录
 const operationTypes = {
   similaritycheck: '论文相似度查询',
@@ -131,7 +134,7 @@ const fetchHistoryRecords = async (userId: any, page = 1, perPage = 8) => {
     
     // 发送GET请求到后端API
     const response = await axios.get(
-      `http://localhost:5000/api/operations/user/${userId}`,
+      `${API_BASE_URL}/api/operations/user/${userId}`,
       {
         params: {
           page,
@@ -232,7 +235,7 @@ const confirmDelete = async (id: number) => {
   if (confirm('确定要删除这条记录吗？')) {
     try {
       // 发送删除请求到后端
-      const response = await axios.delete(`http://localhost:5000/api/operations/${id}`);
+      const response = await axios.delete(`${API_BASE_URL}/api/operations/${id}`);
       if (response.data.code === 200) {
         //ElMessage.success('操作记录删除成功');
         // 从前端数据中移除已删除的记录
@@ -270,7 +273,7 @@ const downloadFile = async (paper_id) => {
     const token = localStorage.getItem('token') || '';
     
     // 调用后端下载接口
-    const response = await axios.get(`http://localhost:5000/api/paper/downloadPaper?paper_id=${paperId}`, {
+    const response = await axios.get(`${API_BASE_URL}/api/paper/downloadPaper?paper_id=${paperId}`, {
       responseType: 'blob',
       headers: {
         Authorization: token ? `Bearer ${token}` : '',

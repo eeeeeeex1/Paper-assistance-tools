@@ -1,0 +1,1211 @@
+2025-07-07 08:55:37 - xinghuo_service - INFO - xinghuo_service:29 - ĞÇ»ğX1 HTTP·şÎñ³õÊ¼»¯Íê³É
+2025-07-07 08:55:37 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-07 08:55:37 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-07-07 08:55:37 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-07 08:55:45 - xinghuo_service - INFO - xinghuo_service:29 - ĞÇ»ğX1 HTTP·şÎñ³õÊ¼»¯Íê³É
+2025-07-07 08:55:45 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-07 08:55:45 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 262-340-303
+2025-07-07 09:10:06 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:10:06] "OPTIONS /api/user/register HTTP/1.1" 200 -
+2025-07-07 09:10:06 - root - INFO - user_controller:131 - 111111111111: user3
+2025-07-07 09:10:06 - root - INFO - user_controller:136 - ÃÜÂë¼ÓÃÜ³É¹¦
+2025-07-07 09:10:06 - root - INFO - user_service:35 - user_service use rgister
+2025-07-07 09:10:06 - dao.user_dao - INFO - user_dao:37 - make new user: user3
+2025-07-07 09:10:06 - dao.user_dao - INFO - user_dao:50 - new user has been created,waiting for writing
+2025-07-07 09:10:06 - dao.user_dao - INFO - user_dao:54 - ÓÃ»§´´½¨³É¹¦: ID=4, ÓÃ»§Ãû=user3, ÓÊÏä=lei-mingkang@user.noreply.gitee.com, È¨ÏŞ=7
+2025-07-07 09:10:06 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:10:06] "[35m[1mPOST /api/user/register HTTP/1.1[0m" 201 -
+2025-07-07 09:10:15 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:10:15] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 09:10:15 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user3
+2025-07-07 09:10:15 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 09:10:15 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 09:10:15 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 01:10:16
+2025-07-07 09:10:15 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user3
+2025-07-07 09:10:15 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 09:10:15 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:10:15] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 09:10:40 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 09:10:40 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 09:10:40 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 09:10:40 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\3c9bfc4daba74f7fb51086c649473756_computer.docx
+2025-07-07 09:10:40 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\3c9bfc4daba74f7fb51086c649473756_computer.docx
+2025-07-07 09:10:40 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 09:10:40 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 09:10:40 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 09:10:40 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 93
+2025-07-07 09:10:40 - root - INFO - paper_controller:157 - paper_id:93
+2025-07-07 09:10:40 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:10:40] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 09:10:40 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:10:40] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 09:10:40 - root - INFO - paper_controller:392 - begin check plagiarism with file upload------------------
+2025-07-07 09:10:40 - root - INFO - paper_controller:409 - checkfunction:webSearch
+2025-07-07 09:10:40 - root - INFO - paper_controller:410 - paper________________data:93
+2025-07-07 09:10:40 - root - INFO - paper_service:476 - begin service check_plagiarism with Semantic Scholar API
+2025-07-07 09:10:40 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 09:10:42 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 09:10:42 - root - INFO - paper_service:524 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ·¢Õ¹ ¼¼Êõ ÑĞ¾¿ ¼ÆËã ·ÖÎö
+2025-07-07 09:10:42 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 1/3£©
+2025-07-07 09:11:13 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 2/3£©
+2025-07-07 09:11:45 - root - INFO - paper_service:572 - Before calling _extract_similar_segments, abstract: Ëæ×Å¹úÄÚ³ÇÊĞµØÏÂ¿Õ¼äµÄ¿ª·¢½¨Éè£¬´óĞÍ»ù¿Ó¹¤³ÌÔÚ¹úÄÚ²ã³ö²»Çî£¬²¢²»¶ÏÏò¸üÉî¡¢¸ü´óµÄÇ÷ÊÆ·¢Õ¹¡£´óĞÍ»ù¿Ó¹¤³ÌµÄÊ©¹¤½¨ÉèÒ²²»¶ÏÏò¸ßÄÑ¶È¡¢¸ß·çÏÕ·½Ïò·¢Õ¹£¬¸ø´óĞÍ»ù¿Ó¿ªÍÚ×÷Òµ£¬»ù¿ÓÎÈ¶¨ĞÔ¡¢±äĞÎ¿ØÖÆ´øÀ´¸ü´óµÄÌôÕ½£¬¶Ô´óĞÍ»ù¿Ó¼¼Êõ·½°¸ºÏÀí»¯Ìá³öÁË¸ü¸ßµÄÒªÇó£¬Ò²´Ù½øÁË´óĞÍ»ù¿Ó¼ÆËã·½·¨ºÍÊ©¹¤¹¤ÒÕµÄ·¢Õ¹¡£±¾ÎÄÒÔº¼ÖİÎäÁÖ¹ã³¡´óĞÍ»ù¿ÓÎªÑĞ¾¿¶ÔÏó£¬¸ù¾İ¹¤³ÌÌØµãºÍÊ©¹¤Êµ¼ÊÇé¿ö£¬Í¨¹ıÓĞÏŞÔªÊıÖµÄ£Äâ¼°ÊµÑéÊı¾İ·ÖÎö£¬¶ÔÄæ×÷·¨´óĞÍ»ù¿ÓÊ©¹¤¹ı³ÌÖĞ³ĞÑ¹Ë®ÖÎÀí¼°½µË®Ïà¹Ø´ëÊ©¡¢»ù¿Ó±äĞÎ¿ØÖÆµÈ¹Ø¼ü¼¼ÊõÎÊÌâ½øĞĞÁË½ÏÏêÏ¸·ÖÎö£¬ÌÖÂÛÁË´óĞÍ»ù¿Ó¿ªÍÚ¶Ô¿ÓÍâÁÚ½ü½¨ÖşÎï¡¢ÒÑ½¨µØÌú1ºÅÏß¼°»ù¿ÓÄÚÒÑ½¨ÉÏ²¿½á¹¹µÄÓ°Ïì£¬²¢×Ü½áÁËÏà¹Ø¼¼Êõ´ëÊ©¡£
+2025-07-07 09:11:45 - root - INFO - paper_service:641 - begin _calculate_advanced_similarity
+2025-07-07 09:11:45 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 09:11:45 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 09:11:45 - root - WARNING - paper_service:674 - ÓïÒåÏàËÆ¶È¼ÆËãÊ§°Ü£¬Ê¹ÓÃ»ù´¡Ëã·¨: No module named 'sentence_transformers'
+2025-07-07 09:11:45 - root - INFO - paper_service:798 - text1 length: 6929, text2 length: 290
+2025-07-07 09:11:45 - root - INFO - paper_service:799 - ¿ªÊ¼¼ì²éÏàËÆ¶ÎÂä£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 09:11:45 - root - INFO - paper_service:831 - ÎÄ±¾1·Ö¸îÎª 58 ¸ö¶ÎÂä£¬ÎÄ±¾2·Ö¸îÎª 1 ¸ö¶ÎÂä
+2025-07-07 09:11:46 - root - INFO - paper_service:932 - ÕÒµ½ 0 ¸öÏàËÆ¶ÎÂä¶Ô£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 09:11:46 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:11:46] "POST /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 09:12:20 - root - INFO - paper_controller:597 - begin controller check
+2025-07-07 09:12:20 - root - INFO - paper_service:955 - begin local check
+2025-07-07 09:12:20 - root - INFO - paper_service:641 - begin _calculate_advanced_similarity
+2025-07-07 09:12:20 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 09:12:20 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 09:12:20 - root - WARNING - paper_service:674 - ÓïÒåÏàËÆ¶È¼ÆËãÊ§°Ü£¬Ê¹ÓÃ»ù´¡Ëã·¨: No module named 'sentence_transformers'
+2025-07-07 09:12:20 - root - INFO - paper_service:798 - text1 length: 1526, text2 length: 1831
+2025-07-07 09:12:20 - root - INFO - paper_service:799 - ¿ªÊ¼¼ì²éÏàËÆ¶ÎÂä£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 09:12:20 - root - INFO - paper_service:831 - ÎÄ±¾1·Ö¸îÎª 9 ¸ö¶ÎÂä£¬ÎÄ±¾2·Ö¸îÎª 9 ¸ö¶ÎÂä
+2025-07-07 09:12:20 - root - INFO - paper_service:932 - ÕÒµ½ 5 ¸öÏàËÆ¶ÎÂä¶Ô£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 09:12:20 - root - INFO - paper_controller:611 - Comparison Results: [{'article_title': '2.docx', 'similarity_rate': 43.93, 'url': '', 'authors': '', 'similar_segments': {'original': [{'content': 'È»¶ø£¬AI ÔÚÒ½ÁÆÁìÓòµÄÆÕ¼°ÈÔÃæÁÙ¶àÖØÌôÕ½¡£Êı¾İ°²È«ÓëÒşË½±£»¤ÊÇÊ×ÒªÎÊÌâ¡£Ò½ÁÆÊı¾İ°üº¬»¼ÕßÃô¸ĞĞÅÏ¢£¬AI ÏµÍ³µÄÑµÁ·ºÍÓ¦ÓÃĞèÑÏ¸ñ×ñÑ­ÒşË½·¨¹æ£¨Èç HIPAA¡¢GDPR£©£¬µ«Êı¾İĞ¹Â¶ÊÂ¼şÈÔÊ±ÓĞ·¢Éú¡£2023 Äê£¬Ä³Ò½ÁÆ AI ¹«Ë¾ÒòÊı¾İ¿âÂ©¶´µ¼ÖÂ 10 Íò·İ»¼Õß²¡Àú±»Ğ¹Â¶£¬Òı·¢Éç»á¶ÔÊı¾İ°²È«µÄµ£ÓÇ¡£', 'similarity': 0.66, 'matched_with': 4}, {'content': 'Ëã·¨Æ«¼ûÓë¿É½âÊÍĞÔ²»×ãÒ²ÖÆÔ¼×Å AI µÄĞÅÈÎ¶È¡£ÈôÑµÁ·Êı¾İ¼¯ÖĞÄ³ÀàÈËÈºÑù±¾²»×ã£¬AI Ä£ĞÍ¿ÉÄÜ³öÏÖÕï¶ÏÆ«²î¡£ÀıÈç£¬Õë¶ÔÆ¤·ô¼²²¡µÄ AI Õï¶ÏÏµÍ³ÈôÖ÷Òª»ùÓÚ°×ÈËÆ¤·ôÍ¼ÏñÑµÁ·£¬¶ÔÉîÉ«Æ¤·ô»¼ÕßµÄÎóÕïÂÊ»áÏÔÖøÉı¸ß¡£´ËÍâ£¬Éî¶ÈÑ§Ï°Ä£ĞÍµÄ ¡°ºÚÏä¡± ÌØĞÔÊ¹µÃÕï¶Ï½á¹ûÄÑÒÔ×·Ëİ£¬Ò½ÉúºÍ»¼ÕßÄÑÒÔÀí½â¾ö²ßÒÀ¾İ£¬Ó°ÏìÁÙ´²²ÉÄÉ¶È¡£', 'similarity': 0.58, 'matched_with': 5}, {'content': '¼à¹Ü±ê×¼µÄÈ±Ê§Í¬Ñù´øÀ´ÌôÕ½¡£¸÷¹ú¶ÔÒ½ÁÆ AI ²úÆ·µÄÉóÅúÁ÷³ÌÉĞ²»Í³Ò»£¬²¿·Ö²úÆ·½öÍ¨¹ıÈí¼şÈÏÖ¤±ãÍ¶ÈëÁÙ´²£¬È±·¦³¤ÆÚÓĞĞ§ĞÔÑéÖ¤¡£2022 Äê£¬ÃÀ¹ú FDA ÕÙ»ØÁËÒ»¿î AI ĞÄµçÍ¼·ÖÎöÉè±¸£¬ÒòÆä¶ÔĞÄ¼¡¹£ËÀµÄÂ©ÕïÂÊ³¬³ö°²È«ãĞÖµ£¬±©Â¶ÁË¼à¹ÜÂ©¶´¡£', 'similarity': 0.42, 'matched_with': 6}, {'content': 'Â×ÀíÎÊÌâÒ²ÈÕÒæÍ¹ÏÔ¡£µ± AI Õï¶ÏÓëÒ½ÉúÅĞ¶Ï³åÍ»Ê±£¬ÔğÈÎ¹éÊôÄÑÒÔ½ç¶¨£»AI ÔÚ×ÊÔ´·ÖÅäÖĞµÄÓ¦ÓÃ¿ÉÄÜ¼Ó¾çÒ½ÁÆ²»¹« ¡ª¡ª ÀıÈç£¬ÓÅÏÈÎª¸ßÊÕÈëÈºÌåÌá¹© AI ¸¨ÖúÕïÁÆ·şÎñ¡£ÕâĞ©ÎÊÌâĞèÒªĞĞÒµ¡¢Õş¸®Óë¹«ÖÚ¹²Í¬Ì½ÌÖ£¬½¨Á¢·ûºÏÂ×ÀíµÄÓ¦ÓÃ¹æ·¶¡£', 'similarity': 0.59, 'matched_with': 7}, {'content': 'Õ¹ÍûÎ´À´£¬AI ÓëÒ½ÁÆµÄÈÚºÏÈÔÊÇ´óÊÆËùÇ÷¡£Ëæ×Å¼¼ÊõµÄµü´ú£¬¶àÄ£Ì¬ AI Ä£ĞÍ£¨½áºÏÓ°Ïñ¡¢»ùÒò¡¢ÁÙ´²Êı¾İ£©½«½øÒ»²½ÌáÉıÕï¶Ï¾«¶È£»Áª°îÑ§Ï°µÈ¼¼ÊõµÄÓ¦ÓÃ¿ÉÔÚ±£»¤Êı¾İÒşË½µÄÇ°ÌáÏÂÊµÏÖ¿ç»ú¹¹Êı¾İ¹²Ïí£»¼à¹Ü¿ò¼ÜµÄÍêÉÆ½«Îª AI Ò½ÁÆ²úÆ·Ìá¹©¸üÇåÎúµÄºÏ¹æÂ·¾¶¡£×îÖÕ£¬AI µÄ¼ÛÖµ²»ÔÚÓÚÌæ´úÒ½Éú£¬¶øÔÚÓÚÍ¨¹ı¼¼Êõ¸³ÄÜ£¬ÈÃÓÅÖÊÒ½ÁÆ×ÊÔ´»İ¼°¸ü¶àÈË£¬ÊµÏÖ ¡°¼¼ÊõÏòÉÆ¡± µÄÖÕ¼«Ä¿±ê¡£', 'similarity': 0.4, 'matched_with': 8}], 'comparison': [{'content': '¾¡¹Ü AI ÔÚÒ½ÁÆÁìÓòµÄÓ¦ÓÃÇ°¾°¹ãÀ«£¬µ«Æä·¢Õ¹¹ı³ÌÖĞÈÔÃæÁÙÒ»ÏµÁĞØ½´ı½â¾öµÄÎÊÌâ¡£Êı¾İ°²È«ÓëÒşË½±£»¤ÊÇÆäÖĞ×îÊÜ¹Ø×¢µÄÒéÌâ¡£Ò½ÁÆÊı¾İ°üº¬´óÁ¿¸öÈËÃô¸ĞĞÅÏ¢£¬Èç²¡Àú¡¢»ùÒòÊı¾İµÈ£¬Ò»µ©·¢ÉúĞ¹Â¶£¬¿ÉÄÜ¶Ô»¼ÕßÔì³ÉÑÏÖØºó¹û¡£2024 Äê³õ£¬Ä³ÖªÃûÒ½ÁÆ AI ÆóÒµµÄÊı¾İ¿âÔâºÚ¿Í¹¥»÷£¬µ¼ÖÂ 50 Íò»¼ÕßµÄÕïÁÆ¼ÇÂ¼±»ÇÔÈ¡£¬Òı·¢ÁËÉç»á¶ÔÊı¾İ°²È«µÄ¹ã·ºµ£ÓÇ¡£ÈçºÎÔÚÊı¾İ¹²ÏíÓëÒşË½±£»¤Ö®¼äÕÒµ½Æ½ºâ£¬³ÉÎª AI Ò½ÁÆ·¢Õ¹µÄ¹Ø¼üÌôÕ½¡£', 'similarity': 0.66, 'matched_with': 4}, {'content': 'Ëã·¨µÄ¹«Æ½ĞÔÓë¿É½âÊÍĞÔ²»×ãÒ²ÖÆÔ¼×Å AI ÔÚÁÙ´²µÄÉîÈëÓ¦ÓÃ¡£Èç¹ûÑµÁ· AI Ä£ĞÍµÄÊı¾İ¼¯ÖĞÄ³Ò»ÈºÌåµÄÑù±¾ÊıÁ¿²»×ã£¬Ä£ĞÍ¿ÉÄÜ»á³öÏÖÏµÍ³ĞÔÆ«¼û¡£ÀıÈç£¬Ò»¿îÓÃÓÚÕï¶ÏÆ¤·ô²¡µÄ AI ÏµÍ³ÒòÖ÷Òª»ùÓÚÇ³É«Æ¤·ôÍ¼ÏñÑµÁ·£¬¶ÔºÚÈË»¼ÕßµÄÕï¶Ï×¼È·ÂÊ½öÎª°×ÈË»¼ÕßµÄ 60%£¬ÕâÎŞÒÉ»á¼Ó¾çÒ½ÁÆ²»¹«¡£´ËÍâ£¬Éî¶ÈÑ§Ï°Ä£ĞÍµÄ¾ö²ß¹ı³ÌÈçÍ¬ ¡°ºÚÏä¡±£¬Ò½ÉúÄÑÒÔÀí½âÆäµÃ³ö½áÂÛµÄÒÀ¾İ£¬Õâ²»½öÓ°ÏìÁËÁÙ´²ĞÅÈÎ¶È£¬Ò²²»ÀûÓÚ´íÎóµÄ×·ËİÓëĞŞÕı¡£', 'similarity': 0.58, 'matched_with': 5}, {'content': '¼à¹ÜÌåÏµµÄ²»ÍêÉÆÍ¬Ñù´øÀ´ÁË·çÏÕ¡£Ä¿Ç°£¬Ğí¶à¹ú¼Ò¶ÔÒ½ÁÆ AI ²úÆ·µÄÉóÅú±ê×¼ÉĞ²»Ã÷È·£¬²¿·Ö²úÆ·Î´¾­¹ıÑÏ¸ñµÄÁÙ´²ÑéÖ¤±ãÍ¶ÈëÊĞ³¡£¬¿ÉÄÜ¶Ô»¼Õß°²È«¹¹³ÉÍşĞ²¡£2023 Äê£¬Å·ÃËÕÙ»ØÁËÒ»¿î AI ¸¨ÖúÕï¶ÏÉè±¸£¬Ô­ÒòÊÇÆä¶ÔÄÔ×äÖĞµÄÎóÕïÂÊ¹ı¸ß£¬ÑÓÎóÁË»¼ÕßµÄ×î¼ÑÖÎÁÆÊ±»ú¡£ÕâÒ»ÊÂ¼şÍ¹ÏÔÁË½¨Á¢Í³Ò»¡¢ÑÏ¸ñµÄ¼à¹Ü¿ò¼ÜµÄÆÈÇĞĞÔ¡£', 'similarity': 0.42, 'matched_with': 6}, {'content': 'Â×Àí²ãÃæµÄÕùÒéÒ²ÈÕÒæÏÔÏÖ¡£µ± AI µÄÕï¶Ï½á¹ûÓëÒ½ÉúµÄÅĞ¶Ï²»Ò»ÖÂÊ±£¬ÔğÈÎ¸ÃÈçºÎ»®·Ö£¿AI ÔÚÒ½ÁÆ×ÊÔ´·ÖÅäÖĞµÄÓ¦ÓÃÊÇ·ñ»áµ¼ÖÂ ¡°¼¼ÊõÆçÊÓ¡±£¬¼´Ö»ÓĞ¸ßÊÕÈëÈºÌå²ÅÄÜÏíÊÜ AI ´øÀ´µÄÓÅÖÊ·şÎñ£¿ÕâĞ©ÎÊÌâĞèÒªÕş¸®¡¢Ò½ÁÆ»ú¹¹¡¢¿Æ¼¼ÆóÒµºÍ¹«ÖÚ¹²Í¬²ÎÓëÌÖÂÛ£¬½¨Á¢·ûºÏÉç»áÂ×ÀíµÄ AI Ò½ÁÆÓ¦ÓÃ×¼Ôò¡£', 'similarity': 0.59, 'matched_with': 7}, {'content': 'Î´À´£¬Ëæ×Å¼¼ÊõµÄ²»¶Ï½ø²½£¬AI ÔÚÒ½ÁÆÁìÓòµÄÓ¦ÓÃ½«¸ü¼ÓÉîÈë¡£¶àÄ£Ì¬ AI Ä£ĞÍ½«ÕûºÏÓ°Ïñ¡¢»ùÒò¡¢»·¾³µÈ¶àÎ¬¶ÈÊı¾İ£¬ÊµÏÖ¸ü¾«×¼µÄ¼²²¡Ô¤²â£»Áª°îÑ§Ï°¡¢Çø¿éÁ´µÈ¼¼ÊõµÄÒıÈë½«ÔÚ±£ÕÏÊı¾İÒşË½µÄÍ¬Ê±£¬´Ù½øÒ½ÁÆÊı¾İµÄ¿ç»ú¹¹¹²Ïí£»¼à¹ÜÕş²ßµÄÍêÉÆ½«Îª AI Ò½ÁÆ²úÆ·Ìá¹©¸üÇåÎúµÄ·¢Õ¹Â·¾¶¡£¹é¸ù½áµ×£¬ÈË¹¤ÖÇÄÜµÄÖÕ¼«Ä¿±ê²»ÊÇÈ¡´úÒ½ÎñÈËÔ±£¬¶øÊÇÍ¨¹ı¼¼Êõ´´ĞÂÃÖ²¹Ò½ÁÆ×ÊÔ´µÄ²»×ã£¬ÌáÉıÒ½ÁÆ·şÎñµÄ¿É¼°ĞÔÓëÖÊÁ¿£¬ÈÃÃ¿Ò»¸öÈË¶¼ÄÜÏíÊÜµ½¿Æ¼¼½ø²½´øÀ´µÄ½¡¿µºìÀû¡£', 'similarity': 0.4, 'matched_with': 8}]}}]
+2025-07-07 09:12:20 - root - INFO - paper_controller:615 - Comprehensive Similarity: 43.93
+2025-07-07 09:12:20 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:12:20] "POST /api/paper/check_local_plagiarism HTTP/1.1" 200 -
+2025-07-07 09:14:40 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 09:14:40 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 09:14:40 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: wrong.txt
+2025-07-07 09:14:40 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\894e7b53addc4a2eb8ed5bea8c2ce3bf_wrong.txt
+2025-07-07 09:14:40 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\894e7b53addc4a2eb8ed5bea8c2ce3bf_wrong.txt
+2025-07-07 09:14:40 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 09:14:40 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 09:14:40 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 09:14:40 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 94
+2025-07-07 09:14:40 - root - INFO - paper_controller:157 - paper_id:94
+2025-07-07 09:14:40 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:14:40] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 09:14:40 - root - INFO - paper_controller:293 - get spelling request----------------------------
+2025-07-07 09:14:40 - root - INFO - paper_controller:323 - go wrong service
+2025-07-07 09:14:40 - root - INFO - paper_service:692 - ¿ªÊ¼ÂÛÎÄ´í×Ö¼ì²â·şÎñ
+2025-07-07 09:14:40 - service.typo_detection_service - INFO - typo_detection_service:86 - ¿ªÊ¼¼ì²âÎÄ±¾£¬³¤¶È: 59
+2025-07-07 09:14:40 - service.typo_detection_service - ERROR - typo_detection_service:109 - PyCorrector¼ì²â´íÎó: module 'pycorrector' has no attribute 'detect'
+2025-07-07 09:14:40 - service.typo_detection_service - INFO - typo_detection_service:167 - Ê¹ÓÃ×Ô¶¨Òå´Êµä½øĞĞ´í×Ö¼ì²â
+2025-07-07 09:14:40 - service.typo_detection_service - INFO - typo_detection_service:209 - ×Ô¶¨Òå´Êµä¼ì²âÍê³É£¬¹²·¢ÏÖ 9 ¸ö´í×Ö
+2025-07-07 09:14:40 - root - INFO - paper_service:710 - finish,find 7 wrong(s)
+2025-07-07 09:14:40 - root - INFO - paper_service:748 - spelling end
+2025-07-07 09:14:40 - root - INFO - paper_controller:327 - spelling finish,find 7 wrongs
+2025-07-07 09:14:40 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:14:40] "POST /api/paper/spelling HTTP/1.1" 200 -
+2025-07-07 09:15:46 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:15:46] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 09:15:47 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 09:15:47 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 09:15:47 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 09:15:47 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\13cba61e083242e98e4d6635ef4d1bff_computer.docx
+2025-07-07 09:15:47 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\13cba61e083242e98e4d6635ef4d1bff_computer.docx
+2025-07-07 09:15:47 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 09:15:47 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 09:15:47 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 09:15:47 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 95
+2025-07-07 09:15:47 - root - INFO - paper_controller:157 - paper_id:95
+2025-07-07 09:15:47 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:15:47] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 09:15:47 - root - INFO - paper_controller:453 - begin 111111 extract theme
+2025-07-07 09:15:47 - root - INFO - paper_service:286 - begin  find theme
+2025-07-07 09:15:47 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 09:15:47 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 09:15:47 - root - INFO - paper_service:361 - begin theme summary
+2025-07-07 09:15:47 - root - ERROR - paper_service:396 - end theme111111111 summary'±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£\n¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á\n×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬\n½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£'
+2025-07-07 09:15:47 - root - INFO - paper_service:307 - end  find theme11111111±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 09:15:47 - root - INFO - paper_service:316 - end  find theme±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 09:15:47 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:15:47] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-07-07 09:15:54 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:15:54] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 09:15:55 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 09:15:55 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 09:15:55 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 09:15:55 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\6648d1952ac54a70af4c5e44522bdba0_computer.docx
+2025-07-07 09:15:55 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\6648d1952ac54a70af4c5e44522bdba0_computer.docx
+2025-07-07 09:15:55 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 09:15:55 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 09:15:55 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 09:15:55 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 96
+2025-07-07 09:15:55 - root - INFO - paper_controller:157 - paper_id:96
+2025-07-07 09:15:55 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:15:55] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 09:15:55 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:15:55] "OPTIONS /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 09:15:55 - ai_controller - INFO - ai_controller:29 - Ö÷ÌâÌáÈ¡ÇëÇó - ÓÃ»§: 4, ÎÄ¼şÃû: computerÑ§±¨.docx
+2025-07-07 09:16:21 - httpx - INFO - _client:1025 - HTTP Request: POST https://spark-api-open.xf-yun.com/v2/chat/completions "HTTP/1.1 200 OK"
+2025-07-07 09:16:21 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:16:21] "POST /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 09:16:42 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-07 09:16:42 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 4 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 8
+2025-07-07 09:16:42 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 5, µ±Ç°Ò³¼ÇÂ¼Êı: 5
+2025-07-07 09:16:42 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-07 09:16:42 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 79, 'user_id': 4, 'paper_id': 96, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 09:16:22', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 09:16:42 - root - INFO - operation_service:146 - ¼ÇÂ¼ 2: {'id': 78, 'user_id': 4, 'paper_id': 95, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 09:15:47', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 09:16:42 - root - INFO - operation_service:146 - ¼ÇÂ¼ 3: {'id': 77, 'user_id': 4, 'paper_id': 94, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07 09:14:40', 'file_name': 'wrong.txt'}
+2025-07-07 09:16:42 - root - INFO - operation_service:146 - ¼ÇÂ¼ 4: {'id': 76, 'user_id': 4, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07 09:12:21', 'file_name': 'file1'}
+2025-07-07 09:16:42 - root - INFO - operation_service:146 - ¼ÇÂ¼ 5: {'id': 75, 'user_id': 4, 'paper_id': 93, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07 09:11:46', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 09:16:42 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:16:42] "GET /api/operations/user/4?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 09:16:53 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:16:53] "OPTIONS /api/paper/downloadPaper?paper_id=96 HTTP/1.1" 200 -
+2025-07-07 09:16:53 - root - INFO - paper_controller:516 - ¿ªÊ¼´¦ÀíÎÄ¼şÏÂÔØ£¬paper_id: 96
+2025-07-07 09:16:53 - root - INFO - paper_controller:576 - ÎÄ¼ş 6648d1952ac54a70af4c5e44522bdba0_computer.docx ÏÂÔØÏìÓ¦¹¹½¨Íê³É£¬¼´½«·µ»Ø
+2025-07-07 09:16:53 - root - INFO - paper_controller:577 - ÏìÓ¦Í·ÉèÖÃÍê³É£º
+  Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  Content-Disposition: attachment; filename*=UTF-8''6648d1952ac54a70af4c5e44522bdba0_computer.docx; filename="6648d1952ac54a70af4c5e44522bdba0_computer.docx"
+
+2025-07-07 09:16:53 - root - INFO - paper_controller:581 - ===== ÎÄ¼şÏÂÔØÏìÓ¦ÒÑ·¢ËÍ =====
+2025-07-07 09:16:53 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:16:53] "GET /api/paper/downloadPaper?paper_id=96 HTTP/1.1" 200 -
+2025-07-07 09:17:10 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:10] "OPTIONS /api/operations/79 HTTP/1.1" 200 -
+2025-07-07 09:17:11 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:11] "DELETE /api/operations/79 HTTP/1.1" 200 -
+2025-07-07 09:17:11 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-07 09:17:11 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 4 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 8
+2025-07-07 09:17:11 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 4, µ±Ç°Ò³¼ÇÂ¼Êı: 4
+2025-07-07 09:17:11 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-07 09:17:11 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 78, 'user_id': 4, 'paper_id': 95, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 09:15:47', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 09:17:11 - root - INFO - operation_service:146 - ¼ÇÂ¼ 2: {'id': 77, 'user_id': 4, 'paper_id': 94, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07 09:14:40', 'file_name': 'wrong.txt'}
+2025-07-07 09:17:11 - root - INFO - operation_service:146 - ¼ÇÂ¼ 3: {'id': 76, 'user_id': 4, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07 09:12:21', 'file_name': 'file1'}
+2025-07-07 09:17:11 - root - INFO - operation_service:146 - ¼ÇÂ¼ 4: {'id': 75, 'user_id': 4, 'paper_id': 93, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07 09:11:46', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 09:17:11 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:11] "GET /api/operations/user/4?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 09:17:34 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:34] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 09:17:35 - root - INFO - user_controller:537 - get user number
+2025-07-07 09:17:35 - root - INFO - user_controller:547 - use user service
+2025-07-07 09:17:35 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 09:17:35 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 09:17:35 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 09:17:35 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-05 06:20:16', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}], 'total': 3, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 09:17:35 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:35] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 09:17:50 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 09:17:50 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 09:17:50 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 09:17:50 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 09:17:50 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 09:17:50 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 09:17:50 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 78, 'user_id': 4, 'paper_id': 95, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T09:15:47', 'file_name': 'computerÑ§±¨.docx'}, {'id': 77, 'user_id': 4, 'paper_id': 94, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T09:14:40', 'file_name': 'wrong.txt'}, {'id': 76, 'user_id': 4, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T09:12:21', 'file_name': 'file1'}, {'id': 75, 'user_id': 4, 'paper_id': 93, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T09:11:46', 'file_name': 'computerÑ§±¨.docx'}, {'id': 74, 'user_id': 1, 'paper_id': 92, 'operation_type': 'textsummary', 'operation_time': '2025-07-05T14:27:19', 'file_name': '2.docx'}, {'id': 73, 'user_id': 1, 'paper_id': 91, 'operation_type': 'textsummary', 'operation_time': '2025-07-05T14:26:38', 'file_name': '2.docx'}, {'id': 72, 'user_id': 1, 'paper_id': 90, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T14:22:23', 'file_name': 'wrong.txt'}, {'id': 71, 'user_id': 1, 'paper_id': 89, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T14:21:01', 'file_name': 'wrong.docx'}]
+2025-07-07 09:17:50 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 09:17:50 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 09:17:50 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:50] "GET /api/operations/getall?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 09:17:56 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:56] "OPTIONS /api/paper/downloadPaper?paper_id=95 HTTP/1.1" 200 -
+2025-07-07 09:17:56 - root - INFO - paper_controller:516 - ¿ªÊ¼´¦ÀíÎÄ¼şÏÂÔØ£¬paper_id: 95
+2025-07-07 09:17:56 - root - INFO - paper_controller:576 - ÎÄ¼ş 13cba61e083242e98e4d6635ef4d1bff_computer.docx ÏÂÔØÏìÓ¦¹¹½¨Íê³É£¬¼´½«·µ»Ø
+2025-07-07 09:17:56 - root - INFO - paper_controller:577 - ÏìÓ¦Í·ÉèÖÃÍê³É£º
+  Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  Content-Disposition: attachment; filename*=UTF-8''13cba61e083242e98e4d6635ef4d1bff_computer.docx; filename="13cba61e083242e98e4d6635ef4d1bff_computer.docx"
+
+2025-07-07 09:17:56 - root - INFO - paper_controller:581 - ===== ÎÄ¼şÏÂÔØÏìÓ¦ÒÑ·¢ËÍ =====
+2025-07-07 09:17:56 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:56] "GET /api/paper/downloadPaper?paper_id=95 HTTP/1.1" 200 -
+2025-07-07 09:17:58 - root - INFO - user_controller:717 - ¿ªÊ¼»ñÈ¡ÓÃ»§×ÜÊıÁ¿
+2025-07-07 09:17:58 - root - INFO - user_service:246 - Calling DAO layer to get total user count
+2025-07-07 09:17:58 - root - INFO - user_service:248 - Total user count: 3
+2025-07-07 09:17:58 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:58] "GET /api/user/total_count HTTP/1.1" 200 -
+2025-07-07 09:17:58 - root - INFO - paper_controller:489 - ¿ªÊ¼»ñÈ¡ÂÛÎÄ×ÜÊı
+2025-07-07 09:17:58 - root - INFO - paper_service:780 - Calling DAO layer to get total paper count
+2025-07-07 09:17:58 - root - INFO - paper_service:782 - Total paper count: 96
+2025-07-07 09:17:58 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:58] "GET /api/paper/total_count HTTP/1.1" 200 -
+2025-07-07 09:17:58 - root - INFO - operation_controller:266 - get front request
+2025-07-07 09:17:58 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:58] "GET /api/operations/type_count HTTP/1.1" 200 -
+2025-07-07 09:17:58 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 09:17:58] "GET /api/user/weekly HTTP/1.1" 200 -
+2025-07-07 09:55:33 - werkzeug - INFO - _internal:97 -  * Detected change in 'D:\\2025shixun\\papertools\\papertools7.2 (2.0.0.0)\\backend\\models\\paper.py', reloading
+2025-07-07 09:55:36 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-07 09:59:01 - xinghuo_service - INFO - xinghuo_service:29 - ĞÇ»ğX1 HTTP·şÎñ³õÊ¼»¯Íê³É
+2025-07-07 09:59:01 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-07 09:59:01 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 262-340-303
+2025-07-07 10:21:29 - root - INFO - user_controller:717 - ¿ªÊ¼»ñÈ¡ÓÃ»§×ÜÊıÁ¿
+2025-07-07 10:21:29 - root - INFO - user_service:246 - Calling DAO layer to get total user count
+2025-07-07 10:21:29 - root - INFO - user_service:248 - Total user count: 3
+2025-07-07 10:21:29 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:29] "GET /api/user/total_count HTTP/1.1" 200 -
+2025-07-07 10:21:29 - root - INFO - paper_controller:489 - ¿ªÊ¼»ñÈ¡ÂÛÎÄ×ÜÊı
+2025-07-07 10:21:29 - root - INFO - paper_service:780 - Calling DAO layer to get total paper count
+2025-07-07 10:21:29 - root - INFO - paper_service:782 - Total paper count: 96
+2025-07-07 10:21:29 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:29] "GET /api/paper/total_count HTTP/1.1" 200 -
+2025-07-07 10:21:29 - root - INFO - operation_controller:266 - get front request
+2025-07-07 10:21:29 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:29] "GET /api/operations/type_count HTTP/1.1" 200 -
+2025-07-07 10:21:29 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:29] "GET /api/user/weekly HTTP/1.1" 200 -
+2025-07-07 10:21:40 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:40] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 10:21:40 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user1
+2025-07-07 10:21:40 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 10:21:40 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 10:21:40 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 02:21:40
+2025-07-07 10:21:40 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user1
+2025-07-07 10:21:40 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 10:21:40 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:40] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 10:21:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:48] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 10:21:48 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:21:48 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:21:48 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:21:48 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\5d02598bd1b349f6afeb2fbf32a07bd6_computer.docx
+2025-07-07 10:21:48 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\5d02598bd1b349f6afeb2fbf32a07bd6_computer.docx
+2025-07-07 10:21:48 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:21:48 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:21:48 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:21:48 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 97
+2025-07-07 10:21:48 - root - INFO - paper_controller:157 - paper_id:97
+2025-07-07 10:21:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:48] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:21:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:48] "OPTIONS /api/paper/theme HTTP/1.1" 200 -
+2025-07-07 10:21:48 - root - INFO - paper_controller:453 - begin 111111 extract theme
+2025-07-07 10:21:48 - root - INFO - paper_service:286 - begin  find theme
+2025-07-07 10:21:49 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 10:21:49 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 10:21:49 - root - INFO - paper_service:361 - begin theme summary
+2025-07-07 10:21:49 - root - ERROR - paper_service:396 - end theme111111111 summary'±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£\n¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á\n×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬\n½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£'
+2025-07-07 10:21:49 - root - INFO - paper_service:307 - end  find theme11111111±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 10:21:49 - root - INFO - paper_service:316 - end  find theme±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 10:21:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:21:49] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-07-07 10:23:08 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:23:08] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 10:23:08 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:23:08 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:23:08 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:23:08 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\7c3a4f011917411590068cf1a8c172ac_computer.docx
+2025-07-07 10:23:08 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\7c3a4f011917411590068cf1a8c172ac_computer.docx
+2025-07-07 10:23:08 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:23:08 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:23:09 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:23:09 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 98
+2025-07-07 10:23:09 - root - INFO - paper_controller:157 - paper_id:98
+2025-07-07 10:23:09 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:23:09] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:23:09 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:23:09] "OPTIONS /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:23:09 - ai_controller - INFO - ai_controller:29 - Ö÷ÌâÌáÈ¡ÇëÇó - ÓÃ»§: 1, ÎÄ¼şÃû: computerÑ§±¨.docx
+2025-07-07 10:23:45 - httpx - INFO - _client:1025 - HTTP Request: POST https://spark-api-open.xf-yun.com/v2/chat/completions "HTTP/1.1 200 OK"
+2025-07-07 10:23:45 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:23:45] "POST /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:26:24 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:26:24] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 10:26:25 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:26:25 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:26:25 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:26:25 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\ca2529e1d6604ced882f07a1a4099b16_computer.docx
+2025-07-07 10:26:25 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\ca2529e1d6604ced882f07a1a4099b16_computer.docx
+2025-07-07 10:26:25 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:26:25 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:26:25 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:26:25 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 99
+2025-07-07 10:26:25 - root - INFO - paper_controller:157 - paper_id:99
+2025-07-07 10:26:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:26:25] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:26:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:26:25] "OPTIONS /api/paper/theme HTTP/1.1" 200 -
+2025-07-07 10:26:25 - root - INFO - paper_controller:453 - begin 111111 extract theme
+2025-07-07 10:26:25 - root - INFO - paper_service:286 - begin  find theme
+2025-07-07 10:26:25 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 10:26:25 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 10:26:25 - root - INFO - paper_service:361 - begin theme summary
+2025-07-07 10:26:25 - root - ERROR - paper_service:396 - end theme111111111 summary'±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£\n¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á\n×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬\n½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£'
+2025-07-07 10:26:25 - root - INFO - paper_service:307 - end  find theme11111111±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 10:26:25 - root - INFO - paper_service:316 - end  find theme±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 10:26:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:26:25] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-07-07 10:26:27 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:26:27 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:26:27 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:26:27 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\fe2ede9ae4b24e12bf874c51267d887b_computer.docx
+2025-07-07 10:26:27 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\fe2ede9ae4b24e12bf874c51267d887b_computer.docx
+2025-07-07 10:26:27 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:26:27 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:26:27 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:26:27 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 100
+2025-07-07 10:26:27 - root - INFO - paper_controller:157 - paper_id:100
+2025-07-07 10:26:27 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:26:27] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:26:27 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:26:27] "OPTIONS /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:26:28 - ai_controller - INFO - ai_controller:29 - Ö÷ÌâÌáÈ¡ÇëÇó - ÓÃ»§: 1, ÎÄ¼şÃû: computerÑ§±¨.docx
+2025-07-07 10:26:59 - httpx - INFO - _client:1025 - HTTP Request: POST https://spark-api-open.xf-yun.com/v2/chat/completions "HTTP/1.1 200 OK"
+2025-07-07 10:26:59 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:26:59] "POST /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:32:13 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:13] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 10:32:14 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:32:14 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:32:14 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:32:14 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\210832f8cfa94b4681b0ccca0e5ebe30_computer.docx
+2025-07-07 10:32:14 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\210832f8cfa94b4681b0ccca0e5ebe30_computer.docx
+2025-07-07 10:32:14 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:32:14 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:32:14 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:32:14 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 101
+2025-07-07 10:32:14 - root - INFO - paper_controller:157 - paper_id:101
+2025-07-07 10:32:14 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:14] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:32:14 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:14] "OPTIONS /api/paper/theme HTTP/1.1" 200 -
+2025-07-07 10:32:14 - root - INFO - paper_controller:453 - begin 111111 extract theme
+2025-07-07 10:32:14 - root - INFO - paper_service:286 - begin  find theme
+2025-07-07 10:32:14 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 10:32:14 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 10:32:14 - root - INFO - paper_service:361 - begin theme summary
+2025-07-07 10:32:14 - root - ERROR - paper_service:396 - end theme111111111 summary'±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£\n¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á\n×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬\n½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£'
+2025-07-07 10:32:14 - root - INFO - paper_service:307 - end  find theme11111111±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 10:32:14 - root - INFO - paper_service:316 - end  find theme±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 10:32:14 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:14] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-07-07 10:32:16 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:32:16 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:32:16 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:32:16 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\dc4d417f22e8432e9ce90e5de193ad2e_computer.docx
+2025-07-07 10:32:16 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\dc4d417f22e8432e9ce90e5de193ad2e_computer.docx
+2025-07-07 10:32:16 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:32:16 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:32:16 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:32:16 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 102
+2025-07-07 10:32:16 - root - INFO - paper_controller:157 - paper_id:102
+2025-07-07 10:32:16 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:16] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:32:16 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:16] "OPTIONS /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:32:16 - ai_controller - INFO - ai_controller:29 - Ö÷ÌâÌáÈ¡ÇëÇó - ÓÃ»§: 1, ÎÄ¼şÃû: computerÑ§±¨.docx
+2025-07-07 10:32:43 - httpx - INFO - _client:1025 - HTTP Request: POST https://spark-api-open.xf-yun.com/v2/chat/completions "HTTP/1.1 200 OK"
+2025-07-07 10:32:43 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:43] "POST /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:32:51 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:51] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 10:32:51 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:32:51 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:32:51 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:32:51 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\a4121d7657f041759be6f07ca8a62f86_computer.docx
+2025-07-07 10:32:51 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\a4121d7657f041759be6f07ca8a62f86_computer.docx
+2025-07-07 10:32:51 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:32:51 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:32:51 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:32:51 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 103
+2025-07-07 10:32:51 - root - INFO - paper_controller:157 - paper_id:103
+2025-07-07 10:32:51 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:51] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:32:51 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:32:51] "OPTIONS /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:32:51 - ai_controller - INFO - ai_controller:29 - Ö÷ÌâÌáÈ¡ÇëÇó - ÓÃ»§: 1, ÎÄ¼şÃû: computerÑ§±¨.docx
+2025-07-07 10:33:14 - httpx - INFO - _client:1025 - HTTP Request: POST https://spark-api-open.xf-yun.com/v2/chat/completions "HTTP/1.1 200 OK"
+2025-07-07 10:33:14 - xinghuo_service - WARNING - xinghuo_service:126 - ÏìÓ¦ÄÚÈİÎŞ·¨½âÎöÎªJSON: ```json { "...
+2025-07-07 10:33:14 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:33:14] "POST /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:33:18 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-07 10:33:18 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 1 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 8
+2025-07-07 10:33:18 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 60, µ±Ç°Ò³¼ÇÂ¼Êı: 8
+2025-07-07 10:33:18 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-07 10:33:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 86, 'user_id': 1, 'paper_id': 103, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 10:33:14', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 10:33:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 2: {'id': 85, 'user_id': 1, 'paper_id': 102, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 10:32:44', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 10:33:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 3: {'id': 84, 'user_id': 1, 'paper_id': 101, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 10:32:15', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 10:33:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 4: {'id': 83, 'user_id': 1, 'paper_id': 100, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 10:26:59', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 10:33:18 - root - INFO - operation_service:146 - ¼ÇÂ¼ 5: {'id': 82, 'user_id': 1, 'paper_id': 99, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 10:26:26', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 10:33:18 - root - INFO - operation_service:149 -   ... »¹ÓĞ 3 Ìõ¼ÇÂ¼Î´ÏÔÊ¾
+2025-07-07 10:33:18 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:33:18] "GET /api/operations/user/1?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 10:33:22 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:33:22] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 10:33:23 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:33:23 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:33:23 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:33:23 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\3523701d8f204308a95a853ec994398c_computer.docx
+2025-07-07 10:33:23 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\3523701d8f204308a95a853ec994398c_computer.docx
+2025-07-07 10:33:23 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:33:23 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:33:23 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:33:23 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 104
+2025-07-07 10:33:23 - root - INFO - paper_controller:157 - paper_id:104
+2025-07-07 10:33:23 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:33:23] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:33:23 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:33:23] "OPTIONS /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:33:23 - ai_controller - INFO - ai_controller:29 - Ö÷ÌâÌáÈ¡ÇëÇó - ÓÃ»§: 1, ÎÄ¼şÃû: computerÑ§±¨.docx
+2025-07-07 10:34:00 - httpx - INFO - _client:1025 - HTTP Request: POST https://spark-api-open.xf-yun.com/v2/chat/completions "HTTP/1.1 200 OK"
+2025-07-07 10:34:00 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:34:00] "POST /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 10:42:39 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:42:39 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:42:39 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:42:39 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\93483aae728e403f8947b706e7ca55e9_computer.docx
+2025-07-07 10:42:39 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\93483aae728e403f8947b706e7ca55e9_computer.docx
+2025-07-07 10:42:39 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:42:39 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:42:39 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:42:39 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 105
+2025-07-07 10:42:39 - root - INFO - paper_controller:157 - paper_id:105
+2025-07-07 10:42:39 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:42:39] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:42:40 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:42:40] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 10:42:40 - root - INFO - paper_controller:392 - begin check plagiarism with file upload------------------
+2025-07-07 10:42:40 - root - INFO - paper_controller:409 - checkfunction:webSearch
+2025-07-07 10:42:40 - root - INFO - paper_controller:410 - paper________________data:105
+2025-07-07 10:42:40 - root - INFO - paper_service:476 - begin service check_plagiarism with Semantic Scholar API
+2025-07-07 10:42:40 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 10:42:40 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 10:42:40 - root - INFO - paper_service:524 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ·¢Õ¹ ¼¼Êõ ÑĞ¾¿ ¼ÆËã ·ÖÎö
+2025-07-07 10:42:40 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 1/3£©
+2025-07-07 10:43:11 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 2/3£©
+2025-07-07 10:43:42 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 3/3£©
+2025-07-07 10:44:12 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:44:12] "POST /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 10:44:16 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 10:44:16 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 10:44:16 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 10:44:16 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\0b9db0617ae4447c95a892f8187183ab_computer.docx
+2025-07-07 10:44:16 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\0b9db0617ae4447c95a892f8187183ab_computer.docx
+2025-07-07 10:44:16 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 10:44:16 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 10:44:16 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 10:44:16 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 106
+2025-07-07 10:44:16 - root - INFO - paper_controller:157 - paper_id:106
+2025-07-07 10:44:16 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:44:16] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 10:44:16 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:44:16] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 10:44:16 - root - INFO - paper_controller:392 - begin check plagiarism with file upload------------------
+2025-07-07 10:44:16 - root - INFO - paper_controller:409 - checkfunction:webSearch
+2025-07-07 10:44:16 - root - INFO - paper_controller:410 - paper________________data:106
+2025-07-07 10:44:16 - root - INFO - paper_service:476 - begin service check_plagiarism with Semantic Scholar API
+2025-07-07 10:44:16 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 10:44:16 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 10:44:16 - root - INFO - paper_service:524 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ·¢Õ¹ ¼¼Êõ ÑĞ¾¿ ¼ÆËã ·ÖÎö
+2025-07-07 10:44:18 - root - INFO - paper_service:572 - Before calling _extract_similar_segments, abstract: Ëæ×Å¹úÄÚ³ÇÊĞµØÏÂ¿Õ¼äµÄ¿ª·¢½¨Éè£¬´óĞÍ»ù¿Ó¹¤³ÌÔÚ¹úÄÚ²ã³ö²»Çî£¬²¢²»¶ÏÏò¸üÉî¡¢¸ü´óµÄÇ÷ÊÆ·¢Õ¹¡£´óĞÍ»ù¿Ó¹¤³ÌµÄÊ©¹¤½¨ÉèÒ²²»¶ÏÏò¸ßÄÑ¶È¡¢¸ß·çÏÕ·½Ïò·¢Õ¹£¬¸ø´óĞÍ»ù¿Ó¿ªÍÚ×÷Òµ£¬»ù¿ÓÎÈ¶¨ĞÔ¡¢±äĞÎ¿ØÖÆ´øÀ´¸ü´óµÄÌôÕ½£¬¶Ô´óĞÍ»ù¿Ó¼¼Êõ·½°¸ºÏÀí»¯Ìá³öÁË¸ü¸ßµÄÒªÇó£¬Ò²´Ù½øÁË´óĞÍ»ù¿Ó¼ÆËã·½·¨ºÍÊ©¹¤¹¤ÒÕµÄ·¢Õ¹¡£±¾ÎÄÒÔº¼ÖİÎäÁÖ¹ã³¡´óĞÍ»ù¿ÓÎªÑĞ¾¿¶ÔÏó£¬¸ù¾İ¹¤³ÌÌØµãºÍÊ©¹¤Êµ¼ÊÇé¿ö£¬Í¨¹ıÓĞÏŞÔªÊıÖµÄ£Äâ¼°ÊµÑéÊı¾İ·ÖÎö£¬¶ÔÄæ×÷·¨´óĞÍ»ù¿ÓÊ©¹¤¹ı³ÌÖĞ³ĞÑ¹Ë®ÖÎÀí¼°½µË®Ïà¹Ø´ëÊ©¡¢»ù¿Ó±äĞÎ¿ØÖÆµÈ¹Ø¼ü¼¼ÊõÎÊÌâ½øĞĞÁË½ÏÏêÏ¸·ÖÎö£¬ÌÖÂÛÁË´óĞÍ»ù¿Ó¿ªÍÚ¶Ô¿ÓÍâÁÚ½ü½¨ÖşÎï¡¢ÒÑ½¨µØÌú1ºÅÏß¼°»ù¿ÓÄÚÒÑ½¨ÉÏ²¿½á¹¹µÄÓ°Ïì£¬²¢×Ü½áÁËÏà¹Ø¼¼Êõ´ëÊ©¡£
+2025-07-07 10:44:18 - root - INFO - paper_service:641 - begin _calculate_advanced_similarity
+2025-07-07 10:44:18 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 10:44:18 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 10:44:18 - root - WARNING - paper_service:674 - ÓïÒåÏàËÆ¶È¼ÆËãÊ§°Ü£¬Ê¹ÓÃ»ù´¡Ëã·¨: No module named 'sentence_transformers'
+2025-07-07 10:44:18 - root - INFO - paper_service:798 - text1 length: 6929, text2 length: 290
+2025-07-07 10:44:18 - root - INFO - paper_service:799 - ¿ªÊ¼¼ì²éÏàËÆ¶ÎÂä£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 10:44:18 - root - INFO - paper_service:831 - ÎÄ±¾1·Ö¸îÎª 58 ¸ö¶ÎÂä£¬ÎÄ±¾2·Ö¸îÎª 1 ¸ö¶ÎÂä
+2025-07-07 10:44:18 - root - INFO - paper_service:932 - ÕÒµ½ 0 ¸öÏàËÆ¶ÎÂä¶Ô£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 10:44:18 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:44:18] "POST /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 10:55:42 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:55:42] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 10:55:42 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user1
+2025-07-07 10:55:42 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 10:55:42 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 10:55:42 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 02:55:43
+2025-07-07 10:55:42 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user1
+2025-07-07 10:55:42 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 10:55:42 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 10:55:42] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:08:44 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:08:44] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:08:44 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user1
+2025-07-07 11:08:44 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 11:08:44 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 11:08:44 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 03:08:45
+2025-07-07 11:08:44 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user1
+2025-07-07 11:08:44 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 11:08:44 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:08:44] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:19:28 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:19:28 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:19:28 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: wrong.docx
+2025-07-07 11:19:28 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\edd8bed1dba24e05846ac968de81ae3b_wrong.docx
+2025-07-07 11:19:28 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\edd8bed1dba24e05846ac968de81ae3b_wrong.docx
+2025-07-07 11:19:28 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:19:28 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:19:28 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:19:28 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 107
+2025-07-07 11:19:28 - root - INFO - paper_controller:157 - paper_id:107
+2025-07-07 11:19:28 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:19:28] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:19:29 - root - INFO - paper_controller:293 - get spelling request----------------------------
+2025-07-07 11:19:29 - root - INFO - paper_controller:323 - go wrong service
+2025-07-07 11:19:29 - root - INFO - paper_service:692 - ¿ªÊ¼ÂÛÎÄ´í×Ö¼ì²â·şÎñ
+2025-07-07 11:19:29 - service.typo_detection_service - INFO - typo_detection_service:86 - ¿ªÊ¼¼ì²âÎÄ±¾£¬³¤¶È: 61
+2025-07-07 11:19:29 - service.typo_detection_service - ERROR - typo_detection_service:109 - PyCorrector¼ì²â´íÎó: module 'pycorrector' has no attribute 'detect'
+2025-07-07 11:19:29 - service.typo_detection_service - INFO - typo_detection_service:167 - Ê¹ÓÃ×Ô¶¨Òå´Êµä½øĞĞ´í×Ö¼ì²â
+2025-07-07 11:19:29 - service.typo_detection_service - INFO - typo_detection_service:209 - ×Ô¶¨Òå´Êµä¼ì²âÍê³É£¬¹²·¢ÏÖ 9 ¸ö´í×Ö
+2025-07-07 11:19:29 - root - INFO - paper_service:710 - finish,find 7 wrong(s)
+2025-07-07 11:19:29 - root - INFO - paper_service:748 - spelling end
+2025-07-07 11:19:29 - root - INFO - paper_controller:327 - spelling finish,find 7 wrongs
+2025-07-07 11:19:29 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:19:29] "POST /api/paper/spelling HTTP/1.1" 200 -
+2025-07-07 11:24:39 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:24:39] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:24:39 - root - INFO - user_controller:537 - get user number
+2025-07-07 11:24:39 - root - INFO - user_controller:547 - use user service
+2025-07-07 11:24:39 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 11:24:39 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 11:24:39 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 11:24:39 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:08:45', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}], 'total': 3, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 11:24:39 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:24:39] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:24:39 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:24:39 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:24:39 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:24:39 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:24:39 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:24:39 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:24:39 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 89, 'user_id': 1, 'paper_id': 107, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:19:29', 'file_name': 'wrong.docx'}, {'id': 88, 'user_id': 1, 'paper_id': 106, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T10:44:19', 'file_name': 'computerÑ§±¨.docx'}, {'id': 87, 'user_id': 1, 'paper_id': 104, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:34:01', 'file_name': 'computerÑ§±¨.docx'}, {'id': 86, 'user_id': 1, 'paper_id': 103, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:33:14', 'file_name': 'computerÑ§±¨.docx'}, {'id': 85, 'user_id': 1, 'paper_id': 102, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:32:44', 'file_name': 'computerÑ§±¨.docx'}, {'id': 84, 'user_id': 1, 'paper_id': 101, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:32:15', 'file_name': 'computerÑ§±¨.docx'}, {'id': 83, 'user_id': 1, 'paper_id': 100, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:26:59', 'file_name': 'computerÑ§±¨.docx'}, {'id': 82, 'user_id': 1, 'paper_id': 99, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:26:26', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:24:39 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:24:39 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:24:39 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:24:39] "GET /api/operations/getall?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:25:21 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:25:21] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:25:21 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user1
+2025-07-07 11:25:21 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 11:25:21 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 11:25:21 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 03:25:22
+2025-07-07 11:25:21 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user1
+2025-07-07 11:25:21 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 11:25:21 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:25:21] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:25:26 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:25:26] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 11:25:27 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:25:27 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:25:27 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 11:25:27 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\b0364053280e4c008f3a2395cd94662a_computer.docx
+2025-07-07 11:25:27 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\b0364053280e4c008f3a2395cd94662a_computer.docx
+2025-07-07 11:25:27 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:25:27 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:25:27 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:25:27 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 108
+2025-07-07 11:25:27 - root - INFO - paper_controller:157 - paper_id:108
+2025-07-07 11:25:27 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:25:27] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:25:27 - root - INFO - paper_controller:453 - begin 111111 extract theme
+2025-07-07 11:25:27 - root - INFO - paper_service:286 - begin  find theme
+2025-07-07 11:25:27 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 11:25:27 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 11:25:27 - root - INFO - paper_service:361 - begin theme summary
+2025-07-07 11:25:27 - root - ERROR - paper_service:396 - end theme111111111 summary'±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£\n¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á\n×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬\n½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£'
+2025-07-07 11:25:27 - root - INFO - paper_service:307 - end  find theme11111111±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 11:25:27 - root - INFO - paper_service:316 - end  find theme±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 11:25:27 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:25:27] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-07-07 11:25:28 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:25:28 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:25:28 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 11:25:28 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\8cff36f1fb5b4c12bada2a6030fb56c4_computer.docx
+2025-07-07 11:25:28 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\8cff36f1fb5b4c12bada2a6030fb56c4_computer.docx
+2025-07-07 11:25:28 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:25:28 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:25:28 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:25:28 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 109
+2025-07-07 11:25:28 - root - INFO - paper_controller:157 - paper_id:109
+2025-07-07 11:25:28 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:25:28] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:25:28 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:25:28] "OPTIONS /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 11:25:28 - ai_controller - INFO - ai_controller:29 - Ö÷ÌâÌáÈ¡ÇëÇó - ÓÃ»§: 1, ÎÄ¼şÃû: computerÑ§±¨.docx
+2025-07-07 11:25:58 - httpx - INFO - _client:1025 - HTTP Request: POST https://spark-api-open.xf-yun.com/v2/chat/completions "HTTP/1.1 200 OK"
+2025-07-07 11:25:58 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:25:58] "POST /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 11:26:06 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:26:06 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:26:06 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: wrong.txt
+2025-07-07 11:26:06 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\2f7bb6b31ecc4309b09e65cfc8db2828_wrong.txt
+2025-07-07 11:26:06 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\2f7bb6b31ecc4309b09e65cfc8db2828_wrong.txt
+2025-07-07 11:26:06 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:26:06 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:26:06 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:26:06 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 110
+2025-07-07 11:26:06 - root - INFO - paper_controller:157 - paper_id:110
+2025-07-07 11:26:06 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:26:06] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:26:06 - root - INFO - paper_controller:293 - get spelling request----------------------------
+2025-07-07 11:26:06 - root - INFO - paper_controller:323 - go wrong service
+2025-07-07 11:26:06 - root - INFO - paper_service:692 - ¿ªÊ¼ÂÛÎÄ´í×Ö¼ì²â·şÎñ
+2025-07-07 11:26:06 - service.typo_detection_service - INFO - typo_detection_service:86 - ¿ªÊ¼¼ì²âÎÄ±¾£¬³¤¶È: 59
+2025-07-07 11:26:06 - service.typo_detection_service - ERROR - typo_detection_service:109 - PyCorrector¼ì²â´íÎó: module 'pycorrector' has no attribute 'detect'
+2025-07-07 11:26:06 - service.typo_detection_service - INFO - typo_detection_service:167 - Ê¹ÓÃ×Ô¶¨Òå´Êµä½øĞĞ´í×Ö¼ì²â
+2025-07-07 11:26:06 - service.typo_detection_service - INFO - typo_detection_service:209 - ×Ô¶¨Òå´Êµä¼ì²âÍê³É£¬¹²·¢ÏÖ 9 ¸ö´í×Ö
+2025-07-07 11:26:06 - root - INFO - paper_service:710 - finish,find 7 wrong(s)
+2025-07-07 11:26:06 - root - INFO - paper_service:748 - spelling end
+2025-07-07 11:26:06 - root - INFO - paper_controller:327 - spelling finish,find 7 wrongs
+2025-07-07 11:26:06 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:26:06] "POST /api/paper/spelling HTTP/1.1" 200 -
+2025-07-07 11:26:13 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:26:13 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:26:13 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 11:26:13 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\54496d928adf4f56b157f9299057b5b0_computer.docx
+2025-07-07 11:26:13 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\54496d928adf4f56b157f9299057b5b0_computer.docx
+2025-07-07 11:26:13 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:26:13 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:26:13 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:26:13 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 111
+2025-07-07 11:26:13 - root - INFO - paper_controller:157 - paper_id:111
+2025-07-07 11:26:13 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:26:13] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:26:13 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:26:13] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 11:26:14 - root - INFO - paper_controller:392 - begin check plagiarism with file upload------------------
+2025-07-07 11:26:14 - root - INFO - paper_controller:409 - checkfunction:webSearch
+2025-07-07 11:26:14 - root - INFO - paper_controller:410 - paper________________data:111
+2025-07-07 11:26:14 - root - INFO - paper_service:476 - begin service check_plagiarism with Semantic Scholar API
+2025-07-07 11:26:14 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 11:26:14 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 11:26:14 - root - INFO - paper_service:524 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ·¢Õ¹ ¼¼Êõ ÑĞ¾¿ ¼ÆËã ·ÖÎö
+2025-07-07 11:26:14 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 1/3£©
+2025-07-07 11:26:46 - root - INFO - paper_service:572 - Before calling _extract_similar_segments, abstract: Ëæ×Å¹úÄÚ³ÇÊĞµØÏÂ¿Õ¼äµÄ¿ª·¢½¨Éè£¬´óĞÍ»ù¿Ó¹¤³ÌÔÚ¹úÄÚ²ã³ö²»Çî£¬²¢²»¶ÏÏò¸üÉî¡¢¸ü´óµÄÇ÷ÊÆ·¢Õ¹¡£´óĞÍ»ù¿Ó¹¤³ÌµÄÊ©¹¤½¨ÉèÒ²²»¶ÏÏò¸ßÄÑ¶È¡¢¸ß·çÏÕ·½Ïò·¢Õ¹£¬¸ø´óĞÍ»ù¿Ó¿ªÍÚ×÷Òµ£¬»ù¿ÓÎÈ¶¨ĞÔ¡¢±äĞÎ¿ØÖÆ´øÀ´¸ü´óµÄÌôÕ½£¬¶Ô´óĞÍ»ù¿Ó¼¼Êõ·½°¸ºÏÀí»¯Ìá³öÁË¸ü¸ßµÄÒªÇó£¬Ò²´Ù½øÁË´óĞÍ»ù¿Ó¼ÆËã·½·¨ºÍÊ©¹¤¹¤ÒÕµÄ·¢Õ¹¡£±¾ÎÄÒÔº¼ÖİÎäÁÖ¹ã³¡´óĞÍ»ù¿ÓÎªÑĞ¾¿¶ÔÏó£¬¸ù¾İ¹¤³ÌÌØµãºÍÊ©¹¤Êµ¼ÊÇé¿ö£¬Í¨¹ıÓĞÏŞÔªÊıÖµÄ£Äâ¼°ÊµÑéÊı¾İ·ÖÎö£¬¶ÔÄæ×÷·¨´óĞÍ»ù¿ÓÊ©¹¤¹ı³ÌÖĞ³ĞÑ¹Ë®ÖÎÀí¼°½µË®Ïà¹Ø´ëÊ©¡¢»ù¿Ó±äĞÎ¿ØÖÆµÈ¹Ø¼ü¼¼ÊõÎÊÌâ½øĞĞÁË½ÏÏêÏ¸·ÖÎö£¬ÌÖÂÛÁË´óĞÍ»ù¿Ó¿ªÍÚ¶Ô¿ÓÍâÁÚ½ü½¨ÖşÎï¡¢ÒÑ½¨µØÌú1ºÅÏß¼°»ù¿ÓÄÚÒÑ½¨ÉÏ²¿½á¹¹µÄÓ°Ïì£¬²¢×Ü½áÁËÏà¹Ø¼¼Êõ´ëÊ©¡£
+2025-07-07 11:26:46 - root - INFO - paper_service:641 - begin _calculate_advanced_similarity
+2025-07-07 11:26:46 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 11:26:46 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 11:26:46 - root - WARNING - paper_service:674 - ÓïÒåÏàËÆ¶È¼ÆËãÊ§°Ü£¬Ê¹ÓÃ»ù´¡Ëã·¨: No module named 'sentence_transformers'
+2025-07-07 11:26:46 - root - INFO - paper_service:798 - text1 length: 6929, text2 length: 290
+2025-07-07 11:26:46 - root - INFO - paper_service:799 - ¿ªÊ¼¼ì²éÏàËÆ¶ÎÂä£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 11:26:46 - root - INFO - paper_service:831 - ÎÄ±¾1·Ö¸îÎª 58 ¸ö¶ÎÂä£¬ÎÄ±¾2·Ö¸îÎª 1 ¸ö¶ÎÂä
+2025-07-07 11:26:46 - root - INFO - paper_service:932 - ÕÒµ½ 0 ¸öÏàËÆ¶ÎÂä¶Ô£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 11:26:46 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:26:46] "POST /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 11:34:25 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:34:25 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:34:25 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 11:34:25 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\92211e735d1343c1ab6924d4f4093f73_computer.docx
+2025-07-07 11:34:25 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\92211e735d1343c1ab6924d4f4093f73_computer.docx
+2025-07-07 11:34:25 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:34:25 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:34:25 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:34:25 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 112
+2025-07-07 11:34:25 - root - INFO - paper_controller:157 - paper_id:112
+2025-07-07 11:34:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:34:25] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:34:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:34:25] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 11:34:25 - root - INFO - paper_controller:392 - begin check plagiarism with file upload------------------
+2025-07-07 11:34:25 - root - INFO - paper_controller:409 - checkfunction:webSearch
+2025-07-07 11:34:25 - root - INFO - paper_controller:410 - paper________________data:112
+2025-07-07 11:34:25 - root - INFO - paper_service:476 - begin service check_plagiarism with Semantic Scholar API
+2025-07-07 11:34:25 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 11:34:25 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 11:34:25 - root - INFO - paper_service:524 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ·¢Õ¹ ¼¼Êõ ÑĞ¾¿ ¼ÆËã ·ÖÎö
+2025-07-07 11:34:26 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 1/3£©
+2025-07-07 11:34:56 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 2/3£©
+2025-07-07 11:35:27 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 3/3£©
+2025-07-07 11:35:57 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:35:57] "POST /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 11:36:06 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:36:06 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:36:06 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 11:36:06 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\a8865ee639644b81ae4f5c7c095f81fa_computer.docx
+2025-07-07 11:36:06 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\a8865ee639644b81ae4f5c7c095f81fa_computer.docx
+2025-07-07 11:36:06 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:36:06 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:36:06 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:36:06 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 113
+2025-07-07 11:36:06 - root - INFO - paper_controller:157 - paper_id:113
+2025-07-07 11:36:06 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:36:06] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:36:06 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:36:06] "OPTIONS /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 11:36:06 - root - INFO - paper_controller:392 - begin check plagiarism with file upload------------------
+2025-07-07 11:36:06 - root - INFO - paper_controller:409 - checkfunction:webSearch
+2025-07-07 11:36:06 - root - INFO - paper_controller:410 - paper________________data:113
+2025-07-07 11:36:06 - root - INFO - paper_service:476 - begin service check_plagiarism with Semantic Scholar API
+2025-07-07 11:36:06 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 11:36:06 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 11:36:06 - root - INFO - paper_service:524 - Semantic ScholarËÑË÷¹Ø¼ü´Ê: ·¢Õ¹ ¼¼Êõ ÑĞ¾¿ ¼ÆËã ·ÖÎö
+2025-07-07 11:36:07 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 1/3£©
+2025-07-07 11:36:37 - root - WARNING - paper_service:222 - ÊÕµ½APIÆµÂÊÏŞÖÆ£¨429£©£¬µÈ´ı30ÃëºóÖØÊÔ£¨³¢ÊÔ 2/3£©
+2025-07-07 11:37:09 - root - INFO - paper_service:572 - Before calling _extract_similar_segments, abstract: Ëæ×Å¹úÄÚ³ÇÊĞµØÏÂ¿Õ¼äµÄ¿ª·¢½¨Éè£¬´óĞÍ»ù¿Ó¹¤³ÌÔÚ¹úÄÚ²ã³ö²»Çî£¬²¢²»¶ÏÏò¸üÉî¡¢¸ü´óµÄÇ÷ÊÆ·¢Õ¹¡£´óĞÍ»ù¿Ó¹¤³ÌµÄÊ©¹¤½¨ÉèÒ²²»¶ÏÏò¸ßÄÑ¶È¡¢¸ß·çÏÕ·½Ïò·¢Õ¹£¬¸ø´óĞÍ»ù¿Ó¿ªÍÚ×÷Òµ£¬»ù¿ÓÎÈ¶¨ĞÔ¡¢±äĞÎ¿ØÖÆ´øÀ´¸ü´óµÄÌôÕ½£¬¶Ô´óĞÍ»ù¿Ó¼¼Êõ·½°¸ºÏÀí»¯Ìá³öÁË¸ü¸ßµÄÒªÇó£¬Ò²´Ù½øÁË´óĞÍ»ù¿Ó¼ÆËã·½·¨ºÍÊ©¹¤¹¤ÒÕµÄ·¢Õ¹¡£±¾ÎÄÒÔº¼ÖİÎäÁÖ¹ã³¡´óĞÍ»ù¿ÓÎªÑĞ¾¿¶ÔÏó£¬¸ù¾İ¹¤³ÌÌØµãºÍÊ©¹¤Êµ¼ÊÇé¿ö£¬Í¨¹ıÓĞÏŞÔªÊıÖµÄ£Äâ¼°ÊµÑéÊı¾İ·ÖÎö£¬¶ÔÄæ×÷·¨´óĞÍ»ù¿ÓÊ©¹¤¹ı³ÌÖĞ³ĞÑ¹Ë®ÖÎÀí¼°½µË®Ïà¹Ø´ëÊ©¡¢»ù¿Ó±äĞÎ¿ØÖÆµÈ¹Ø¼ü¼¼ÊõÎÊÌâ½øĞĞÁË½ÏÏêÏ¸·ÖÎö£¬ÌÖÂÛÁË´óĞÍ»ù¿Ó¿ªÍÚ¶Ô¿ÓÍâÁÚ½ü½¨ÖşÎï¡¢ÒÑ½¨µØÌú1ºÅÏß¼°»ù¿ÓÄÚÒÑ½¨ÉÏ²¿½á¹¹µÄÓ°Ïì£¬²¢×Ü½áÁËÏà¹Ø¼¼Êõ´ëÊ©¡£
+2025-07-07 11:37:09 - root - INFO - paper_service:641 - begin _calculate_advanced_similarity
+2025-07-07 11:37:09 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 11:37:09 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 11:37:09 - root - WARNING - paper_service:674 - ÓïÒåÏàËÆ¶È¼ÆËãÊ§°Ü£¬Ê¹ÓÃ»ù´¡Ëã·¨: No module named 'sentence_transformers'
+2025-07-07 11:37:09 - root - INFO - paper_service:798 - text1 length: 6929, text2 length: 290
+2025-07-07 11:37:09 - root - INFO - paper_service:799 - ¿ªÊ¼¼ì²éÏàËÆ¶ÎÂä£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 11:37:09 - root - INFO - paper_service:831 - ÎÄ±¾1·Ö¸îÎª 58 ¸ö¶ÎÂä£¬ÎÄ±¾2·Ö¸îÎª 1 ¸ö¶ÎÂä
+2025-07-07 11:37:09 - root - INFO - paper_service:932 - ÕÒµ½ 0 ¸öÏàËÆ¶ÎÂä¶Ô£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 11:37:09 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:09] "POST /api/paper/plagiarism HTTP/1.1" 200 -
+2025-07-07 11:37:18 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:37:18 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:37:18 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: wrong.docx
+2025-07-07 11:37:18 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\833022fa57344f00a686ea3fda79f909_wrong.docx
+2025-07-07 11:37:18 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\833022fa57344f00a686ea3fda79f909_wrong.docx
+2025-07-07 11:37:18 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:37:18 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:37:18 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:37:18 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 114
+2025-07-07 11:37:18 - root - INFO - paper_controller:157 - paper_id:114
+2025-07-07 11:37:18 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:18] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:37:18 - root - INFO - paper_controller:293 - get spelling request----------------------------
+2025-07-07 11:37:18 - root - INFO - paper_controller:323 - go wrong service
+2025-07-07 11:37:18 - root - INFO - paper_service:692 - ¿ªÊ¼ÂÛÎÄ´í×Ö¼ì²â·şÎñ
+2025-07-07 11:37:18 - service.typo_detection_service - INFO - typo_detection_service:86 - ¿ªÊ¼¼ì²âÎÄ±¾£¬³¤¶È: 61
+2025-07-07 11:37:18 - service.typo_detection_service - ERROR - typo_detection_service:109 - PyCorrector¼ì²â´íÎó: module 'pycorrector' has no attribute 'detect'
+2025-07-07 11:37:18 - service.typo_detection_service - INFO - typo_detection_service:167 - Ê¹ÓÃ×Ô¶¨Òå´Êµä½øĞĞ´í×Ö¼ì²â
+2025-07-07 11:37:18 - service.typo_detection_service - INFO - typo_detection_service:209 - ×Ô¶¨Òå´Êµä¼ì²âÍê³É£¬¹²·¢ÏÖ 9 ¸ö´í×Ö
+2025-07-07 11:37:18 - root - INFO - paper_service:710 - finish,find 7 wrong(s)
+2025-07-07 11:37:18 - root - INFO - paper_service:748 - spelling end
+2025-07-07 11:37:18 - root - INFO - paper_controller:327 - spelling finish,find 7 wrongs
+2025-07-07 11:37:18 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:18] "POST /api/paper/spelling HTTP/1.1" 200 -
+2025-07-07 11:37:26 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:26] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 11:37:26 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:37:26 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:37:26 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 11:37:26 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\b4c4b0e71d294b88b4010fee85647208_computer.docx
+2025-07-07 11:37:26 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\b4c4b0e71d294b88b4010fee85647208_computer.docx
+2025-07-07 11:37:26 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:37:26 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:37:26 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:37:26 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 115
+2025-07-07 11:37:26 - root - INFO - paper_controller:157 - paper_id:115
+2025-07-07 11:37:26 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:26] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:37:26 - root - INFO - paper_controller:453 - begin 111111 extract theme
+2025-07-07 11:37:26 - root - INFO - paper_service:286 - begin  find theme
+2025-07-07 11:37:27 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 11:37:27 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 11:37:27 - root - INFO - paper_service:361 - begin theme summary
+2025-07-07 11:37:27 - root - ERROR - paper_service:396 - end theme111111111 summary'±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£\n¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á\n×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬\n½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£'
+2025-07-07 11:37:27 - root - INFO - paper_service:307 - end  find theme11111111±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 11:37:27 - root - INFO - paper_service:316 - end  find theme±¾±¨¸æ´ÓÈËÀà·¢Õ¹ÀúÊ·ÓëºËĞÄÉç»áÌØÕ÷Ñİ»¯Ç÷ÊÆ¡¢Êı×ÖÉç»áÏòÖÇÄÜÉç»á¹ı¶É½×¶ÎÑĞ¾¿£¬Ğ­Í¬¼ÆËãµÄÖ÷ÒªÄ£ĞÍºÍ·½·¨£¬Ğ­Í¬¼ÆËãÔÚÖÇÄÜÉç»áĞĞÎªÌå¡°ÈË»úÎï¡±»¥¶¯ÖĞµÄÓ¦ÓÃÈı¸ö·½Ãæ£¬¶Ô¹úÄÚÍâµÄÏà¹ØÑĞ¾¿ÏÖ×´ºÍ½øÕ¹½øĞĞ×ÛÊöºÍ¶Ô±È·ÖÎö£¬ÄıÁ·´æÔÚµÄ¹Ø¼ü¿ÆÑ§Óë¼¼ÊõÎÊÌâ£¬·ÖÎö¸÷ÑĞ¾¿·ÖÖ§µÄÌØÉ«ºÍ¿ÉÄÜ´æÔÚµÄ»¥²¹ĞÔ£¬×îÖÕ¸ø³ö¸Ã·½ÏòÎ´À´µÄÇ±ÔÚ·¢Õ¹ÓëÑĞ¾¿·½Ïò¡£
+¶ş¡¢Í¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõÑĞ¾¿½øÕ¹ÓëÇ÷ÊÆ--CCF·Ö²¼Ê½¼ÆËãÓëÏµÍ³×¨ÒµÎ¯Ô±»á
+×÷Õß£ºÁÎĞ¡·É¡¢ÕÅÄş¡¢ÕÔ½ø¡¢µÔ¼¾¶¬¡¢ÕÅÑÒ·å¡¢ÑîÖÇ¡¢Àî³¬
+½üÄêÀ´£¬¹úÄÚÍâÔÚÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼Êõ·½ÃæÈ¡µÃÁËÒ»¶¨½øÕ¹£¬´ó¹æÄ£Í¼¼ÆËãÒ²ÒÑ¹ã·ºÓ¦ÓÃÓÚÖî¶àÁìÓò£¬°üÀ¨¿ÆÑ§¼ÆËã¡¢»úÆ÷Ñ§Ï°¡¢Éç½»ÍøÂç¡¢ÖÇ»Û½»Í¨ºÍÉúÎïĞÅÏ¢Ñ§µÈ¡£±¾ÎÄ½«×ÛÊö¹úÄÚÍâÍ¼¼ÆËãÌåÏµ½á¹¹ºÍÏµÍ³Èí¼ş¹Ø¼ü¼¼ÊõµÄÑĞ¾¿·¢Õ¹ÏÖ×´£¬¶Ô¹úÄÚÍâÑĞ¾¿µÄ×îĞÂ½øÕ¹½øĞĞ¹éÄÉ¡¢±È½ÏºÍ·ÖÎö£¬²¢½áºÏ¹ú¼Ò·¢Õ¹Õ½ÂÔºÍÖØ´óÓ¦ÓÃĞèÇó£¬Ñ¡È¡ÓëÎÒ¹ú¹ú¼ÆÃñÉúÃÜÇĞÏà¹ØµÄÁìÓò£¬´ÓµäĞÍÓ¦ÓÃ·ÖÎö¼°×Ü½áÍ¼¼ÆËãÏà¹Ø¼¼ÊõµÄĞĞÒµ½øÕ¹¡£
+2025-07-07 11:37:27 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:27] "POST /api/paper/theme HTTP/1.1" 200 -
+2025-07-07 11:37:28 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-07 11:37:28 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 1 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 8
+2025-07-07 11:37:28 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 70, µ±Ç°Ò³¼ÇÂ¼Êı: 8
+2025-07-07 11:37:28 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-07 11:37:28 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 96, 'user_id': 1, 'paper_id': 115, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 11:37:27', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 11:37:28 - root - INFO - operation_service:146 - ¼ÇÂ¼ 2: {'id': 95, 'user_id': 1, 'paper_id': 114, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07 11:37:19', 'file_name': 'wrong.docx'}
+2025-07-07 11:37:28 - root - INFO - operation_service:146 - ¼ÇÂ¼ 3: {'id': 94, 'user_id': 1, 'paper_id': 113, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07 11:37:10', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 11:37:28 - root - INFO - operation_service:146 - ¼ÇÂ¼ 4: {'id': 93, 'user_id': 1, 'paper_id': 111, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07 11:26:47', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 11:37:28 - root - INFO - operation_service:146 - ¼ÇÂ¼ 5: {'id': 92, 'user_id': 1, 'paper_id': 110, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07 11:26:07', 'file_name': 'wrong.txt'}
+2025-07-07 11:37:28 - root - INFO - operation_service:149 -   ... »¹ÓĞ 3 Ìõ¼ÇÂ¼Î´ÏÔÊ¾
+2025-07-07 11:37:28 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:28] "GET /api/operations/user/1?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:37:32 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:32] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:37:32 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user1
+2025-07-07 11:37:32 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 11:37:32 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 11:37:32 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 03:37:33
+2025-07-07 11:37:32 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user1
+2025-07-07 11:37:32 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 11:37:32 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:32] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:37:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:49] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:37:50 - root - INFO - user_controller:537 - get user number
+2025-07-07 11:37:50 - root - INFO - user_controller:547 - use user service
+2025-07-07 11:37:50 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 11:37:50 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 11:37:50 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 11:37:50 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:37:33', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}], 'total': 3, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 11:37:50 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:50] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:37:51 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:37:51 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:37:51 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:37:51 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:37:51 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:37:51 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:37:51 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 96, 'user_id': 1, 'paper_id': 115, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:37:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 95, 'user_id': 1, 'paper_id': 114, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:37:19', 'file_name': 'wrong.docx'}, {'id': 94, 'user_id': 1, 'paper_id': 113, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:37:10', 'file_name': 'computerÑ§±¨.docx'}, {'id': 93, 'user_id': 1, 'paper_id': 111, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:26:47', 'file_name': 'computerÑ§±¨.docx'}, {'id': 92, 'user_id': 1, 'paper_id': 110, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:26:07', 'file_name': 'wrong.txt'}, {'id': 91, 'user_id': 1, 'paper_id': 109, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:59', 'file_name': 'computerÑ§±¨.docx'}, {'id': 90, 'user_id': 1, 'paper_id': 108, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 89, 'user_id': 1, 'paper_id': 107, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:19:29', 'file_name': 'wrong.docx'}]
+2025-07-07 11:37:51 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:37:51 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:37:51 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:51] "GET /api/operations/getall?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:37:52 - root - INFO - user_controller:717 - ¿ªÊ¼»ñÈ¡ÓÃ»§×ÜÊıÁ¿
+2025-07-07 11:37:52 - root - INFO - user_service:246 - Calling DAO layer to get total user count
+2025-07-07 11:37:52 - root - INFO - user_service:248 - Total user count: 3
+2025-07-07 11:37:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:52] "GET /api/user/total_count HTTP/1.1" 200 -
+2025-07-07 11:37:52 - root - INFO - paper_controller:489 - ¿ªÊ¼»ñÈ¡ÂÛÎÄ×ÜÊı
+2025-07-07 11:37:52 - root - INFO - paper_service:780 - Calling DAO layer to get total paper count
+2025-07-07 11:37:52 - root - INFO - paper_service:782 - Total paper count: 115
+2025-07-07 11:37:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:52] "GET /api/paper/total_count HTTP/1.1" 200 -
+2025-07-07 11:37:52 - root - INFO - operation_controller:266 - get front request
+2025-07-07 11:37:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:52] "GET /api/operations/type_count HTTP/1.1" 200 -
+2025-07-07 11:37:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:37:52] "GET /api/user/weekly HTTP/1.1" 200 -
+2025-07-07 11:41:59 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:41:59 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:41:59 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:41:59 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:41:59 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:41:59 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:41:59 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 96, 'user_id': 1, 'paper_id': 115, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:37:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 95, 'user_id': 1, 'paper_id': 114, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:37:19', 'file_name': 'wrong.docx'}, {'id': 94, 'user_id': 1, 'paper_id': 113, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:37:10', 'file_name': 'computerÑ§±¨.docx'}, {'id': 93, 'user_id': 1, 'paper_id': 111, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:26:47', 'file_name': 'computerÑ§±¨.docx'}, {'id': 92, 'user_id': 1, 'paper_id': 110, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:26:07', 'file_name': 'wrong.txt'}, {'id': 91, 'user_id': 1, 'paper_id': 109, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:59', 'file_name': 'computerÑ§±¨.docx'}, {'id': 90, 'user_id': 1, 'paper_id': 108, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 89, 'user_id': 1, 'paper_id': 107, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:19:29', 'file_name': 'wrong.docx'}]
+2025-07-07 11:41:59 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:41:59 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:41:59 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:41:59] "GET /api/operations/getall?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:42:04 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:42:04] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:42:04 - root - INFO - user_controller:537 - get user number
+2025-07-07 11:42:04 - root - INFO - user_controller:547 - use user service
+2025-07-07 11:42:04 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 11:42:04 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 11:42:04 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 11:42:04 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:37:33', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}], 'total': 3, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 11:42:04 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:42:04] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:42:08 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:42:08] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:42:08 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: admin
+2025-07-07 11:42:08 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: admin123
+2025-07-07 11:42:08 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 11:42:08 - app - ERROR - user_controller:281 - µÇÂ¼¹ı³ÌÖĞ·¢ÉúÒâÍâ´íÎó
+Traceback (most recent call last):
+  File "D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\controller\user_controller.py", line 236, in login
+    result = user_service.login(data.get('email'), data.get('password'))
+  File "D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\service\user_service.py", line 59, in login
+    user.updated_at = datetime.now(timezone.utc)
+    ^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'updated_at' and no __dict__ for setting new attributes
+2025-07-07 11:42:09 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:42:09] "[35m[1mPOST /api/user/login HTTP/1.1[0m" 500 -
+2025-07-07 11:44:31 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:44:31] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:44:31 - root - INFO - user_controller:537 - get user number
+2025-07-07 11:44:31 - root - INFO - user_controller:547 - use user service
+2025-07-07 11:44:31 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 11:44:31 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 11:44:31 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 11:44:31 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:37:33', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}], 'total': 3, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 11:44:31 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:44:31] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:44:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:44:48] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:44:48 - root - INFO - user_controller:537 - get user number
+2025-07-07 11:44:48 - root - INFO - user_controller:547 - use user service
+2025-07-07 11:44:48 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 11:44:48 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 11:44:48 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 11:44:48 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:37:33', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}], 'total': 3, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 11:44:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:44:48] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:45:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:45:49] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:45:49 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user1
+2025-07-07 11:45:49 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 11:45:49 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 11:45:49 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 03:45:50
+2025-07-07 11:45:49 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user1
+2025-07-07 11:45:49 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 11:45:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:45:49] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:45:56 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-07 11:45:56 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 1 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 8
+2025-07-07 11:45:56 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 70, µ±Ç°Ò³¼ÇÂ¼Êı: 8
+2025-07-07 11:45:56 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-07 11:45:56 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 96, 'user_id': 1, 'paper_id': 115, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 11:37:27', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 11:45:56 - root - INFO - operation_service:146 - ¼ÇÂ¼ 2: {'id': 95, 'user_id': 1, 'paper_id': 114, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07 11:37:19', 'file_name': 'wrong.docx'}
+2025-07-07 11:45:56 - root - INFO - operation_service:146 - ¼ÇÂ¼ 3: {'id': 94, 'user_id': 1, 'paper_id': 113, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07 11:37:10', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 11:45:56 - root - INFO - operation_service:146 - ¼ÇÂ¼ 4: {'id': 93, 'user_id': 1, 'paper_id': 111, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07 11:26:47', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 11:45:56 - root - INFO - operation_service:146 - ¼ÇÂ¼ 5: {'id': 92, 'user_id': 1, 'paper_id': 110, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07 11:26:07', 'file_name': 'wrong.txt'}
+2025-07-07 11:45:56 - root - INFO - operation_service:149 -   ... »¹ÓĞ 3 Ìõ¼ÇÂ¼Î´ÏÔÊ¾
+2025-07-07 11:45:56 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:45:56] "GET /api/operations/user/1?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:46:17 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:17] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:46:17 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user1
+2025-07-07 11:46:17 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 11:46:17 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 11:46:17 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 03:46:17
+2025-07-07 11:46:17 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user1
+2025-07-07 11:46:17 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 11:46:17 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:17] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:46:28 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:28] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:46:29 - root - INFO - user_controller:537 - get user number
+2025-07-07 11:46:29 - root - INFO - user_controller:547 - use user service
+2025-07-07 11:46:29 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 11:46:29 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 11:46:29 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 11:46:29 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:46:17', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}], 'total': 3, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 11:46:29 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:29] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:46:30 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:46:30 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:46:30 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:46:30 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:46:30 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:46:30 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:46:30 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 96, 'user_id': 1, 'paper_id': 115, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:37:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 95, 'user_id': 1, 'paper_id': 114, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:37:19', 'file_name': 'wrong.docx'}, {'id': 94, 'user_id': 1, 'paper_id': 113, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:37:10', 'file_name': 'computerÑ§±¨.docx'}, {'id': 93, 'user_id': 1, 'paper_id': 111, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:26:47', 'file_name': 'computerÑ§±¨.docx'}, {'id': 92, 'user_id': 1, 'paper_id': 110, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:26:07', 'file_name': 'wrong.txt'}, {'id': 91, 'user_id': 1, 'paper_id': 109, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:59', 'file_name': 'computerÑ§±¨.docx'}, {'id': 90, 'user_id': 1, 'paper_id': 108, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 89, 'user_id': 1, 'paper_id': 107, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:19:29', 'file_name': 'wrong.docx'}]
+2025-07-07 11:46:30 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:46:30 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:46:30 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:30] "GET /api/operations/getall?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:46:31 - root - INFO - user_controller:717 - ¿ªÊ¼»ñÈ¡ÓÃ»§×ÜÊıÁ¿
+2025-07-07 11:46:31 - root - INFO - user_service:246 - Calling DAO layer to get total user count
+2025-07-07 11:46:31 - root - INFO - user_service:248 - Total user count: 3
+2025-07-07 11:46:31 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:31] "GET /api/user/total_count HTTP/1.1" 200 -
+2025-07-07 11:46:31 - root - INFO - paper_controller:489 - ¿ªÊ¼»ñÈ¡ÂÛÎÄ×ÜÊı
+2025-07-07 11:46:31 - root - INFO - paper_service:780 - Calling DAO layer to get total paper count
+2025-07-07 11:46:31 - root - INFO - paper_service:782 - Total paper count: 115
+2025-07-07 11:46:31 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:31] "GET /api/paper/total_count HTTP/1.1" 200 -
+2025-07-07 11:46:31 - root - INFO - operation_controller:266 - get front request
+2025-07-07 11:46:31 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:31] "GET /api/operations/type_count HTTP/1.1" 200 -
+2025-07-07 11:46:31 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:31] "GET /api/user/weekly HTTP/1.1" 200 -
+2025-07-07 11:46:35 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:35] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:46:36 - root - INFO - user_controller:537 - get user number
+2025-07-07 11:46:36 - root - INFO - user_controller:547 - use user service
+2025-07-07 11:46:36 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 11:46:36 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 11:46:36 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 11:46:36 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:46:17', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}], 'total': 3, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 11:46:36 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:46:36] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:47:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:47:25] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:47:25 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user1
+2025-07-07 11:47:25 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 11:47:25 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 11:47:25 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 03:47:26
+2025-07-07 11:47:25 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user1
+2025-07-07 11:47:25 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 11:47:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:47:25] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:52:36 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:52:36] "OPTIONS /api/user/register HTTP/1.1" 200 -
+2025-07-07 11:52:36 - root - INFO - user_controller:131 - 111111111111: user4
+2025-07-07 11:52:36 - root - INFO - user_controller:136 - ÃÜÂë¼ÓÃÜ³É¹¦
+2025-07-07 11:52:36 - root - INFO - user_service:35 - user_service use rgister
+2025-07-07 11:52:36 - dao.user_dao - INFO - user_dao:37 - make new user: user4
+2025-07-07 11:52:36 - dao.user_dao - INFO - user_dao:50 - new user has been created,waiting for writing
+2025-07-07 11:52:36 - dao.user_dao - INFO - user_dao:54 - ÓÃ»§´´½¨³É¹¦: ID=5, ÓÃ»§Ãû=user4, ÓÊÏä=lmk666@qq.com, È¨ÏŞ=7
+2025-07-07 11:52:36 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:52:36] "[35m[1mPOST /api/user/register HTTP/1.1[0m" 201 -
+2025-07-07 11:52:40 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:52:40] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:52:41 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user4
+2025-07-07 11:52:41 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 11:52:41 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 11:52:41 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 03:52:41
+2025-07-07 11:52:41 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user4
+2025-07-07 11:52:41 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 11:52:41 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:52:41] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:52:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:52:49] "OPTIONS /api/paper/upload HTTP/1.1" 200 -
+2025-07-07 11:52:49 - root - INFO - paper_controller:135 - begin upload#------------------------------------
+2025-07-07 11:52:49 - root - INFO - paper_controller:150 - begin use service upload_paper
+2025-07-07 11:52:49 - root - INFO - paper_service:441 - ¿ªÊ¼ÉÏ´«ÎÄ¼ş: computerÑ§±¨.docx
+2025-07-07 11:52:49 - root - INFO - paper_service:451 - ÎÄ¼şÒÑ±£´æÖÁ: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\fef50a5503c2456ebbcef458f405aec9_computer.docx
+2025-07-07 11:52:49 - root - INFO - paper_service:453 - ¾ø¶ÔÂ·¾¶: D:\2025shixun\papertools\papertools7.2 (2.0.0.0)\backend\config\filestore\fef50a5503c2456ebbcef458f405aec9_computer.docx
+2025-07-07 11:52:49 - root - INFO - paper_service:454 - ÎÄ¼şÊÇ·ñ´æÔÚ: True
+2025-07-07 11:52:49 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-07 11:52:49 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-07 11:52:49 - root - INFO - paper_service:465 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 116
+2025-07-07 11:52:49 - root - INFO - paper_controller:157 - paper_id:116
+2025-07-07 11:52:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:52:49] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-07 11:52:50 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:52:50] "OPTIONS /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 11:52:50 - ai_controller - INFO - ai_controller:29 - Ö÷ÌâÌáÈ¡ÇëÇó - ÓÃ»§: 5, ÎÄ¼şÃû: computerÑ§±¨.docx
+2025-07-07 11:53:15 - httpx - INFO - _client:1025 - HTTP Request: POST https://spark-api-open.xf-yun.com/v2/chat/completions "HTTP/1.1 200 OK"
+2025-07-07 11:53:15 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:15] "POST /api/ai/theme_extraction HTTP/1.1" 200 -
+2025-07-07 11:53:36 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:36] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:53:36 - root - INFO - user_controller:537 - get user number
+2025-07-07 11:53:36 - root - INFO - user_controller:547 - use user service
+2025-07-07 11:53:36 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 11:53:36 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 11:53:36 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 11:53:36 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:47:26', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}, {'id': 5, 'username': 'user4', 'email': 'lmk666@qq.com', 'created_at': '2025-07-07 03:52:37', 'updated_at': '2025-07-07 03:52:41', 'permission': 7}], 'total': 4, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 11:53:36 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:36] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:53:42 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:42 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:42 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:42 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:42 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:42 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:42 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 97, 'user_id': 5, 'paper_id': 116, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:53:16', 'file_name': 'computerÑ§±¨.docx'}, {'id': 96, 'user_id': 1, 'paper_id': 115, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:37:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 95, 'user_id': 1, 'paper_id': 114, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:37:19', 'file_name': 'wrong.docx'}, {'id': 94, 'user_id': 1, 'paper_id': 113, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:37:10', 'file_name': 'computerÑ§±¨.docx'}, {'id': 93, 'user_id': 1, 'paper_id': 111, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:26:47', 'file_name': 'computerÑ§±¨.docx'}, {'id': 92, 'user_id': 1, 'paper_id': 110, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:26:07', 'file_name': 'wrong.txt'}, {'id': 91, 'user_id': 1, 'paper_id': 109, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:59', 'file_name': 'computerÑ§±¨.docx'}, {'id': 90, 'user_id': 1, 'paper_id': 108, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:27', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:53:42 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:42 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:42 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:42] "GET /api/operations/getall?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:45 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:45 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:45 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:45 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:45 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:45 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:45 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 89, 'user_id': 1, 'paper_id': 107, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:19:29', 'file_name': 'wrong.docx'}, {'id': 88, 'user_id': 1, 'paper_id': 106, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T10:44:19', 'file_name': 'computerÑ§±¨.docx'}, {'id': 87, 'user_id': 1, 'paper_id': 104, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:34:01', 'file_name': 'computerÑ§±¨.docx'}, {'id': 86, 'user_id': 1, 'paper_id': 103, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:33:14', 'file_name': 'computerÑ§±¨.docx'}, {'id': 85, 'user_id': 1, 'paper_id': 102, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:32:44', 'file_name': 'computerÑ§±¨.docx'}, {'id': 84, 'user_id': 1, 'paper_id': 101, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:32:15', 'file_name': 'computerÑ§±¨.docx'}, {'id': 83, 'user_id': 1, 'paper_id': 100, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:26:59', 'file_name': 'computerÑ§±¨.docx'}, {'id': 82, 'user_id': 1, 'paper_id': 99, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:26:26', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:53:45 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:45 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:45 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:45] "GET /api/operations/getall?page=2&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:45 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:45 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:45 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:45 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:45 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:45 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:45 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 89, 'user_id': 1, 'paper_id': 107, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:19:29', 'file_name': 'wrong.docx'}, {'id': 88, 'user_id': 1, 'paper_id': 106, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T10:44:19', 'file_name': 'computerÑ§±¨.docx'}, {'id': 87, 'user_id': 1, 'paper_id': 104, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:34:01', 'file_name': 'computerÑ§±¨.docx'}, {'id': 86, 'user_id': 1, 'paper_id': 103, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:33:14', 'file_name': 'computerÑ§±¨.docx'}, {'id': 85, 'user_id': 1, 'paper_id': 102, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:32:44', 'file_name': 'computerÑ§±¨.docx'}, {'id': 84, 'user_id': 1, 'paper_id': 101, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:32:15', 'file_name': 'computerÑ§±¨.docx'}, {'id': 83, 'user_id': 1, 'paper_id': 100, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:26:59', 'file_name': 'computerÑ§±¨.docx'}, {'id': 82, 'user_id': 1, 'paper_id': 99, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:26:26', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:53:45 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:45 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:45 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:45] "GET /api/operations/getall?page=2&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:46 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:46 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:46 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:46 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:46 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:46 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:46 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 81, 'user_id': 1, 'paper_id': 98, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:23:46', 'file_name': 'computerÑ§±¨.docx'}, {'id': 80, 'user_id': 1, 'paper_id': 97, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:21:49', 'file_name': 'computerÑ§±¨.docx'}, {'id': 78, 'user_id': 4, 'paper_id': 95, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T09:15:47', 'file_name': 'computerÑ§±¨.docx'}, {'id': 77, 'user_id': 4, 'paper_id': 94, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T09:14:40', 'file_name': 'wrong.txt'}, {'id': 76, 'user_id': 4, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T09:12:21', 'file_name': 'file1'}, {'id': 75, 'user_id': 4, 'paper_id': 93, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T09:11:46', 'file_name': 'computerÑ§±¨.docx'}, {'id': 74, 'user_id': 1, 'paper_id': 92, 'operation_type': 'textsummary', 'operation_time': '2025-07-05T14:27:19', 'file_name': '2.docx'}, {'id': 73, 'user_id': 1, 'paper_id': 91, 'operation_type': 'textsummary', 'operation_time': '2025-07-05T14:26:38', 'file_name': '2.docx'}]
+2025-07-07 11:53:46 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:46 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:46 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:46] "GET /api/operations/getall?page=3&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:46 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:46 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:46 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:46 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:46 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:46 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:46 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 81, 'user_id': 1, 'paper_id': 98, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:23:46', 'file_name': 'computerÑ§±¨.docx'}, {'id': 80, 'user_id': 1, 'paper_id': 97, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T10:21:49', 'file_name': 'computerÑ§±¨.docx'}, {'id': 78, 'user_id': 4, 'paper_id': 95, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T09:15:47', 'file_name': 'computerÑ§±¨.docx'}, {'id': 77, 'user_id': 4, 'paper_id': 94, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T09:14:40', 'file_name': 'wrong.txt'}, {'id': 76, 'user_id': 4, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T09:12:21', 'file_name': 'file1'}, {'id': 75, 'user_id': 4, 'paper_id': 93, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T09:11:46', 'file_name': 'computerÑ§±¨.docx'}, {'id': 74, 'user_id': 1, 'paper_id': 92, 'operation_type': 'textsummary', 'operation_time': '2025-07-05T14:27:19', 'file_name': '2.docx'}, {'id': 73, 'user_id': 1, 'paper_id': 91, 'operation_type': 'textsummary', 'operation_time': '2025-07-05T14:26:38', 'file_name': '2.docx'}]
+2025-07-07 11:53:46 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:46 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:46 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:46] "GET /api/operations/getall?page=3&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:47 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:47 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:47 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:47 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:47 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:47 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:47 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 72, 'user_id': 1, 'paper_id': 90, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T14:22:23', 'file_name': 'wrong.txt'}, {'id': 71, 'user_id': 1, 'paper_id': 89, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T14:21:01', 'file_name': 'wrong.docx'}, {'id': 70, 'user_id': 1, 'paper_id': 88, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T14:20:22', 'file_name': '2.docx'}, {'id': 69, 'user_id': 3, 'paper_id': 87, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T11:29:48', 'file_name': 'wrong.docx'}, {'id': 68, 'user_id': 1, 'paper_id': 86, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T11:06:51', 'file_name': 'wrong.docx'}, {'id': 57, 'user_id': 1, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:53:12', 'file_name': 'file1'}, {'id': 54, 'user_id': 1, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:51:22', 'file_name': 'file1'}, {'id': 53, 'user_id': 1, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:50:49', 'file_name': 'file1'}]
+2025-07-07 11:53:47 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:47 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:47 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:47] "GET /api/operations/getall?page=4&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:47 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:47 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:47 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:47 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:47 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:47 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:47 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 72, 'user_id': 1, 'paper_id': 90, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T14:22:23', 'file_name': 'wrong.txt'}, {'id': 71, 'user_id': 1, 'paper_id': 89, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T14:21:01', 'file_name': 'wrong.docx'}, {'id': 70, 'user_id': 1, 'paper_id': 88, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T14:20:22', 'file_name': '2.docx'}, {'id': 69, 'user_id': 3, 'paper_id': 87, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T11:29:48', 'file_name': 'wrong.docx'}, {'id': 68, 'user_id': 1, 'paper_id': 86, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T11:06:51', 'file_name': 'wrong.docx'}, {'id': 57, 'user_id': 1, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:53:12', 'file_name': 'file1'}, {'id': 54, 'user_id': 1, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:51:22', 'file_name': 'file1'}, {'id': 53, 'user_id': 1, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:50:49', 'file_name': 'file1'}]
+2025-07-07 11:53:47 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:47 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:47 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:47] "GET /api/operations/getall?page=4&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:47 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:47 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:47 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:47 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:47 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:47 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:47 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 49, 'user_id': 1, 'paper_id': 72, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T09:11:48', 'file_name': 'wrong.docx'}, {'id': 48, 'user_id': 1, 'paper_id': 71, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:11:20', 'file_name': 'computerÑ§±¨.docx'}, {'id': 47, 'user_id': 1, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:11:02', 'file_name': 'file1'}, {'id': 46, 'user_id': 1, 'paper_id': 69, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T20:42:47', 'file_name': 'spellingchecktest.txt'}, {'id': 45, 'user_id': 1, 'paper_id': 68, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T20:32:43', 'file_name': 'spellingchecktest.txt'}, {'id': 44, 'user_id': 1, 'paper_id': 67, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T20:29:05', 'file_name': 'spellingchecktest.txt'}, {'id': 43, 'user_id': 1, 'paper_id': 66, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T20:25:03', 'file_name': 'spellingchecktest.txt'}, {'id': 42, 'user_id': 1, 'paper_id': 65, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T17:15:44', 'file_name': 'wrong.docx'}]
+2025-07-07 11:53:47 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:47 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:47 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:47] "GET /api/operations/getall?page=5&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:48 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:48 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:48 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:48 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:48 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:48 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:48 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 49, 'user_id': 1, 'paper_id': 72, 'operation_type': 'spellcheck', 'operation_time': '2025-07-05T09:11:48', 'file_name': 'wrong.docx'}, {'id': 48, 'user_id': 1, 'paper_id': 71, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:11:20', 'file_name': 'computerÑ§±¨.docx'}, {'id': 47, 'user_id': 1, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-05T09:11:02', 'file_name': 'file1'}, {'id': 46, 'user_id': 1, 'paper_id': 69, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T20:42:47', 'file_name': 'spellingchecktest.txt'}, {'id': 45, 'user_id': 1, 'paper_id': 68, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T20:32:43', 'file_name': 'spellingchecktest.txt'}, {'id': 44, 'user_id': 1, 'paper_id': 67, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T20:29:05', 'file_name': 'spellingchecktest.txt'}, {'id': 43, 'user_id': 1, 'paper_id': 66, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T20:25:03', 'file_name': 'spellingchecktest.txt'}, {'id': 42, 'user_id': 1, 'paper_id': 65, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T17:15:44', 'file_name': 'wrong.docx'}]
+2025-07-07 11:53:48 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:48 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:48] "GET /api/operations/getall?page=5&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:48 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:48 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:48 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:48 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:48 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:48 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:48 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 41, 'user_id': 1, 'paper_id': 64, 'operation_type': 'textsummary', 'operation_time': '2025-07-04T17:09:53', 'file_name': 'computerÑ§±¨.docx'}, {'id': 40, 'user_id': 1, 'paper_id': 63, 'operation_type': 'textsummary', 'operation_time': '2025-07-04T17:09:00', 'file_name': 'computerÑ§±¨.docx'}, {'id': 39, 'user_id': 1, 'paper_id': 62, 'operation_type': 'textsummary', 'operation_time': '2025-07-04T17:08:36', 'file_name': 'computerÑ§±¨.docx'}, {'id': 38, 'user_id': 1, 'paper_id': 61, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T16:29:24', 'file_name': 'wrong.docx'}, {'id': 37, 'user_id': 1, 'paper_id': 60, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T16:27:57', 'file_name': 'spellingchecktest.txt'}, {'id': 36, 'user_id': 1, 'paper_id': 58, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T16:17:31', 'file_name': 'spellingchecktest.txt'}, {'id': 35, 'user_id': 1, 'paper_id': 57, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T16:05:04', 'file_name': 'spellingchecktest.txt'}, {'id': 34, 'user_id': 1, 'paper_id': 54, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T15:44:36', 'file_name': 'spellingchecktest.txt'}]
+2025-07-07 11:53:48 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:48 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:48] "GET /api/operations/getall?page=6&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:48 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:48 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:48 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:48 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:48 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:48 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:48 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 41, 'user_id': 1, 'paper_id': 64, 'operation_type': 'textsummary', 'operation_time': '2025-07-04T17:09:53', 'file_name': 'computerÑ§±¨.docx'}, {'id': 40, 'user_id': 1, 'paper_id': 63, 'operation_type': 'textsummary', 'operation_time': '2025-07-04T17:09:00', 'file_name': 'computerÑ§±¨.docx'}, {'id': 39, 'user_id': 1, 'paper_id': 62, 'operation_type': 'textsummary', 'operation_time': '2025-07-04T17:08:36', 'file_name': 'computerÑ§±¨.docx'}, {'id': 38, 'user_id': 1, 'paper_id': 61, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T16:29:24', 'file_name': 'wrong.docx'}, {'id': 37, 'user_id': 1, 'paper_id': 60, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T16:27:57', 'file_name': 'spellingchecktest.txt'}, {'id': 36, 'user_id': 1, 'paper_id': 58, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T16:17:31', 'file_name': 'spellingchecktest.txt'}, {'id': 35, 'user_id': 1, 'paper_id': 57, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T16:05:04', 'file_name': 'spellingchecktest.txt'}, {'id': 34, 'user_id': 1, 'paper_id': 54, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T15:44:36', 'file_name': 'spellingchecktest.txt'}]
+2025-07-07 11:53:48 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:48 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:48] "GET /api/operations/getall?page=6&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:49 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:49 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:49 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:49 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 33, 'user_id': 1, 'paper_id': 52, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T14:37:51', 'file_name': 'spellingchecktest.txt'}, {'id': 32, 'user_id': 1, 'paper_id': 51, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T14:27:59', 'file_name': 'spellingchecktest.txt'}, {'id': 31, 'user_id': 1, 'paper_id': 50, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T14:25:57', 'file_name': '1.txt'}, {'id': 30, 'user_id': 2, 'paper_id': 49, 'operation_type': 'textsummary', 'operation_time': '2025-07-04T14:11:42', 'file_name': 'computerÑ§±¨.docx'}, {'id': 29, 'user_id': 2, 'paper_id': 48, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T17:23:23', 'file_name': 'computerÑ§±¨.docx'}, {'id': 28, 'user_id': 2, 'paper_id': 46, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T17:20:26', 'file_name': 'computerÑ§±¨.docx'}, {'id': 27, 'user_id': 1, 'paper_id': 44, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T16:57:08', 'file_name': 'computerÑ§±¨.docx'}, {'id': 26, 'user_id': 1, 'paper_id': 43, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T16:23:03', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:53:49 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:49 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:49] "GET /api/operations/getall?page=7&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:49 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:49 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:49 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:49 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 33, 'user_id': 1, 'paper_id': 52, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T14:37:51', 'file_name': 'spellingchecktest.txt'}, {'id': 32, 'user_id': 1, 'paper_id': 51, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T14:27:59', 'file_name': 'spellingchecktest.txt'}, {'id': 31, 'user_id': 1, 'paper_id': 50, 'operation_type': 'spellcheck', 'operation_time': '2025-07-04T14:25:57', 'file_name': '1.txt'}, {'id': 30, 'user_id': 2, 'paper_id': 49, 'operation_type': 'textsummary', 'operation_time': '2025-07-04T14:11:42', 'file_name': 'computerÑ§±¨.docx'}, {'id': 29, 'user_id': 2, 'paper_id': 48, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T17:23:23', 'file_name': 'computerÑ§±¨.docx'}, {'id': 28, 'user_id': 2, 'paper_id': 46, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T17:20:26', 'file_name': 'computerÑ§±¨.docx'}, {'id': 27, 'user_id': 1, 'paper_id': 44, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T16:57:08', 'file_name': 'computerÑ§±¨.docx'}, {'id': 26, 'user_id': 1, 'paper_id': 43, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T16:23:03', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:53:49 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:49 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:49] "GET /api/operations/getall?page=7&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:49 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:49 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:49 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:49 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 25, 'user_id': 2, 'paper_id': 42, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T16:22:58', 'file_name': 'computerÑ§±¨.docx'}, {'id': 24, 'user_id': 2, 'paper_id': 41, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T16:21:26', 'file_name': 'computerÑ§±¨.docx'}, {'id': 23, 'user_id': 1, 'paper_id': 40, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T15:32:50', 'file_name': 'computerÑ§±¨.docx'}, {'id': 22, 'user_id': 1, 'paper_id': 38, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T15:29:35', 'file_name': 'wrong_corrected.txt'}, {'id': 21, 'user_id': 1, 'paper_id': 37, 'operation_type': 'textsummary', 'operation_time': '2025-07-03T15:29:13', 'file_name': 'computerÑ§±¨.docx'}, {'id': 20, 'user_id': 1, 'paper_id': 36, 'operation_type': 'textsummary', 'operation_time': '2025-07-03T15:28:40', 'file_name': 'computerÑ§±¨.docx'}, {'id': 19, 'user_id': 1, 'paper_id': 35, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T15:28:33', 'file_name': 'wrong.txt'}, {'id': 18, 'user_id': 1, 'paper_id': 34, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T15:28:21', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:53:49 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:49 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:49] "GET /api/operations/getall?page=8&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:49 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:49 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:49 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:49 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:49 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 25, 'user_id': 2, 'paper_id': 42, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T16:22:58', 'file_name': 'computerÑ§±¨.docx'}, {'id': 24, 'user_id': 2, 'paper_id': 41, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T16:21:26', 'file_name': 'computerÑ§±¨.docx'}, {'id': 23, 'user_id': 1, 'paper_id': 40, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-03T15:32:50', 'file_name': 'computerÑ§±¨.docx'}, {'id': 22, 'user_id': 1, 'paper_id': 38, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T15:29:35', 'file_name': 'wrong_corrected.txt'}, {'id': 21, 'user_id': 1, 'paper_id': 37, 'operation_type': 'textsummary', 'operation_time': '2025-07-03T15:29:13', 'file_name': 'computerÑ§±¨.docx'}, {'id': 20, 'user_id': 1, 'paper_id': 36, 'operation_type': 'textsummary', 'operation_time': '2025-07-03T15:28:40', 'file_name': 'computerÑ§±¨.docx'}, {'id': 19, 'user_id': 1, 'paper_id': 35, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T15:28:33', 'file_name': 'wrong.txt'}, {'id': 18, 'user_id': 1, 'paper_id': 34, 'operation_type': 'spellcheck', 'operation_time': '2025-07-03T15:28:21', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:53:49 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:49 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:49 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:49] "GET /api/operations/getall?page=8&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:50 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:50 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:50 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:50 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:50 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:50 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:50 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 97, 'user_id': 5, 'paper_id': 116, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:53:16', 'file_name': 'computerÑ§±¨.docx'}, {'id': 96, 'user_id': 1, 'paper_id': 115, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:37:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 95, 'user_id': 1, 'paper_id': 114, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:37:19', 'file_name': 'wrong.docx'}, {'id': 94, 'user_id': 1, 'paper_id': 113, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:37:10', 'file_name': 'computerÑ§±¨.docx'}, {'id': 93, 'user_id': 1, 'paper_id': 111, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:26:47', 'file_name': 'computerÑ§±¨.docx'}, {'id': 92, 'user_id': 1, 'paper_id': 110, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:26:07', 'file_name': 'wrong.txt'}, {'id': 91, 'user_id': 1, 'paper_id': 109, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:59', 'file_name': 'computerÑ§±¨.docx'}, {'id': 90, 'user_id': 1, 'paper_id': 108, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:27', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:53:50 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:50 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:50 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:50] "GET /api/operations/getall?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:50 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 11:53:50 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 11:53:50 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 11:53:50 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 11:53:50 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 11:53:50 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 11:53:50 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 97, 'user_id': 5, 'paper_id': 116, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:53:16', 'file_name': 'computerÑ§±¨.docx'}, {'id': 96, 'user_id': 1, 'paper_id': 115, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:37:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 95, 'user_id': 1, 'paper_id': 114, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:37:19', 'file_name': 'wrong.docx'}, {'id': 94, 'user_id': 1, 'paper_id': 113, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:37:10', 'file_name': 'computerÑ§±¨.docx'}, {'id': 93, 'user_id': 1, 'paper_id': 111, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:26:47', 'file_name': 'computerÑ§±¨.docx'}, {'id': 92, 'user_id': 1, 'paper_id': 110, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:26:07', 'file_name': 'wrong.txt'}, {'id': 91, 'user_id': 1, 'paper_id': 109, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:59', 'file_name': 'computerÑ§±¨.docx'}, {'id': 90, 'user_id': 1, 'paper_id': 108, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:25:27', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 11:53:50 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 11:53:50 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 11:53:50 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:50] "GET /api/operations/getall?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 11:53:52 - root - INFO - user_controller:717 - ¿ªÊ¼»ñÈ¡ÓÃ»§×ÜÊıÁ¿
+2025-07-07 11:53:52 - root - INFO - user_service:246 - Calling DAO layer to get total user count
+2025-07-07 11:53:52 - root - INFO - user_service:248 - Total user count: 4
+2025-07-07 11:53:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:52] "GET /api/user/total_count HTTP/1.1" 200 -
+2025-07-07 11:53:52 - root - INFO - paper_controller:489 - ¿ªÊ¼»ñÈ¡ÂÛÎÄ×ÜÊı
+2025-07-07 11:53:52 - root - INFO - paper_service:780 - Calling DAO layer to get total paper count
+2025-07-07 11:53:52 - root - INFO - paper_service:782 - Total paper count: 116
+2025-07-07 11:53:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:52] "GET /api/paper/total_count HTTP/1.1" 200 -
+2025-07-07 11:53:53 - root - INFO - operation_controller:266 - get front request
+2025-07-07 11:53:53 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:53] "GET /api/operations/type_count HTTP/1.1" 200 -
+2025-07-07 11:53:53 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:53:53] "GET /api/user/weekly HTTP/1.1" 200 -
+2025-07-07 11:54:05 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:54:05] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:54:05 - root - INFO - user_controller:537 - get user number
+2025-07-07 11:54:05 - root - INFO - user_controller:547 - use user service
+2025-07-07 11:54:05 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 11:54:05 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 11:54:05 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 11:54:05 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:47:26', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}, {'id': 5, 'username': 'user4', 'email': 'lmk666@qq.com', 'created_at': '2025-07-07 03:52:37', 'updated_at': '2025-07-07 03:52:41', 'permission': 7}], 'total': 4, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 11:54:05 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:54:05] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 11:54:23 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:54:23] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:54:23 - root - INFO - user_controller:227 - ´¦ÀíÊı¾İ: user4
+2025-07-07 11:54:23 - root - INFO - user_controller:228 - ´¦ÀíÊı¾İ: 123456
+2025-07-07 11:54:23 - dao.user_dao - INFO - user_dao:28 - check user
+2025-07-07 11:54:23 - root - INFO - user_service:61 - ¸üĞÂ×îºóµÇÂ¼Ê±¼ä: 2025-07-07 03:54:24
+2025-07-07 11:54:23 - root - INFO - user_service:89 - µÇÂ¼³É¹¦ - ÓÃ»§: user4
+2025-07-07 11:54:23 - root - INFO - user_controller:237 - ÑéÖ¤ÃÜÂëing
+2025-07-07 11:54:23 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:54:23] "POST /api/user/login HTTP/1.1" 200 -
+2025-07-07 11:54:28 - root - INFO - operation_controller:86 - begin controller getoperaitons
+2025-07-07 11:54:28 - root - INFO - operation_service:135 - ¿ªÊ¼²éÑ¯ÓÃ»§ 5 µÄ²Ù×÷¼ÇÂ¼£¬Ò³Âë: 1, Ã¿Ò³: 8
+2025-07-07 11:54:28 - root - INFO - operation_service:141 - ²éÑ¯Íê³É£¬×Ü¼ÇÂ¼Êı: 1, µ±Ç°Ò³¼ÇÂ¼Êı: 1
+2025-07-07 11:54:28 - root - INFO - operation_service:144 - µ±Ç°Ò³²Ù×÷¼ÇÂ¼ÏêÇé:
+2025-07-07 11:54:28 - root - INFO - operation_service:146 - ¼ÇÂ¼ 1: {'id': 97, 'user_id': 5, 'paper_id': 116, 'operation_type': 'textsummary', 'operation_time': '2025-07-07 11:53:16', 'file_name': 'computerÑ§±¨.docx'}
+2025-07-07 11:54:28 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 11:54:28] "GET /api/operations/user/5?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 14:41:29 - xinghuo_service - INFO - xinghuo_service:29 - ĞÇ»ğX1 HTTP·şÎñ³õÊ¼»¯Íê³É
+2025-07-07 14:41:29 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-07 14:41:29 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-07-07 14:41:29 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-07 14:41:46 - xinghuo_service - INFO - xinghuo_service:29 - ĞÇ»ğX1 HTTP·şÎñ³õÊ¼»¯Íê³É
+2025-07-07 14:41:46 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-07 14:41:46 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 262-340-303
+2025-07-07 14:41:46 - root - INFO - paper_controller:597 - begin controller check
+2025-07-07 14:41:46 - root - INFO - paper_service:955 - begin local check
+2025-07-07 14:41:46 - root - INFO - paper_controller:597 - begin controller check
+2025-07-07 14:41:46 - root - INFO - paper_service:955 - begin local check
+2025-07-07 14:41:46 - root - INFO - paper_service:641 - begin _calculate_advanced_similarity
+2025-07-07 14:41:46 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 14:41:46 - root - INFO - paper_service:641 - begin _calculate_advanced_similarity
+2025-07-07 14:41:46 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 14:41:47 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 14:41:47 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 14:41:47 - root - WARNING - paper_service:674 - ÓïÒåÏàËÆ¶È¼ÆËãÊ§°Ü£¬Ê¹ÓÃ»ù´¡Ëã·¨: No module named 'sentence_transformers'
+2025-07-07 14:41:47 - root - INFO - paper_service:798 - text1 length: 1526, text2 length: 1831
+2025-07-07 14:41:47 - root - INFO - paper_service:799 - ¿ªÊ¼¼ì²éÏàËÆ¶ÎÂä£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 14:41:47 - root - INFO - paper_service:831 - ÎÄ±¾1·Ö¸îÎª 9 ¸ö¶ÎÂä£¬ÎÄ±¾2·Ö¸îÎª 9 ¸ö¶ÎÂä
+2025-07-07 14:41:47 - root - WARNING - paper_service:674 - ÓïÒåÏàËÆ¶È¼ÆËãÊ§°Ü£¬Ê¹ÓÃ»ù´¡Ëã·¨: No module named 'sentence_transformers'
+2025-07-07 14:41:47 - root - INFO - paper_service:798 - text1 length: 1526, text2 length: 1831
+2025-07-07 14:41:47 - root - INFO - paper_service:799 - ¿ªÊ¼¼ì²éÏàËÆ¶ÎÂä£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 14:41:47 - root - INFO - paper_service:831 - ÎÄ±¾1·Ö¸îÎª 9 ¸ö¶ÎÂä£¬ÎÄ±¾2·Ö¸îÎª 9 ¸ö¶ÎÂä
+2025-07-07 14:41:48 - root - INFO - paper_service:932 - ÕÒµ½ 5 ¸öÏàËÆ¶ÎÂä¶Ô£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 14:41:48 - root - INFO - paper_service:932 - ÕÒµ½ 5 ¸öÏàËÆ¶ÎÂä¶Ô£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 14:41:48 - root - INFO - paper_controller:611 - Comparison Results: [{'article_title': '2.docx', 'similarity_rate': 43.93, 'url': '', 'authors': '', 'similar_segments': {'original': [{'content': 'È»¶ø£¬AI ÔÚÒ½ÁÆÁìÓòµÄÆÕ¼°ÈÔÃæÁÙ¶àÖØÌôÕ½¡£Êı¾İ°²È«ÓëÒşË½±£»¤ÊÇÊ×ÒªÎÊÌâ¡£Ò½ÁÆÊı¾İ°üº¬»¼ÕßÃô¸ĞĞÅÏ¢£¬AI ÏµÍ³µÄÑµÁ·ºÍÓ¦ÓÃĞèÑÏ¸ñ×ñÑ­ÒşË½·¨¹æ£¨Èç HIPAA¡¢GDPR£©£¬µ«Êı¾İĞ¹Â¶ÊÂ¼şÈÔÊ±ÓĞ·¢Éú¡£2023 Äê£¬Ä³Ò½ÁÆ AI ¹«Ë¾ÒòÊı¾İ¿âÂ©¶´µ¼ÖÂ 10 Íò·İ»¼Õß²¡Àú±»Ğ¹Â¶£¬Òı·¢Éç»á¶ÔÊı¾İ°²È«µÄµ£ÓÇ¡£', 'similarity': 0.66, 'matched_with': 4}, {'content': 'Ëã·¨Æ«¼ûÓë¿É½âÊÍĞÔ²»×ãÒ²ÖÆÔ¼×Å AI µÄĞÅÈÎ¶È¡£ÈôÑµÁ·Êı¾İ¼¯ÖĞÄ³ÀàÈËÈºÑù±¾²»×ã£¬AI Ä£ĞÍ¿ÉÄÜ³öÏÖÕï¶ÏÆ«²î¡£ÀıÈç£¬Õë¶ÔÆ¤·ô¼²²¡µÄ AI Õï¶ÏÏµÍ³ÈôÖ÷Òª»ùÓÚ°×ÈËÆ¤·ôÍ¼ÏñÑµÁ·£¬¶ÔÉîÉ«Æ¤·ô»¼ÕßµÄÎóÕïÂÊ»áÏÔÖøÉı¸ß¡£´ËÍâ£¬Éî¶ÈÑ§Ï°Ä£ĞÍµÄ ¡°ºÚÏä¡± ÌØĞÔÊ¹µÃÕï¶Ï½á¹ûÄÑÒÔ×·Ëİ£¬Ò½ÉúºÍ»¼ÕßÄÑÒÔÀí½â¾ö²ßÒÀ¾İ£¬Ó°ÏìÁÙ´²²ÉÄÉ¶È¡£', 'similarity': 0.58, 'matched_with': 5}, {'content': '¼à¹Ü±ê×¼µÄÈ±Ê§Í¬Ñù´øÀ´ÌôÕ½¡£¸÷¹ú¶ÔÒ½ÁÆ AI ²úÆ·µÄÉóÅúÁ÷³ÌÉĞ²»Í³Ò»£¬²¿·Ö²úÆ·½öÍ¨¹ıÈí¼şÈÏÖ¤±ãÍ¶ÈëÁÙ´²£¬È±·¦³¤ÆÚÓĞĞ§ĞÔÑéÖ¤¡£2022 Äê£¬ÃÀ¹ú FDA ÕÙ»ØÁËÒ»¿î AI ĞÄµçÍ¼·ÖÎöÉè±¸£¬ÒòÆä¶ÔĞÄ¼¡¹£ËÀµÄÂ©ÕïÂÊ³¬³ö°²È«ãĞÖµ£¬±©Â¶ÁË¼à¹ÜÂ©¶´¡£', 'similarity': 0.42, 'matched_with': 6}, {'content': 'Â×ÀíÎÊÌâÒ²ÈÕÒæÍ¹ÏÔ¡£µ± AI Õï¶ÏÓëÒ½ÉúÅĞ¶Ï³åÍ»Ê±£¬ÔğÈÎ¹éÊôÄÑÒÔ½ç¶¨£»AI ÔÚ×ÊÔ´·ÖÅäÖĞµÄÓ¦ÓÃ¿ÉÄÜ¼Ó¾çÒ½ÁÆ²»¹« ¡ª¡ª ÀıÈç£¬ÓÅÏÈÎª¸ßÊÕÈëÈºÌåÌá¹© AI ¸¨ÖúÕïÁÆ·şÎñ¡£ÕâĞ©ÎÊÌâĞèÒªĞĞÒµ¡¢Õş¸®Óë¹«ÖÚ¹²Í¬Ì½ÌÖ£¬½¨Á¢·ûºÏÂ×ÀíµÄÓ¦ÓÃ¹æ·¶¡£', 'similarity': 0.59, 'matched_with': 7}, {'content': 'Õ¹ÍûÎ´À´£¬AI ÓëÒ½ÁÆµÄÈÚºÏÈÔÊÇ´óÊÆËùÇ÷¡£Ëæ×Å¼¼ÊõµÄµü´ú£¬¶àÄ£Ì¬ AI Ä£ĞÍ£¨½áºÏÓ°Ïñ¡¢»ùÒò¡¢ÁÙ´²Êı¾İ£©½«½øÒ»²½ÌáÉıÕï¶Ï¾«¶È£»Áª°îÑ§Ï°µÈ¼¼ÊõµÄÓ¦ÓÃ¿ÉÔÚ±£»¤Êı¾İÒşË½µÄÇ°ÌáÏÂÊµÏÖ¿ç»ú¹¹Êı¾İ¹²Ïí£»¼à¹Ü¿ò¼ÜµÄÍêÉÆ½«Îª AI Ò½ÁÆ²úÆ·Ìá¹©¸üÇåÎúµÄºÏ¹æÂ·¾¶¡£×îÖÕ£¬AI µÄ¼ÛÖµ²»ÔÚÓÚÌæ´úÒ½Éú£¬¶øÔÚÓÚÍ¨¹ı¼¼Êõ¸³ÄÜ£¬ÈÃÓÅÖÊÒ½ÁÆ×ÊÔ´»İ¼°¸ü¶àÈË£¬ÊµÏÖ ¡°¼¼ÊõÏòÉÆ¡± µÄÖÕ¼«Ä¿±ê¡£', 'similarity': 0.4, 'matched_with': 8}], 'comparison': [{'content': '¾¡¹Ü AI ÔÚÒ½ÁÆÁìÓòµÄÓ¦ÓÃÇ°¾°¹ãÀ«£¬µ«Æä·¢Õ¹¹ı³ÌÖĞÈÔÃæÁÙÒ»ÏµÁĞØ½´ı½â¾öµÄÎÊÌâ¡£Êı¾İ°²È«ÓëÒşË½±£»¤ÊÇÆäÖĞ×îÊÜ¹Ø×¢µÄÒéÌâ¡£Ò½ÁÆÊı¾İ°üº¬´óÁ¿¸öÈËÃô¸ĞĞÅÏ¢£¬Èç²¡Àú¡¢»ùÒòÊı¾İµÈ£¬Ò»µ©·¢ÉúĞ¹Â¶£¬¿ÉÄÜ¶Ô»¼ÕßÔì³ÉÑÏÖØºó¹û¡£2024 Äê³õ£¬Ä³ÖªÃûÒ½ÁÆ AI ÆóÒµµÄÊı¾İ¿âÔâºÚ¿Í¹¥»÷£¬µ¼ÖÂ 50 Íò»¼ÕßµÄÕïÁÆ¼ÇÂ¼±»ÇÔÈ¡£¬Òı·¢ÁËÉç»á¶ÔÊı¾İ°²È«µÄ¹ã·ºµ£ÓÇ¡£ÈçºÎÔÚÊı¾İ¹²ÏíÓëÒşË½±£»¤Ö®¼äÕÒµ½Æ½ºâ£¬³ÉÎª AI Ò½ÁÆ·¢Õ¹µÄ¹Ø¼üÌôÕ½¡£', 'similarity': 0.66, 'matched_with': 4}, {'content': 'Ëã·¨µÄ¹«Æ½ĞÔÓë¿É½âÊÍĞÔ²»×ãÒ²ÖÆÔ¼×Å AI ÔÚÁÙ´²µÄÉîÈëÓ¦ÓÃ¡£Èç¹ûÑµÁ· AI Ä£ĞÍµÄÊı¾İ¼¯ÖĞÄ³Ò»ÈºÌåµÄÑù±¾ÊıÁ¿²»×ã£¬Ä£ĞÍ¿ÉÄÜ»á³öÏÖÏµÍ³ĞÔÆ«¼û¡£ÀıÈç£¬Ò»¿îÓÃÓÚÕï¶ÏÆ¤·ô²¡µÄ AI ÏµÍ³ÒòÖ÷Òª»ùÓÚÇ³É«Æ¤·ôÍ¼ÏñÑµÁ·£¬¶ÔºÚÈË»¼ÕßµÄÕï¶Ï×¼È·ÂÊ½öÎª°×ÈË»¼ÕßµÄ 60%£¬ÕâÎŞÒÉ»á¼Ó¾çÒ½ÁÆ²»¹«¡£´ËÍâ£¬Éî¶ÈÑ§Ï°Ä£ĞÍµÄ¾ö²ß¹ı³ÌÈçÍ¬ ¡°ºÚÏä¡±£¬Ò½ÉúÄÑÒÔÀí½âÆäµÃ³ö½áÂÛµÄÒÀ¾İ£¬Õâ²»½öÓ°ÏìÁËÁÙ´²ĞÅÈÎ¶È£¬Ò²²»ÀûÓÚ´íÎóµÄ×·ËİÓëĞŞÕı¡£', 'similarity': 0.58, 'matched_with': 5}, {'content': '¼à¹ÜÌåÏµµÄ²»ÍêÉÆÍ¬Ñù´øÀ´ÁË·çÏÕ¡£Ä¿Ç°£¬Ğí¶à¹ú¼Ò¶ÔÒ½ÁÆ AI ²úÆ·µÄÉóÅú±ê×¼ÉĞ²»Ã÷È·£¬²¿·Ö²úÆ·Î´¾­¹ıÑÏ¸ñµÄÁÙ´²ÑéÖ¤±ãÍ¶ÈëÊĞ³¡£¬¿ÉÄÜ¶Ô»¼Õß°²È«¹¹³ÉÍşĞ²¡£2023 Äê£¬Å·ÃËÕÙ»ØÁËÒ»¿î AI ¸¨ÖúÕï¶ÏÉè±¸£¬Ô­ÒòÊÇÆä¶ÔÄÔ×äÖĞµÄÎóÕïÂÊ¹ı¸ß£¬ÑÓÎóÁË»¼ÕßµÄ×î¼ÑÖÎÁÆÊ±»ú¡£ÕâÒ»ÊÂ¼şÍ¹ÏÔÁË½¨Á¢Í³Ò»¡¢ÑÏ¸ñµÄ¼à¹Ü¿ò¼ÜµÄÆÈÇĞĞÔ¡£', 'similarity': 0.42, 'matched_with': 6}, {'content': 'Â×Àí²ãÃæµÄÕùÒéÒ²ÈÕÒæÏÔÏÖ¡£µ± AI µÄÕï¶Ï½á¹ûÓëÒ½ÉúµÄÅĞ¶Ï²»Ò»ÖÂÊ±£¬ÔğÈÎ¸ÃÈçºÎ»®·Ö£¿AI ÔÚÒ½ÁÆ×ÊÔ´·ÖÅäÖĞµÄÓ¦ÓÃÊÇ·ñ»áµ¼ÖÂ ¡°¼¼ÊõÆçÊÓ¡±£¬¼´Ö»ÓĞ¸ßÊÕÈëÈºÌå²ÅÄÜÏíÊÜ AI ´øÀ´µÄÓÅÖÊ·şÎñ£¿ÕâĞ©ÎÊÌâĞèÒªÕş¸®¡¢Ò½ÁÆ»ú¹¹¡¢¿Æ¼¼ÆóÒµºÍ¹«ÖÚ¹²Í¬²ÎÓëÌÖÂÛ£¬½¨Á¢·ûºÏÉç»áÂ×ÀíµÄ AI Ò½ÁÆÓ¦ÓÃ×¼Ôò¡£', 'similarity': 0.59, 'matched_with': 7}, {'content': 'Î´À´£¬Ëæ×Å¼¼ÊõµÄ²»¶Ï½ø²½£¬AI ÔÚÒ½ÁÆÁìÓòµÄÓ¦ÓÃ½«¸ü¼ÓÉîÈë¡£¶àÄ£Ì¬ AI Ä£ĞÍ½«ÕûºÏÓ°Ïñ¡¢»ùÒò¡¢»·¾³µÈ¶àÎ¬¶ÈÊı¾İ£¬ÊµÏÖ¸ü¾«×¼µÄ¼²²¡Ô¤²â£»Áª°îÑ§Ï°¡¢Çø¿éÁ´µÈ¼¼ÊõµÄÒıÈë½«ÔÚ±£ÕÏÊı¾İÒşË½µÄÍ¬Ê±£¬´Ù½øÒ½ÁÆÊı¾İµÄ¿ç»ú¹¹¹²Ïí£»¼à¹ÜÕş²ßµÄÍêÉÆ½«Îª AI Ò½ÁÆ²úÆ·Ìá¹©¸üÇåÎúµÄ·¢Õ¹Â·¾¶¡£¹é¸ù½áµ×£¬ÈË¹¤ÖÇÄÜµÄÖÕ¼«Ä¿±ê²»ÊÇÈ¡´úÒ½ÎñÈËÔ±£¬¶øÊÇÍ¨¹ı¼¼Êõ´´ĞÂÃÖ²¹Ò½ÁÆ×ÊÔ´µÄ²»×ã£¬ÌáÉıÒ½ÁÆ·şÎñµÄ¿É¼°ĞÔÓëÖÊÁ¿£¬ÈÃÃ¿Ò»¸öÈË¶¼ÄÜÏíÊÜµ½¿Æ¼¼½ø²½´øÀ´µÄ½¡¿µºìÀû¡£', 'similarity': 0.4, 'matched_with': 8}]}}]
+2025-07-07 14:41:48 - root - INFO - paper_controller:615 - Comprehensive Similarity: 43.93
+2025-07-07 14:41:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:41:48] "POST /api/paper/check_local_plagiarism HTTP/1.1" 200 -
+2025-07-07 14:41:48 - root - INFO - paper_controller:611 - Comparison Results: [{'article_title': '2.docx', 'similarity_rate': 43.93, 'url': '', 'authors': '', 'similar_segments': {'original': [{'content': 'È»¶ø£¬AI ÔÚÒ½ÁÆÁìÓòµÄÆÕ¼°ÈÔÃæÁÙ¶àÖØÌôÕ½¡£Êı¾İ°²È«ÓëÒşË½±£»¤ÊÇÊ×ÒªÎÊÌâ¡£Ò½ÁÆÊı¾İ°üº¬»¼ÕßÃô¸ĞĞÅÏ¢£¬AI ÏµÍ³µÄÑµÁ·ºÍÓ¦ÓÃĞèÑÏ¸ñ×ñÑ­ÒşË½·¨¹æ£¨Èç HIPAA¡¢GDPR£©£¬µ«Êı¾İĞ¹Â¶ÊÂ¼şÈÔÊ±ÓĞ·¢Éú¡£2023 Äê£¬Ä³Ò½ÁÆ AI ¹«Ë¾ÒòÊı¾İ¿âÂ©¶´µ¼ÖÂ 10 Íò·İ»¼Õß²¡Àú±»Ğ¹Â¶£¬Òı·¢Éç»á¶ÔÊı¾İ°²È«µÄµ£ÓÇ¡£', 'similarity': 0.66, 'matched_with': 4}, {'content': 'Ëã·¨Æ«¼ûÓë¿É½âÊÍĞÔ²»×ãÒ²ÖÆÔ¼×Å AI µÄĞÅÈÎ¶È¡£ÈôÑµÁ·Êı¾İ¼¯ÖĞÄ³ÀàÈËÈºÑù±¾²»×ã£¬AI Ä£ĞÍ¿ÉÄÜ³öÏÖÕï¶ÏÆ«²î¡£ÀıÈç£¬Õë¶ÔÆ¤·ô¼²²¡µÄ AI Õï¶ÏÏµÍ³ÈôÖ÷Òª»ùÓÚ°×ÈËÆ¤·ôÍ¼ÏñÑµÁ·£¬¶ÔÉîÉ«Æ¤·ô»¼ÕßµÄÎóÕïÂÊ»áÏÔÖøÉı¸ß¡£´ËÍâ£¬Éî¶ÈÑ§Ï°Ä£ĞÍµÄ ¡°ºÚÏä¡± ÌØĞÔÊ¹µÃÕï¶Ï½á¹ûÄÑÒÔ×·Ëİ£¬Ò½ÉúºÍ»¼ÕßÄÑÒÔÀí½â¾ö²ßÒÀ¾İ£¬Ó°ÏìÁÙ´²²ÉÄÉ¶È¡£', 'similarity': 0.58, 'matched_with': 5}, {'content': '¼à¹Ü±ê×¼µÄÈ±Ê§Í¬Ñù´øÀ´ÌôÕ½¡£¸÷¹ú¶ÔÒ½ÁÆ AI ²úÆ·µÄÉóÅúÁ÷³ÌÉĞ²»Í³Ò»£¬²¿·Ö²úÆ·½öÍ¨¹ıÈí¼şÈÏÖ¤±ãÍ¶ÈëÁÙ´²£¬È±·¦³¤ÆÚÓĞĞ§ĞÔÑéÖ¤¡£2022 Äê£¬ÃÀ¹ú FDA ÕÙ»ØÁËÒ»¿î AI ĞÄµçÍ¼·ÖÎöÉè±¸£¬ÒòÆä¶ÔĞÄ¼¡¹£ËÀµÄÂ©ÕïÂÊ³¬³ö°²È«ãĞÖµ£¬±©Â¶ÁË¼à¹ÜÂ©¶´¡£', 'similarity': 0.42, 'matched_with': 6}, {'content': 'Â×ÀíÎÊÌâÒ²ÈÕÒæÍ¹ÏÔ¡£µ± AI Õï¶ÏÓëÒ½ÉúÅĞ¶Ï³åÍ»Ê±£¬ÔğÈÎ¹éÊôÄÑÒÔ½ç¶¨£»AI ÔÚ×ÊÔ´·ÖÅäÖĞµÄÓ¦ÓÃ¿ÉÄÜ¼Ó¾çÒ½ÁÆ²»¹« ¡ª¡ª ÀıÈç£¬ÓÅÏÈÎª¸ßÊÕÈëÈºÌåÌá¹© AI ¸¨ÖúÕïÁÆ·şÎñ¡£ÕâĞ©ÎÊÌâĞèÒªĞĞÒµ¡¢Õş¸®Óë¹«ÖÚ¹²Í¬Ì½ÌÖ£¬½¨Á¢·ûºÏÂ×ÀíµÄÓ¦ÓÃ¹æ·¶¡£', 'similarity': 0.59, 'matched_with': 7}, {'content': 'Õ¹ÍûÎ´À´£¬AI ÓëÒ½ÁÆµÄÈÚºÏÈÔÊÇ´óÊÆËùÇ÷¡£Ëæ×Å¼¼ÊõµÄµü´ú£¬¶àÄ£Ì¬ AI Ä£ĞÍ£¨½áºÏÓ°Ïñ¡¢»ùÒò¡¢ÁÙ´²Êı¾İ£©½«½øÒ»²½ÌáÉıÕï¶Ï¾«¶È£»Áª°îÑ§Ï°µÈ¼¼ÊõµÄÓ¦ÓÃ¿ÉÔÚ±£»¤Êı¾İÒşË½µÄÇ°ÌáÏÂÊµÏÖ¿ç»ú¹¹Êı¾İ¹²Ïí£»¼à¹Ü¿ò¼ÜµÄÍêÉÆ½«Îª AI Ò½ÁÆ²úÆ·Ìá¹©¸üÇåÎúµÄºÏ¹æÂ·¾¶¡£×îÖÕ£¬AI µÄ¼ÛÖµ²»ÔÚÓÚÌæ´úÒ½Éú£¬¶øÔÚÓÚÍ¨¹ı¼¼Êõ¸³ÄÜ£¬ÈÃÓÅÖÊÒ½ÁÆ×ÊÔ´»İ¼°¸ü¶àÈË£¬ÊµÏÖ ¡°¼¼ÊõÏòÉÆ¡± µÄÖÕ¼«Ä¿±ê¡£', 'similarity': 0.4, 'matched_with': 8}], 'comparison': [{'content': '¾¡¹Ü AI ÔÚÒ½ÁÆÁìÓòµÄÓ¦ÓÃÇ°¾°¹ãÀ«£¬µ«Æä·¢Õ¹¹ı³ÌÖĞÈÔÃæÁÙÒ»ÏµÁĞØ½´ı½â¾öµÄÎÊÌâ¡£Êı¾İ°²È«ÓëÒşË½±£»¤ÊÇÆäÖĞ×îÊÜ¹Ø×¢µÄÒéÌâ¡£Ò½ÁÆÊı¾İ°üº¬´óÁ¿¸öÈËÃô¸ĞĞÅÏ¢£¬Èç²¡Àú¡¢»ùÒòÊı¾İµÈ£¬Ò»µ©·¢ÉúĞ¹Â¶£¬¿ÉÄÜ¶Ô»¼ÕßÔì³ÉÑÏÖØºó¹û¡£2024 Äê³õ£¬Ä³ÖªÃûÒ½ÁÆ AI ÆóÒµµÄÊı¾İ¿âÔâºÚ¿Í¹¥»÷£¬µ¼ÖÂ 50 Íò»¼ÕßµÄÕïÁÆ¼ÇÂ¼±»ÇÔÈ¡£¬Òı·¢ÁËÉç»á¶ÔÊı¾İ°²È«µÄ¹ã·ºµ£ÓÇ¡£ÈçºÎÔÚÊı¾İ¹²ÏíÓëÒşË½±£»¤Ö®¼äÕÒµ½Æ½ºâ£¬³ÉÎª AI Ò½ÁÆ·¢Õ¹µÄ¹Ø¼üÌôÕ½¡£', 'similarity': 0.66, 'matched_with': 4}, {'content': 'Ëã·¨µÄ¹«Æ½ĞÔÓë¿É½âÊÍĞÔ²»×ãÒ²ÖÆÔ¼×Å AI ÔÚÁÙ´²µÄÉîÈëÓ¦ÓÃ¡£Èç¹ûÑµÁ· AI Ä£ĞÍµÄÊı¾İ¼¯ÖĞÄ³Ò»ÈºÌåµÄÑù±¾ÊıÁ¿²»×ã£¬Ä£ĞÍ¿ÉÄÜ»á³öÏÖÏµÍ³ĞÔÆ«¼û¡£ÀıÈç£¬Ò»¿îÓÃÓÚÕï¶ÏÆ¤·ô²¡µÄ AI ÏµÍ³ÒòÖ÷Òª»ùÓÚÇ³É«Æ¤·ôÍ¼ÏñÑµÁ·£¬¶ÔºÚÈË»¼ÕßµÄÕï¶Ï×¼È·ÂÊ½öÎª°×ÈË»¼ÕßµÄ 60%£¬ÕâÎŞÒÉ»á¼Ó¾çÒ½ÁÆ²»¹«¡£´ËÍâ£¬Éî¶ÈÑ§Ï°Ä£ĞÍµÄ¾ö²ß¹ı³ÌÈçÍ¬ ¡°ºÚÏä¡±£¬Ò½ÉúÄÑÒÔÀí½âÆäµÃ³ö½áÂÛµÄÒÀ¾İ£¬Õâ²»½öÓ°ÏìÁËÁÙ´²ĞÅÈÎ¶È£¬Ò²²»ÀûÓÚ´íÎóµÄ×·ËİÓëĞŞÕı¡£', 'similarity': 0.58, 'matched_with': 5}, {'content': '¼à¹ÜÌåÏµµÄ²»ÍêÉÆÍ¬Ñù´øÀ´ÁË·çÏÕ¡£Ä¿Ç°£¬Ğí¶à¹ú¼Ò¶ÔÒ½ÁÆ AI ²úÆ·µÄÉóÅú±ê×¼ÉĞ²»Ã÷È·£¬²¿·Ö²úÆ·Î´¾­¹ıÑÏ¸ñµÄÁÙ´²ÑéÖ¤±ãÍ¶ÈëÊĞ³¡£¬¿ÉÄÜ¶Ô»¼Õß°²È«¹¹³ÉÍşĞ²¡£2023 Äê£¬Å·ÃËÕÙ»ØÁËÒ»¿î AI ¸¨ÖúÕï¶ÏÉè±¸£¬Ô­ÒòÊÇÆä¶ÔÄÔ×äÖĞµÄÎóÕïÂÊ¹ı¸ß£¬ÑÓÎóÁË»¼ÕßµÄ×î¼ÑÖÎÁÆÊ±»ú¡£ÕâÒ»ÊÂ¼şÍ¹ÏÔÁË½¨Á¢Í³Ò»¡¢ÑÏ¸ñµÄ¼à¹Ü¿ò¼ÜµÄÆÈÇĞĞÔ¡£', 'similarity': 0.42, 'matched_with': 6}, {'content': 'Â×Àí²ãÃæµÄÕùÒéÒ²ÈÕÒæÏÔÏÖ¡£µ± AI µÄÕï¶Ï½á¹ûÓëÒ½ÉúµÄÅĞ¶Ï²»Ò»ÖÂÊ±£¬ÔğÈÎ¸ÃÈçºÎ»®·Ö£¿AI ÔÚÒ½ÁÆ×ÊÔ´·ÖÅäÖĞµÄÓ¦ÓÃÊÇ·ñ»áµ¼ÖÂ ¡°¼¼ÊõÆçÊÓ¡±£¬¼´Ö»ÓĞ¸ßÊÕÈëÈºÌå²ÅÄÜÏíÊÜ AI ´øÀ´µÄÓÅÖÊ·şÎñ£¿ÕâĞ©ÎÊÌâĞèÒªÕş¸®¡¢Ò½ÁÆ»ú¹¹¡¢¿Æ¼¼ÆóÒµºÍ¹«ÖÚ¹²Í¬²ÎÓëÌÖÂÛ£¬½¨Á¢·ûºÏÉç»áÂ×ÀíµÄ AI Ò½ÁÆÓ¦ÓÃ×¼Ôò¡£', 'similarity': 0.59, 'matched_with': 7}, {'content': 'Î´À´£¬Ëæ×Å¼¼ÊõµÄ²»¶Ï½ø²½£¬AI ÔÚÒ½ÁÆÁìÓòµÄÓ¦ÓÃ½«¸ü¼ÓÉîÈë¡£¶àÄ£Ì¬ AI Ä£ĞÍ½«ÕûºÏÓ°Ïñ¡¢»ùÒò¡¢»·¾³µÈ¶àÎ¬¶ÈÊı¾İ£¬ÊµÏÖ¸ü¾«×¼µÄ¼²²¡Ô¤²â£»Áª°îÑ§Ï°¡¢Çø¿éÁ´µÈ¼¼ÊõµÄÒıÈë½«ÔÚ±£ÕÏÊı¾İÒşË½µÄÍ¬Ê±£¬´Ù½øÒ½ÁÆÊı¾İµÄ¿ç»ú¹¹¹²Ïí£»¼à¹ÜÕş²ßµÄÍêÉÆ½«Îª AI Ò½ÁÆ²úÆ·Ìá¹©¸üÇåÎúµÄ·¢Õ¹Â·¾¶¡£¹é¸ù½áµ×£¬ÈË¹¤ÖÇÄÜµÄÖÕ¼«Ä¿±ê²»ÊÇÈ¡´úÒ½ÎñÈËÔ±£¬¶øÊÇÍ¨¹ı¼¼Êõ´´ĞÂÃÖ²¹Ò½ÁÆ×ÊÔ´µÄ²»×ã£¬ÌáÉıÒ½ÁÆ·şÎñµÄ¿É¼°ĞÔÓëÖÊÁ¿£¬ÈÃÃ¿Ò»¸öÈË¶¼ÄÜÏíÊÜµ½¿Æ¼¼½ø²½´øÀ´µÄ½¡¿µºìÀû¡£', 'similarity': 0.4, 'matched_with': 8}]}}]
+2025-07-07 14:41:48 - root - INFO - paper_controller:615 - Comprehensive Similarity: 43.93
+2025-07-07 14:41:48 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:41:48] "POST /api/paper/check_local_plagiarism HTTP/1.1" 200 -
+2025-07-07 14:41:52 - root - INFO - paper_controller:597 - begin controller check
+2025-07-07 14:41:52 - root - INFO - paper_service:955 - begin local check
+2025-07-07 14:41:52 - root - INFO - paper_service:641 - begin _calculate_advanced_similarity
+2025-07-07 14:41:52 - root - INFO - paper_service:254 - begin extract_keywords
+2025-07-07 14:41:52 - root - INFO - paper_service:264 - end extract_keywords
+2025-07-07 14:41:52 - root - WARNING - paper_service:674 - ÓïÒåÏàËÆ¶È¼ÆËãÊ§°Ü£¬Ê¹ÓÃ»ù´¡Ëã·¨: No module named 'sentence_transformers'
+2025-07-07 14:41:52 - root - INFO - paper_service:798 - text1 length: 1526, text2 length: 1831
+2025-07-07 14:41:52 - root - INFO - paper_service:799 - ¿ªÊ¼¼ì²éÏàËÆ¶ÎÂä£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 14:41:52 - root - INFO - paper_service:831 - ÎÄ±¾1·Ö¸îÎª 9 ¸ö¶ÎÂä£¬ÎÄ±¾2·Ö¸îÎª 9 ¸ö¶ÎÂä
+2025-07-07 14:41:52 - root - INFO - paper_service:932 - ÕÒµ½ 5 ¸öÏàËÆ¶ÎÂä¶Ô£¨¹Ø¼ü´ÊÓïÒåÆ¥ÅäÄ£Ê½£©
+2025-07-07 14:41:52 - root - INFO - paper_controller:611 - Comparison Results: [{'article_title': '2.docx', 'similarity_rate': 43.93, 'url': '', 'authors': '', 'similar_segments': {'original': [{'content': 'È»¶ø£¬AI ÔÚÒ½ÁÆÁìÓòµÄÆÕ¼°ÈÔÃæÁÙ¶àÖØÌôÕ½¡£Êı¾İ°²È«ÓëÒşË½±£»¤ÊÇÊ×ÒªÎÊÌâ¡£Ò½ÁÆÊı¾İ°üº¬»¼ÕßÃô¸ĞĞÅÏ¢£¬AI ÏµÍ³µÄÑµÁ·ºÍÓ¦ÓÃĞèÑÏ¸ñ×ñÑ­ÒşË½·¨¹æ£¨Èç HIPAA¡¢GDPR£©£¬µ«Êı¾İĞ¹Â¶ÊÂ¼şÈÔÊ±ÓĞ·¢Éú¡£2023 Äê£¬Ä³Ò½ÁÆ AI ¹«Ë¾ÒòÊı¾İ¿âÂ©¶´µ¼ÖÂ 10 Íò·İ»¼Õß²¡Àú±»Ğ¹Â¶£¬Òı·¢Éç»á¶ÔÊı¾İ°²È«µÄµ£ÓÇ¡£', 'similarity': 0.66, 'matched_with': 4}, {'content': 'Ëã·¨Æ«¼ûÓë¿É½âÊÍĞÔ²»×ãÒ²ÖÆÔ¼×Å AI µÄĞÅÈÎ¶È¡£ÈôÑµÁ·Êı¾İ¼¯ÖĞÄ³ÀàÈËÈºÑù±¾²»×ã£¬AI Ä£ĞÍ¿ÉÄÜ³öÏÖÕï¶ÏÆ«²î¡£ÀıÈç£¬Õë¶ÔÆ¤·ô¼²²¡µÄ AI Õï¶ÏÏµÍ³ÈôÖ÷Òª»ùÓÚ°×ÈËÆ¤·ôÍ¼ÏñÑµÁ·£¬¶ÔÉîÉ«Æ¤·ô»¼ÕßµÄÎóÕïÂÊ»áÏÔÖøÉı¸ß¡£´ËÍâ£¬Éî¶ÈÑ§Ï°Ä£ĞÍµÄ ¡°ºÚÏä¡± ÌØĞÔÊ¹µÃÕï¶Ï½á¹ûÄÑÒÔ×·Ëİ£¬Ò½ÉúºÍ»¼ÕßÄÑÒÔÀí½â¾ö²ßÒÀ¾İ£¬Ó°ÏìÁÙ´²²ÉÄÉ¶È¡£', 'similarity': 0.58, 'matched_with': 5}, {'content': '¼à¹Ü±ê×¼µÄÈ±Ê§Í¬Ñù´øÀ´ÌôÕ½¡£¸÷¹ú¶ÔÒ½ÁÆ AI ²úÆ·µÄÉóÅúÁ÷³ÌÉĞ²»Í³Ò»£¬²¿·Ö²úÆ·½öÍ¨¹ıÈí¼şÈÏÖ¤±ãÍ¶ÈëÁÙ´²£¬È±·¦³¤ÆÚÓĞĞ§ĞÔÑéÖ¤¡£2022 Äê£¬ÃÀ¹ú FDA ÕÙ»ØÁËÒ»¿î AI ĞÄµçÍ¼·ÖÎöÉè±¸£¬ÒòÆä¶ÔĞÄ¼¡¹£ËÀµÄÂ©ÕïÂÊ³¬³ö°²È«ãĞÖµ£¬±©Â¶ÁË¼à¹ÜÂ©¶´¡£', 'similarity': 0.42, 'matched_with': 6}, {'content': 'Â×ÀíÎÊÌâÒ²ÈÕÒæÍ¹ÏÔ¡£µ± AI Õï¶ÏÓëÒ½ÉúÅĞ¶Ï³åÍ»Ê±£¬ÔğÈÎ¹éÊôÄÑÒÔ½ç¶¨£»AI ÔÚ×ÊÔ´·ÖÅäÖĞµÄÓ¦ÓÃ¿ÉÄÜ¼Ó¾çÒ½ÁÆ²»¹« ¡ª¡ª ÀıÈç£¬ÓÅÏÈÎª¸ßÊÕÈëÈºÌåÌá¹© AI ¸¨ÖúÕïÁÆ·şÎñ¡£ÕâĞ©ÎÊÌâĞèÒªĞĞÒµ¡¢Õş¸®Óë¹«ÖÚ¹²Í¬Ì½ÌÖ£¬½¨Á¢·ûºÏÂ×ÀíµÄÓ¦ÓÃ¹æ·¶¡£', 'similarity': 0.59, 'matched_with': 7}, {'content': 'Õ¹ÍûÎ´À´£¬AI ÓëÒ½ÁÆµÄÈÚºÏÈÔÊÇ´óÊÆËùÇ÷¡£Ëæ×Å¼¼ÊõµÄµü´ú£¬¶àÄ£Ì¬ AI Ä£ĞÍ£¨½áºÏÓ°Ïñ¡¢»ùÒò¡¢ÁÙ´²Êı¾İ£©½«½øÒ»²½ÌáÉıÕï¶Ï¾«¶È£»Áª°îÑ§Ï°µÈ¼¼ÊõµÄÓ¦ÓÃ¿ÉÔÚ±£»¤Êı¾İÒşË½µÄÇ°ÌáÏÂÊµÏÖ¿ç»ú¹¹Êı¾İ¹²Ïí£»¼à¹Ü¿ò¼ÜµÄÍêÉÆ½«Îª AI Ò½ÁÆ²úÆ·Ìá¹©¸üÇåÎúµÄºÏ¹æÂ·¾¶¡£×îÖÕ£¬AI µÄ¼ÛÖµ²»ÔÚÓÚÌæ´úÒ½Éú£¬¶øÔÚÓÚÍ¨¹ı¼¼Êõ¸³ÄÜ£¬ÈÃÓÅÖÊÒ½ÁÆ×ÊÔ´»İ¼°¸ü¶àÈË£¬ÊµÏÖ ¡°¼¼ÊõÏòÉÆ¡± µÄÖÕ¼«Ä¿±ê¡£', 'similarity': 0.4, 'matched_with': 8}], 'comparison': [{'content': '¾¡¹Ü AI ÔÚÒ½ÁÆÁìÓòµÄÓ¦ÓÃÇ°¾°¹ãÀ«£¬µ«Æä·¢Õ¹¹ı³ÌÖĞÈÔÃæÁÙÒ»ÏµÁĞØ½´ı½â¾öµÄÎÊÌâ¡£Êı¾İ°²È«ÓëÒşË½±£»¤ÊÇÆäÖĞ×îÊÜ¹Ø×¢µÄÒéÌâ¡£Ò½ÁÆÊı¾İ°üº¬´óÁ¿¸öÈËÃô¸ĞĞÅÏ¢£¬Èç²¡Àú¡¢»ùÒòÊı¾İµÈ£¬Ò»µ©·¢ÉúĞ¹Â¶£¬¿ÉÄÜ¶Ô»¼ÕßÔì³ÉÑÏÖØºó¹û¡£2024 Äê³õ£¬Ä³ÖªÃûÒ½ÁÆ AI ÆóÒµµÄÊı¾İ¿âÔâºÚ¿Í¹¥»÷£¬µ¼ÖÂ 50 Íò»¼ÕßµÄÕïÁÆ¼ÇÂ¼±»ÇÔÈ¡£¬Òı·¢ÁËÉç»á¶ÔÊı¾İ°²È«µÄ¹ã·ºµ£ÓÇ¡£ÈçºÎÔÚÊı¾İ¹²ÏíÓëÒşË½±£»¤Ö®¼äÕÒµ½Æ½ºâ£¬³ÉÎª AI Ò½ÁÆ·¢Õ¹µÄ¹Ø¼üÌôÕ½¡£', 'similarity': 0.66, 'matched_with': 4}, {'content': 'Ëã·¨µÄ¹«Æ½ĞÔÓë¿É½âÊÍĞÔ²»×ãÒ²ÖÆÔ¼×Å AI ÔÚÁÙ´²µÄÉîÈëÓ¦ÓÃ¡£Èç¹ûÑµÁ· AI Ä£ĞÍµÄÊı¾İ¼¯ÖĞÄ³Ò»ÈºÌåµÄÑù±¾ÊıÁ¿²»×ã£¬Ä£ĞÍ¿ÉÄÜ»á³öÏÖÏµÍ³ĞÔÆ«¼û¡£ÀıÈç£¬Ò»¿îÓÃÓÚÕï¶ÏÆ¤·ô²¡µÄ AI ÏµÍ³ÒòÖ÷Òª»ùÓÚÇ³É«Æ¤·ôÍ¼ÏñÑµÁ·£¬¶ÔºÚÈË»¼ÕßµÄÕï¶Ï×¼È·ÂÊ½öÎª°×ÈË»¼ÕßµÄ 60%£¬ÕâÎŞÒÉ»á¼Ó¾çÒ½ÁÆ²»¹«¡£´ËÍâ£¬Éî¶ÈÑ§Ï°Ä£ĞÍµÄ¾ö²ß¹ı³ÌÈçÍ¬ ¡°ºÚÏä¡±£¬Ò½ÉúÄÑÒÔÀí½âÆäµÃ³ö½áÂÛµÄÒÀ¾İ£¬Õâ²»½öÓ°ÏìÁËÁÙ´²ĞÅÈÎ¶È£¬Ò²²»ÀûÓÚ´íÎóµÄ×·ËİÓëĞŞÕı¡£', 'similarity': 0.58, 'matched_with': 5}, {'content': '¼à¹ÜÌåÏµµÄ²»ÍêÉÆÍ¬Ñù´øÀ´ÁË·çÏÕ¡£Ä¿Ç°£¬Ğí¶à¹ú¼Ò¶ÔÒ½ÁÆ AI ²úÆ·µÄÉóÅú±ê×¼ÉĞ²»Ã÷È·£¬²¿·Ö²úÆ·Î´¾­¹ıÑÏ¸ñµÄÁÙ´²ÑéÖ¤±ãÍ¶ÈëÊĞ³¡£¬¿ÉÄÜ¶Ô»¼Õß°²È«¹¹³ÉÍşĞ²¡£2023 Äê£¬Å·ÃËÕÙ»ØÁËÒ»¿î AI ¸¨ÖúÕï¶ÏÉè±¸£¬Ô­ÒòÊÇÆä¶ÔÄÔ×äÖĞµÄÎóÕïÂÊ¹ı¸ß£¬ÑÓÎóÁË»¼ÕßµÄ×î¼ÑÖÎÁÆÊ±»ú¡£ÕâÒ»ÊÂ¼şÍ¹ÏÔÁË½¨Á¢Í³Ò»¡¢ÑÏ¸ñµÄ¼à¹Ü¿ò¼ÜµÄÆÈÇĞĞÔ¡£', 'similarity': 0.42, 'matched_with': 6}, {'content': 'Â×Àí²ãÃæµÄÕùÒéÒ²ÈÕÒæÏÔÏÖ¡£µ± AI µÄÕï¶Ï½á¹ûÓëÒ½ÉúµÄÅĞ¶Ï²»Ò»ÖÂÊ±£¬ÔğÈÎ¸ÃÈçºÎ»®·Ö£¿AI ÔÚÒ½ÁÆ×ÊÔ´·ÖÅäÖĞµÄÓ¦ÓÃÊÇ·ñ»áµ¼ÖÂ ¡°¼¼ÊõÆçÊÓ¡±£¬¼´Ö»ÓĞ¸ßÊÕÈëÈºÌå²ÅÄÜÏíÊÜ AI ´øÀ´µÄÓÅÖÊ·şÎñ£¿ÕâĞ©ÎÊÌâĞèÒªÕş¸®¡¢Ò½ÁÆ»ú¹¹¡¢¿Æ¼¼ÆóÒµºÍ¹«ÖÚ¹²Í¬²ÎÓëÌÖÂÛ£¬½¨Á¢·ûºÏÉç»áÂ×ÀíµÄ AI Ò½ÁÆÓ¦ÓÃ×¼Ôò¡£', 'similarity': 0.59, 'matched_with': 7}, {'content': 'Î´À´£¬Ëæ×Å¼¼ÊõµÄ²»¶Ï½ø²½£¬AI ÔÚÒ½ÁÆÁìÓòµÄÓ¦ÓÃ½«¸ü¼ÓÉîÈë¡£¶àÄ£Ì¬ AI Ä£ĞÍ½«ÕûºÏÓ°Ïñ¡¢»ùÒò¡¢»·¾³µÈ¶àÎ¬¶ÈÊı¾İ£¬ÊµÏÖ¸ü¾«×¼µÄ¼²²¡Ô¤²â£»Áª°îÑ§Ï°¡¢Çø¿éÁ´µÈ¼¼ÊõµÄÒıÈë½«ÔÚ±£ÕÏÊı¾İÒşË½µÄÍ¬Ê±£¬´Ù½øÒ½ÁÆÊı¾İµÄ¿ç»ú¹¹¹²Ïí£»¼à¹ÜÕş²ßµÄÍêÉÆ½«Îª AI Ò½ÁÆ²úÆ·Ìá¹©¸üÇåÎúµÄ·¢Õ¹Â·¾¶¡£¹é¸ù½áµ×£¬ÈË¹¤ÖÇÄÜµÄÖÕ¼«Ä¿±ê²»ÊÇÈ¡´úÒ½ÎñÈËÔ±£¬¶øÊÇÍ¨¹ı¼¼Êõ´´ĞÂÃÖ²¹Ò½ÁÆ×ÊÔ´µÄ²»×ã£¬ÌáÉıÒ½ÁÆ·şÎñµÄ¿É¼°ĞÔÓëÖÊÁ¿£¬ÈÃÃ¿Ò»¸öÈË¶¼ÄÜÏíÊÜµ½¿Æ¼¼½ø²½´øÀ´µÄ½¡¿µºìÀû¡£', 'similarity': 0.4, 'matched_with': 8}]}}]
+2025-07-07 14:41:52 - root - INFO - paper_controller:615 - Comprehensive Similarity: 43.93
+2025-07-07 14:41:52 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:41:52] "POST /api/paper/check_local_plagiarism HTTP/1.1" 200 -
+2025-07-07 14:49:24 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:49:24] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 14:49:25 - root - INFO - user_controller:537 - get user number
+2025-07-07 14:49:25 - root - INFO - user_controller:547 - use user service
+2025-07-07 14:49:25 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 14:49:25 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 14:49:25 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 14:49:25 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:47:26', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}, {'id': 5, 'username': 'user4', 'email': 'lmk666@qq.com', 'created_at': '2025-07-07 03:52:37', 'updated_at': '2025-07-07 03:54:24', 'permission': 7}], 'total': 4, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 14:49:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:49:25] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 14:50:51 - root - INFO - operation_controller:237 - begin operation get all
+2025-07-07 14:50:51 - root - INFO - operation_service:210 - begin service get operations
+2025-07-07 14:50:51 - backend.dao.operation_dao - INFO - operation_dao:126 - begin dao find`operations
+2025-07-07 14:50:51 - backend.dao.operation_dao - INFO - operation_dao:136 - 1111111111
+2025-07-07 14:50:51 - backend.dao.operation_dao - INFO - operation_dao:145 - finish dao find`operations
+2025-07-07 14:50:51 - root - INFO - operation_service:219 - finish service get operations 111111
+2025-07-07 14:50:51 - root - INFO - operation_service:231 - ·µ»ØµÄ²Ù×÷¼ÇÂ¼Êı¾İ: [{'id': 100, 'user_id': 5, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T14:41:53', 'file_name': 'file1'}, {'id': 98, 'user_id': 5, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T14:41:48', 'file_name': 'file1'}, {'id': 99, 'user_id': 5, 'paper_id': None, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T14:41:48', 'file_name': 'file1'}, {'id': 97, 'user_id': 5, 'paper_id': 116, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:53:16', 'file_name': 'computerÑ§±¨.docx'}, {'id': 96, 'user_id': 1, 'paper_id': 115, 'operation_type': 'textsummary', 'operation_time': '2025-07-07T11:37:27', 'file_name': 'computerÑ§±¨.docx'}, {'id': 95, 'user_id': 1, 'paper_id': 114, 'operation_type': 'spellcheck', 'operation_time': '2025-07-07T11:37:19', 'file_name': 'wrong.docx'}, {'id': 94, 'user_id': 1, 'paper_id': 113, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:37:10', 'file_name': 'computerÑ§±¨.docx'}, {'id': 93, 'user_id': 1, 'paper_id': 111, 'operation_type': 'similaritycheck', 'operation_time': '2025-07-07T11:26:47', 'file_name': 'computerÑ§±¨.docx'}]
+2025-07-07 14:50:51 - root - INFO - operation_service:232 - ³É¹¦»ñÈ¡ 8 Ìõ²Ù×÷¼ÇÂ¼
+2025-07-07 14:50:51 - root - INFO - operation_controller:251 - finish operation get all
+2025-07-07 14:50:51 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:50:51] "GET /api/operations/getall?page=1&per_page=8 HTTP/1.1" 200 -
+2025-07-07 14:50:54 - root - INFO - user_controller:717 - ¿ªÊ¼»ñÈ¡ÓÃ»§×ÜÊıÁ¿
+2025-07-07 14:50:54 - root - INFO - user_service:246 - Calling DAO layer to get total user count
+2025-07-07 14:50:54 - root - INFO - user_service:248 - Total user count: 4
+2025-07-07 14:50:54 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:50:54] "GET /api/user/total_count HTTP/1.1" 200 -
+2025-07-07 14:50:54 - root - INFO - paper_controller:489 - ¿ªÊ¼»ñÈ¡ÂÛÎÄ×ÜÊı
+2025-07-07 14:50:54 - root - INFO - paper_service:780 - Calling DAO layer to get total paper count
+2025-07-07 14:50:54 - root - INFO - paper_service:782 - Total paper count: 116
+2025-07-07 14:50:54 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:50:54] "GET /api/paper/total_count HTTP/1.1" 200 -
+2025-07-07 14:50:55 - root - INFO - operation_controller:266 - get front request
+2025-07-07 14:50:55 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:50:55] "GET /api/operations/type_count HTTP/1.1" 200 -
+2025-07-07 14:50:55 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:50:55] "GET /api/user/weekly HTTP/1.1" 200 -
+2025-07-07 14:51:00 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:51:00] "OPTIONS /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 14:51:01 - root - INFO - user_controller:537 - get user number
+2025-07-07 14:51:01 - root - INFO - user_controller:547 - use user service
+2025-07-07 14:51:01 - root - INFO - user_service:226 - Calling DAO layer to get all users
+2025-07-07 14:51:01 - dao.user_dao - INFO - user_dao:128 - Dao get all user
+2025-07-07 14:51:01 - dao.user_dao - INFO - user_dao:135 - Dao get all user success
+2025-07-07 14:51:01 - root - INFO - user_service:233 - service get_all_users result: {'items': [{'id': 1, 'username': 'user1', 'email': '2074437070@qq.com', 'created_at': '2025-07-03 01:13:11', 'updated_at': '2025-07-07 03:47:26', 'permission': 7}, {'id': 3, 'username': 'lzjsb', 'email': 'lmksdsb@qq.com', 'created_at': '2025-07-05 02:11:46', 'updated_at': '2025-07-05 14:11:13', 'permission': 7}, {'id': 4, 'username': 'user3', 'email': 'lei-mingkang@user.noreply.gitee.com', 'created_at': '2025-07-07 01:10:06', 'updated_at': '2025-07-07 01:10:16', 'permission': 7}, {'id': 5, 'username': 'user4', 'email': 'lmk666@qq.com', 'created_at': '2025-07-07 03:52:37', 'updated_at': '2025-07-07 03:54:24', 'permission': 7}], 'total': 4, 'pages': 1, 'current_page': 1, 'per_page': 5}
+2025-07-07 14:51:01 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [07/Jul/2025 14:51:01] "GET /api/user/getall?page=1&per_page=5&username=&include_sensitive=false HTTP/1.1" 200 -
+2025-07-07 16:05:30 - werkzeug - INFO - _internal:97 -  * Detected change in 'D:\\2025shixun\\papertools\\papertools7.2 (2.0.0.0)\\backend\\service\\paper_service.py', reloading
+2025-07-07 16:05:33 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-07 16:05:41 - xinghuo_service - INFO - xinghuo_service:29 - ĞÇ»ğX1 HTTP·şÎñ³õÊ¼»¯Íê³É
+2025-07-07 16:05:41 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-07 16:05:41 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 262-340-303

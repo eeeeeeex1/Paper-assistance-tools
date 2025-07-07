@@ -68,10 +68,13 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import axios from 'axios';
 import * as echarts from 'echarts';
 
+// 定义API基础路径（使用环境变量）
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 // 数据引用
 const activeUserCount = ref(0);
 const paperCount = ref(0);
-const storageSpace = ref('0GB');
+const storageSpace = ref('1GB');
 const systemStatus = ref('正常');
 const chartError = ref('');
 const loginChartError = ref('');
@@ -97,7 +100,7 @@ const simulateLoading = (ref, target, duration = 1000) => {
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:5000/api/user/total_count');
+    const response = await axios.get(`${API_BASE_URL}/api/user/total_count`);
     simulateLoading(activeUserCount, response.data.data.total_count);
   } catch (error) {
     console.error('获取用户总数量失败:', error);
@@ -105,7 +108,7 @@ onMounted(async () => {
   }
   
   try {
-    const response = await axios.get('http://localhost:5000/api/paper/total_count');
+    const response = await axios.get(`${API_BASE_URL}/api/paper/total_count`);
     simulateLoading(paperCount, response.data.data.total_count);
   } catch (error) {
     console.error('获取论文总数失败:', error);
@@ -113,12 +116,12 @@ onMounted(async () => {
   }
 
   // 设置存储空间和系统状态
-  storageSpace.value = '0GB';
+  storageSpace.value = '1GB';
   systemStatus.value = '正常';
 
   // 获取操作类型统计数据并渲染柱状图
   try {
-    const res = await axios.get('http://localhost:5000/api/operations/type_count');
+    const res = await axios.get(`${API_BASE_URL}/api/operations/type_count`);
     const operationData = res.data.data;
     const operationTypes = ["相似度检查", "拼写检查", "文本摘要"];
 
@@ -140,7 +143,7 @@ onMounted(async () => {
 
   // 获取登录统计数据
   try {
-    const res = await axios.get('http://localhost:5000/api/user/weekly');
+    const res = await axios.get(`${API_BASE_URL}/api/user/weekly`);
     const { dates, counts } = res.data.data;
     renderLoginChart(dates, counts);
   } catch (err) {

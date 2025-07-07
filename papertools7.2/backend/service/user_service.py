@@ -78,14 +78,6 @@ class UserService:
         
         # 生成 Token
         token = self.user_dao.generate_token(user.id, user.username)
-        # 登录成功后记录操作
-        #Operation.log_operation(
-        #    user_id=user.id,
-        #    paper_id=None,
-        #    operation_type="login",
-        #    file_name="登录"，
-        
-        #)
         logger.info(f"登录成功 - 用户: {user.username}")
 
         # 返回用户信息字典，而非整个对象

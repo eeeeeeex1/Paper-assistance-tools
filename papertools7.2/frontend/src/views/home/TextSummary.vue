@@ -14,7 +14,7 @@
                 id="fileInput" 
                 ref="fileInput" 
                 @change="handleFileUpload" 
-                accept=".txt,.doc,.docx" 
+                accept=".txt,.docx" 
                 style="display: none;"
               />
               <i class="iconfont icon-upload"></i>
@@ -109,6 +109,9 @@ import axios from 'axios';
 import { getAuthorId } from '@/utils/auth';
 import { ElMessage } from 'element-plus'
 
+// 定义API基础路径（使用环境变量）
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 // 定义主题提取结果类型
 interface ThemeResult {
   title: string;
@@ -137,13 +140,13 @@ const fileParsingError = ref<string>('');
 const selectedApi = ref<'ai' | 'paper'>('ai');
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const paperId = ref<number | null>(null);
-const storedFile = ref<File | null>(null); // 新增：存储文件对象
+const storedFile = ref<File | null>(null); 
 // API文本显示
 const apiText = computed(() => {
   return selectedApi.value === 'ai' ? 'AI智能提取' : '传统算法提取';
 });
 
-// 更精确的字数统计函数
+// 字数统计函数
 const getAccurateWordCount = (text: string) => {
   if (!text) return 0;
   
@@ -221,7 +224,7 @@ const processFile = async (file: File) => {
       const result = await mammoth.extractRawText({ arrayBuffer });
       fileContent.value = result.value;
     } else {
-      fileParsingError.value = '不支持的文件格式，仅支持 .txt, .doc, .docx';
+      fileParsingError.value = '不支持的文件格式，仅支持 .txt,.docx';
       throw new Error('Unsupported file format');
     }
     
@@ -243,13 +246,13 @@ const uploadFileToServer = async (file: File) => {
     // 创建FormData对象
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('user_id', getAuthorId()); // 假设getAuthorId()获取用户ID
+    formData.append('user_id', getAuthorId()); 
     formData.append('title', file.name);
     formData.append('file_size', file.size.toString());
     
     // 发送POST请求到后端文件上传接口
     const response = await axios.post(
-      'http://localhost:5000/api/paper/upload',
+      `${API_BASE_URL}/api/paper/upload`,
       formData,
       {
         headers: {
@@ -340,8 +343,7 @@ const generateThemeSummary = async () => {
     
     // 根据选择的API类型准备请求
     if (selectedApi.value === 'ai') {
-      // 使用AI API (http://localhost:5000/api/ai/theme_extraction)
-      apiUrl = 'http://localhost:5000/api/ai/theme_extraction';
+      apiUrl = `${API_BASE_URL}/api/ai/theme_extraction`;
       requestData = {
         content: content,
         file_name: fileName.value,
@@ -356,8 +358,7 @@ const generateThemeSummary = async () => {
         'Content-Type': 'application/json'
       };
     } else {
-      // 使用Paper API (http://localhost:5000/api/paper/theme_extraction)
-      apiUrl = 'http://localhost:5000/api/paper/theme';
+      apiUrl = `${API_BASE_URL}/api/paper/theme`;
       
       // 创建FormData
       const formData = new FormData();

@@ -252,14 +252,16 @@ class PaperService:
     def extract_keywords(self, text, top_n=5):
         """优化关键词提取（增强中文支持）"""
         logger.info("begin extract_keywords")
-        text = re.sub(r'[^\u4e00-\u9fa5a-zA-Z0-9\uff00-\uffff]', ' ', text)
-        words = jieba.cut(text)
+        text = re.sub(r'[^\u4e00-\u9fa5a-zA-Z0-9\uff00-\uffff]', ' ', text)#清理文本
+        words = jieba.cut(text)#分词
+        #停用词过滤
         stop_words = set([
             '的', '了', '在', '是', '我', '有', '和', '就', '不', '人', '都', '一', '一个', 
             '上', '也', '很', '到', '说', '要', '去', '你', '会', '着', '没有', '看', '好', 
             '自己', '这个', '那个', '然后', '如果', '所以', '但是', '因为', '或者', '而且'
         ])
         filtered_words = [word for word in words if word and word not in stop_words and len(word) > 1]
+        #词频统计
         word_counts = Counter(filtered_words)
         logger.info("end extract_keywords")
         return [word for word, _ in word_counts.most_common(top_n) if re.search(r'[\u4e00-\u9fa5]', word)]
@@ -359,6 +361,7 @@ class PaperService:
     def _generate_theme_summary(self, text, keywords, top_words, summary_length=500):
         """生成主题摘要"""
         logger.info("begin theme summary")
+        #分割文本
         paragraphs = re.split(r'(。|！|\?|\.|!|\?)', text)
         full_paragraphs = []
         for i in range(0, len(paragraphs), 2):
@@ -366,7 +369,7 @@ class PaperService:
                 full_paragraphs.append(paragraphs[i] + paragraphs[i+1])
             else:
                 full_paragraphs.append(paragraphs[i])
-        
+        #段落评分
         paragraph_scores = []
         for para in full_paragraphs:
             score = 0
@@ -375,7 +378,7 @@ class PaperService:
             for word, _ in top_words:
                 score += para.count(word)
             paragraph_scores.append((para, score))
-        
+        #排序选择
         paragraph_scores.sort(key=lambda x: x[1], reverse=True)
         if not paragraph_scores:
             return "无法生成主题摘要"
@@ -389,7 +392,7 @@ class PaperService:
                 current_length += para_length
             else:
                 break
-        
+        #结果
         summary = ''.join(selected_paragraphs)
         if len(summary) > summary_length:
             summary = summary[:summary_length] + '...'

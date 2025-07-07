@@ -242,6 +242,9 @@
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
+// 定义API基础路径（使用环境变量）
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 // 状态管理
 const userList = ref([])
 const loading = ref(false)
@@ -289,7 +292,7 @@ const fetchUsers = async (page = 1) => {
   loading.value = true
   error.value = ''
   try {
-    const response = await axios.get('http://localhost:5000/api/user/getall', {
+    const response = await axios.get(`${API_BASE_URL}/api/user/getall`, {
       params: {
         page: page,
         per_page: pagination.value.perPage,
@@ -336,7 +339,7 @@ const deleteUserConfirmed = async () => {
   deletingUsers.value.push(userId)
   
   try {
-    const response = await axios.delete(`http://localhost:5000/api/user/${userId}`, {
+    const response = await axios.delete(`${API_BASE_URL}/api/user/${userId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token') || 'test-token'}`
       }
@@ -358,7 +361,7 @@ const savePermissions = async (userId, permissions) => {
   
   try {
     const response = await axios.put(
-      `http://localhost:5000/api/user/${userId}/permissions`, 
+      `${API_BASE_URL}/api/user/${userId}/permissions`, 
       permissions,
       {
         headers: {

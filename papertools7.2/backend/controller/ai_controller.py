@@ -10,7 +10,7 @@ xinghuo_service = XinghuoService()
 
 @ai_bp.route('/api/ai/theme_extraction', methods=['POST'])
 def theme_extraction():
-    """使用星火X1 HTTP接口进行主题总结"""
+    """使用星火Spark X1 HTTP接口进行主题总结"""
     try:
         data = request.json
         content = data.get('content')

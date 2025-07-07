@@ -211,7 +211,7 @@
                   <div v-for="(source, index) in sources" :key="index" class="source-item">
                     <div class="source-header">
                       <div class="source-title">{{ source.title }}</div>
-                      <div class="source-similarity">{{ (source.similarity * 100).toFixed(1) }}%</div>
+                      <div class="source-similarity">{{ (source.similarity).toFixed(1) }}%</div>
                       <button @click="showSimilarFragments(index)" class="view-fragments-btn">查看相似片段</button>
                     </div>
                     <div class="source-url">{{ source.url }}</div>
@@ -303,6 +303,8 @@ import { getAuthorId } from '@/utils/auth';
 import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios';
 
+// 定义API基础路径（使用环境变量）
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 const router = useRouter();
 const route = useRoute();
@@ -438,7 +440,7 @@ const uploadAndCheckPlagiarism = async (file: File) => {
     uploadProgress.value = 0;
     
     // 注意：根据实际后端API调整路径
-    const response = await axios.post('http://localhost:5000/api/paper/plagiarism', formData, {
+    const response = await axios.post(`${API_BASE_URL}/api/paper/plagiarism`, formData, {
       onUploadProgress: (progressEvent) => {
         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
         uploadProgress.value = percentCompleted;
@@ -605,7 +607,7 @@ const startComparison = async () => {
     formData.append('user_id', getAuthorId());
   
     try {
-      const response = await axios.post('http://localhost:5000/api/paper/check_local_plagiarism', formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/paper/check_local_plagiarism`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -704,7 +706,7 @@ const uploadFileToBackend = async (file: File) => {
     
     // 调用后端上传接口（假设接口为/api/paper/upload）
     const response = await axios.post(
-      'http://localhost:5000/api/paper/upload',
+      `${API_BASE_URL}/api/paper/upload`,
       formData,
       {
         headers: {

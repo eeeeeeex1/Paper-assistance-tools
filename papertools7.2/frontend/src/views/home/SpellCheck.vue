@@ -37,7 +37,7 @@
               :class="{ 'active-tab': activeTab === 'corrected' }"
               @click="switchTab('corrected')"
             >
-              //修正后
+              
             </button>
           </div>
           
@@ -138,6 +138,10 @@ import * as mammoth from 'mammoth';
 import axios from 'axios';
 import { getAuthorId } from '@/utils/auth'; 
 import { ElMessage } from 'element-plus';
+
+// 定义API基础路径（使用环境变量）
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 // 定义错字详情类型
 interface TypoDetail {
   position: number;     // 错字起始位置
@@ -332,7 +336,7 @@ const uploadFileToBackend = async (file: File) => {
     
     // 调用后端上传接口（假设接口为/api/paper/upload）
     const response = await axios.post(
-      'http://localhost:5000/api/paper/upload',
+      `${API_BASE_URL}/api/paper/upload`,
       formData,
       {
         headers: {
@@ -414,7 +418,7 @@ const checkSpelling = async () => {
     const authorId = getAuthorId();
     formData.append('user_id', authorId);
     formData.append('paper_id', paperId.value.toString());
-    const response = await axios.post(`http://localhost:5000/api/paper/spelling`, formData, {
+    const response = await axios.post(`${API_BASE_URL}/api/paper/spelling`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

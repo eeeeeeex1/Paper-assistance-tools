@@ -10,6 +10,10 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  base: '/', // 生产环境根路径
+  build: {
+    outDir: 'dist', // 打包输出目录
+  },
    server: {
     proxy: {
       // 配置/api前缀的请求代理到后端服务器
