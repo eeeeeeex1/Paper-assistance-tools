@@ -613,12 +613,14 @@ def check_local_plagiarism():
         # 获取并记录综合相似度
         comprehensive_similarity = result.get("data", {}).get("comprehensive_similarity")
         logger.info(f"Comprehensive Similarity: {comprehensive_similarity}")
-                # 使用jsonify将结果转换为JSON响应
+        
+        
+        # 使用jsonify将结果转换为JSON响应
         return jsonify({
             "code": 200,
             "message": "查重成功",
             "data": {
-                "comparison_results": result_data.get("comparison_results", []),
+                "comparison_results": comparison_results,
                 "comprehensive_similarity": result_data.get("comprehensive_similarity", 0.0)
             }
         })

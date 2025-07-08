@@ -861,6 +861,48 @@ class PaperService:
         # 提取所有段落的关键词
         keywords1 = [extract_keywords(p) for p in processed_paragraphs1]
         keywords2 = [extract_keywords(p) for p in processed_paragraphs2]
+        
+        # 提取所有关键词的集合（用于句子关键词计数）
+        all_keywords = set()
+        for para_keywords in keywords1 + keywords2:
+            for word, _ in para_keywords:
+                all_keywords.add(word)
+
+        # --------------------- 句子级关键词标记 ---------------------
+        # 按句子分割并标记关键词最多的句子
+        def mark_keyword_sentences(paragraph, keywords_set):
+            # 按句子分割（中文句号、问号、感叹号）
+            sentences = re.split(r'([。？！])', paragraph)
+            combined_sentences = []
+            current_sentence = ""
+            
+            for i, part in enumerate(sentences):
+                current_sentence += part
+                # 如果是标点符号或者最后一部分，组成一个完整句子
+                if i % 2 == 1 or i == len(sentences) - 1:
+                    combined_sentences.append(current_sentence)
+                    current_sentence = ""
+            
+            # 计算每个句子的关键词数量
+            sentence_keyword_counts = []
+            for sentence in combined_sentences:
+                count = sum(1 for keyword in keywords_set if keyword in sentence)
+                sentence_keyword_counts.append((sentence, count))
+            
+            # 找到关键词最多的句子
+            max_count = max([count for _, count in sentence_keyword_counts], default=0)
+            if max_count == 0:
+                return paragraph  # 如果没有关键词，直接返回原段落
+            
+            # 标记关键词最多的句子
+            marked_paragraph = ""
+            for sentence, count in sentence_keyword_counts:
+                if count == max_count:
+                    marked_paragraph += f"<mark>{sentence}</mark>"
+                else:
+                    marked_paragraph += sentence
+            
+            return marked_paragraph
 
         # --------------------- 相似度计算模块 ---------------------
         # 计算关键词重叠率
@@ -898,12 +940,21 @@ class PaperService:
                 # 计算综合相似度
                 sim = combined_similarity(kw1, kw2, para1, para2)
                 if sim >= 0.35:  # 提高相似度阈值
+                    # 提取当前段落的关键词集合
+                    current_keywords = set(word for word, _ in kw1 + kw2)
+                    
+                    # 标记关键词最多的句子
+                    marked_original1 = mark_keyword_sentences(original_paragraphs1[i], current_keywords)
+                    marked_original2 = mark_keyword_sentences(original_paragraphs2[j], current_keywords)
+                    
                     similar_pairs.append({
                         'index1': i,
                         'index2': j,
                         'similarity': sim,
                         'original1': original_paragraphs1[i],
-                        'original2': original_paragraphs2[j]
+                        'original2': original_paragraphs2[j],
+                        'marked_original1': marked_original1,
+                        'marked_original2': marked_original2
                     })
 
         # --------------------- 结果去重与排序 ---------------------
@@ -940,15 +991,17 @@ class PaperService:
         for pair in sorted(unique_pairs, key=lambda x: (x['index1'], x['index2'])):
             segments1.append({
                 'content': pair['original1'],
+                'marked_content': pair['marked_original1'],
                 'similarity': round(pair['similarity'], 2),
                 'matched_with': pair['index2']
             })
             segments2.append({
                 'content': pair['original2'],
+                'marked_content': pair['marked_original2'],
                 'similarity': round(pair['similarity'], 2),
                 'matched_with': pair['index1']
             })
-
+        logger.info("提取的相似片段 - 文本1: %s, 文本2: %s", segments1, segments2)
         return segments1, segments2
         
     def check_local_plagiarism(self, file1, file2,user_id):
@@ -960,7 +1013,7 @@ class PaperService:
             paper_content1 = self._extract_file_content(file1, file_ext1)
             file_ext2 = file2.filename.split('.')[-1].lower()
             paper_content2 = self._extract_file_content(file2, file_ext2)
-            filename=file1.name;
+            filename=file1.name
             if not paper_content1 or not paper_content2:
                 return {
                     'code': 400,

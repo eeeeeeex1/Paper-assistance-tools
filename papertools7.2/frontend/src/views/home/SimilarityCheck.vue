@@ -173,14 +173,6 @@
             <h3>对比结果</h3>
             <div class="result-meta">
               <span>检测时间: {{ new Date().toLocaleString() }}</span>
-              <button 
-                class="export-btn"
-                :disabled="!resultsReady || isExporting"
-                @click="handleExportReport"
-              >
-                <i class="iconfont" :class="exportBtnIcon"></i>
-                {{ exportBtnText }}
-              </button>
             </div>
           </div>
           
@@ -191,12 +183,6 @@
             </div>
             
             <div v-else class="result-details">
-              <!-- 导出状态提示 -->
-              <div v-if="exportStatus" class="export-status" :class="exportStatus.type">
-                <i class="iconfont" :class="exportStatus.icon"></i>
-                <span>{{ exportStatus.message }}</span>
-              </div>
-
               <!-- 网络查重结果 -->
               <div v-if="selectedOption === 'webSearch'">
                 <div class="score">
@@ -224,26 +210,20 @@
                 <!-- lzj显示相似片段 -->
                 <div v-if="showSimilarFragmentDetails" class="similar-fragment-details">
                   <h4>相似段落详情</h4>
-                  <div class="fragment-container" v-if="selectedSource.similar_segments && selectedSource.similar_segments.length > 0">
-                    <div class="comparison-pairs" v-for="(pair, index) in selectedSource.similar_segments" :key="index">
-                      <div class="pair-header">
-                        <span class="similarity-badge">相似度: {{ (pair.similarity * 100).toFixed(1) }}%</span>
+                  <div class="fragment-container" v-if="selectedSource.similar_segments && (selectedSource.similar_segments.original.length > 0 || selectedSource.similar_segments.comparison.length > 0)">
+                    <!-- 原文件（上传论文）的相似段落 -->
+                    <div class="fragment-item">
+                      <h5>上传文章相似段落</h5>
+                      <div v-for="(segment, index) in selectedSource.similar_segments.original" :key="index">
+                        <pre v-html="markedContent(segment.content)" style="color: red;"></pre>
                       </div>
+                    </div>
 
-                      <!-- 原文件（上传论文）的相似段落 -->
-                      <div class="fragment-item">
-                        <h5>上传文章相似段落</h5>
-                        <pre>
-                          <span class="highlight-similar">{{ pair.text1_content }}</span>
-                        </pre>
-                      </div>
-
-                      <!-- 对比文件（文献）的相似段落 -->
-                      <div class="fragment-item">
-                        <h5>对比文章相似段落</h5>
-                        <pre>
-                          <span class="highlight-similar">{{ pair.text2_content }}</span>
-                        </pre>
+                    <!-- 对比文件（文献）的相似段落 -->
+                    <div class="fragment-item">
+                      <h5>对比文章相似段落</h5>
+                      <div v-for="(segment, index) in selectedSource.similar_segments.comparison" :key="index">
+                        <pre v-html="markedContent(segment.content)" style="color: red;"></pre>
                       </div>
                     </div>
                   </div>
@@ -252,37 +232,52 @@
               </div>
 
               <!-- 本地查重结果 -->
-                <div v-if="selectedOption === 'localSearch'">
-                  <div v-if="comparisonResults.length > 0">
-                    <h4>查重结果</h4>
-                    <p>综合相似度：{{ comprehensiveSimilarity }}%</p>
-                    
-                    <!-- 遍历每一组相似段落 -->
-                    <div v-for="(source, sourceIndex) in comparisonResults" :key="sourceIndex">
-                      <h5>原文件相似段落</h5>
-                      
-                      <!-- 遍历原文件中的每个相似段落 -->
-                      <div v-for="(segment, segmentIndex) in source.similar_segments.original" :key="segmentIndex">
-                        <pre>
-                          <span class="highlight-similar">{{ segment.content }}</span>
-                        </pre>
+              <div v-if="selectedOption === 'localSearch'">
+                <div v-if="comparisonResults.length > 0">
+                  <h4>查重结果</h4>
+                  <p>综合相似度：{{ comprehensiveSimilarity }}%</p>
+
+                  <!-- 新增：全文对比视图（左右布局展示完整内容） -->
+                  <div class="full-text-comparison">
+                    <h5>全文对比（相似片段已标红）</h5>
+                    <div class="full-text-columns">
+                      <!-- 左侧：文件1完整内容 -->
+                      <div class="full-text-column">
+                        <p class="file-name">{{ uploadedFile1?.name || '文件1' }}</p>
+                        <div class="full-text-content" v-html="highlightFullText(fileContent1, 'original')"></div>
                       </div>
-                      
-                      <h5>对比文章相似段落</h5>
-                      
-                      <!-- 遍历对比文件中的每个相似段落 -->
-                      <div v-for="(segment, segmentIndex) in source.similar_segments.comparison" :key="segmentIndex">
-                        <pre>
-                          <span class="highlight-similar">{{ segment.content }}</span>
-                        </pre>
-                      
+
+                      <!-- 右侧：文件2完整内容 -->
+                      <div class="full-text-column">
+                        <p class="file-name">{{ uploadedFile2?.name || '文件2' }}</p>
+                        <div class="full-text-content" v-html="highlightFullText(fileContent2, 'comparison')"></div>
                       </div>
-                      
-                      <!-- 分隔线 -->
+                    </div>
+                  </div>
+
+                  <!-- 可选：保留相似片段分组展示（作为补充） -->
+                  <div class="similar-segments-group">
+                    <h5>相似片段分组</h5>
+                    <div v-for="(source, sourceIndex) in comparisonResults" :key="sourceIndex" class="local-similarity-container">
+                      <div class="local-similarity-columns">
+                        <div v-if="source.similar_segments?.original?.length" class="local-similarity-column">
+                          <h6>文件1相似片段</h6>
+                          <div v-for="(segment, segmentIndex) in source.similar_segments.original" :key="segmentIndex">
+                            <pre><span class="highlight-similar">{{ segment.content }}</span></pre>
+                          </div>
+                        </div>
+                        
+                        <div v-if="source.similar_segments?.comparison?.length" class="local-similarity-column">
+                          <h6>文件2相似片段</h6>
+                          <div v-for="(segment, segmentIndex) in source.similar_segments.comparison" :key="segmentIndex">
+                            <pre><span class="highlight-similar">{{ segment.content }}</span></pre>
+                          </div>
+                        </div>
+                      </div>
                       <div class="similarity-divider"></div>
                     </div>
                   </div>
-      
+                </div>
               </div>
             </div>
           </div>
@@ -297,11 +292,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onUnmounted, onMounted, watch } from 'vue';
+import { ref, computed, onUnmounted, onMounted, watch ,Ref} from 'vue';
 import { ElMessage } from 'element-plus';
 import { getAuthorId } from '@/utils/auth'; 
 import { useRouter, useRoute } from 'vue-router'
 import axios from 'axios';
+import mammoth from 'mammoth';
 
 // 定义API基础路径（使用环境变量）
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
@@ -349,17 +345,13 @@ const sources = ref<any[]>([]);
 const paperId = ref<number | null>(null);
 const storedFileData = ref<File | null>(null); 
 
-// 导出报告状态
-const isExporting = ref(false);
-const exportStatus = ref<{
-  type: 'info' | 'success' | 'error';
-  message: string;
-  icon: string;
-  downloadUrl?: string;
-} | null>(null);
+// 存储文件内容
+const fileContent1 = ref('');
+const fileContent2 = ref('');
 
 // 获取用户权限
 const userPermission = ref<number | null>(null);
+
 // 判断用户是否有权限
 const hasPermission = computed(() => {
   return [1, 4, 5, 7].includes(userPermission.value || 0);
@@ -375,24 +367,33 @@ const canCompare = computed(() => {
   return false;
 });
 
-const exportBtnText = computed(() => {
-  return isExporting.value ? '生成中...' : '导出报告';
-});
-
-const exportBtnIcon = computed(() => {
-  return isExporting.value ? 'icon-loading spin' : 'icon-export';
-});
-
 // 新增：显示相似片段详情状态
 const showSimilarFragmentDetails = ref(false);
 const selectedSource = ref<any>(null);
 
+// 定义相似段落的类型
+interface SimilarSegment {
+  content: string; // 段落内容
+  similarity?: number; // 相似度
+  matched_with?: number; // 匹配的段落索引
+}
+
+// 定义每组相似片段的类型
+interface SimilarSegmentsGroup {
+  original?: SimilarSegment[]; // 原文件的相似段落
+  comparison?: SimilarSegment[]; // 对比文件的相似段落
+}
+
+// 定义对比结果项的类型
+interface ComparisonResultItem {
+  similar_segments: SimilarSegmentsGroup; // 相似片段组
+}
 // 新增本地文件引用
 const uploadedFile1 = ref<File | null>(null);
 const uploadedFile2 = ref<File | null>(null);
 
 // 查重结果
-const comparisonResults = ref([]);
+const comparisonResults = ref<ComparisonResultItem[]>([]);
 const comprehensiveSimilarity = ref(0);
 
 // 在页面加载时获取用户权限
@@ -435,6 +436,7 @@ const uploadAndCheckPlagiarism = async (file: File) => {
   try {
     
 
+
     console.log('发送查重请求到API...');
     isUploading.value = true;
     uploadProgress.value = 0;
@@ -449,6 +451,11 @@ const uploadAndCheckPlagiarism = async (file: File) => {
     
     console.log('查重成功:', response.data);
     isUploading.value = false;
+     // 假设后端返回的数据结构中有 sources 字段
+    if (response.data.sources) {
+      sources.value = response.data.sources;
+    }
+    console.log(response.data)
     return response.data;
     
   } catch (err: any) {
@@ -489,35 +496,81 @@ const handleFileDrop = (e: DragEvent) => {
     previewFile(uploadedFile.value);
   }
 };
-
-// 处理本地文件上传
+// 处理本地文件上传（新增读取内容逻辑）
 const handleLocalFileUpload = (fileIndex: number) => {
   const inputId = `file${fileIndex}`;
   const input = document.getElementById(inputId) as HTMLInputElement;
   if (input && input.files && input.files.length > 0) {
+    const file = input.files[0]; // 获取选中的文件
     if (fileIndex === 1) {
-      uploadedFile1.value = input.files[0];
+      uploadedFile1.value = file;
+      readFileContent(file, fileContent1); // 读取文件1内容到fileContent1
     } else if (fileIndex === 2) {
-      uploadedFile2.value = input.files[0];
+      uploadedFile2.value = file;
+      readFileContent(file, fileContent2); // 读取文件2内容到fileContent2
     }
   }
-
 };
 
-// 处理本地文件拖拽
+// 处理本地文件拖拽（新增读取内容逻辑）
 const handleLocalFileDrop = (fileIndex: number, e: DragEvent) => {
+  e.preventDefault(); // 阻止默认行为（避免浏览器直接打开文件）
   if (fileIndex === 1) {
     dragOver1.value = false;
-    if (e.dataTransfer?.files) {
-      uploadedFile1.value = e.dataTransfer.files[0];
+    if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
+      const file = e.dataTransfer.files[0]; // 获取拖拽的文件
+      uploadedFile1.value = file;
+      readFileContent(file, fileContent1); // 读取文件1内容到fileContent1
     }
   } else if (fileIndex === 2) {
     dragOver2.value = false;
-    if (e.dataTransfer?.files) {
-      uploadedFile2.value = e.dataTransfer.files[0];
+    if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
+      const file = e.dataTransfer.files[0]; // 获取拖拽的文件
+      uploadedFile2.value = file;
+      readFileContent(file, fileContent2); // 读取文件2内容到fileContent2
     }
   }
+};
 
+const readFileContent = async (file: File, contentRef: Ref<string>) => {
+  if (file.name.endsWith('.docx')) {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      contentRef.value = result.value; // 关键赋值步骤，确保这里的 contentRef 是对应文件的内容变量
+      console.log('成功解析 .docx 文件内容，内容为：', result.value);
+    } catch (error) {
+      console.error('解析 .docx 文件失败:', error);
+      contentRef.value = `[无法解析 .docx 文件]`;
+    }
+  } 
+  if (file.type === 'text/plain') {
+    // 处理纯文本文件（保持不变）
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      contentRef.value = e.target?.result as string;
+    };
+    reader.readAsText(file);
+  } else if (file.type === 'application/pdf') {
+    // 处理 PDF 文件（保持不变）
+    contentRef.value = `[PDF文件] ${file.name}`;
+  } else if (file.name.endsWith('.docx')) {
+    try {
+      // 正确方式：先读取文件为 ArrayBuffer
+      const arrayBuffer = await file.arrayBuffer();
+      
+      // 使用 mammoth 解析 ArrayBuffer
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      
+      contentRef.value = result.value; // 获取纯文本内容
+      console.log('成功解析 .docx 文件内容');
+    } catch (error) {
+      console.error('解析 .docx 文件失败:', error);
+      contentRef.value = `[无法解析 .docx 文件]`;
+    }
+  } else {
+    contentRef.value = `[不支持的文件类型] ${file.type}`;
+  }
 };
 
 // 预览文件
@@ -579,7 +632,7 @@ const startComparison = async () => {
       if (!result) return;
       
       const data = result.data;
-      overallSimilarity.value = data.comprehensive_similarity || 0;
+      overallSimilarity.value = Number(data.comprehensive_similarity?.toFixed(2) || 0);
       
       // 处理结果，包含相似片段
       sources.value = data.comparison_results.map((item: any) => ({
@@ -596,7 +649,9 @@ const startComparison = async () => {
       console.error('查重处理失败:', error);
       uploadError.value = '查重分析失败，请稍后重试';
     }
-  } else if (selectedOption.value === 'localSearch') {
+  }
+  else if (selectedOption.value === 'localSearch') {
+    // 本地查重逻辑
     if (!uploadedFile1.value || !uploadedFile2.value) {
       ElMessage.error('请上传两个文件');
       return;
@@ -605,88 +660,101 @@ const startComparison = async () => {
     formData.append('file1', uploadedFile1.value);
     formData.append('file2', uploadedFile2.value);
     formData.append('user_id', getAuthorId());
-  
+
     try {
       const response = await axios.post(`${API_BASE_URL}/api/paper/check_local_plagiarism`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-      comparisonResults.value = response.data.data.comparison_results;
-      if(comparisonResults.value)console.info(comparisonResults.value);
+      
+          // 关键修改：适配后端实际结构（相似段落嵌套在similar_segments中）
+    comparisonResults.value = response.data.data.comparison_results.map((item: any) => ({
+      // 保留后端返回的其他字段（如标题、相似度，可选）
+      article_title: item.article_title,
+      similarity_rate: item.similarity_rate,
+      // 从similar_segments中提取原始文件和对比文件的相似段落
+      similar_segments: {
+        // 映射原始文件的相似段落（包含marked_content）
+        original: item.similar_segments?.original?.map((seg: any) => ({
+          content: seg.content,
+          marked_content: seg.marked_content, // 高亮标记内容
+          similarity: seg.similarity,
+          matched_with: seg.matched_with
+        })) || [], // 若字段不存在则默认为空数组
+        // 映射对比文件的相似段落（包含marked_content）
+        comparison: item.similar_segments?.comparison?.map((seg: any) => ({
+          content: seg.content,
+          marked_content: seg.marked_content, // 高亮标记内容
+          similarity: seg.similarity,
+          matched_with: seg.matched_with
+        })) || [] // 若字段不存在则默认为空数组
+      }
+    }));
+      
       comprehensiveSimilarity.value = response.data.data.comprehensive_similarity;
-      if(comprehensiveSimilarity.value)console.info(comprehensiveSimilarity.value);
       showResults.value = true;
       resultsReady.value = true;
-      //ElMessage.success('查重完成');
+      console.log('本地查重结果:', comparisonResults.value);
+
+      initSimilarTexts(); // 必须调用此函数，否则无法收集相似片段
+      // 关键修改：为本地查重单独设置selectedSource，直接显示第一组相似片段
+      if (comparisonResults.value.length > 0) {
+        selectedSource.value = comparisonResults.value[0];
+        showSimilarFragmentDetails.value = true;
+      }
     } catch (error) {
-      //ElMessage.error('查重失败，请稍后再试');
+      console.error('本地查重失败:', error);
+      ElMessage.error('查重失败，请稍后再试');
     }
   }
 };
 
-// 导出报告功能（保持逻辑不变，后续可扩展）
-const handleExportReport = async () => {
-  if (!resultsReady.value || isExporting.value) return;
-  
-  isExporting.value = true;
-  exportStatus.value = {
-    type: 'info',
-    message: '正在生成报告，请稍候...',
-    icon: 'icon-hourglass'
-  };
-
-  try {
-    // 实际API调用 - 替换为您的真实API
-    const formData = new FormData();
-    if (uploadedFile.value) {
-      formData.append('file', uploadedFile.value);
-    }
-    formData.append('results', JSON.stringify({
-      similarity: overallSimilarity.value,
-      sources: sources.value
-    }));
-
-    const response = await fetch('https://your-api-endpoint/generate-report', {
-      method: 'POST',
-      body: formData
-    });
-    
-    const data = await response.json();
-    
-    if (!response.ok) throw new Error(data.message || '生成报告失败');
-    
-    exportStatus.value = {
-      type: 'success',
-      message: '报告生成成功！',
-      icon: 'icon-check-circle',
-      downloadUrl: data.downloadUrl
-    };
-  } catch (error: any) {
-    exportStatus.value = {
-      type: 'error',
-      message: error.message || '报告生成失败',
-      icon: 'icon-close-circle'
-    };
-  } finally {
-    isExporting.value = false;
-  }
-};
-
-//lzj 新增：显示相似片段函数
+// 修改显示相似片段函数，兼容本地查重和网络查重
 const showSimilarFragments = (index: number) => {
   console.log('showSimilarFragments 方法被调用，index:', index);
   try {
-    selectedSource.value = sources.value[index];
+    // 关键修改：根据当前查重方式选择数据源
+    if (selectedOption.value === 'webSearch') {
+      selectedSource.value = sources.value[index];
+    } else {
+      selectedSource.value = comparisonResults.value[index];
+    }
     console.log('selectedSource 已赋值:', selectedSource.value);
-    // 输出 selectedSource 的值到控制台
-    console.log('selectedSource:', selectedSource.value);
+    
+    // 确保使用标记内容（优先用marked_content）
+    if (selectedSource.value && selectedSource.value.similar_segments) {
+      const { original, comparison } = selectedSource.value.similar_segments;
+      // 处理原始文件段落
+      if (original) {
+        selectedSource.value.similar_segments.original = original.map((seg: any) => ({
+          ...seg,
+          content: seg.marked_content || seg.content // 优先使用标记内容
+        }));
+      }
+      // 处理对比文件段落
+      if (comparison) {
+        selectedSource.value.similar_segments.comparison = comparison.map((seg: any) => ({
+          ...seg,
+          content: seg.marked_content || seg.content // 优先使用标记内容
+        }));
+      }
+    }
+    
     showSimilarFragmentDetails.value = true;
   } catch (error) {
     console.error('显示相似片段时出错:', error);
   }
 };
 
+// 处理后端返回的标记内容（保持不变，但确保<mark>标签被正确解析）
+const markedContent = (content: string) => {
+  if (content && content.includes('<mark>')) {
+    // 将 <mark> 标签内的文本颜色设置为红色
+    return content.replace(/<mark>/g, '<mark style="color: red;">');
+  }
+  return `<span style="color: red;">${content}</span>`;
+};
 
 // 上传文件到后端
 const uploadFileToBackend = async (file: File) => {
@@ -730,6 +798,77 @@ const uploadFileToBackend = async (file: File) => {
     errorMessage.value = error.response?.data?.message || '网络错误，文件上传失败';
   }
 };
+//--------------------------------------------------------
+// 存储所有相似片段内容（用于全文标红）
+const allSimilarTexts = ref<{
+  original: string[]; // 文件1的所有相似片段
+  comparison: string[]; // 文件2的所有相似片段
+}>({ original: [], comparison: [] });
+
+// 初始化：从对比结果中收集所有相似片段
+const initSimilarTexts = () => {
+  allSimilarTexts.value = { original: [], comparison: [] };
+  
+  comparisonResults.value.forEach(source => {
+    source.similar_segments?.original?.forEach((seg: any) => {
+      if (seg.content && typeof seg.content === 'string') {
+        allSimilarTexts.value.original.push(seg.content);
+      }
+    });
+    
+    source.similar_segments?.comparison?.forEach((seg: any) => {
+      if (seg.content && typeof seg.content === 'string') {
+        allSimilarTexts.value.comparison.push(seg.content);
+      }
+    });
+  });
+  
+  // 打印具体内容（关键！）
+  console.log('收集到的相似文本数量:', {
+    original: allSimilarTexts.value.original.length, // 文件1的相似片段数量
+    comparison: allSimilarTexts.value.comparison.length // 文件2的相似片段数量
+  });
+  console.log('文件1的相似片段示例:', allSimilarTexts.value.original.slice(0, 1)); // 打印第一个片段
+  console.log('文件2的相似片段示例:', allSimilarTexts.value.comparison.slice(0, 1));
+};
+
+// 高亮全文中的相似片段
+const highlightFullText = (content: string, type: 'original' | 'comparison') => {
+  if (!content) {
+    console.log('------------------------------------')
+    return '<p>文件内容为空</p>'; // 内容为空时的提示
+  }
+  console.log('------------------------------------')
+  console.log('开始输出')
+  let fullText = content;
+  const targetSegments = type === 'original' 
+    ? allSimilarTexts.value.original 
+    : allSimilarTexts.value.comparison;
+
+  if (targetSegments.length === 0) {
+    return fullText; // 没有相似片段时直接返回原文
+  }
+
+  // 按片段长度排序（优先替换长片段）
+  const sortedSegments = [...targetSegments].sort((a, b) => b.length - a.length);
+
+  sortedSegments.forEach(segment => {
+    if (segment && fullText.includes(segment)) {
+      // 转义特殊字符
+      const escapedSegment = segment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      // 全局替换并标红
+      fullText = fullText.replace(
+        new RegExp(escapedSegment, 'g'),
+        `<span class="highlighted">${segment}</span>`
+      );
+    }
+  });
+
+  return fullText;
+};
+
+
+
 </script>
 
 <style scoped>
@@ -991,75 +1130,6 @@ h3, h4 {
   font-size: 0.9rem;
 }
 
-.export-btn {
-  position: relative;
-  padding: 0.75rem 1.5rem;
-  background: #4f46e5;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.export-btn:disabled {
-  background: #cbd5e1;
-  cursor: not-allowed;
-}
-
-.spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.export-status {
-  margin-top: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.export-status.info {
-  background: #e0f2fe;
-  color: #0369a1;
-}
-
-.export-status.success {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.export-status.error {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.download-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: white;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #4f46e5;
-  transition: all 0.3s;
-}
-
-.download-link:hover {
-  background: #eef2ff;
-}
-
 .empty-result {
   text-align: center;
   padding: 3rem;
@@ -1168,30 +1238,38 @@ h3, h4 {
 
 .fragment-container {
   display: flex;
-  gap: 1rem;
+  flex-direction: row; /* 确保为水平布局 */
+  gap: 2rem;
+  margin-top: 1rem;
 }
 
 .fragment-item {
   flex: 1;
-  margin-bottom: 0;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  height: auto; /* 高度自适应 */
 }
 
 .fragment-item h5 {
-  font-size: 1rem;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
 }
 
-.fragment-item pre {
+pre {
   white-space: pre-wrap;
-  font-family: inherit;
-  margin: 0;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 1rem;
-  height: 100%;
-  box-sizing: border-box;
+  word-wrap: break-word;
+  color: #666;
+  line-height: 1.6;
+}
+
+::v-deep mark {
+  background-color: #ffcccb; /* 浅红色背景 */
+  color: #990000; /* 深红色文本 */
+  font-weight: bold;
 }
 
 /* 响应式设计 */
@@ -1215,8 +1293,11 @@ h3, h4 {
     grid-template-columns: 1fr;
   }
 
-  .fragment-container {
-    flex-direction: column;
+  /* 仅在小屏幕上恢复为垂直布局 */
+  @media (max-width: 480px) {
+    .fragment-container {
+      flex-direction: column; 
+    }
   }
 }
 
@@ -1229,7 +1310,7 @@ h3, h4 {
     padding: 1.5rem;
   }
   
-  .compare-btn, .export-btn {
+  .compare-btn {
     width: 100%;
     justify-content: center;
   }
@@ -1241,29 +1322,74 @@ h3, h4 {
   font-size: 18px;
   margin-top: 50px;
 }
-
-.fragment-container {
-  display: flex;
-  gap: 2rem;
-  margin-top: 1rem;
+.local-similarity-container {
+  margin-bottom: 1.5rem;
 }
-.fragment-item {
+
+.local-similarity-columns {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.local-similarity-column {
   flex: 1;
   background: #fff;
   padding: 1rem;
   border-radius: 8px;
   border: 1px solid #eee;
 }
-.fragment-item h5 {
-  color: #333;
-  margin-bottom: 1rem;
+
+/* 在 <style scoped> 中添加以下样式 */
+.full-text-comparison {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.full-text-columns {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.full-text-column {
+  flex: 1; /* 左右宽度平分 */
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+.file-name {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #475569;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #eee;
 }
-pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  color: #666;
-  line-height: 1.6;
+
+.full-text-content {
+  max-height: 600px; /* 固定高度，超出滚动 */
+  overflow-y: auto;
+  line-height: 1.8;
+  white-space: pre-wrap; /* 保留换行和空格 */
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+/* 相似片段高亮样式 */
+::v-deep .highlighted {
+  color: #dc2626 !important;
+  background-color: #fee2e2 !important;
+  padding: 0 2px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+/* 相似片段分组标题 */
+.similar-segments-group {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
 }
 </style>

@@ -20,7 +20,6 @@ class XinghuoService:
             logger.error(error_msg)
             raise ValueError(error_msg)
         
-        # 创建OpenAI客户端实例（OpenAI 1.0.0+）
         self.client = OpenAI(
             api_key=api_password,
             base_url="https://spark-api-open.xf-yun.com/v2"

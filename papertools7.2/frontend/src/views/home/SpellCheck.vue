@@ -178,7 +178,7 @@ const stats = computed(() => {
 
 // 获取用户权限
 const userPermission = ref<number | null>(null);
-// 判断用户是否有权限（假设权限1、4、5、7允许访问）
+// 判断用户是否有权限（假设权限2、4、5、7允许访问）
 const hasPermission = computed(() => {
   return [2, 4, 6, 7].includes(userPermission.value || 0);
 });

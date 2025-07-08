@@ -15,7 +15,7 @@ class Typo_Detection:
     def __init__(self):
         """初始化中文错字检测器，加载多维度错字字典"""
         self.corrector = Corrector()
-        self.corrector = pycorrector
+        #self.corrector = pycorrector
         # 1. 同音字错字字典 (正确词: 错字集合)
         self.homophone_typos = {
             "安装": {"按装"}, "必须": {"必需"}, "部署": {"布署"}, "策略": {"策论"},
