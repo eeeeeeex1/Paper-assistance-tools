@@ -1,0 +1,30 @@
+2025-07-02 23:26:12 - xinghuo_service - INFO - xinghuo_service:29 - ÐÇ»ðX1 HTTP·þÎñ³õÊ¼»¯Íê³É
+2025-07-02 23:26:12 - werkzeug - INFO - _internal:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-02 23:26:12 - werkzeug - INFO - _internal:97 - [33mPress CTRL+C to quit[0m
+2025-07-02 23:26:12 - werkzeug - INFO - _internal:97 -  * Restarting with stat
+2025-07-02 23:26:19 - xinghuo_service - INFO - xinghuo_service:29 - ÐÇ»ðX1 HTTP·þÎñ³õÊ¼»¯Íê³É
+2025-07-02 23:26:19 - werkzeug - WARNING - _internal:97 -  * Debugger is active!
+2025-07-02 23:26:19 - werkzeug - INFO - _internal:97 -  * Debugger PIN: 122-028-803
+2025-07-02 23:26:25 - root - INFO - paper_controller:132 - begin upload#------------------------------------
+2025-07-02 23:26:25 - root - INFO - paper_controller:147 - begin use service upload_paper
+2025-07-02 23:26:25 - root - INFO - paper_service:429 - ¿ªÊ¼ÉÏ´«ÎÄ¼þ: controller.txt
+2025-07-02 23:26:25 - root - INFO - paper_service:439 - ÎÄ¼þÒÑ±£´æÖÁ: c:\Users\lenovo\Desktop\papertools\backend\config\filestore\1132a14da08845019f6de810b3eb509b_controller.txt
+2025-07-02 23:26:25 - root - INFO - paper_service:441 - ¾ø¶ÔÂ·¾¶: c:\Users\lenovo\Desktop\papertools\backend\config\filestore\1132a14da08845019f6de810b3eb509b_controller.txt
+2025-07-02 23:26:25 - root - INFO - paper_service:442 - ÎÄ¼þÊÇ·ñ´æÔÚ: True
+2025-07-02 23:26:25 - dao.paper_dao - INFO - paper_dao:284 - begin dao
+2025-07-02 23:26:25 - dao.paper_dao - INFO - paper_dao:290 - end dao
+2025-07-02 23:26:25 - root - INFO - paper_service:453 - ÂÛÎÄÉÏ´«³É¹¦ - ID: 34
+2025-07-02 23:26:25 - root - INFO - paper_controller:154 - paper_id:34
+2025-07-02 23:26:25 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [02/Jul/2025 23:26:25] "[35m[1mPOST /api/paper/upload HTTP/1.1[0m" 201 -
+2025-07-02 23:26:37 - root - INFO - paper_controller:290 - get spelling request----------------------------
+2025-07-02 23:26:37 - root - INFO - paper_controller:320 - go wrong service
+2025-07-02 23:26:37 - root - INFO - paper_service:667 - ¿ªÊ¼ÂÛÎÄ´í×Ö¼ì²â·þÎñ
+2025-07-02 23:26:37 - service.typo_detection_service - INFO - typo_detection_service:86 - ¿ªÊ¼¼ì²âÎÄ±¾£¬³¤¶È: 7447
+2025-07-02 23:26:37 - service.typo_detection_service - ERROR - typo_detection_service:109 - PyCorrector¼ì²â´íÎó: module 'pycorrector' has no attribute 'detect'
+2025-07-02 23:26:37 - service.typo_detection_service - INFO - typo_detection_service:167 - Ê¹ÓÃ×Ô¶¨Òå´Êµä½øÐÐ´í×Ö¼ì²â
+2025-07-02 23:26:37 - service.typo_detection_service - INFO - typo_detection_service:209 - ×Ô¶¨Òå´Êµä¼ì²âÍê³É£¬¹²·¢ÏÖ 64 ¸ö´í×Ö
+2025-07-02 23:26:37 - root - INFO - paper_service:686 - finish,find 32 wrong(s)
+2025-07-02 23:26:37 - root - INFO - paper_service:724 - spelling end
+2025-07-02 23:26:37 - root - INFO - paper_controller:324 - spelling finish,find 32 wrongs
+2025-07-02 23:26:37 - werkzeug - INFO - _internal:97 - 127.0.0.1 - - [02/Jul/2025 23:26:37] "POST /api/paper/spelling HTTP/1.1" 200 -
